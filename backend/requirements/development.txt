@@ -1,0 +1,3 @@
+-r common.txt
+django-cors-headers
+django-extensions
