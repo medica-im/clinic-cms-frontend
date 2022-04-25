@@ -5,7 +5,7 @@ from rest_framework import serializers
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ['formatted_name', 'url', 'address_set']
+        fields = ['id', 'formatted_name', 'url', 'addresses']
         depth = 1
 
 
@@ -15,6 +15,7 @@ class FacilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Facility
         fields = [
+            'id',
             'name',
             'formatted_name',
             'website_title',
@@ -27,6 +28,4 @@ class FacilitySerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name', 'formatted_name', 'definition']
-
-
+        fields = ['id', 'name', 'formatted_name', 'definition']

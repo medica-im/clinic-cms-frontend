@@ -95,7 +95,7 @@ export const getCurrentUser = async (
 };
 
 export const logOutUser = async (): Promise<void> => {
-	const res = await fetch(`${variables.BASE_API_URI}/token/refresh/`, {
+	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -106,7 +106,7 @@ export const logOutUser = async (): Promise<void> => {
 		})
 	});
 	const accessRefresh = await res.json();
-	const jres = await fetch(`${variables.BASE_API_URI}/logout/`, {
+	const jres = await fetch(`${variables.BASE_API_URI}/accounts/logout/`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -134,7 +134,7 @@ export const handlePostRequestsWithPermissions = async (
 	body: unknown,
 	method = 'POST'
 ): Promise<[object, Array<CustomError>]> => {
-	const res = await fetch(`${variables.BASE_API_URI}/token/refresh/`, {
+	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {

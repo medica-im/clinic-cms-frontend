@@ -16,7 +16,7 @@
 		confirmPassword: string,
 		errors: Array<CustomError>;
 	const submitForm = async () => {
-		const [jsonRes, err] = await post(fetch, `${variables.BASE_API_URI}/register/`, {
+		const [jsonRes, err] = await post(fetch, `${variables.BASE_API_URI}/accounts/register/`, {
 			user: {
 				email: email,
 				username: username,

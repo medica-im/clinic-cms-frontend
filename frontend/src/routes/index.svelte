@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { userData } from '$lib/store/userStore';
-
+	import { facilitiesData } from '$lib/store/facilityStore';
 	import { fly } from 'svelte/transition';
 	import {
     Button,
@@ -30,7 +30,13 @@
 			<span style="text-transform: capitalize;">{$userData.username},</span>
 		{/if}!</CardSubtitle>
 		  <CardText>
-			Site web en cours de développement.
+			Site web en cours de développement.<br>
+			<ul>
+			{#each $facilitiesData as facility}
+			<li>{facility.id}</li>
+			<li>{facility.formatted_name}</li>
+			{/each}
+		</ul>
 		  </CardText>
 		  <Button>Bouton peu utile</Button>
 		</CardBody>

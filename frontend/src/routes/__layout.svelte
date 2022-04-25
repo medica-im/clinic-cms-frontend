@@ -1,22 +1,24 @@
 <script context="module" lang="ts">
 	import { userData } from '$lib/store/userStore';
+	import { facilitiesData, fetchFacilities } from '$lib/store/facilityStore';
 	import { navigating } from '$app/stores';
 	import { loading } from '$lib/store/loadingStore';
 	import { notificationData } from '$lib/store/notificationStore';
 	import { fly } from 'svelte/transition';
 	import { afterUpdate, onMount } from 'svelte';
-	import type { Load } from '@sveltejs/kit'
-	import type { Locales } from '$i18n/i18n-types'
-	import { replaceLocaleInUrl } from '../utils'
-	import { baseLocale, locales } from '$i18n/i18n-util'
-	import { loadLocaleAsync } from '$i18n/i18n-util.async'
+	import type { Load } from '@sveltejs/kit';
+	import type { Locales } from '$i18n/i18n-types';
+	import type { Facilities } from '$lib/interfaces/facility.interface';
+	import { replaceLocaleInUrl } from '../utils';
+	import { baseLocale, locales } from '$i18n/i18n-util';
+	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import Loader from '../components/Loader/Loader.svelte';
 </script>
 
 <script lang="ts">
 	import Header from '../components/Header/Header.svelte';
-	import { setLocale } from '$i18n/i18n-svelte'
-	let locale: Locales
+	import { setLocale } from '$i18n/i18n-svelte';
+	let locale: Locales;
 	setLocale(locale);
 
 	$: loading.setNavigate(!!$navigating);
@@ -25,17 +27,30 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 
+	const facilitiesUrl = `${variables.BASE_API_URI}/facilities/`;
+
 	onMount(async () => {
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
 				fetch,
-				`${variables.BASE_API_URI}/token/refresh/`,
-				`${variables.BASE_API_URI}/user/`
+				`${variables.BASE_API_URI}/accounts/token/refresh/`,
+				`${variables.BASE_API_URI}/accounts/user/`
 			);
 			if (errs.length <= 0) {
 				userData.set(response);
 			}
 		}
+		console.log(typeof facilitiesData);
+		console.log(facilitiesData.constructor);
+		console.log('facilitiesData: ' + facilitiesData);
+		console.log('facilitiesData.length: ' + $facilitiesData.length);
+		if ($facilitiesData.length < 1) {
+			await fetchFacilities();
+		}
+		console.log(typeof facilitiesData);
+		console.log('facilitiesData constructor: ' + facilitiesData.constructor);
+		console.log('facilitiesData.length: ' + $facilitiesData.length);
+		console.log($facilitiesData[0]);
 	});
 
 	afterUpdate(async () => {
@@ -50,38 +65,37 @@
 		if (browserGet('refreshToken')) {
 			const [response, _] = await getCurrentUser(
 				fetch,
-				`${variables.BASE_API_URI}/token/refresh/`,
-				`${variables.BASE_API_URI}/user/`
+				`${variables.BASE_API_URI}/accounts/token/refresh/`,
+				`${variables.BASE_API_URI}/accounts/user/`
 			);
 			userData.update(() => response);
 		}
 	});
 	type LoadParams = {
-		lang?: Locales
-	}
+		lang?: Locales;
+	};
 	export const load: Load<LoadParams> = async ({ url, session, params }) => {
 		// fallback needed because of https://github.com/sveltejs/kit/issues/3647
-		const lang = params.lang || (url.pathname.split('/')[1] as Locales) || 'fr'
+		const lang = params.lang || (url.pathname.split('/')[1] as Locales) || 'fr';
 		// redirect to preferred language if user comes from page root
 		if (!lang) {
 			return {
 				status: 302,
-				redirect: `/${session.locale}`,
-			}
+				redirect: `/${session.locale}`
+			};
 		}
 		// redirect to base locale if language is not present
 		if (!locales.includes(lang)) {
 			return {
 				status: 302,
-				redirect: replaceLocaleInUrl(url.pathname, baseLocale),
-			}
+				redirect: replaceLocaleInUrl(url.pathname, baseLocale)
+			};
 		}
 		// delete session locale since we don't need it to be sent to the client
-		delete session.locale
-		await loadLocaleAsync(lang)
-		return { props: { locale: lang } }
-	}
-
+		delete session.locale;
+		await loadLocaleAsync(lang);
+		return { props: { locale: lang } };
+	};
 </script>
 
 <head>
@@ -129,11 +143,10 @@
 {/if}
 
 <main>
-	<Loader />
+	<!--Loader /-->
 	<div class="container">
-	<slot />
-    </div>
+		<slot />
+	</div>
 </main>
 
-<footer in:fly={{ y: -50, duration: 500, delay: 500 }} out:fly={{ duration: 500 }}>
-</footer>
+<footer in:fly={{ y: -50, duration: 500, delay: 500 }} out:fly={{ duration: 500 }} />

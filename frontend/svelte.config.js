@@ -1,6 +1,7 @@
 import adapter from '@sveltejs/adapter-node';
 import path from 'path'
 import preprocess from 'svelte-preprocess';
+import host from 'vite-plugin-host';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,7 +16,7 @@ const config = {
 			resolve: {
 				alias: {
 					$i18n: path.resolve('./src/i18n'),
-					$lib: path.resolve('./src/lib'),
+					$lib: path.resolve('./src/lib')
 				},
 			},
 		},

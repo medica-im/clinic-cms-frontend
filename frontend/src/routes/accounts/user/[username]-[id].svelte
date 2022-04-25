@@ -7,8 +7,8 @@
 	export const load: Load = async ({ fetch }) => {
 		const [userRes, errs] = await getCurrentUser(
 			fetch,
-			`${variables.BASE_API_URI}/token/refresh/`,
-			`${variables.BASE_API_URI}/user/`
+			`${variables.BASE_API_URI}/accounts/token/refresh/`,
+			`${variables.BASE_API_URI}/accounts/user/`
 		);
 
 		const userResponse: User = userRes;
@@ -33,7 +33,7 @@
 	import { nodeBefore } from '$lib/helpers/whitespacesHelper';
 	export let userResponse: User;
 
-	const url = `${variables.BASE_API_URI}/user/`;
+	const url = `${variables.BASE_API_URI}/accounts/user/`;
 
 	let updateResponse: UserResponse; // updated response from the update
 	let triggerUpdate = async (e: Event) => {

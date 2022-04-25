@@ -33,11 +33,11 @@
 
 	// update locale when page store changes
 	$: switchLocale($page.params.lang as Locales, false)
-
+/*
 	beforeUpdate(() => {
 		if ($locale === 'en' || $locale === 'fr') return
 		switchLocale('fr');
-	});
+	});*/
 </script>
 
 <svelte:window on:popstate={handlePopStateEvent} />

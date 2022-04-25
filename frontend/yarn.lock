@@ -821,6 +821,11 @@
   "resolved" "https://registry.npmjs.org/detect-indent/-/detect-indent-6.1.0.tgz"
   "version" "6.1.0"
 
+"dev-ip@^1.0.1":
+  "integrity" "sha1-p2o+0YVb56ASu4rBbLgPPADcKPA="
+  "resolved" "https://registry.npmjs.org/dev-ip/-/dev-ip-1.0.1.tgz"
+  "version" "1.0.1"
+
 "dir-glob@^3.0.1":
   "integrity" "sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA=="
   "resolved" "https://registry.npmjs.org/dir-glob/-/dir-glob-3.0.1.tgz"
@@ -3558,6 +3563,13 @@
     "assert-plus" "^1.0.0"
     "core-util-is" "1.0.2"
     "extsprintf" "^1.2.0"
+
+"vite-plugin-host@^1.0.2":
+  "integrity" "sha512-Wt4rc/TvBfOcO4nXuNWGlm3rHzQlmsqZUun+U4QU/NY5p2oRSxmJB4O6AWvKqdhPbQqy7Q38QdL1GJpx0NInBw=="
+  "resolved" "https://registry.npmjs.org/vite-plugin-host/-/vite-plugin-host-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "dev-ip" "^1.0.1"
 
 "vite@^2.9.0", "vite@^2.9.1":
   "integrity" "sha512-vSlsSdOYGcYEJfkQ/NeLXgnRv5zZfpAsdztkIrs7AZHV8RCMZQkwjo4DS5BnrYTqoWqLoUe1Cah4aVO4oNNqCQ=="

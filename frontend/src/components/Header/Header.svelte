@@ -33,7 +33,7 @@
 		<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
 			<Nav class="ms-auto" navbar>
 				<NavItem>
-					<NavLink href="/map" active={$page.url.pathname === '/map'}>Map</NavLink>
+					<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
 				</NavItem>
 				<NavItem>
 					<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>

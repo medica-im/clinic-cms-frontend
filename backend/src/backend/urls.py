@@ -18,9 +18,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('accounts.urls', namespace='accounts')),
+    path('api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     path('addressbook/', include('addressbook.urls', namespace='addressbook')),
-    path('facility/', include('facility.urls', namespace='facility')),
+    path('api/v1/facilities/', include('facility.urls', namespace='facility')),
 ]
 
 # Use static() to add url mappings to serve static files during development (only)

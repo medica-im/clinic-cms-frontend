@@ -5,5 +5,5 @@ djangorestframework-simplejwt
 gunicorn
 #whitenoise
 psycopg2-binary
-git+https://github.com/medica-im/django-addressbook-drf.git@e2026f58a63de24f69c26926289ee9ca402985fd
+git+https://github.com/medica-im/django-addressbook-drf.git@9d58b9e1668e6f47ce06aa84c4367ba29b15c03f
 django-modeltranslation

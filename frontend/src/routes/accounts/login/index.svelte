@@ -17,7 +17,7 @@
 		if (browserGet('refreshToken')) {
 			localStorage.removeItem('refreshToken');
 		}
-		const [jsonRes, err] = await post(fetch, `${variables.BASE_API_URI}/login/`, {
+		const [jsonRes, err] = await post(fetch, `${variables.BASE_API_URI}/accounts/login/`, {
 			user: {
 				email: email,
 				password: password
