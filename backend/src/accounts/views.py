@@ -1,5 +1,5 @@
 from typing import Any, Optional
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework import parsers, status
@@ -19,6 +19,14 @@ from .serializers import (
 )
 
 
+class HelloView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
+
+
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
     renderer_classes = (UserJSONRenderer,)
@@ -34,6 +42,7 @@ class RegistrationAPIView(APIView):
 
 
 class LoginAPIView(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = (AllowAny,)
     renderer_classes = (UserJSONRenderer,)
     serializer_class = LoginSerializer

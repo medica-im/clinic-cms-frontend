@@ -1,12 +1,14 @@
 from modeltranslation.translator import translator, TranslationOptions
 
-from workforce.models import HealthPersonnel
+from workforce.models import HealthPersonnel, NetworkNode
 
 class HealthPersonnelTranslationOptions(TranslationOptions):
     fields = ('label', 'description')
 
-#class CategoryMetadataTranslationOptions(TranslationOptions):
-#    fields = ('label', 'description') 
-    
+
+class NetworkNodeTranslationOptions(TranslationOptions):
+    fields = ('label',)
+
+
 translator.register(HealthPersonnel, HealthPersonnelTranslationOptions)
-#translator.register(CategoryMetadata, CategoryMetadataTranslationOptions)
+translator.register(NetworkNode, NetworkNodeTranslationOptions)

@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     path('addressbook/', include('addressbook.urls', namespace='addressbook')),
     path('api/v1/facilities/', include('facility.urls', namespace='facility')),
+    path('api/v1/workforce/', include('workforce.urls', namespace='workforce')),
 ]
 
 # Use static() to add url mappings to serve static files during development (only)

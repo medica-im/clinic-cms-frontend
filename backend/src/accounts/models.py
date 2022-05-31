@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -56,9 +57,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    bio = models.TextField(null=True)
-    full_name = models.CharField(max_length=20000, null=True)
-    birth_date = models.DateField(null=True)
+    bio = models.TextField(null=True, blank=True)
+    full_name = models.CharField(max_length=20000, null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    grammatical_gender = models.ForeignKey(
+        'accounts.GrammaticalGender',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    node = models.OneToOneField(
+        "workforce.NetworkNode",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -69,8 +82,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         """Return a string representation of this `User`."""
-        string = self.email if self.email != '' else self.get_full_name()
-        return f'{self.id} {string}'
+        #string = self.email if self.email != '' else self.get_full_name()
+        try:
+            formatted_name = self.contact.formatted_name
+        except:
+            formatted_name = ""
+        return f'{formatted_name} {self.username or ""} {self.email or ""}'
 
     @property
     def tokens(self) -> dict[str, str]:
@@ -86,3 +103,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Return user username."""
         return self.username
 
+
+class GrammaticalGender(models.Model):
+    name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.label

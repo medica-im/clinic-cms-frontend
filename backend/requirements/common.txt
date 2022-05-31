@@ -5,5 +5,7 @@ djangorestframework-simplejwt
 gunicorn
 #whitenoise
 psycopg2-binary
-git+https://github.com/medica-im/django-addressbook-drf.git@9d58b9e1668e6f47ce06aa84c4367ba29b15c03f
+git+https://github.com/medica-im/django-addressbook-drf.git@79c51475b4d7032cb21a6bc0e635d762136be555
 django-modeltranslation
+django-postgresql-dag[transforms]
+the-big-username-blacklist

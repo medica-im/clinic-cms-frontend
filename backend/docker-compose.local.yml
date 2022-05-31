@@ -19,6 +19,7 @@ services:
       - ${DJANGO_LOG_DIR}:${DJANGO_LOG_DIR}
     ports:
       - "8084:80"
+      - "8888:8888" # ipython notebook
     depends_on:
       - database
       - redis

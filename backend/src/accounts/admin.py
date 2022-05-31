@@ -6,9 +6,9 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
-    
+from modeltranslation.admin import TranslationAdmin
 
-from .models import User
+from .models import User, GrammaticalGender
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -39,12 +39,15 @@ class CustomUserAdmin(UserAdmin):
         'username',
         'is_staff',
         'is_active',
+        'node',
+        'created_at',
+        'grammatical_gender',
+        'last_login',
     )
     list_filter = (
-        'email',
-        'username',
         'is_staff',
         'is_active',
+        'grammatical_gender',
     )
     fieldsets = (
         (
@@ -57,6 +60,8 @@ class CustomUserAdmin(UserAdmin):
                     'bio',
                     'full_name',
                     'birth_date',
+                    'grammatical_gender',
+                    'node',
                 )
             },
         ),
@@ -95,3 +100,9 @@ class OutstandingTokenAdmin(OutstandingTokenAdmin):
         return True # or whatever logic you want
 
 
+@admin.register(GrammaticalGender)
+class GrammaticalGenderAdmin(TranslationAdmin):
+    list_display = (
+        'name',
+        'label',
+    )

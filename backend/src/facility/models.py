@@ -58,6 +58,12 @@ class Facility(models.Model):
         blank=True,
         related_name="facility",
     )
+    node = models.OneToOneField(
+        "workforce.NetworkNode",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
 
     objects = FacilityManager()
 

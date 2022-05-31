@@ -1,4 +1,4 @@
-section {
+/*section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,4 +23,4 @@ h1 {
     top: 0;
     display: block;
   }
-}
+}*/

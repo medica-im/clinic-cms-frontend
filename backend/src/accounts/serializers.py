@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import exceptions, serializers
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from django.contrib.auth import get_user_model
 
 from .models import User
 from .utils import validate_email as email_is_valid
@@ -55,9 +56,13 @@ class LoginSerializer(serializers.ModelSerializer[User]):
 
     def get_tokens(self, obj):  # type: ignore
         """Get user token."""
-        user = User.objects.get(email=obj.email)
+        user = User.objects.get(email=obj["user"].email)
 
-        return {'refresh': user.tokens['refresh'], 'access': user.tokens['access']}
+        return {
+            'refresh': user.tokens['refresh'],
+            'access': user.tokens['access'],
+            'user': str(user.id),
+        }
 
     class Meta:
         model = User
@@ -80,17 +85,21 @@ class LoginSerializer(serializers.ModelSerializer[User]):
 
         if not user.is_active:
             raise serializers.ValidationError('This user is not currently activated.')
+        data["user"]=user
+        return data
 
-        return user
 
-
-class UserSerializer(serializers.ModelSerializer[User]):
+class UserSerializer(serializers.ModelSerializer):
     """Handle serialization and deserialization of User objects."""
 
-    password = serializers.CharField(max_length=128, min_length=8, write_only=True)
+    password = serializers.CharField(
+        max_length=4096,
+        min_length=8,
+        write_only=True
+    )
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = (
             'id',
             'email',
@@ -105,7 +114,6 @@ class UserSerializer(serializers.ModelSerializer[User]):
         read_only_fields = ('tokens', 'is_staff')
 
     def update(self, instance, validated_data):  # type: ignore
-        """Perform an update on a User."""
 
         password = validated_data.pop('password', None)
 

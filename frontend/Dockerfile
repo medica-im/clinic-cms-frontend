@@ -6,13 +6,17 @@ FROM node:17 as build
 WORKDIR /app
 
 # copy the package.json files from local machine to the workdir in container
-COPY package*.json ./
+COPY svelte.config.js package*.json /app/
+RUN mkdir -p /app/build/static
+COPY static /app/build/static
 
 # run npm install in our local machine
 RUN npm ci
+RUN ls -alh
 
 # copy the generated modules and all other files to the container
 COPY . .
+RUN ls -alh
 
 # build the application
 RUN npm run build

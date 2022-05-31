@@ -36,6 +36,9 @@
 					<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
 				</NavItem>
 				<NavItem>
+					<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}>Annuaire</NavLink>
+				</NavItem>
+				<NavItem>
 					<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>
 				</NavItem>
 				{#if !$userData.username}
