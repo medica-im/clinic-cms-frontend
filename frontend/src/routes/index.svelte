@@ -38,7 +38,7 @@
 				<div class="card-body">
 				  <h5 class="card-title">Le séminaire d'avril 2022.</h5>
 				  <p class="card-text">Du samedi 23 avril au dimanche 24 avril a eu  lieu le Xème séminaire de la maison de santé pluriprofessionnelle de Vedène.</p>
-				  <a href="https://msp-vedene.fr/blog/seminaire-msp-vedene/" class="btn btn-primary">Lire la suite</a>
+				  <a href="https://msp-vedene.fr/blog/seminaire-msp-vedene/" class="btn btn-light">Lire la suite</a>
 				</div>
 			  </div>
 		  </div>
