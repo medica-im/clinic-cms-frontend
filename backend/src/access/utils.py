@@ -14,7 +14,7 @@ for role in ["superuser", "administrator", "staff", "registered", "anonymous"]:
 
 def get_role(user: User, request: HttpRequest):
     logger.debug(f'{user=}')
-    if user.is_anonymous or user.is_active:
+    if user.is_anonymous:
         return roles["anonymous"]
     elif user.is_superuser:
         return roles["superuser"]

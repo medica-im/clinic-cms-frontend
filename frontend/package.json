@@ -52,8 +52,12 @@
   },
   "type": "module",
   "dependencies": {
+    "@sveltestack/svelte-query": "^1.6.0",
+    "broadcast-channel": "^4.13.0",
     "cookie": "^0.4.2",
     "pnpm": "^6.32.6",
+    "svelte-i18n": "^3.4.0",
+    "svelte-select": "^4.4.7",
     "sveltestrap": "github:laxadev/sveltestrap",
     "typesafe-i18n": "^5.3.5",
     "vite": "^2.9.9",

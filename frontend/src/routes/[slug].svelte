@@ -18,7 +18,7 @@
 
 <script>
     import { afterUpdate, onMount } from 'svelte';
-	import { workforceData, fetchWorkforce } from '$lib/store/workforceStore';
+	import { workforceData } from '$lib/store/workforceStore';
     import WorkerPage from '$lib/Workforce/WorkerPage.svelte';
     import { dataset_dev } from 'svelte/internal';
     import CircularProgress from '@smui/circular-progress';
@@ -27,7 +27,7 @@
     let workerData;
     async function lazyLoading() {
 		if ($workforceData.length < 1) {
-			await fetchWorkforce();
+			//await fetchWorkforce();
             console.log(workforceData);
             console.log(typeof(workforceData));
 		}

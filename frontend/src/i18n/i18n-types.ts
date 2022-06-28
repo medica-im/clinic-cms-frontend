@@ -23,6 +23,28 @@ type RootTranslation = {
 	 * Welcome
 	 */
 	WELCOME: string
+	/**
+	 * Search
+	 */
+	SEARCH: string
+	ADDRESSBOOK: {
+		OCCUPATIONS: {
+			/**
+			 * Select by profession...
+			 */
+			PLACEHOLDER: string
+		}
+		SEARCH: {
+			/**
+			 * Search
+			 */
+			LABEL: string
+			/**
+			 * last name or first name
+			 */
+			PLACEHOLDER: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -34,6 +56,28 @@ export type TranslationFunctions = {
 	 * Welcome
 	 */
 	WELCOME: () => LocalizedString
+	/**
+	 * Search
+	 */
+	SEARCH: () => LocalizedString
+	ADDRESSBOOK: {
+		OCCUPATIONS: {
+			/**
+			 * Select by profession...
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
+		SEARCH: {
+			/**
+			 * Search
+			 */
+			LABEL: () => LocalizedString
+			/**
+			 * last name or first name
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
+	}
 }
 
 export type Formatters = {}

@@ -7,6 +7,7 @@ import { userData } from '$lib/store/userStore';
 
 import { variables } from '$lib/utils/constants';
 import { formatText } from '$lib/formats/formatString';
+import type { Workforce } from '$lib/interfaces/workforce.interface';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -133,7 +134,7 @@ export const handlePostRequestsWithPermissions = async (
 	targetUrl: string,
 	body: unknown,
 	method = 'POST'
-): Promise<[object, Array<CustomError>]> => {
+): Promise<[any, Array<CustomError>]> => {
 	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
@@ -145,17 +146,38 @@ export const handlePostRequestsWithPermissions = async (
 		})
 	});
 	const accessRefresh = await res.json();
-	const jres = await fetch(targetUrl, {
-		method: method,
-		mode: 'cors',
-		headers: {
-			Authorization: `Bearer ${accessRefresh.access}`,
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(body)
-	});
-
+	let fetchDict;
+	if (method == 'GET') {
+		fetchDict = {
+			method: method,
+			mode: 'cors',
+			headers: {
+				Authorization: `Bearer ${accessRefresh.access}`,
+				'Content-Type': 'application/json'
+			},
+		}
+	} else {
+		fetchDict = {
+			method: method,
+			mode: 'cors',
+			headers: {
+				Authorization: `Bearer ${accessRefresh.access}`,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(body)
+		}
+	}
+	const jres = await fetch(targetUrl, fetchDict);
 	if (method === 'PATCH') {
+		if (jres.status !== 200) {
+			const data = await jres.json();
+			console.error(`Data: ${data}`);
+			const errs = data.errors;
+			console.error(errs);
+			return [{}, errs];
+		}
+		return [await jres.json(), []];
+	} else if (method === 'GET') {
 		if (jres.status !== 200) {
 			const data = await jres.json();
 			console.error(`Data: ${data}`);
@@ -174,6 +196,62 @@ export const handlePostRequestsWithPermissions = async (
 		}
 		return [jres.json(), []];
 	}
+};
+
+export const handleWorkforceRequestsWithPermissions = async (
+	fetch,
+	targetUrl: string
+): Promise<[Workforce, Array<CustomError>]> => {
+	let refreshToken = browserGet('refreshToken');
+	console.log(`${refreshToken}`);
+	const accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
+		method: 'POST',
+		mode: 'cors',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			refresh: `${browserGet('refreshToken')}`
+		})
+	}).then(function (response) {
+		if (response.ok) {
+			return response.json();
+		} else {
+			return Promise.reject(response);
+		}
+	}).catch(function (err) {
+		console.warn(`Could not find a post. error: ${err}`);
+	}
+	)
+	let fetchDict;
+    if (accessRefresh) {
+	console.log(`${accessRefresh}`);
+	fetchDict = {
+		method: 'GET',
+		mode: 'cors',
+		headers: {
+			Authorization: `Bearer ${accessRefresh.access}`,
+			'Content-Type': 'application/json'
+		},
+	};
+    } else {
+		fetchDict = {
+			method: 'GET',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		};
+	}
+	const jres = await fetch(targetUrl, fetchDict);
+	if (jres.status !== 200) {
+		const data = await jres.json();
+		console.error(`Data: ${data}`);
+		const errs = data.errors;
+		console.error(errs);
+		return [[], errs];
+	}
+	return [await jres.json(), []];
 };
 
 export const UpdateField = async (

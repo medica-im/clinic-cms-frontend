@@ -17,6 +17,7 @@ class FacilitySerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'language',
             'formatted_name',
             'website_title',
             'category',

@@ -73,4 +73,4 @@ class WorkforceSerializer(serializers.ModelSerializer):
         role = get_role(user, request)
         logger.debug(f'{role=}')
         if authorize("account_email", role, 1):
-            return user.email
+            return obj.user.email

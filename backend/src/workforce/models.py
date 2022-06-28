@@ -179,5 +179,5 @@ class Label(models.Model):
             )
             return label.label
         except Label.DoesNotExist as e:
-            logger.debug(f'{e}')
+            logger.debug(f'{e} for {node=}, {gender=}, {number=}, {language=}')
             return

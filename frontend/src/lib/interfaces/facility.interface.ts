@@ -33,10 +33,11 @@ export interface Contact {
 export interface Facility {
 	id?: bigint;
 	name?: string;
+	language?: string;
 	formatted_name?: string;
 	website_title?: string;
 	category?: Category[];
 	contact?: Contact[];
 }
 
-export interface Facilities extends Array<Facility>{}
+//export interface Facilities extends Array<Facility>{}

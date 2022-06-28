@@ -5,6 +5,8 @@ export interface Occupation {
     specialty?: Occupation
 }
 
+export interface OccupationName {string}
+
 export interface Occupations extends Array<Occupation>{}
 
 export interface Worker {

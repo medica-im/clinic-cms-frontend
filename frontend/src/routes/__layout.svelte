@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
 	import { userData } from '$lib/store/userStore';
-	import { facilitiesData, fetchFacilities } from '$lib/store/facilityStore';
 	import { navigating } from '$app/stores';
 	import { loading } from '$lib/store/loadingStore';
 	import { notificationData } from '$lib/store/notificationStore';
@@ -8,11 +7,44 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import type { Load } from '@sveltejs/kit';
 	import type { Locales } from '$i18n/i18n-types';
-	import type { Facilities } from '$lib/interfaces/facility.interface';
+	import type { Facility } from '$lib/interfaces/facility.interface';
 	import { replaceLocaleInUrl } from '../utils';
 	import { baseLocale, locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import Loader from '../components/Loader/Loader.svelte';
+	import { facilitiesData, fetchFacilities } from '$lib/store/facilityStore';
+
+  /** @type {import('./__types/__layout').Load} */  export async function load({ params, fetch, session, stuff }) {
+    const response = await fetchFacilities();
+	return response
+  }
+ /* 
+  type LoadParams = {
+		lang?: Locales;
+	};
+	export const load: Load<LoadParams> = async ({ url, session, params }) => {
+		// fallback needed because of https://github.com/sveltejs/kit/issues/3647
+		const lang = params.lang || (url.pathname.split('/')[1] as Locales) || 'fr';
+		// redirect to preferred language if user comes from page root
+		if (!lang) {
+			return {
+				status: 302,
+				redirect: `/${session.locale}`
+			};
+		}
+		// redirect to base locale if language is not present
+		if (!locales.includes(lang)) {
+			return {
+				status: 302,
+				redirect: replaceLocaleInUrl(url.pathname, baseLocale)
+			};
+		}
+		// delete session locale since we don't need it to be sent to the client
+		delete session.locale;
+		await loadLocaleAsync(lang);
+		return { props: { locale: lang } };
+	};
+	*/
 </script>
 
 <script lang="ts">
@@ -43,14 +75,12 @@
 		console.log(typeof facilitiesData);
 		console.log(facilitiesData.constructor);
 		console.log('facilitiesData: ' + facilitiesData);
-		console.log('facilitiesData.length: ' + $facilitiesData.length);
-		if ($facilitiesData.length < 1) {
+		if ($facilitiesData === undefined) {
 			await fetchFacilities();
 		}
 		console.log(typeof facilitiesData);
 		console.log('facilitiesData constructor: ' + facilitiesData.constructor);
-		console.log('facilitiesData.length: ' + $facilitiesData.length);
-		console.log($facilitiesData[0]);
+		console.log($facilitiesData);
 	});
 
 	afterUpdate(async () => {
@@ -71,31 +101,7 @@
 			userData.update(() => response);
 		}
 	});
-	type LoadParams = {
-		lang?: Locales;
-	};
-	export const load: Load<LoadParams> = async ({ url, session, params }) => {
-		// fallback needed because of https://github.com/sveltejs/kit/issues/3647
-		const lang = params.lang || (url.pathname.split('/')[1] as Locales) || 'fr';
-		// redirect to preferred language if user comes from page root
-		if (!lang) {
-			return {
-				status: 302,
-				redirect: `/${session.locale}`
-			};
-		}
-		// redirect to base locale if language is not present
-		if (!locales.includes(lang)) {
-			return {
-				status: 302,
-				redirect: replaceLocaleInUrl(url.pathname, baseLocale)
-			};
-		}
-		// delete session locale since we don't need it to be sent to the client
-		delete session.locale;
-		await loadLocaleAsync(lang);
-		return { props: { locale: lang } };
-	};
+
 </script>
 
 <head>

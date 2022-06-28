@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     path('addressbook/', include('addressbook.urls', namespace='addressbook')),
-    path('api/v1/facilities/', include('facility.urls', namespace='facility')),
+    path('api/v1/facility/', include('facility.urls', namespace='facility')),
     path('api/v1/workforce/', include('workforce.urls', namespace='workforce')),
 ]
 

@@ -25,7 +25,7 @@
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="{getUrl()}" class="img-fluid rounded-start" alt="profile picture">
+      <img src="{getUrl()}" class="img-fluid rounded-start" alt="profile">
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -43,7 +43,13 @@
 					{/each}
         </ul>
         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <ul class="list-group list-group">
+        {#if workerData.account_email}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+        <p class="card-text"><small class="text-muted">{ workerData.account_email }</small></p>
+        </li>
+        {/if}
+        </ul>
       </div>
     </div>
   </div>
