@@ -4,7 +4,13 @@ services:
           
   database:
     restart: always                                                                       
-    image: postgres:14
+    image: postgre-non-root
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
     shm_size: ${DATABASE_SHM_SIZE}
     command: >
       postgres
