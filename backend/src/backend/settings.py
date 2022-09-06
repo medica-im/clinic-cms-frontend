@@ -150,14 +150,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.postgres',
     'rest_framework_simplejwt',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'easy_thumbnails',
+    'constance.backends.database',
+    'constance',
     'addressbook',
     'taggit',
     'taggit_labels',
     'crispy_forms',
+    'simple_history',
     # local apps
     'backend',
     'accounts',
@@ -181,6 +185,7 @@ if DEBUG:
     MIDDLEWARE += "corsheaders.middleware.CorsMiddleware",
 
 MIDDLEWARE += [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -195,6 +200,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
     "http://127.0.0.1:8000",
+    "https://dev.msp-vedene.fr",
+    "https://msp-vedene.fr",
 ]
 
 ROOT_URLCONF = config('ROOT_URLCONF')
@@ -372,4 +379,33 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+
+# Redis
+REDIS_HOST = config('REDIS_HOST', default='redis')
+REDIS_PORT = config('REDIS_PORT', cast=str, default='6379')
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+#Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_DATABASE_CACHE_BACKEND = 'default'
+CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
+
+CONSTANCE_CONFIG = {
+    'ADMIN_SEARCH_CONFIG': (
+        'french',
+        'You can specify the config attribute to a SearchVector and '
+        'SearchQuery to use a different search configuration. This allows '
+        'using different language parsers and dictionaries as defined by the '
+        'database'
+    ),
 }

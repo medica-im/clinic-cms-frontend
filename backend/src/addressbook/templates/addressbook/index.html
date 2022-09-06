@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include "addressbook/links.html" %}
+
+{% if messages %}
+<div class="wrapper">
+{% for message in messages %}
+<p class="msg">{{message}}</p>
+{% endfor %}
+</div>
+{% endif %}
+<table class="table table-striped">
+<tbody>
+{% for contact in contacts %}
+    <tr><td><a href="{% url "addressbook:single_contact" contact.id %}">{{ contact.formatted_name }} {{ contact.first_name }} {{ contact.last_name }}</a><br/>
+    <small><em>
+    {% for group in contact.groups.all %}
+        {% if forloop.first %}Groups:{% endif %}
+        <a href="{% url "addressbook:single_group" group.name %}">{{ group.name }}</a>,
+    {% endfor %}
+    {% for tag in contact.tags.all %}
+        {% if forloop.first %}Tags:{% endif %}
+        <a href="{% url "addressbook:single_tag" tag.name %}">{{ tag.name }}</a>,
+    {% endfor %}
+    </em></small>
+    </td></tr>
+{% empty %}
+No contacts
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

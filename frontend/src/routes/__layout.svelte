@@ -12,12 +12,10 @@
 	import { baseLocale, locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import Loader from '../components/Loader/Loader.svelte';
-	import { facilitiesData, fetchFacilities } from '$lib/store/facilityStore';
+	import fetchFacilitiesStore from '$lib/store/facilityStore';
+	import CircularProgress from '@smui/circular-progress';
 
-  /** @type {import('./__types/__layout').Load} */  export async function load({ params, fetch, session, stuff }) {
-    const response = await fetchFacilities();
-	return response
-  }
+	const [facilityData, facilityLoading, facilityError, facilityGet] = fetchFacilitiesStore();
  /* 
   type LoadParams = {
 		lang?: Locales;
@@ -59,9 +57,9 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 
-	const facilitiesUrl = `${variables.BASE_API_URI}/facilities/`;
-
 	onMount(async () => {
+		while(! $facilityData) // define the condition as you like
+            await new Promise(resolve => setTimeout(resolve, 1000));
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
 				fetch,
@@ -72,15 +70,12 @@
 				userData.set(response);
 			}
 		}
-		console.log(typeof facilitiesData);
-		console.log(facilitiesData.constructor);
-		console.log('facilitiesData: ' + facilitiesData);
-		if ($facilitiesData === undefined) {
-			await fetchFacilities();
-		}
-		console.log(typeof facilitiesData);
-		console.log('facilitiesData constructor: ' + facilitiesData.constructor);
-		console.log($facilitiesData);
+		console.log(typeof facilityData);
+		console.log(facilityData.constructor);
+		console.log('facilityData: ' + facilityData);
+		console.log(typeof facilityData);
+		console.log('facilityData constructor: ' + facilityData.constructor);
+		console.log(`$facilityData`);
 	});
 
 	afterUpdate(async () => {

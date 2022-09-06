@@ -1,0 +1,23 @@
+{% if user.is_authenticated %}
+<ul class="nav nav-tabs">
+        <li role="presentation"><a href="{% url "addressbook:index" %}">Home</a></li>
+<!--
+        <li role="presentation"><a href="{% url "addressbook:add_group" %}">Add Group</a></li>
+        <li role="presentation"><a href="{% url "addressbook:add_contact" %}">Add Contact</a></li>
+-->
+</ul>
+<ul class="nav nav-tabs">
+    <li>Groups:</li>
+    {% for group in groups %}
+        <li role="presentation"><a href="{% url "addressbook:single_group" group.name %}">{{ group.name }}</a></li>
+    {% endfor %}
+</ul>
+<ul class="nav nav-tabs">
+    <li>Tags:</li>
+    {% for tag in tags %}
+        <li role="presentation"><a href="{% url "addressbook:single_tag" tag.name %}">{{ tag.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+You are not logged in
+{% endif %}

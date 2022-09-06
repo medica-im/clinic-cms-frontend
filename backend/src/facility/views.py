@@ -2,25 +2,25 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.generics import RetrieveAPIView
-from facility.models import Facility, Category
+from facility.models import Organization, Category
 from addressbook.models import Contact
 from facility.serializers import (
-    FacilitySerializer,
+    OrganizationSerializer,
     CategorySerializer,
     ContactSerializer,
 )
 from django.contrib.sites.shortcuts import get_current_site
 
 
-class FacilityView(RetrieveAPIView):
-    queryset = Facility.objects.all()
-    serializer_class = FacilitySerializer
+class OrganizationView(RetrieveAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationSerializer
     
     def get_object(self):
         #qs = super().get_queryset()
         try:
-            return Facility.objects.get(site=get_current_site(self.request))
-        except Facility.DoesNotExist:
+            return Organization.objects.get(site=get_current_site(self.request))
+        except Organization.DoesNotExist:
             return
 
 

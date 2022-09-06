@@ -1,0 +1,30 @@
+{% load thumbnail %}
+
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{% if contact.profile_image %}{% thumbnail contact.profile_image 200x200 %}{% else %}http://www.gravatar.com/avatar/{{hash}}?s=160{% endif %}" alt="photo of {{contact.first_name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{ contact.first_name }} {{ contact.middle_name }} {{ contact.last_name }}</h5>
+    {% if contact.title %}<p class="card-text">{{ contact.title}}</p>{% endif %}
+    {% if contact.organization %}<p class="card-text">{{ contact.organization}}</p>{% endif %}
+    {% for email in emails %}
+    <p class="card-text">
+    <a class="email" href="mailto:{{ email.email }}">{{ email.email }}</a> ({{email.get_type_display|lower}})
+    </p>
+    {% endfor %}
+    {% for address in addresses %}
+    <p class="card-text">
+    {{address.street}} {{ address.state|default:"" }}</br>
+    {{ address.zip }} {{ address.city }}</br>
+    {{ address.country.name }}</br>
+    ({{address.get_type_display|lower}})</br>
+    <a href="https://www.openstreetmap.org/#map={{ address.zoom }}/{{ address.latitude }}/{{ address.longitude }}">OpenStreetMap</a>
+    </p>
+    {% endfor %}
+    {% for phone in phones %}
+    <p class="card-text">{{ phone.phone }} ({{ phone.get_type_display|lower }})</p>
+    {% endfor %}
+    {% for website in websites %}
+    <a href="{{ website.website }}" class="btn btn-primary">{{ website.website }} ({{ website.get_type_display }})</a>
+    {% endfor %}
+  </div>
+</div>

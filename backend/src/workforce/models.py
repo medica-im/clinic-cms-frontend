@@ -59,6 +59,27 @@ class NodeSet(models.Model):
         return self.name
 
 
+class WorkforceNetworkedgeOrganizations(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    networkedge = models.ForeignKey(
+        "workforce.NetworkEdge",
+        models.DO_NOTHING
+    )
+    organization = models.ForeignKey(
+        "facility.Organization",
+        models.DO_NOTHING
+    )
+    public_facing = models.BooleanField(
+        default=False,
+        help_text=_("Should the user node included in this edge be public?")
+    )
+
+    class Meta:
+        managed = True
+        db_table = 'workforce_networkedge_organizations'
+        unique_together = (('networkedge', 'organization'),)
+
+
 class WorkforceNetworkedgeFacilities(models.Model):
     id = models.BigAutoField(primary_key=True)
     networkedge = models.ForeignKey(
@@ -89,13 +110,20 @@ class NetworkEdge(edge_factory("NetworkNode", concrete=False)):
         blank=True,
         related_name="edge_set_edges",
     )
+    organizations = models.ManyToManyField(
+        'facility.Organization',
+        through='WorkforceNetworkedgeOrganizations',
+    )
     facilities = models.ManyToManyField(
         'facility.Facility',
         through='WorkforceNetworkedgeFacilities',
     )
 
     def __str__(self):
-        return f'{self.name} {[f.name for f in self.facilities.all()]}'
+        return (
+            f'{self.name} o: {[f.name for f in self.organizations.all()]}'
+            f'f: {[f.name for f in self.facilities.all()]}'
+        )
 
     def save(self, *args, **kwargs):
         self.name = f"{self.parent.name} {self.child.name}"

@@ -1,19 +1,19 @@
-from facility.models import Facility, Category
+from facility.models import Organization, Category
 from addressbook.models import Contact
 from rest_framework import serializers
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ['id', 'formatted_name', 'url', 'addresses']
+        fields = ['id', 'formatted_name', 'url', 'addresses', 'phonenumbers',]
         depth = 1
 
 
-class FacilitySerializer(serializers.ModelSerializer):
+class OrganizationSerializer(serializers.ModelSerializer):
     contact = ContactSerializer(many=False, read_only=True)
 
     class Meta:
-        model = Facility
+        model = Organization
         fields = [
             'id',
             'name',

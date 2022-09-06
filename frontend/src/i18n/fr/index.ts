@@ -6,14 +6,24 @@ const fr: Translation = {
   WELCOME: "Bienvenue",
   SEARCH: "Recherche",
   ADDRESSBOOK: {
+    TITLE: "Annuaire",
     OCCUPATIONS: {
       PLACEHOLDER: "Selectionner par profession..."
     },
-    SEARCH : {
+    SEARCH: {
       LABEL: "Recherche",
       PLACEHOLDER: "nom ou prénom"
+    },
+    GOTOADDRESSBOOK: "Retourner vers l'annuaire",
+    APPOINTMENT: {
+      LABEL: "Prendre rendez-vous"
     }
-  }
+  },
+  NAVBAR: {
+		LOGIN: "Se connecter",
+		REGISTER: "S'enregistrer",
+    LOGOUT: "Se déconnecter"
+	}
 }
 
 export default fr

@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from modeltranslation.admin import TranslationAdmin
 from access.models import AccessControl, Endpoint, Role
 
 @admin.register(Endpoint)
@@ -11,10 +11,12 @@ class EndpointAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     
 @admin.register(Role)
-class RoleAdmin(admin.ModelAdmin):
+class RoleAdmin(TranslationAdmin):
     list_display = [
         'id',
-        'name',    
+        'name',
+        'label',
+        'description', 
     ]
 
 @admin.register(AccessControl)
@@ -25,6 +27,9 @@ class AccessControlAdmin(admin.ModelAdmin):
         'role',
         'permissions',
     ]
+    list_filter = (
+        'endpoint',
+    )
     autocomplete_fields = [
         'endpoint'
     ]

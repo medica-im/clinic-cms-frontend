@@ -1,13 +1,13 @@
-FROM python:3.10-buster AS prod
+FROM python:3.10-bullseye AS prod
 
 ENV PYTHONUNBUFFERED 1
 ENV DOCKER_CONTAINER 1
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get clean && apt-get update --allow-insecure-repositories && apt-get install --no-install-recommends -y \
     locales \
     build-essential \
-    python-yaml \
+    python3-yaml \
     binutils \
  && rm -rf /var/lib/apt/lists/*
  
@@ -38,7 +38,7 @@ ENV DJANGO_SETTINGS_MODULE backend.settings
 
 FROM prod AS dev
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get clean && apt-get update --allow-insecure-repositories && apt-get install -y \
     postgresql-client \
     gettext \
  && rm -rf /var/lib/apt/lists/*

@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { variables } from '$lib/utils/constants';
 	import Card, { Content, ActionButtons, ActionIcons, Actions, PrimaryAction, Media, MediaContent } from '@smui/card';
 	import List, { Item, Graphic, Text, PrimaryText, SecondaryText } from '@smui/list';
-    import Button, { Label } from '@smui/button';
-    import IconButton, { Icon } from '@smui/icon-button';
+  import Button, { Label } from '@smui/button';
+  import IconButton, { Icon } from '@smui/icon-button';
+  import Appointment from './Appointment.svelte';
 	export let workerData;
-    let clicked = 0;
+
 
     function getStyle() {
         let ppUrl='/default_profile_picture.png';
@@ -15,13 +17,14 @@
         return style
     }
     function getUrl() {
-        let ppUrl='/default_profile_picture.png';
-        if ( workerData.profile_picture_url ) {
-            ppUrl = workerData.profile_picture_url;
+        if ( !workerData.profile_picture_url ) {
+            return `${variables.BASE_URI}/media/profile_images/default_profile_picture.png`
         }
-        return ppUrl
+        return variables.BASE_URI + workerData.profile_picture_url
+
     }
 </script>
+
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4">
@@ -45,10 +48,32 @@
         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
         <ul class="list-group list-group">
         {#if workerData.account_email}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
+
         <p class="card-text"><small class="text-muted">{ workerData.account_email }</small></p>
-        </li>
+
+        
         {/if}
+
+        {#if workerData.phone_numbers}
+        {#each Object.keys(workerData.phone_numbers) as key}
+        {#each  workerData.phone_numbers[key] as phone}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+        <p class="card-text"><small class="text-muted">{ key }: { phone }</small></p>
+        </li>
+        {/each}
+        {/each}
+        {/if}
+
+        {#if workerData.websites}
+        {#each  workerData.websites as website}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+        <small><a href="{website.url}" class="card-link text-muted">{website.url}</a> [{website.type}]</small>
+        </li>
+        {/each}
+        {/if}
+        {#if workerData.appointments}
+        <Appointment appointments={workerData.appointments}/>
+{/if}
         </ul>
       </div>
     </div>

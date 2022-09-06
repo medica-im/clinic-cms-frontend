@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Facility, Category
+from .models import Organization, Category, Facility
 
-@admin.register(Facility)
-class FacilityAdmin(admin.ModelAdmin):
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'formatted_name',
@@ -31,3 +31,20 @@ class CategoryAdmin(admin.ModelAdmin):
         'definition',
     )
     search_fields = ['name', 'formatted_name',]
+
+
+@admin.register(Facility)
+class FacilityAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'contact',
+        'active',
+        'created',
+        'updated',
+        'node',
+    )
+    list_filter = (
+        'active',
+        'organization',
+    )
+    search_fields = ['name', 'contact__formatted_name',]

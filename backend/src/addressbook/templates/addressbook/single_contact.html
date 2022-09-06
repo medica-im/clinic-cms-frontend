@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load qrcode %}
+{% load thumbnail %}
+{% block content %}
+{% include "addressbook/links.html" %}
+
+
+
+<div class="col-sm-4">
+    <div class="panel panel-success"></div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ contact.formatted_name }} {{ contact.first_name }} {{ contact.last_name }}</h3>
+        </div>
+        <div class="panel-body">
+	{% include "addressbook/hcard.html" %}
+        </div>
+    </div>
+
+</div>
+<!-- /.col-sm-4 -->
+
+	<div class="qr">
+	{{ vcard_str|qrcode }}
+	<a class="dlink" href="{% url "addressbook:download_vcard" %}?id={{ contact.id }}">Download V-card</a> 
+	</div>
+	<div style="margin-top:10px;">
+	<p>
+	{% for group in contact.groups.all %}
+		{% if forloop.first %}Groups:{% endif %}
+		<a href="{% url "addressbook:single_group" group.name %}">{{ group.name }}</a>,
+	{% endfor %}
+	</p>
+	<p>
+	{% for tag in contact.tags.all %}
+		{% if forloop.first %}Tags:{% endif %}
+		<a href="{% url "addressbook:single_tag" tag.name %}">{{ tag.name }}</a>,
+	{% endfor %}
+	</p>
+	{% if contact.blurb %}
+	{{ contact.blurb }}
+	{% endif %}
+
+
+<form action="" method="post" class="inline"> {% csrf_token %}
+<a href="{% url "addressbook:edit_contact" contact.id %}" class="btn btn-primary">Edit Contact</a>
+<input class="btn btn-danger" type="submit" value="Delete Contact">
+</form>
+
+</div>
+
+{% endblock %}

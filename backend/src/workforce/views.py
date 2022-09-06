@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAdminUser
 from . import models
 from . import serializers
-from facility.utils import get_facility
+from facility.utils import get_organization
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 logger = logging.getLogger(__name__)
@@ -18,17 +18,17 @@ class WorkforceViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (AllowAny,)
 
     def get_queryset(self):
-        facility = get_facility(self.request)
-        logger.debug(f'{facility=}')
+        organization = get_organization(self.request)
+        logger.debug(f'{organization=}')
         user=models.NodeSet.objects.get(name="user")
-        facility_edge_qs_child_ids= (
+        organization_edge_qs_child_ids= (
             models.NetworkEdge.objects
-            .filter(facilities=facility)
+            .filter(organizations=organization)
             .values_list("child_id", flat=True)
         )
         return models.NetworkNode.objects.filter(
             node_set=user,
-            id__in=facility_edge_qs_child_ids
+            id__in=organization_edge_qs_child_ids
         )
 
     def get_serializer_context(self):

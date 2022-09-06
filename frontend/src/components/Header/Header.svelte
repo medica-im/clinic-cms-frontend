@@ -17,7 +17,7 @@
 		DropdownMenu,
 		DropdownItem
 	} from 'sveltestrap/src';
-
+	import LL from '$i18n/i18n-svelte';
 	let isOpen = false;
 
 	function handleUpdate(event) {
@@ -43,11 +43,11 @@
 				</NavItem>
 				{#if !$userData.username}
 				<NavItem>
-					<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}>Login</NavLink
+					<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}>{$LL.NAVBAR.LOGIN()}</NavLink
 					>
 				</NavItem>
 				<NavItem>
-					<NavLink href="/accounts/register" active={$page.url.pathname === '/accounts/register'} >Register</NavLink
+					<NavLink href="/accounts/register" active={$page.url.pathname === '/accounts/register'}>{$LL.NAVBAR.REGISTER()}</NavLink
 					>
 				</NavItem>
 				{:else}
@@ -55,7 +55,7 @@
 					<NavLink href="/accounts/user/{$userData.username}-{$userData.id}" active={$page.url.pathname === '/accounts/user'}>Hi, {$userData.username}</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink href={null} on:click={logOutUser}>Logout</NavLink
+					<NavLink href={null} on:click={logOutUser}>{$LL.NAVBAR.LOGOUT()}</NavLink
 					>
 				</NavItem>
 				{/if}

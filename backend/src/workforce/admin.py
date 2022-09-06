@@ -2,13 +2,14 @@ import logging
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from facility.models import Facility
+from facility.models import Organization, Facility
 from .models import (
     EdgeSet,
     NodeSet,
     NetworkEdge,
     NetworkNode,
     Label,
+    WorkforceNetworkedgeOrganizations,
     WorkforceNetworkedgeFacilities,
 )
 from modeltranslation.admin import TranslationAdmin
@@ -19,13 +20,28 @@ from accounts.models import GrammaticalGender
 
 logger = logging.getLogger(__name__)
 
-def get_facilities(node, obj):
-    edge = (
+
+def get_edge(node, obj):
+    return (
         NetworkEdge.objects
         .ancestors(obj)
         .filter(child_id=obj.id, parent_id=node.id)
         .first()
     )
+
+def display_organizations(edge: NetworkEdge):
+    organizations = []
+    try:
+        nfs = WorkforceNetworkedgeOrganizations.objects.filter(networkedge=edge)
+    except:
+        return organizations
+    for nf in nfs:
+        organizations.append(
+            f'🤝 {nf.organization.name} {"📢" if nf.public_facing else "🔒"}'
+        )
+    return organizations
+
+def display_facilities(edge: NetworkEdge):
     facilities = []
     try:
         nfs = WorkforceNetworkedgeFacilities.objects.filter(networkedge=edge)
@@ -33,17 +49,14 @@ def get_facilities(node, obj):
         return facilities
     for nf in nfs:
         facilities.append(
-            f'{nf.facility.name} {"📢" if nf.public_facing else "🔒"}'
+            f'🏢 {nf.facility.name} {"📢" if nf.public_facing else "🔒"}'
         )
     return facilities
 
-def get_edge(node, obj):
-    edge = (
-        NetworkEdge.objects
-        .ancestors(obj)
-        .filter(child_id=obj.id, parent_id=node.id)
-        .first()
-    )
+def get_edge_link(node, obj):
+    edge = get_edge(node, obj)
+    if not edge:
+        return
     return mark_safe(
         '<a href="{link}">&rarr;</a>'.format(
             link = reverse(
@@ -53,22 +66,56 @@ def get_edge(node, obj):
         )
     )
 
+def get_node_href(node: NetworkNode):
+    return reverse(
+        "admin:workforce_networknode_change",
+        args=(node.pk,)
+    )
+
 def display_node_set(node):
     try:
         return node.node_set.name
     except:
         return
+    
+def node_link(node: NetworkNode):
+    txt = node.name
+    href = get_node_href(node)
+    return f'<a href="{href}">{txt}</a>'
+
+def display_edge(obj):
+    parent_node = NetworkNode.objects.get(id=obj.parent_id)
+    child_node = NetworkNode.objects.get(id=obj.child_id)
+    display = f'{node_link(parent_node)}'
+    node_set = display_node_set(parent_node)
+    if node_set:
+        display += f' ({node_set}) '
+    display += ' &rarr; '
+    do = display_organizations(obj)
+    if do:
+        display += f'{do} '
+    df = display_facilities(obj)
+    if df:
+        display += f'{df} '
+    if do or df:
+        display += '&rarr; '
+    display += f'{node_link(child_node)}'
+    node_set = display_node_set(child_node)
+    if node_set:
+        display += f' ({node_set}) '
+    return mark_safe(display)
 
 def display_node(node, obj):
-    display = f"{get_edge(node,obj)} {node.name}"
+    display = f"{get_edge_link(node,obj)} {node.name}"
     node_set = display_node_set(node)
     if node_set:
         display+=f' ({node_set})'
     if obj:
-        facilities = get_facilities(node, obj)
-        logger.debug(f'{facilities=}')
-        if facilities:
-            display+=f" [{', '.join(list(facilities))}]"
+        edge = get_edge(node, obj)
+        logger.debug(f'{edge=}')
+        organizations = display_organizations(edge)
+        if organizations:
+            display+=f" [{', '.join(list(organizations))}]"
     return mark_safe(display)
 
 def display_node_qs(qs, obj=None):
@@ -89,27 +136,96 @@ def display_node_qs(qs, obj=None):
     )
 
 
-class UserFacilityFilter(admin.SimpleListFilter):
-    title = 'User facility'
-    parameter_name = 'user_facility'
+class UserOrganizationFilter(admin.SimpleListFilter):
+    title = 'User organization'
+    parameter_name = 'user_organization'
 
     def lookups(self, request, model_admin):
-        return list(Facility.objects.values_list('id', 'name'))
-
+        lookups = list(Organization.objects.values_list('id', 'name'))
+        lookups.append((0, _('None')))
+        return lookups
+        
     def queryset(self, request, queryset):
-        if not self.value():
+
+        if self.value() == None:
             return queryset
         try:
             user=NodeSet.objects.get(name="user")
         except NodeSet.DoesNotExist:
             return queryset
-        facility = Facility.objects.get(id=int(self.value()))
-        edge_child_ids = (
+        if self.value() == '0':
+            edge_child_ids = (
+                NetworkEdge.objects
+                .filter(organizations=None)
+                .values_list("child_id", flat=True)
+            )
+        else:
+            organization = Organization.objects.get(id=int(self.value()))
+            edge_child_ids = (
             NetworkEdge.objects
-            .filter(facilities=facility)
+            .filter(organizations=organization)
             .values_list("child_id", flat=True)
         )
         return queryset.filter(node_set=user, id__in=edge_child_ids)
+
+
+class EdgeOrganizationFilter(admin.SimpleListFilter):
+    title = 'Edge organization'
+    parameter_name = 'edge_organization'
+
+    def lookups(self, request, model_admin):
+        lookups = list(Organization.objects.values_list('id', 'name'))
+        lookups.append((0, _('None')))
+        return lookups
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        if self.value() == '0':
+            organization = None
+        else:
+            organization = Organization.objects.get(id=int(self.value()))
+        return queryset.filter(organizations=organization)
+
+class EdgeFacilityFilter(admin.SimpleListFilter):
+    title = 'Edge facility'
+    parameter_name = 'edge_facility'
+
+    def lookups(self, request, model_admin):
+        lookups = list(Facility.objects.values_list('id', 'name'))
+        lookups.append((0, _('None')))
+        return lookups
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        if self.value() == '0':
+            facility = None
+        else:
+            facility = Facility.objects.get(id=int(self.value()))
+        return queryset.filter(facilities=facility)
+
+
+class EdgeNodeSetFilter(admin.SimpleListFilter):
+    title = 'Node with NodeSet'
+    parameter_name = 'node_nodeset'
+
+    def lookups(self, request, model_admin):
+        lookups = list(NodeSet.objects.values_list('id', 'name'))
+        lookups.append((0, _('None')))
+        return lookups
+        
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        if self.value() == '0':
+            nodeset = None
+        else:
+            nodeset = NodeSet.objects.get(id=int(self.value()))
+        nodes_ids: list(int) = NetworkNode.objects \
+            .filter(node_set=nodeset) \
+            .values_list('id', flat=True)
+        return queryset.filter(child_id__in=nodes_ids)
 
 
 @admin.register(EdgeSet)
@@ -122,6 +238,12 @@ class NodeSetAdmin(admin.ModelAdmin):
     pass
 
 
+class NetworkEdgeOrganizationInline(admin.TabularInline):
+    model = WorkforceNetworkedgeOrganizations
+    extra = 1
+    fk_name = 'networkedge'
+
+
 class NetworkEdgeFacilityInline(admin.TabularInline):
     model = WorkforceNetworkedgeFacilities
     extra = 1
@@ -130,7 +252,23 @@ class NetworkEdgeFacilityInline(admin.TabularInline):
 
 @admin.register(NetworkEdge)
 class NetworkEdgeAdmin(admin.ModelAdmin):
-    inlines = (NetworkEdgeFacilityInline,)
+    list_display = (
+        'id',
+        'edge_tag',
+    )
+    list_filter = (
+        EdgeOrganizationFilter,
+        EdgeFacilityFilter,
+        EdgeNodeSetFilter,
+    )
+    inlines = (
+        NetworkEdgeOrganizationInline,
+        NetworkEdgeFacilityInline,
+    )
+
+    @admin.display(description='Edge')
+    def edge_tag(self, obj):
+        return display_edge(obj)
 
 
 @admin.register(NetworkNode)
@@ -145,7 +283,7 @@ class NetworkNodeAdmin(TranslationAdmin):
     )
     list_filter = (
         'node_set',
-        UserFacilityFilter,
+        UserOrganizationFilter,
     )
     autocomplete_fields = ['mesh',]
     fields = (

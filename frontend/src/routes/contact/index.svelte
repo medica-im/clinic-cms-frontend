@@ -1,8 +1,12 @@
 <script>
 	import { afterUpdate, onMount } from 'svelte';
-	import { facilitiesData, fetchFacilities } from '$lib/store/facilityStore';
+	import fetchFacilitiesStore from '$lib/store/facilityStore.ts';
 	import LeafletMap from '$lib/map/LeafletMap.svelte';
 	import Address from '$lib/Address/Address.svelte';
+	import { tick } from 'svelte';
+	import CircularProgress from '@smui/circular-progress';
+
+	const [data, loading, error, get] = fetchFacilitiesStore();
 
 	const createFacilityGeoData = (fData) => {
 		let contact = fData.contact;
@@ -18,16 +22,24 @@
 		return facilityGeoData;
 	};
 
-	onMount(async () => {
+	/*onMount(async () => {
 		if ($facilitiesData === undefined) {
 			await fetchFacilities();
 			console.log(facilitiesData);
 		    console.log($facilitiesData);
 		}
-	});
+	});*/
 </script>
 
 <main>
-	<Address contactData={$facilitiesData.contact} />
-	<LeafletMap geoData={createFacilityGeoData($facilitiesData)} />
+	{#if $loading}
+		<div style="display: flex; justify-content: center">
+			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+		</div>
+	{:else if $error}
+		Error: {$error}
+	{:else}
+		<Address contactData={$data.contact} />
+		<LeafletMap geoData={createFacilityGeoData($data)} />
+	{/if}
 </main>

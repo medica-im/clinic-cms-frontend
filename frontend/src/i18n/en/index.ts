@@ -6,13 +6,23 @@ const en: BaseTranslation = {
 	WELCOME: "Welcome",
 	SEARCH: "Search",
 	ADDRESSBOOK: {
+		TITLE: "Address book",
 		OCCUPATIONS: {
 		PLACEHOLDER: "Select by profession..."
 		},
 		SEARCH : {
 			LABEL: "Search",
 			PLACEHOLDER: "last name or first name"
-		  }
+		  },
+		GOTOADDRESSBOOK: "Go back to addressbook",
+		APPOINTMENT: {
+            LABEL: "Book an appointment"
+		}
+	},
+	NAVBAR: {
+		LOGIN: "Login",
+		REGISTER: "Register",
+		LOGOUT: "Logout"
 	}
 }
 

@@ -28,6 +28,10 @@ type RootTranslation = {
 	 */
 	SEARCH: string
 	ADDRESSBOOK: {
+		/**
+		 * Address book
+		 */
+		TITLE: string
 		OCCUPATIONS: {
 			/**
 			 * Select by profession...
@@ -44,6 +48,30 @@ type RootTranslation = {
 			 */
 			PLACEHOLDER: string
 		}
+		/**
+		 * Go back to addressbook
+		 */
+		GOTOADDRESSBOOK: string
+		APPOINTMENT: {
+			/**
+			 * Book an appointment
+			 */
+			LABEL: string
+		}
+	}
+	NAVBAR: {
+		/**
+		 * Login
+		 */
+		LOGIN: string
+		/**
+		 * Register
+		 */
+		REGISTER: string
+		/**
+		 * Logout
+		 */
+		LOGOUT: string
 	}
 }
 
@@ -61,6 +89,10 @@ export type TranslationFunctions = {
 	 */
 	SEARCH: () => LocalizedString
 	ADDRESSBOOK: {
+		/**
+		 * Address book
+		 */
+		TITLE: () => LocalizedString
 		OCCUPATIONS: {
 			/**
 			 * Select by profession...
@@ -77,6 +109,30 @@ export type TranslationFunctions = {
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}
+		/**
+		 * Go back to addressbook
+		 */
+		GOTOADDRESSBOOK: () => LocalizedString
+		APPOINTMENT: {
+			/**
+			 * Book an appointment
+			 */
+			LABEL: () => LocalizedString
+		}
+	}
+	NAVBAR: {
+		/**
+		 * Login
+		 */
+		LOGIN: () => LocalizedString
+		/**
+		 * Register
+		 */
+		REGISTER: () => LocalizedString
+		/**
+		 * Logout
+		 */
+		LOGOUT: () => LocalizedString
 	}
 }
 

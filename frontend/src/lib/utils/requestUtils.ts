@@ -198,7 +198,7 @@ export const handlePostRequestsWithPermissions = async (
 	}
 };
 
-export const handleWorkforceRequestsWithPermissions = async (
+export const handleRequestsWithPermissions = async (
 	fetch,
 	targetUrl: string
 ): Promise<[Workforce, Array<CustomError>]> => {
@@ -220,7 +220,7 @@ export const handleWorkforceRequestsWithPermissions = async (
 			return Promise.reject(response);
 		}
 	}).catch(function (err) {
-		console.warn(`Could not find a post. error: ${err}`);
+		console.warn(`Could not get new token. error: ${err}`);
 	}
 	)
 	let fetchDict;

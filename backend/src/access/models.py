@@ -10,6 +10,10 @@ class Endpoint(models.Model):
 
 class Role(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    label = models.CharField(max_length=255, unique=True, null=True)
+    description = models.TextField(
+        blank=True
+    )
 
     def __str__(self):
         return "%s %s" % (self.id, self.name)

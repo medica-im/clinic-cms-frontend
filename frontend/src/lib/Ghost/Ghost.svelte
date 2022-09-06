@@ -1,17 +1,17 @@
 <script lang=ts>
 	import { useQuery } from '@sveltestack/svelte-query';
 	import { variables } from '$lib/utils/constants';
-    import { facilitiesData, fetchFacilities } from '$lib/store/facilityStore';
+    import { facilitiesData } from '$lib/store/facilityStore';
     import { onMount } from 'svelte';
     const key = variables.GHOST_API_KEY;
 	const apiUrl = `https://msp-vedene.fr/blog/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
 
-    onMount(async () => {
+    /*onMount(async () => {
 		const fd = await fetchFacilities();
         if (fd) {
 		console.log(fd.language);
         }
-	});
+	});*/
 
 	const queryResult = useQuery('ghostLatestPosts', async () => {
         const response = await fetch(apiUrl);

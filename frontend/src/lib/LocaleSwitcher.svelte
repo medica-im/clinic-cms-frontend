@@ -7,7 +7,11 @@
 	import { replaceLocaleInUrl } from '../utils'
 	import { beforeUpdate, afterUpdate } from 'svelte';
 	import { onMount } from 'svelte';
-	import { facilitiesData } from '$lib/store/facilityStore';
+	import fetchFacilitiesStore from '$lib/store/facilityStore';
+	import CircularProgress from '@smui/circular-progress';
+
+	const [facilitiesData, loading, error, get] = fetchFacilitiesStore();
+
 
 	const capitalizeFirstLetter = ([ first, ...rest ], locale = navigator.language) =>
   first.toLocaleUpperCase(locale) + rest.join('')
@@ -40,14 +44,28 @@
 		switchLocale('fr');
 	});*/
 	onMount(async () => {
-		let language = $facilitiesData.language as Locales;
-		await switchLocale(language);
+		console.log("waiting for variable");
+    while(! $facilitiesData.language) // define the condition as you like
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log("variable is defined");
+	let language = $facilitiesData.language as Locales;
+	await switchLocale(language);
 	});
 </script>
 
 <svelte:window on:popstate={handlePopStateEvent} />
 
+
+{#if $loading}
+Loading: {$loading}
+<div style="display: flex; justify-content: center">
+	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+</div>
+{:else if $error}
+Error: {$error}
+{:else}
 {#each locales as l}
 <input type="radio" class="btn-check" name="options" id="option-{l}" autocomplete="off" checked={l === $locale} on:click={() => switchLocale(l)}>
 <label class="btn btn-primary" for="option-{l}">{capitalizeFirstLetter(l)}</label>
 {/each}
+{/if}

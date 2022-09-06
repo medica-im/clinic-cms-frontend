@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth import get_user_model
 from workforce.models import NetworkEdge, NodeSet
-from facility.models import Facility
+from facility.models import Organization
 from directory.models import Slug
 from django.db import DatabaseError, IntegrityError
 
@@ -15,16 +15,16 @@ class Command(BaseCommand):
     help = 'Create directory slugs from formatted names found in AddressBook'
 
     def add_arguments(self, parser):
-        parser.add_argument('facility', type=str)        
+        parser.add_argument('organization', type=str)        
 
     def handle(self, *args, **options):
-        facility_name: str = options['facility']
+        organization_name: str = options['organization']
         try:
-            facility = Facility.objects.get(name=facility_name)
-        except Facility.DoesNotExist as e:
+            organization = Organization.objects.get(name=organization_name)
+        except Organization.DoesNotExist as e:
             self.stdout.write(
                 self.style.ERROR(
-                    f'There is no facility named "{facility_name}" '
+                    f'There is no organization named "{organization_name}" '
                     f'in the database\n{e}\n'
                 )
             )
@@ -40,7 +40,7 @@ class Command(BaseCommand):
             )
             return
         edges_qs = NetworkEdge.objects.filter(
-            facilities=facility,
+            organizations=organization,
             child__node_set=user
         )
         logger.debug(f'{edges_qs.count()=}')
@@ -55,7 +55,7 @@ class Command(BaseCommand):
         for edge in edges_qs:
             logger.debug(f'{edge.child.user}')
             user = edge.child.user
-            site = facility.site
+            site = organization.site
             try:
                 slug = Slug.objects.get(
                     user=user,

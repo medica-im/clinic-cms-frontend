@@ -1,17 +1,17 @@
 import logging
 from django.contrib.sites.shortcuts import get_current_site
-from facility.models import Facility
+from facility.models import Organization
 from django.utils.translation import activate
 
 logger = logging.getLogger(__name__)
 
-def get_facility(request):
+def get_organization(request):
     site = get_current_site(request)
     logger.debug(f'{site=}')
     try:
-        facility = Facility.objects.get(site=site)
-        activate(facility.language)
-        logger.debug(f'{facility=}')
-        return facility
-    except Facility.DoesNotExist:
+        org = Organization.objects.get(site=site)
+        activate(org.language)
+        logger.debug(f'{org=}')
+        return org
+    except Organization.DoesNotExist:
         return

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query'
 	import { userData } from '$lib/store/userStore';
-	import { facilitiesData } from '$lib/store/facilityStore';
+	import fetchFacilitiesStore from '$lib/store/facilityStore';
 	import { fly } from 'svelte/transition';
 	import {
     Button,
@@ -11,25 +11,36 @@
     CardHeader,
     CardSubtitle,
     CardText,
-    CardTitle
+    CardTitle,
+Form
     } from 'sveltestrap';
+	import CircularProgress from '@smui/circular-progress';
     import LL from '$i18n/i18n-svelte'
 	//export let posts;
 	import Ghost from '$lib/Ghost/Ghost.svelte';
 	const queryClient = new QueryClient()
+	const [facilitiesData, loading, error, get] = fetchFacilitiesStore();
 </script>
 
 <svelte:head>
 	<title>
-		Maison de santé de Vedène
+		{$facilitiesData.formatted_name || ""}
 	</title>
 </svelte:head>
 
+
+{#if $loading}
+<div style="display: flex; justify-content: center">
+	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+</div>
+{:else if $error}
+Error: {$error}
+{:else}
 <section in:fly={{ y: -100, duration: 500, delay: 500 }} out:fly={{ duration: 500 }}>
 	<div class="container">
 		<div class="row align-items-start">
 		  <div class="col">
-			{$LL.WELCOME()} dans Maison de santé pluriprofessionnelle de Vedène
+			{$LL.WELCOME()} dans la {$facilitiesData.formatted_name}
 			{#if $userData.username}
 			<span style="text-transform: capitalize;">{$userData.username}</span>{/if}
 			!
@@ -45,3 +56,4 @@
 		  </div>
 		</div>
 </section>
+{/if}

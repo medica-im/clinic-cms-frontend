@@ -1,51 +1,104 @@
 <script context="module">
-    //import { page } from '$app/stores';
-    //let slug = $page.params.slug;
-    export async function load({ params, fetch}) {
+	//import { page } from '$app/stores';
+	//let slug = $page.params.slug;
+	import { get } from 'svelte/store';
+	import { variables } from '$lib/utils/constants';
+
+	export async function load({ params, fetch }) {
 		const { slug } = params;
-        const { url } = fetch;
-        console.log(`slug:${slug}`);
-        console.log(`url:${slug}`);
-        let directory_slug;
-        if (slug === undefined) {
-            directory_slug = url;
-        } else {
-            directory_slug = slug;
-        }
+		const { url } = fetch;
+		console.log(`slug:${slug}`);
+		console.log(`url:${url}`);
+		let directory_slug;
+		if (slug === undefined) {
+			directory_slug = url;
+		} else {
+			directory_slug = slug;
+		}
 		return { props: { directory_slug: directory_slug } };
 	}
 </script>
 
 <script>
-    import { afterUpdate, onMount } from 'svelte';
-	import { workforceData } from '$lib/store/workforceStore';
-    import WorkerPage from '$lib/Workforce/WorkerPage.svelte';
-    import { dataset_dev } from 'svelte/internal';
-    import CircularProgress from '@smui/circular-progress';
-    export let directory_slug;
+    import LL from '$i18n/i18n-svelte';
+	import { afterUpdate, onMount } from 'svelte';
+	import WorkerPage from '$lib/Workforce/WorkerPage.svelte';
+	import WorkerPageCached from '$lib/Workforce/WorkerPageCached.svelte';
+	import { dataset_dev } from 'svelte/internal';
+	import CircularProgress from '@smui/circular-progress';
+    import IconButton  from '@smui/icon-button';
+	export let directory_slug;
+	import { tick } from 'svelte';
+	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+    import { workforceData, workforceDataCached, getWorkforceDataCached, workerTitle, workerSlug } from '$lib/store/workforceStore';
+	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query'
 
-    let workerData;
-    async function lazyLoading() {
-		if ($workforceData.length < 1) {
-			//await fetchWorkforce();
-            console.log(workforceData);
-            console.log(typeof(workforceData));
+    const queryClient = new QueryClient()
+	let wfd = [];
+
+    $workerSlug = directory_slug;
+
+	/*function getWFD() {
+
+const workerData = $workforceData.find(element => element.slug == directory_slug);
+if ( workerData === undefined ) {
+    throw new Error(`La page ${directory_slug} n'existe pas.`);
+}
+console.log(`workerData:${workerData.formatted_name}`);
+return workerData;
+};*/
+
+onMount(async () => { 
+ wfd = await getWorkforceDataCached();
+ })
+
+
+	async function promise(worker) {
+		let id = worker.id;
+		console.log(`id:${id}`);
+		let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/`;
+		const [response, error] = await handleRequestsWithPermissions(fetch, apiUrl);
+		if (response) {
+			console.log(`workerData: ${JSON.stringify(response)}`);
+			return response;
+		} else {
+			throw new Error(error);
 		}
-        const workerData = $workforceData.find(element => element.slug == directory_slug);
-        if ( workerData === undefined ) {
-            throw new Error(`La page ${directory_slug} n'existe pas.`);
-        }
-        console.log(`workerData:${workerData.formatted_name}`);
-        return workerData;
-	};
+	}
+
+
 </script>
 
-{#await lazyLoading()}
-<div style="display: flex; justify-content: center">
-    <CircularProgress style="height: 32px; width: 32px;" indeterminate />
-</div>
-{:then data}
-<WorkerPage workerData={data}/>
-{:catch error}
-	<p style="color: red">{error.message}</p>
-{/await}
+<svelte:head>
+   <title>{$workerTitle}</title>
+</svelte:head>
+
+<main>
+	<!--
+	{#if $workforceData.length}
+		{#await promise($workforceData.find((element) => element.slug == directory_slug))}
+			<div style="display: flex; justify-content: center">
+				<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+			</div>
+		{:then wD}
+        <div style="display: flex; align-items: center;">
+            <IconButton class="material-icons" href="/annuaire"
+              >arrow_back</IconButton
+            ><a href="/annuaire">{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</a>
+          </div>
+			<WorkerPage workerData={wD} />
+		{:catch error}
+			<p style="color: red">{error.message}</p>
+		{/await}
+	{:else}
+		<div style="display: flex; justify-content: center">
+			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+		</div>
+	{/if}
+    -->
+	<QueryClientProvider client={queryClient}>
+
+		<WorkerPageCached slug={directory_slug} />
+		 
+		  </QueryClientProvider>
+</main>

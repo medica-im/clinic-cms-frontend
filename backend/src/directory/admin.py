@@ -2,7 +2,7 @@ import logging
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from facility.models import Facility
+from facility.models import Organization
 from .models import (
     Slug,
     RejectSlug
