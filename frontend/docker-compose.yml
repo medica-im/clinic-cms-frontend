@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   nodeserver:
+    restart: always
     env_file:
       - .env
     build:
