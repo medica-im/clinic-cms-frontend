@@ -7,26 +7,25 @@
         if(browser) {
             const leaflet = await import('leaflet');
 
-            const map = leaflet.map('map').setView([geoData.latitude, geoData.longitude], geoData.zoom);
+            const map = leaflet.map(geoData.name).setView([geoData.latitude, geoData.longitude], geoData.zoom);
 
             leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-
-            leaflet.marker([51.5, -0.09]).addTo(map)
-                .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-                .openPopup();
+            leaflet.marker([geoData.latitude, geoData.longitude]).addTo(map)
+            //    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            //    .openPopup();
         }
     });
 </script>
 
 <main>
-    <div id="map"></div>
+    <div id="{geoData.name}" class="map"></div>
 </main>
 
 <style>
     @import 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
-    main #map {
-        height: 800px;
+    main .map {
+        height: 400px;
     }
 </style>

@@ -135,14 +135,14 @@ class Address(models.Model):
     public_visible = models.BooleanField(default=False)
     contact_visible = models.BooleanField(default=False)
     latitude = models.DecimalField(
-        max_digits=9,
-        decimal_places=7,
+        max_digits=17,
+        decimal_places=15,
         null=True,
         blank=True,
     )
     longitude = models.DecimalField(
-        max_digits=10,
-        decimal_places=7,
+        max_digits=17,
+        decimal_places=15,
         null=True,
         blank=True,
     )

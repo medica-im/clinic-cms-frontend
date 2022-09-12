@@ -1,34 +1,41 @@
 <script>
 	import { onMount } from 'svelte';
-    import { beforeUpdate, afterUpdate } from 'svelte';
+	import { beforeUpdate, afterUpdate } from 'svelte';
 	export let contactData;
 	let addressData = {
-        "formattedName": null,
-			"street": null,
-			"zip": null,
-			"city": null,
-			"state": null
-    };
+		formattedName: null,
+		street: null,
+		zip: null,
+		city: null,
+		state: null
+	};
 
-    $: contactData && createAddressData();
+	$: contactData && createAddressData();
 
-    function createAddressData() {
-        addressData = {
-			"formattedName": contactData.formatted_name,
-			"street": contactData.addresses[0].street,
-			"zip": contactData.addresses[0].zip,
-			"city": contactData.addresses[0].city,
-			"state": contactData.addresses[0].state
-		};
-
-    };
+	function createAddressData() {
+		if (contactData.addresses.length > 0) {
+			addressData = {
+				formattedName: contactData.formatted_name,
+				street: contactData.addresses[0].street,
+				zip: contactData.addresses[0].zip,
+				city: contactData.addresses[0].city,
+				state: contactData.addresses[0].state,
+				phones: contactData.phonenumbers
+			};
+		}
+	}
 </script>
 
 <address>
-	{addressData?.formattedName ?? ''}<br />
-	{addressData?.street ?? ''}<br />
-	{addressData?.zip ?? ''}
-	{addressData?.city ?? ''}
-    {#if addressData.state}<br />
-	{addressData?.state ?? ''}{/if}
+	{addressData?.street ?? 'street'}<br />
+	{addressData?.zip ?? 'zip'}
+	{addressData?.city ?? 'city'}
+	{#if addressData.state}<br />
+		{addressData?.state}
+	{/if}
+	{#if addressData.phones}<br />
+	{#each addressData.phones as phone}
+	{phone.phone}
+	{/each}
+	{/if}
 </address>
