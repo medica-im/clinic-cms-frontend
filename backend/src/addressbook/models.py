@@ -1,8 +1,6 @@
 from django.conf import settings
-from django.core.files.storage import get_storage_class
 from django.db import models
 from django.db.models import Q
-from django.utils.functional import LazyObject
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.functions import Length
@@ -18,22 +16,19 @@ from taggit.managers import TaggableManager
 from django.contrib.auth import get_user_model
 from access.models import Role
 from simple_history.models import HistoricalRecords
+from easy_thumbnails.signals import saved_file
+from easy_thumbnails.signal_handlers import generate_aliases
 
 CharField.register_lookup(Length)
 
 User = get_user_model()
 
+saved_file.connect(generate_aliases)
 
-class AvatarStorage(LazyObject):
-    def _setup(self):
-        AVATAR_FILE_STORAGE = getattr(
-            settings,
-            'AVATAR_FILE_STORAGE',
-            settings.DEFAULT_FILE_STORAGE
-        )
-        self._wrapped = get_storage_class(AVATAR_FILE_STORAGE)()
-
-avatar_storage = AvatarStorage()
+def profile_image_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    path = settings.AVATAR_FILE_STORAGE
+    return '{0}/{1}'.format(path, filename)
 
 social_net_prefixes = dict(
     Skype='skype:',
@@ -86,7 +81,7 @@ class Contact(models.Model):
     url = models.URLField(blank=True)
     blurb = models.TextField(null=True, blank=True)
     profile_image = ThumbnailerImageField(
-        upload_to="profile_images/",
+        upload_to=profile_image_path,
         blank=True,
         null=True
     )
@@ -98,10 +93,6 @@ class Contact(models.Model):
     class Meta:
         ordering = ['formatted_name', 'last_name', 'first_name']
 
-    def __init__(self, *args, **kwargs):
-        super(Contact, self).__init__(*args, **kwargs)
-        self.profile_image.storage = avatar_storage
-        self.profile_image.thumbnail_storage = avatar_storage
 
     def __str__(self):
         if self.formatted_name:

@@ -344,10 +344,14 @@ if DEBUG:
     os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true" # only use in development 
 
 THUMBNAIL_ALIASES = {
-    '': {
-        'avatar': {'size': (360, 0), 'crop': False},
+    'addressbook.Contact.profile_image': {
+        'avatar_facebook': {'size': (170, 170), 'crop': False},
+        'avatar_linkedin_twitter': {'size': (400, 400), 'crop': False},
     },
 }
+
+DEFAULT_FILE_STORAGE='django.core.files.storage.FileSystemStorage'
+AVATAR_FILE_STORAGE = config('AVATAR_FILE_STORAGE', default=MEDIA_ROOT)
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

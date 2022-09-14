@@ -54,12 +54,12 @@
 				<div class="card">
 					<!--img class="card-img-top" src="..." alt="Card image cap" /-->
 					<div class="card-body">
-					<div id="{facility.name}_anchor" />
+						<div id="{facility.name}_anchor" />
 						<h5 class="card-title">{facility.contact.formatted_name}</h5>
 						<p class="card-text">
-						<Address contactData={facility.contact} />
-						<LeafletMap geoData={createFacilityGeoData(facility)} />
-					</p>
+							<Address contactData={facility.contact} />
+							<LeafletMap geoData={createFacilityGeoData(facility)} />
+						</p>
 					</div>
 				</div>
 			{/if}

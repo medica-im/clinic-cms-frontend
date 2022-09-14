@@ -4,9 +4,10 @@ from workforce.models import (
     NetworkEdge,
     NodeSet,
     WorkforceNetworkedgeOrganizations,
+    WorkforceNetworkedgeFacilities,
     Label,
 )
-from facility.models import Organization
+from facility.models import Organization, Facility
 from django.utils.translation import get_language
 from facility.utils import get_organization
 
@@ -17,6 +18,11 @@ def occupation(node: NetworkNode, organization: Organization):
     user = NodeSet.objects.get(name="user")
     occupation = NodeSet.objects.get(name="occupation")
     medical_specialty = NodeSet.objects.get(name="medical_specialty")
+    facility_ids = list(
+        Facility.objects
+        .filter(active=True, organization=organization)
+        .values_list("id", flat=True)
+    )
     if not node.node_set == user:
         return
     django_user = node.user
@@ -51,6 +57,17 @@ def occupation(node: NetworkNode, organization: Organization):
                 public_facing=edge_org.public_facing
             except WorkforceNetworkedgeOrganizations.DoesNotExist:
                 pass
+            facilities = (
+                NetworkEdge.facilities.through.objects
+                        .filter(
+                            networkedge=edge,
+                            facility_id__in=facility_ids
+                        )
+                        .values(
+                            "facility__name",
+                            "facility__contact__formatted_name"
+                        )
+            )
             if (edge.parent.node_set == medical_specialty):
                 dct["specialty"] = {
                     "name":edge.parent.name,
@@ -60,10 +77,13 @@ def occupation(node: NetworkNode, organization: Organization):
                         'S',
                         language
                     ),
-                    "public_facing":public_facing    
+                    "public_facing":public_facing,
+                    "facilities": facilities
+                    #edge.facilities.all().values("name", "contact__formatted_name"),
                 }
             else:
                 dct["public_facing"]=public_facing
+                dct["facilities"]=facilities
         occupations.append(dct)
     return occupations
 

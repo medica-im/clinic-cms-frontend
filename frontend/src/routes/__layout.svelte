@@ -48,6 +48,7 @@
 <script lang="ts">
 	import Header from '../components/Header/Header.svelte';
 	import { setLocale } from '$i18n/i18n-svelte';
+	import { page } from '$app/stores';
 	let locale: Locales;
 	setLocale(locale);
 
@@ -96,6 +97,17 @@
 			userData.update(() => response);
 		}
 	});
+
+	/*$: if ($page.url.hash) {
+  // Workaround until https://github.com/sveltejs/kit/issues/2664 is fixed
+  if (typeof window !== "undefined" && window.location.hash) {
+    const deepLinkedElement = document.getElementById(
+      window.location.hash.substring(1)
+    );
+    if (deepLinkedElement) {
+		window.setTimeout(() => deepLinkedElement.scrollIntoView(), 100);    }
+  }
+}*/
 
 </script>
 

@@ -38,6 +38,7 @@
 	<!--Select {optionIdentifier} {labelIdentifier} items={$workforceData} {groupBy}
   ></Select-->
 	<Search />
+	<ul class="list-group">
 	{#each $occupations as o}
 		{#if $filteredWorkforceDataCached
 			.map(function (currentElement) {
@@ -46,18 +47,19 @@
 			.flat()
 			.map((x) => x.name)
 			.includes(o.name)}
+			<li class="list-group-item">
 			<h3>{o.label}</h3>
-			<ul>
+			<div class="row row-cols-1 row-cols-md-2 g-4">
 				{#each $filteredWorkforceDataCached as worker}
 					{#each worker.occupations as occupation}
 						{#if occupation.name == o.name}
-							<li>
-								<WorkerList workerData={worker} />
-							</li>
+							<WorkerList workerData={worker} />
 						{/if}
 					{/each}
 				{/each}
-			</ul>
+			</div>
+		</li>
 		{/if}
 	{/each}
+</ul>
 </main>

@@ -18,7 +18,8 @@
 		workforceDataCached,
 		getWorkforceDataCached,
 		workerTitle,
-		workerSlug
+		workerSlug,
+		occupations
 	} from '$lib/store/workforceStore';
 	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 	import { useQuery } from '@sveltestack/svelte-query';
@@ -27,6 +28,7 @@
 	import Editor from 'cl-editor/src/Editor.svelte';
 	import { dataset_dev } from 'svelte/internal';
 	import Appointment from './Appointment.svelte';
+	import facilityStore from '$lib/store/facilityStore';
 
 	let html = '';
 	let editor;
@@ -98,7 +100,7 @@
 		<div class="row g-0">
 			<div class="col-md-4">
 				<img
-					src={getUrl($queryResult.data.profile_picture_url)}
+					src={getUrl($queryResult.data.profile_picture_url.lt)}
 					class="img-fluid rounded-start"
 					alt="profile"
 				/>
@@ -112,7 +114,21 @@
 								<div class="ms-2 me-auto">
 									<div class="fw-bold">{occupation.label}</div>
 									{#if occupation.specialty}
-										Spécialité: {occupation.specialty.label}
+										Spécialité: {occupation.specialty.label}<br />
+										Lieu d'exercice:
+										{#each occupation.specialty.facilities as facility}
+											<a href="/contact#{facility.facility__name}_anchor"
+												>{facility.facility__contact__formatted_name}</a
+											>
+										{/each}
+									{:else if occupation.facilities.length > 0}
+										<br />
+										Lieu d'exercice:
+										{#each occupation.facilities as facility}
+											<a href="/contact#{facility.facility__name}_anchor"
+												>{facility.facility__contact__formatted_name}</a
+											>
+										{/each}
 									{/if}
 								</div>
 							</li>

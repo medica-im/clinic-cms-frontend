@@ -5,8 +5,8 @@ const BASE_API_URI: string = import.meta.env.VITE_DEV
 	: import.meta.env.VITE_BASE_API_URI_PROD;
 
 const BASE_URI: string = import.meta.env.VITE_DEV
-	? import.meta.env.VITE_BASE_BASE_URI_DEV
-	: import.meta.env.VITE_BASE_BASE_URI_PROD;
+	? import.meta.env.VITE_BASE_URI_DEV
+	: import.meta.env.VITE_BASE_URI_PROD;
 
 const GHOST_API_KEY = import.meta.env.VITE_GHOST_API_KEY;
 

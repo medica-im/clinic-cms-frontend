@@ -71,9 +71,19 @@ class WorkforceSerializer(serializers.ModelSerializer):
 
     def get_profile_picture_url(self, obj):
         try:
-            return obj.user.contact.profile_image["avatar"].url
+            fb = obj.user.contact.profile_image["avatar_facebook"].url
+            logger.debug(f'{fb=}')
         except:
-            return
+            fb = None
+        try:
+            lt = obj.user.contact.profile_image["avatar_linkedin_twitter"].url
+            logger.debug(f'{lt=}')
+        except:
+            lt = None
+        return {
+            "fb": fb,
+            "lt": lt
+        }
 
     def get_account_email(self, obj):
         request = self.context["request"]

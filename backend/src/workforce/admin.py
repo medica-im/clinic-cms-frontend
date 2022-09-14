@@ -79,7 +79,11 @@ def display_node_set(node):
         return
     
 def node_link(node: NetworkNode):
-    txt = node.name
+    try:
+        txt = f'{node.user.contact.formatted_name} '
+    except:
+        txt = ""
+    txt += node.name
     href = get_node_href(node)
     return f'<a href="{href}">{txt}</a>'
 
@@ -114,8 +118,11 @@ def display_node(node, obj):
         edge = get_edge(node, obj)
         logger.debug(f'{edge=}')
         organizations = display_organizations(edge)
+        facilities = display_facilities(edge)
         if organizations:
             display+=f" [{', '.join(list(organizations))}]"
+        if facilities:
+            display+=f" [{', '.join(list(facilities))}]"
     return mark_safe(display)
 
 def display_node_qs(qs, obj=None):
@@ -169,6 +176,39 @@ class UserOrganizationFilter(admin.SimpleListFilter):
         return queryset.filter(node_set=user, id__in=edge_child_ids)
 
 
+class UserFacilityFilter(admin.SimpleListFilter):
+    title = 'User facility'
+    parameter_name = 'user_facility'
+
+    def lookups(self, request, model_admin):
+        lookups = list(Facility.objects.values_list('id', 'name'))
+        lookups.append((0, _('None')))
+        return lookups
+        
+    def queryset(self, request, queryset):
+
+        if self.value() == None:
+            return queryset
+        try:
+            user=NodeSet.objects.get(name="user")
+        except NodeSet.DoesNotExist:
+            return queryset
+        if self.value() == '0':
+            edge_child_ids = (
+                NetworkEdge.objects
+                .filter(facilities=None)
+                .values_list("child_id", flat=True)
+            )
+        else:
+            facility = Facility.objects.get(id=int(self.value()))
+            edge_child_ids = (
+            NetworkEdge.objects
+            .filter(facilities=facility)
+            .values_list("child_id", flat=True)
+        )
+        return queryset.filter(node_set=user, id__in=edge_child_ids)
+
+
 class EdgeOrganizationFilter(admin.SimpleListFilter):
     title = 'Edge organization'
     parameter_name = 'edge_organization'
@@ -186,6 +226,7 @@ class EdgeOrganizationFilter(admin.SimpleListFilter):
         else:
             organization = Organization.objects.get(id=int(self.value()))
         return queryset.filter(organizations=organization)
+
 
 class EdgeFacilityFilter(admin.SimpleListFilter):
     title = 'Edge facility'
@@ -276,18 +317,22 @@ class NetworkNodeAdmin(TranslationAdmin):
     list_display = (
         'id',
         'name',
+        'formatted_name_tag',
         'label_tag',
         'parents_tag',
         'mesh',
         'node_set',
     )
+    search_fields = ['name', 'user__contact__formatted_name']
     list_filter = (
         'node_set',
         UserOrganizationFilter,
+        UserFacilityFilter,
     )
     autocomplete_fields = ['mesh',]
     fields = (
         'id',
+        'formatted_name_tag',
         'name',
         'label_tag',
         'mesh',
@@ -299,6 +344,7 @@ class NetworkNodeAdmin(TranslationAdmin):
     )
     readonly_fields = (
         'id',
+        'formatted_name_tag',
         'label_tag',
         'parents_tag',
         'ancestors_tag',
@@ -346,6 +392,11 @@ class NetworkNodeAdmin(TranslationAdmin):
         return display_node_qs(obj.descendants())
 
     descendants_tag.short_description = "Descendants"
+    
+    def formatted_name_tag(self, obj):
+        return obj.user.contact.formatted_name
+
+    formatted_name_tag.short_description = "Contact"
 
 
 @admin.register(Label)
