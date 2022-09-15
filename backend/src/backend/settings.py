@@ -24,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 CONFIG_DIR = Path(BASE_DIR)
 config = AutoConfig(search_path = CONFIG_DIR)
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 SITE_ID = 1
@@ -289,6 +290,8 @@ STATIC_URL = 'static/'
 STATIC_ROOT = config('STATIC_ROOT')
 
 MEDIA_ROOT = config('MEDIA_ROOT')
+ALLOWED_INCLUDE_ROOTS = [MEDIA_ROOT]
+
 MEDIA_URL = '/media/'
 
 # Default primary key field type
