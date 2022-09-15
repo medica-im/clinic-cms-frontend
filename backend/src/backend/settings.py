@@ -290,7 +290,6 @@ STATIC_URL = 'static/'
 STATIC_ROOT = config('STATIC_ROOT')
 
 MEDIA_ROOT = config('MEDIA_ROOT')
-ALLOWED_INCLUDE_ROOTS = [MEDIA_ROOT]
 
 MEDIA_URL = '/media/'
 
@@ -354,7 +353,7 @@ THUMBNAIL_ALIASES = {
 }
 
 DEFAULT_FILE_STORAGE='django.core.files.storage.FileSystemStorage'
-AVATAR_FILE_STORAGE = config('AVATAR_FILE_STORAGE', default=MEDIA_ROOT)
+AVATAR_FILE_STORAGE = config('AVATAR_FILE_STORAGE', default="")
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
