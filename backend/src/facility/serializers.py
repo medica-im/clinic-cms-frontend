@@ -31,6 +31,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'category',
             'contact',
             'facility',
+            'registration',
         ]
         depth = 4
 

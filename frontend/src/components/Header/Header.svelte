@@ -1,9 +1,14 @@
 <script lang="ts">
+	import IconButton, { Icon } from '@smui/icon-button';
+	import CircularProgress from '@smui/circular-progress';
 	import { page } from '$app/stores';
 	import { userData } from '$lib/store/userStore';
 	import { logOutUser } from '$lib/utils/requestUtils';
-	import { locale } from '$i18n/i18n-svelte'
-	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte'
+	import { locale } from '$i18n/i18n-svelte';
+	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
+	import fetchFacilitiesStore from '$lib/store/facilityStore';
+	import { mdiTwitter, mdiFacebook, mdiLinkedin } from '@mdi/js';
+	import { Svg } from '@smui/common/elements';
 	import {
 		Collapse,
 		Navbar,
@@ -23,11 +28,21 @@
 	function handleUpdate(event) {
 		isOpen = event.detail.isOpen;
 	}
+	function isTwitter(element) {
+		return element.type == 'Twitter';
+	}
+	function hasSoMed(socialnetworks, somed) {
+		return socialnetworks.some((e) => e.type == somed)
+	}
+	function getUrl(array, type) {
+		var element = array.find((e) => e.type == type);
+		return element.url
+	}
+	const [facilitiesData, loading, error, get] = fetchFacilitiesStore();
 </script>
 
-
 <header>
-	<Navbar class="mb-2 navbar-dark bg-primary" expand="lg">
+	<Navbar class="mb-2 navbar bg-light" expand="lg">
 		<NavbarBrand href="/">MSP Vedène</NavbarBrand>
 		<NavbarToggler on:click={() => (isOpen = !isOpen)} />
 		<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
@@ -36,32 +51,94 @@
 					<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}>Annuaire</NavLink>
+					<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}>{$LL.NAVBAR.ADDRESSBOOK()}</NavLink>
 				</NavItem>
 				<NavItem>
 					<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>
 				</NavItem>
 				{#if !$userData.username}
-				<NavItem>
-					<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}>{$LL.NAVBAR.LOGIN()}</NavLink
-					>
-				</NavItem>
-				<NavItem>
-					<NavLink href="/accounts/register" active={$page.url.pathname === '/accounts/register'}>{$LL.NAVBAR.REGISTER()}</NavLink
-					>
-				</NavItem>
+					<NavItem>
+						<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}
+							>{$LL.NAVBAR.LOGIN()}</NavLink
+						>
+					</NavItem>
+					{#if facilitiesData.registration === true}
+					<NavItem>
+						<NavLink href="/accounts/register" active={$page.url.pathname === '/accounts/register'}
+							>{$LL.NAVBAR.REGISTER()}</NavLink
+						>
+					</NavItem>
+					{/if}
 				{:else}
-				<NavItem>
-					<NavLink href="/accounts/user/{$userData.username}-{$userData.id}" active={$page.url.pathname === '/accounts/user'}>Hi, {$userData.username}</NavLink>
-				</NavItem>
-				<NavItem>
-					<NavLink href={null} on:click={logOutUser}>{$LL.NAVBAR.LOGOUT()}</NavLink
-					>
-				</NavItem>
+					<NavItem>
+						<NavLink
+							href="/accounts/user/{$userData.username}-{$userData.id}"
+							active={$page.url.pathname === '/accounts/user'}>Hi, {$userData.username}</NavLink
+						>
+					</NavItem>
+					<NavItem>
+						<NavLink href={null} on:click={logOutUser}>{$LL.NAVBAR.LOGOUT()}</NavLink>
+					</NavItem>
 				{/if}
 				<NavItem>
-				    <LocaleSwitcher />
-			    </NavItem>
+					{#if $loading}
+						<div style="display: flex; justify-content: center">
+							<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+						</div>
+					{:else if $error}
+						Error: {$error}
+					{:else if hasSoMed($facilitiesData.contact.socialnetworks,'Twitter')}
+						<a href="{getUrl($facilitiesData.contact.socialnetworks, "Twitter")}">
+							<IconButton class="material-icons" size="button">
+								<Icon component={Svg} viewBox="0 0 24 24">
+									<path fill="currentColor" d={mdiTwitter} />
+								</Icon>
+							</IconButton>
+						</a>
+					{/if}
+				</NavItem>
+				<NavItem>
+					{#if $loading}
+						<div style="display: flex; justify-content: center">
+							<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+						</div>
+					{:else if $error}
+						Error: {$error}
+					{:else if hasSoMed($facilitiesData.contact.socialnetworks,'Facebook')}
+						<a href="{getUrl($facilitiesData.contact.socialnetworks, "Facebook")}">
+							<IconButton class="material-icons" size="button">
+								<Icon component={Svg} viewBox="0 0 24 24">
+									<path fill="currentColor" d={mdiFacebook} />
+								</Icon>
+							</IconButton>
+						</a>
+					{/if}
+				</NavItem>
+				<NavItem>
+					{#if $loading}
+						<div style="display: flex; justify-content: center">
+							<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+						</div>
+					{:else if $error}
+						Error: {$error}
+					{:else if hasSoMed($facilitiesData.contact.socialnetworks,'LinkedIn')}
+						<a href="{getUrl($facilitiesData.contact.socialnetworks, "LinkedIn")}">
+							<IconButton class="material-icons" size="button">
+								<Icon component={Svg} viewBox="0 0 24 24">
+									<path fill="currentColor" d={mdiLinkedin} />
+								</Icon>
+							</IconButton>
+						</a>
+					{/if}
+				</NavItem>
+				<!--{#if $facilitiesData.contact.socialnetworks.some(e => e.type == 'Twitter')}
+				<IconButton class="material-icons"
+					>Twitter</IconButton
+				  >
+				{/if}-->
+				<NavItem>
+					<LocaleSwitcher />
+				</NavItem>
 				<!--Dropdown nav inNavbar>
 					<DropdownToggle nav caret>Options</DropdownToggle>
 					<DropdownMenu end>

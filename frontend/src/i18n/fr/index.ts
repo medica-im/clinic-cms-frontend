@@ -20,6 +20,7 @@ const fr: Translation = {
     }
   },
   NAVBAR: {
+    ADDRESSBOOK: "Annuaire",
 		LOGIN: "Se connecter",
 		REGISTER: "S'enregistrer",
     LOGOUT: "Se déconnecter"

@@ -61,6 +61,10 @@ type RootTranslation = {
 	}
 	NAVBAR: {
 		/**
+		 * Addressbook
+		 */
+		ADDRESSBOOK: string
+		/**
 		 * Login
 		 */
 		LOGIN: string
@@ -121,6 +125,10 @@ export type TranslationFunctions = {
 		}
 	}
 	NAVBAR: {
+		/**
+		 * Addressbook
+		 */
+		ADDRESSBOOK: () => LocalizedString
 		/**
 		 * Login
 		 */

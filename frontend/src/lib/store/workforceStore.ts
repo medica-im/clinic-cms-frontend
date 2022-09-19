@@ -90,37 +90,55 @@ export const workerTitle = derived(
 	}
 );
 
-export const getWorkforceDataCached = async ()=>{
+export const getWorkforceDataCached = async () => {
 	// set cache lifetime in seconds
-	var cachelife = 60000; 
-	 //get cached data from local storage
-	  var cacheddata = localStorage.getItem('wfd'); 
-	  if(cacheddata){
-	   cacheddata = JSON.parse(cacheddata);
-	   var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
-		}
-	  //If cached data available and not expired return them. 
-	  if (cacheddata  && !expired){
-	  workforceDataCached.set(cacheddata.data);
-	   return cacheddata.data ;
-	  }else{
-	  //otherwise fetch data from api then save the data in localstorage
-	  const workforceUrl = `${variables.BASE_API_URI}/workforce/`;
-	  const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-	  if (response) {
-		  let data = response as Workforce;
-		  console.log(typeof data);
-		  console.log(data.constructor);
-		  console.log(data);
-	  var json = {data: data, cachetime: Date.now() / 1000}
-	  localStorage.setItem('wfd', JSON.stringify(json));
-	  workforceDataCached.set(data);
-	  return data;
-	  } else if (err) {
-		  console.log(typeof err);
-		  console.log(err);
-	  }
-  
-	  }
+	var cachelife = 15;
+	//get cached data from local storage
+	var cacheddata = localStorage.getItem('wfd');
+	if (cacheddata) {
+		cacheddata = JSON.parse(cacheddata);
+		var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
 	}
-  
+	//If cached data available and not expired return them. 
+	if (cacheddata && !expired) {
+		workforceDataCached.set(cacheddata.data);
+		return cacheddata.data;
+	} else {
+		//otherwise fetch data from api then save the data in localstorage
+		const workforceUrl = `${variables.BASE_API_URI}/workforce/`;
+		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
+		if (response) {
+			let data = response as Workforce;
+			console.log(typeof data);
+			console.log(data.constructor);
+			console.log(data);
+			var json = { data: data, cachetime: Date.now() / 1000 }
+			localStorage.setItem('wfd', JSON.stringify(json));
+			workforceDataCached.set(data);
+			return data;
+		} else if (err) {
+			console.log(typeof err);
+			console.log(err);
+		}
+
+	}
+}
+
+export const getWorkforceData = async () => {
+	//otherwise fetch data from api then save the data in localstorage
+	const workforceUrl = `${variables.BASE_API_URI}/workforce/`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
+	if (response) {
+		let data = response as Workforce;
+		console.log(typeof data);
+		console.log(data.constructor);
+		console.log(data);
+		//var json = { data: data, cachetime: Date.now() / 1000 }
+		//localStorage.setItem('wfd', JSON.stringify(json));
+		workforceDataCached.set(data);
+		return data;
+	} else if (err) {
+		console.log(typeof err);
+		console.log(err);
+	}
+}

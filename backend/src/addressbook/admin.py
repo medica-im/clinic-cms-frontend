@@ -54,7 +54,7 @@ class ContactFacilityFilter(admin.SimpleListFilter):
         return queryset.filter(facility=facility)
 
 
-class SocialInline(admin.TabularInline):
+class SocialInline(admin.StackedInline):
     model = SocialNetwork
     extra = 0
 

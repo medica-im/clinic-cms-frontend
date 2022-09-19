@@ -290,19 +290,16 @@ class SocialNetwork(models.Model):
         blank=True
     )
     handle = models.CharField(max_length=255, blank=True)
-    url = models.URLField(blank=True)
     type = models.CharField(max_length=255, choices=SocialNetworkType.choices)
     public_visible = models.BooleanField(default=False)
     contact_visible = models.BooleanField(default=False)
-
-    @property
-    def url(self):
-        prefixes = social_net_prefixes
-        prefix = getattr(settings, '%s_PREFIX' % self.type.upper(), prefixes[self.type])
-        return '%s%s' % (prefix, self.handle)
+    url = models.URLField(blank=True)
 
     def __str__(self):
-        return "%s %s: %s" % (self.contact.first_name, self.type, self.handle)
+        return (
+            f"{self.contact.formatted_name} {self.type} "
+            f"{self.handle or self.url}"
+        )
 
 
 class Profile(models.Model):

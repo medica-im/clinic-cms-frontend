@@ -64,6 +64,7 @@ class Organization(models.Model):
         null=True,
         blank=True,
     )
+    registration = models.BooleanField(default=False)
 
     objects = OrganizationManager()
 

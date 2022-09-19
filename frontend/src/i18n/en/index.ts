@@ -20,6 +20,7 @@ const en: BaseTranslation = {
 		}
 	},
 	NAVBAR: {
+		ADDRESSBOOK: "Addressbook",
 		LOGIN: "Login",
 		REGISTER: "Register",
 		LOGOUT: "Logout"
