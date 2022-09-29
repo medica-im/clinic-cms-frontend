@@ -16,10 +16,18 @@
 	import Actions from '@smui/card/src/Actions.svelte';
 	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 	import LL from '$i18n/i18n-svelte';
-	let wfd = [];
+	import { language } from '$lib/store/languageStore';
+	import { locale } from '$i18n/i18n-svelte';
+	let promise;
+
+	function onLocaleChange(...args) {
+		console.log($locale);
+		promise = getWorkforceDataCached();
+	}
+	$: onLocaleChange($locale)
 
 	onMount(async () => {
-		wfd = await getWorkforceDataCached();
+		promise = await getWorkforceDataCached();
 	});
 
 	console.log(workforceData);
@@ -34,6 +42,8 @@
 </svelte:head>
 
 <main>
+	{#await promise}
+	{:then data}
 	<Occupations />
 	<!--Select {optionIdentifier} {labelIdentifier} items={$workforceData} {groupBy}
   ></Select-->
@@ -62,4 +72,5 @@
 		{/if}
 	{/each}
 </ul>
+{/await}
 </main>

@@ -55,6 +55,7 @@ class ContactSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'formatted_name',
+            'formatted_name_definite_article',
             'url',
             'addresses',
             'phonenumbers',

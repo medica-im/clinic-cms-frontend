@@ -23,6 +23,12 @@
 		DropdownItem
 	} from 'sveltestrap/src';
 	import LL from '$i18n/i18n-svelte';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	let [facilitiesData, loading, error, get] = fetchFacilitiesStore();
+	function onLocaleChange(...args) {
+		[facilitiesData, loading, error, get] = fetchFacilitiesStore();
+	}
+	$: onLocaleChange($locale);
 	let isOpen = false;
 
 	function handleUpdate(event) {
@@ -32,18 +38,30 @@
 		return element.type == 'Twitter';
 	}
 	function hasSoMed(socialnetworks, somed) {
-		return socialnetworks.some((e) => e.type == somed)
+		return socialnetworks.some((e) => e.type == somed);
 	}
 	function getUrl(array, type) {
 		var element = array.find((e) => e.type == type);
-		return element.url
+		return element.url;
 	}
-	const [facilitiesData, loading, error, get] = fetchFacilitiesStore();
 </script>
 
 <header>
 	<Navbar class="mb-2 navbar bg-light" expand="lg">
-		<NavbarBrand href="/">MSP Vedène</NavbarBrand>
+		{#if $loading}
+			<div style="display: flex; justify-content: center">
+				<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+			</div>
+		{:else if $error}
+			Error: {$error}
+		{:else}
+			<NavbarBrand href="/"
+				>{capitalizeFirstLetter(
+					$facilitiesData.formatted_name,
+					$facilitiesData.language
+				)}</NavbarBrand
+			>
+		{/if}
 		<NavbarToggler on:click={() => (isOpen = !isOpen)} />
 		<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
 			<Nav class="ms-auto" navbar>
@@ -51,7 +69,9 @@
 					<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}>{$LL.NAVBAR.ADDRESSBOOK()}</NavLink>
+					<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}
+						>{$LL.NAVBAR.ADDRESSBOOK()}</NavLink
+					>
 				</NavItem>
 				<NavItem>
 					<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>
@@ -63,11 +83,13 @@
 						>
 					</NavItem>
 					{#if facilitiesData.registration === true}
-					<NavItem>
-						<NavLink href="/accounts/register" active={$page.url.pathname === '/accounts/register'}
-							>{$LL.NAVBAR.REGISTER()}</NavLink
-						>
-					</NavItem>
+						<NavItem>
+							<NavLink
+								href="/accounts/register"
+								active={$page.url.pathname === '/accounts/register'}
+								>{$LL.NAVBAR.REGISTER()}</NavLink
+							>
+						</NavItem>
 					{/if}
 				{:else}
 					<NavItem>
@@ -87,8 +109,8 @@
 						</div>
 					{:else if $error}
 						Error: {$error}
-					{:else if hasSoMed($facilitiesData.contact.socialnetworks,'Twitter')}
-						<a href="{getUrl($facilitiesData.contact.socialnetworks, "Twitter")}">
+					{:else if hasSoMed($facilitiesData.contact.socialnetworks, 'Twitter')}
+						<a href={getUrl($facilitiesData.contact.socialnetworks, 'Twitter')}>
 							<IconButton class="material-icons" size="button">
 								<Icon component={Svg} viewBox="0 0 24 24">
 									<path fill="currentColor" d={mdiTwitter} />
@@ -104,8 +126,8 @@
 						</div>
 					{:else if $error}
 						Error: {$error}
-					{:else if hasSoMed($facilitiesData.contact.socialnetworks,'Facebook')}
-						<a href="{getUrl($facilitiesData.contact.socialnetworks, "Facebook")}">
+					{:else if hasSoMed($facilitiesData.contact.socialnetworks, 'Facebook')}
+						<a href={getUrl($facilitiesData.contact.socialnetworks, 'Facebook')}>
 							<IconButton class="material-icons" size="button">
 								<Icon component={Svg} viewBox="0 0 24 24">
 									<path fill="currentColor" d={mdiFacebook} />
@@ -121,8 +143,8 @@
 						</div>
 					{:else if $error}
 						Error: {$error}
-					{:else if hasSoMed($facilitiesData.contact.socialnetworks,'LinkedIn')}
-						<a href="{getUrl($facilitiesData.contact.socialnetworks, "LinkedIn")}">
+					{:else if hasSoMed($facilitiesData.contact.socialnetworks, 'LinkedIn')}
+						<a href={getUrl($facilitiesData.contact.socialnetworks, 'LinkedIn')}>
 							<IconButton class="material-icons" size="button">
 								<Icon component={Svg} viewBox="0 0 24 24">
 									<path fill="currentColor" d={mdiLinkedin} />

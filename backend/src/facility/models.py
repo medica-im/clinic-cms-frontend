@@ -24,10 +24,15 @@ class Organization(models.Model):
     )
     formatted_name = models.CharField(
         max_length=255,
-        unique=True
+        blank=True,
+    )
+    formatted_name_definite_article = models.CharField(
+        max_length=255,
+        blank=True,
     )
     website_title = models.CharField(
-        max_length=255
+        max_length=255,
+        blank=True,
     )
     active = models.BooleanField(default=False)
     contact = models.OneToOneField(

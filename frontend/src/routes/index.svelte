@@ -18,14 +18,29 @@ Form
     import LL from '$i18n/i18n-svelte'
 	//export let posts;
 	import Ghost from '$lib/Ghost/Ghost.svelte';
+	import { locale } from '$i18n/i18n-svelte';
+	import { language } from '$lib/store/languageStore';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+
+let [facilitiesData, loading, error, get] = fetchFacilitiesStore();
+function onLocaleChange(...args) {
+	console.log($locale);
+	[facilitiesData, loading, error, get] = fetchFacilitiesStore();
+}
+$: onLocaleChange($locale)
 	const queryClient = new QueryClient()
-	const [facilitiesData, loading, error, get] = fetchFacilitiesStore();
 </script>
 
 <svelte:head>
+	{#if $loading}
+	<title></title>
+{:else if $error}
+Error: {$error}
+{:else}
 	<title>
-		{$facilitiesData.formatted_name || ""}
+		{capitalizeFirstLetter($facilitiesData.formatted_name, $language)}
 	</title>
+	{/if}
 </svelte:head>
 
 
@@ -40,7 +55,7 @@ Error: {$error}
 	<div class="container">
 		<div class="row align-items-start">
 		  <div class="col">
-			{$LL.WELCOME()} dans la {$facilitiesData.formatted_name}
+			{$LL.HOME.WELCOME()} {$facilitiesData.formatted_name_definite_article}
 			{#if $userData.username}
 			<span style="text-transform: capitalize;">{$userData.username}</span>{/if}
 			!

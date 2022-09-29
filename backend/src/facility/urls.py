@@ -14,6 +14,10 @@ urlpatterns = [
         views.OrganizationView.as_view(),
     ),
     path(
+        '<language>/',
+        views.OrganizationView.as_view(),
+    ),
+    path(
         'api-auth/',
         include('rest_framework.urls', namespace='rest_framework')
     )

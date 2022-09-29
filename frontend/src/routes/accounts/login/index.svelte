@@ -8,6 +8,7 @@
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { changeText } from '$lib/helpers/buttonText';
+	import LL from '$i18n/i18n-svelte';
 
 	let email = '',
 		password = '',
@@ -36,7 +37,7 @@
 </script>
 
 <svelte:head>
-	<title>Login | FullStack Django & SvelteKit</title>
+	<title>{$LL.LOGIN.LOGIN()}</title>
 </svelte:head>
 
 <section
@@ -44,31 +45,40 @@
 	in:fly={{ x: -100, duration: 500, delay: 500 }}
 	out:fly={{ duration: 500 }}
 >
-	<h1>Login</h1>
+	<h1>{$LL.LOGIN.LOGIN()}</h1>
 	{#if errors}
 		{#each errors as error}
 			<p class="center error">{error.error}</p>
 		{/each}
 	{/if}
 	<form class="form" on:submit|preventDefault={handleLogin}>
+		<div class="mb-3">
+			<label for="inputEmail" class="form-label">{$LL.EMAILADDRESS()}</label>
 		<input
+		id="inputEmail"
 			bind:value={email}
 			name="email"
 			type="email"
-			aria-label="Email address"
-			placeholder="Email address"
+			class="form-control"
+			aria-label={$LL.EMAILADDRESS()}
 			required
 		/>
+	</div>
+	<div class="mb-3">
+		<label for="inputPassword" class="form-label">{$LL.PASSWORD()}</label>
 		<input
+		id="inputPassword"
+		class="form-control"
 			bind:value={password}
 			name="password"
 			type="password"
-			aria-label="password"
-			placeholder="password"
+			aria-label={$LL.PASSWORD()}
 			required
 		/>
-		<button class="btn" type="submit" on:click={(e) => changeText(e, 'Signing in...')}>Login</button
+		</div>
+		<button class="btn btn-primary" type="submit" on:click={(e) => changeText(e, $LL.LOGIN.SIGNINGIN())}>{$LL.LOGIN.TOLOGIN()}</button
 		>
-		<p class="center">No account yet? <a href="/accounts/register">Get started</a>.</p>
+		<!--div class="form-text">{$LL.LOGIN.NOACCOUNT()} <a href="/accounts/register">{$LL.LOGIN.CREATEACCOUNT()}</a>
+		</div-->
 	</form>
 </section>

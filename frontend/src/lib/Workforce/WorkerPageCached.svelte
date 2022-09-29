@@ -29,15 +29,20 @@
 	import { dataset_dev } from 'svelte/internal';
 	import Appointment from './Appointment.svelte';
 	import facilityStore from '$lib/store/facilityStore';
+	import CircularProgress from '@smui/circular-progress';
+	import { locale } from '$i18n/i18n-svelte';
+	import { language } from '$lib/store/languageStore';
 
 	let html = '';
 	let editor;
 	let editorSwitch = false;
+	let worker=`worker_${variables.DEFAULT_LANGUAGE}`;
 
 	let wfd = [];
 
-	onMount(async () => {
-		wfd = await getWorkforceDataCached();
+	onMount(
+		async () => {
+		    wfd = await getWorkforceDataCached();
 	});
 
 	async function getWorkerData() {
@@ -49,7 +54,7 @@
 			let worker = wfdc.find((element) => element.slug == slug);
 			let id = worker.id;
 			console.log(`id:${id}`);
-			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/`;
+			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/?lang=${$language}`;
 			const [response, error] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				console.log(`workerData: ${JSON.stringify(response)}`);
@@ -63,7 +68,14 @@
 		}
 	}
 
-	const queryResult = useQuery('worker', () => getWorkerData());
+	let queryResult = useQuery(worker, getWorkerData);
+
+	function onLocaleChange(locale) {
+		worker = `worker_${locale}`;
+		queryResult = useQuery(worker, getWorkerData);
+	}
+
+	$: onLocaleChange($locale)
 
 	function getUrl(url) {
 		if (!url) {
@@ -82,7 +94,9 @@
 </script>
 
 {#if $queryResult.isLoading}
-	<span>Loading...</span>
+<div style="display: flex; justify-content: center">
+	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+</div>
 {:else if $queryResult.error}
 	<span>An error has occurred: {$queryResult.error.message}</span>
 	<div style="display: flex; align-items: center;">
@@ -123,7 +137,7 @@
 										{/each}
 									{:else if occupation.facilities.length > 0}
 										<br />
-										Lieu d'exercice:
+										{$LL.ADDRESSBOOK.LOCATION()}:
 										{#each occupation.facilities as facility}
 											<a href="/contact#{facility.facility__name}_anchor"
 												>{facility.facility__contact__formatted_name}</a

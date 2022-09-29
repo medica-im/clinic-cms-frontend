@@ -19,10 +19,12 @@ type RootTranslation = {
 	 * @param {string} name
 	 */
 	HI: RequiredParams<'name'>
-	/**
-	 * Welcome
-	 */
-	WELCOME: string
+	HOME: {
+		/**
+		 * Welcome to
+		 */
+		WELCOME: string
+	}
 	/**
 	 * Search
 	 */
@@ -58,6 +60,10 @@ type RootTranslation = {
 			 */
 			LABEL: string
 		}
+		/**
+		 * Clinic location
+		 */
+		LOCATION: string
 	}
 	NAVBAR: {
 		/**
@@ -77,6 +83,36 @@ type RootTranslation = {
 		 */
 		LOGOUT: string
 	}
+	LOGIN: {
+		/**
+		 * Login
+		 */
+		LOGIN: string
+		/**
+		 * Login
+		 */
+		TOLOGIN: string
+		/**
+		 * No account yet?
+		 */
+		NOACCOUNT: string
+		/**
+		 * Signing in...
+		 */
+		SIGNINGIN: string
+		/**
+		 * Create an account
+		 */
+		CREATEACCOUNT: string
+	}
+	/**
+	 * Email address
+	 */
+	EMAILADDRESS: string
+	/**
+	 * Password
+	 */
+	PASSWORD: string
 }
 
 export type TranslationFunctions = {
@@ -84,10 +120,12 @@ export type TranslationFunctions = {
 	 * Hi {name}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n
 	 */
 	HI: (arg: { name: string }) => LocalizedString
-	/**
-	 * Welcome
-	 */
-	WELCOME: () => LocalizedString
+	HOME: {
+		/**
+		 * Welcome to
+		 */
+		WELCOME: () => LocalizedString
+	}
 	/**
 	 * Search
 	 */
@@ -123,6 +161,10 @@ export type TranslationFunctions = {
 			 */
 			LABEL: () => LocalizedString
 		}
+		/**
+		 * Clinic location
+		 */
+		LOCATION: () => LocalizedString
 	}
 	NAVBAR: {
 		/**
@@ -142,6 +184,36 @@ export type TranslationFunctions = {
 		 */
 		LOGOUT: () => LocalizedString
 	}
+	LOGIN: {
+		/**
+		 * Login
+		 */
+		LOGIN: () => LocalizedString
+		/**
+		 * Login
+		 */
+		TOLOGIN: () => LocalizedString
+		/**
+		 * No account yet?
+		 */
+		NOACCOUNT: () => LocalizedString
+		/**
+		 * Signing in...
+		 */
+		SIGNINGIN: () => LocalizedString
+		/**
+		 * Create an account
+		 */
+		CREATEACCOUNT: () => LocalizedString
+	}
+	/**
+	 * Email address
+	 */
+	EMAILADDRESS: () => LocalizedString
+	/**
+	 * Password
+	 */
+	PASSWORD: () => LocalizedString
 }
 
 export type Formatters = {}

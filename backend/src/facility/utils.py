@@ -10,7 +10,6 @@ def get_organization(request):
     logger.debug(f'{site=}')
     try:
         org = Organization.objects.get(site=site)
-        activate(org.language)
         logger.debug(f'{org=}')
         return org
     except Organization.DoesNotExist:

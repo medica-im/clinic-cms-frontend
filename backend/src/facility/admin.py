@@ -1,12 +1,14 @@
 from django.contrib import admin
 
 from .models import Organization, Category, Facility
+from modeltranslation.admin import TranslationAdmin
 
 @admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
+class OrganizationAdmin(TranslationAdmin):
     list_display = (
         'name',
         'formatted_name',
+        'formatted_name_definite_article',
         'website_title',
         'active',
         'created',

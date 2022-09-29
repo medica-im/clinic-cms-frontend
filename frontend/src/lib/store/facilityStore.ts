@@ -1,14 +1,19 @@
 import type { Facility } from '$lib/interfaces/facility.interface';
 import { variables } from '$lib/utils/constants';
-import { writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
+import { language } from '$lib/store/languageStore';
+
+
 
 export default function () {
 	const loading = writable(false)
 	const error = writable(false)
 	const data = writable({})
-	const facilitiesUrl = `${variables.BASE_API_URI}/facility/`;
+	let $language = get(language);
+	var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `${$language}/`;
+	const facilitiesUrl = `${variables.BASE_API_URI}/facility/${langUrl}`;
 	
-	async function get() {
+	async function getIt() {
 		loading.set(true)
 		error.set(false)
 		try {
@@ -20,9 +25,9 @@ export default function () {
 		loading.set(false)
 	}
 	
-	get()
+	getIt()
 	
-	return [ data, loading, error, get]
+	return [ data, loading, error, getIt]
 }
 
 

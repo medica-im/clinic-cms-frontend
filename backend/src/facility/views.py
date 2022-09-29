@@ -1,3 +1,4 @@
+import logging
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -10,6 +11,9 @@ from facility.serializers import (
     ContactSerializer,
 )
 from django.contrib.sites.shortcuts import get_current_site
+from backend.i18n import activate_locale
+
+logger=logging.getLogger(__name__)
 
 
 class OrganizationView(RetrieveAPIView):
@@ -17,7 +21,9 @@ class OrganizationView(RetrieveAPIView):
     serializer_class = OrganizationSerializer
     
     def get_object(self):
-        #qs = super().get_queryset()
+        language = self.kwargs.get('language', None)
+        logger.debug(f'kwargs {language=}')
+        activate_locale(language,self.request)
         try:
             return Organization.objects.get(site=get_current_site(self.request))
         except Organization.DoesNotExist:

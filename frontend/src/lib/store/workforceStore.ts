@@ -1,9 +1,11 @@
-import { writable, derived, readable } from 'svelte/store';
+import { writable, derived, readable, get } from 'svelte/store';
 import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { variables } from '$lib/utils/constants';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 export const term = writable('');
 export const workerSlug = writable('');
+import { language } from '$lib/store/languageStore';
+import { browser } from "$app/env"
 
 export const workforceData = readable([], set => {
 	fetchWorkforce(set);
@@ -36,9 +38,17 @@ function uniq(a) {
 	});
 }
 
+/*export const workforceDataCached = derived(
+	language,
+	($language, set) => {
+		set([]);
+		getWorkforceDataCached().then(data => set(data));
+	}
+);*/
+
 export const occupations = derived(
-	workforceDataCached,
-	($workforceDataCached) => {
+	[workforceDataCached, language],
+	([$workforceDataCached, $language]) => {
 		let derivedWorkforceData = (
 			uniq($workforceDataCached.map(function (currentElement) {
 				return currentElement.occupations.flat()
@@ -82,7 +92,7 @@ export const filteredWorkforceData = derived(
 );
 
 export const workerTitle = derived(
-	[workerSlug, workforceDataCached],
+	[workerSlug, workforceDataCached,],
 	([$workerSlug, $workforceDataCached]) => {
 		if ($workerSlug && $workforceDataCached.length) {
 			return $workforceDataCached.find((element) => element.slug == $workerSlug).formatted_name
@@ -91,30 +101,35 @@ export const workerTitle = derived(
 );
 
 export const getWorkforceDataCached = async () => {
-	// set cache lifetime in seconds
-	var cachelife = 15;
-	//get cached data from local storage
-	var cacheddata = localStorage.getItem('wfd');
-	if (cacheddata) {
-		cacheddata = JSON.parse(cacheddata);
-		var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
-	}
-	//If cached data available and not expired return them. 
-	if (cacheddata && !expired) {
-		workforceDataCached.set(cacheddata.data);
-		return cacheddata.data;
+		// set cache lifetime in seconds
+		var cachelife = 60;
+		//get cached data from local storage
+		let $language = get(language);
+		var cacheddata = localStorage.getItem(`wfd_${$language}`);
+		if (cacheddata) {
+			cacheddata = JSON.parse(cacheddata);
+			var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		}
+		//If cached data available and not expired return them. 
+		if (cacheddata && !expired) {
+			workforceDataCached.set(cacheddata.data);
+			return cacheddata.data;
 	} else {
 		//otherwise fetch data from api then save the data in localstorage
-		const workforceUrl = `${variables.BASE_API_URI}/workforce/`;
+		let $language = get(language);
+		var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
+		const workforceUrl = `${variables.BASE_API_URI}/workforce/${langUrl}`;
 		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
 		if (response) {
 			let data = response as Workforce;
 			console.log(typeof data);
 			console.log(data.constructor);
 			console.log(data);
-			var json = { data: data, cachetime: Date.now() / 1000 }
-			localStorage.setItem('wfd', JSON.stringify(json));
-			workforceDataCached.set(data);
+			workforceDataCached.set(cacheddata.data);
+			if (browser) {
+				var json = { data: data, cachetime: Date.now() / 1000 }
+				localStorage.setItem(`wfd_${$language}`, JSON.stringify(json));
+			}
 			return data;
 		} else if (err) {
 			console.log(typeof err);

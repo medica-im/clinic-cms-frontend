@@ -8,17 +8,17 @@
 	import { beforeUpdate, afterUpdate } from 'svelte';
 	import { onMount } from 'svelte';
 	import fetchFacilitiesStore from '$lib/store/facilityStore';
+	import { language } from '$lib/store/languageStore';
 	import CircularProgress from '@smui/circular-progress';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 
 	const [facilitiesData, loading, error, get] = fetchFacilitiesStore();
-
-
-	const capitalizeFirstLetter = ([ first, ...rest ], locale = navigator.language) =>
-  first.toLocaleUpperCase(locale) + rest.join('')
 
 	const switchLocale = async (newLocale: Locales, updateHistoryState = false) =>  {
 		if (!newLocale || $locale === newLocale) return
 
+		// set language in languageStore
+		language.set(newLocale);
 		// load new dictionary from server
 		await loadLocaleAsync(newLocale)
 
@@ -57,7 +57,6 @@
 
 
 {#if $loading}
-Loading: {$loading}
 <div style="display: flex; justify-content: center">
 	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 </div>
@@ -66,6 +65,6 @@ Error: {$error}
 {:else}
 {#each locales as l}
 <input type="radio" class="btn-check" name="options" id="option-{l}" autocomplete="off" checked={l === $locale} on:click={() => switchLocale(l)}>
-<label class="btn btn-primary" for="option-{l}">{capitalizeFirstLetter(l)}</label>
+<label class="btn btn-primary" for="option-{l}">{capitalizeFirstLetter(l,$locale || $language)}</label>
 {/each}
 {/if}

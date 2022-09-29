@@ -73,6 +73,10 @@ class Contact(models.Model):
     )
     groups = models.ManyToManyField(ContactGroup)
     formatted_name = models.CharField(max_length=255, blank=True)
+    formatted_name_definite_article = models.CharField(
+        max_length=255,
+        blank=True,
+    )
     last_name = models.CharField(max_length=255, blank=True)
     first_name = models.CharField(max_length=255, blank=True)
     middle_name = models.CharField(max_length=255, blank=True)

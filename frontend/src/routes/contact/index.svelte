@@ -7,8 +7,17 @@
 	import { tick } from 'svelte';
 	import CircularProgress from '@smui/circular-progress';
 	import facilityStore from '$lib/store/facilityStore';
+	import { locale } from '$i18n/i18n-svelte';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 
-	const [data, loading, error, get] = fetchFacilitiesStore();
+	let [data, loading, error, get] = fetchFacilitiesStore();
+
+	function onLocaleChange(...args) {
+		console.log($locale);
+		[data, loading, error, get] = fetchFacilitiesStore();
+	}
+	$: onLocaleChange($locale)
+
 	const createFacilityGeoData = (fData) => {
 		let contact = fData.contact;
 		console.log(contact);

@@ -1,11 +1,13 @@
 import logging
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAdminUser
 from . import models
 from . import serializers
 from facility.utils import get_organization
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from backend.i18n import activate_locale
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +20,10 @@ class WorkforceViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (AllowAny,)
 
     def get_queryset(self):
+        #language = self.kwargs.get('language', None)
+        language = self.request.query_params.get('lang')
+        logger.debug(f'kwargs {language=}')
+        activate_locale(language,self.request)
         organization = get_organization(self.request)
         logger.debug(f'{organization=}')
         user=models.NodeSet.objects.get(name="user")

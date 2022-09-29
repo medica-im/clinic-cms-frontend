@@ -27,6 +27,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'name',
             'language',
             'formatted_name',
+            'formatted_name_definite_article',
             'website_title',
             'category',
             'contact',
