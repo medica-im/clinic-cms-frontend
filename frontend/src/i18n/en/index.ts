@@ -4,7 +4,11 @@ const en: BaseTranslation = {
 	// TODO: your translations go here
 	HI: "Hi {name:string}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n",
 	HOME: {
-		WELCOME: "Welcome to"
+		WELCOME: "Welcome to",
+		TEAM: {
+			TITLE: "Our team",
+			TEXT: "The members of our multidisciplinary team are working together to deliver comprehensive care to you and your relatives."
+		}
 	},
 	SEARCH: "Search",
 	ADDRESSBOOK: {
@@ -20,7 +24,8 @@ const en: BaseTranslation = {
 		APPOINTMENT: {
             LABEL: "Book an appointment"
 		},
-		LOCATION: "Clinic location"
+		LOCATION: "Clinic location",
+		SPECIALTY: "specialty"
 	},
 	NAVBAR: {
 		ADDRESSBOOK: "Addressbook",

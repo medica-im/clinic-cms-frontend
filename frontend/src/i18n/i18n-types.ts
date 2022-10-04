@@ -24,6 +24,16 @@ type RootTranslation = {
 		 * Welcome to
 		 */
 		WELCOME: string
+		TEAM: {
+			/**
+			 * Our team
+			 */
+			TITLE: string
+			/**
+			 * The members of our multidisciplinary team are working together to deliver comprehensive care to you and your relatives.
+			 */
+			TEXT: string
+		}
 	}
 	/**
 	 * Search
@@ -64,6 +74,10 @@ type RootTranslation = {
 		 * Clinic location
 		 */
 		LOCATION: string
+		/**
+		 * specialty
+		 */
+		SPECIALTY: string
 	}
 	NAVBAR: {
 		/**
@@ -125,6 +139,16 @@ export type TranslationFunctions = {
 		 * Welcome to
 		 */
 		WELCOME: () => LocalizedString
+		TEAM: {
+			/**
+			 * Our team
+			 */
+			TITLE: () => LocalizedString
+			/**
+			 * The members of our multidisciplinary team are working together to deliver comprehensive care to you and your relatives.
+			 */
+			TEXT: () => LocalizedString
+		}
 	}
 	/**
 	 * Search
@@ -165,6 +189,10 @@ export type TranslationFunctions = {
 		 * Clinic location
 		 */
 		LOCATION: () => LocalizedString
+		/**
+		 * specialty
+		 */
+		SPECIALTY: () => LocalizedString
 	}
 	NAVBAR: {
 		/**

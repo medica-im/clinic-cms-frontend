@@ -1,0 +1,26 @@
+{% extends "contact/django_contact_form/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Novembre 2022: mois sans tabac</h2>
+<h3>Maison de santé de Vedène</h3>
+<p>
+Vous souhaitez bénéficier d'un entretien personnalisé gratuit avec un
+professionnel de santé pour préparer l'arrêt du tabac?
+Remplissez le formulaire et nous vous rappellerons pour fixer un rendez-vous.
+</p>
+
+{% crispy form %}
+
+<!-- form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="fieldWrapper mb-3">
+  {{ field.errors }}
+  {{ field.label_tag }} 
+  {{ field }}
+  </div>
+  {% endfor %}
+  <input type="submit" value="{% translate 'Submit' %}">
+</form-->
+{% endblock %}

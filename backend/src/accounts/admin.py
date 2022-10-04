@@ -105,4 +105,5 @@ class GrammaticalGenderAdmin(TranslationAdmin):
     list_display = (
         'name',
         'label',
+        'code',
     )

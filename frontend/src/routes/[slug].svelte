@@ -22,7 +22,6 @@
 <script>
     import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount } from 'svelte';
-	import WorkerPage from '$lib/Workforce/WorkerPage.svelte';
 	import WorkerPageCached from '$lib/Workforce/WorkerPageCached.svelte';
 	import { dataset_dev } from 'svelte/internal';
 	import CircularProgress from '@smui/circular-progress';
@@ -74,28 +73,6 @@ onMount(async () => {
 </svelte:head>
 
 <main>
-	<!--
-	{#if $workforceData.length}
-		{#await promise($workforceData.find((element) => element.slug == directory_slug))}
-			<div style="display: flex; justify-content: center">
-				<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-			</div>
-		{:then wD}
-        <div style="display: flex; align-items: center;">
-            <IconButton class="material-icons" href="/annuaire"
-              >arrow_back</IconButton
-            ><a href="/annuaire">{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</a>
-          </div>
-			<WorkerPage workerData={wD} />
-		{:catch error}
-			<p style="color: red">{error.message}</p>
-		{/await}
-	{:else}
-		<div style="display: flex; justify-content: center">
-			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-		</div>
-	{/if}
-    -->
 	<QueryClientProvider client={queryClient}>
 
 		<WorkerPageCached slug={directory_slug} />

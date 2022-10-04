@@ -12,7 +12,6 @@
 	import { baseLocale, locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import Loader from '../components/Loader/Loader.svelte';
-	//import fetchFacilitiesStore from '$lib/store/facilityStore';
 	import CircularProgress from '@smui/circular-progress';
 
 	//const [facilityData, facilityLoading, facilityError, facilityGet] = fetchFacilitiesStore();
@@ -49,8 +48,6 @@
 	import Header from '../components/Header/Header.svelte';
 	import { setLocale } from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
-	//let locale: Locales;
-	//setLocale(locale);
 
 	$: loading.setNavigate(!!$navigating);
 	$: loading.setLoading(!!$navigating, 'Loading, please wait...');
@@ -59,8 +56,6 @@
 	import { variables } from '$lib/utils/constants';
 
 	onMount(async () => {
-		//while(! $facilityData) // define the condition as you like
-        //    await new Promise(resolve => setTimeout(resolve, 1000));
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
 				fetch,
@@ -71,12 +66,6 @@
 				userData.set(response);
 			}
 		}
-		/*console.log(typeof facilityData);
-		console.log(facilityData.constructor);
-		console.log('facilityData: ' + facilityData);
-		console.log(typeof facilityData);
-		console.log('facilityData constructor: ' + facilityData.constructor);
-		console.log(`$facilityData`);*/
 	});
 
 	afterUpdate(async () => {
@@ -108,7 +97,6 @@
 		window.setTimeout(() => deepLinkedElement.scrollIntoView(), 100);    }
   }
 }*/
-
 </script>
 
 <head>

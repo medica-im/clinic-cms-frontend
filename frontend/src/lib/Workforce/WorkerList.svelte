@@ -1,7 +1,7 @@
 <script>
 	import { FormFeedback } from 'sveltestrap';
 	import { variables } from '$lib/utils/constants';
-
+	import LL from '$i18n/i18n-svelte';
 	export let workerData;
 	function getUrl(url) {
 		if (!url) {
@@ -24,7 +24,7 @@
                 {#each workerData.occupations as occupation}
                     <li class="list-group-item">{occupation.label}</li>
                     {#if occupation.specialty}
-                        <li class="list-group-item">Spécialité: {occupation.specialty.label}</li>
+                        <li class="list-group-item">{$LL.ADDRESSBOOK.SPECIALTY()}: {occupation.specialty.label}</li>
                     {/if}
                 {/each}
             </ul>

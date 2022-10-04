@@ -6,17 +6,9 @@
 	import Address from '$lib/Address/Address.svelte';
 	import { tick } from 'svelte';
 	import CircularProgress from '@smui/circular-progress';
-	import facilityStore from '$lib/store/facilityStore';
+	import { facilityStore } from '$lib/store/facilityStore';
 	import { locale } from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-
-	let [data, loading, error, get] = fetchFacilitiesStore();
-
-	function onLocaleChange(...args) {
-		console.log($locale);
-		[data, loading, error, get] = fetchFacilitiesStore();
-	}
-	$: onLocaleChange($locale)
 
 	const createFacilityGeoData = (fData) => {
 		let contact = fData.contact;
@@ -39,26 +31,16 @@
 		console.log(facilityGeoData);
 		return facilityGeoData;
 	};
-
-	/*onMount(async () => {
-		if ($facilitiesData === undefined) {
-			await fetchFacilities();
-			console.log(facilitiesData);
-		    console.log($facilitiesData);
-		}
-	});*/
 </script>
 
 <main>
-	{#if $loading}
+	{#await facilityStore.load()}
 		<div style="display: flex; justify-content: center">
 			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 		</div>
-	{:else if $error}
-		Error: {$error}
-	{:else}
-		<FacilityList organizationData={$data} />
-		{#each $data.facility as facility}
+	{:then}
+		<FacilityList organizationData={$facilityStore} />
+		{#each $facilityStore.facility as facility}
 			{#if facility.contact}
 				<div class="card">
 					<!--img class="card-img-top" src="..." alt="Card image cap" /-->
@@ -73,5 +55,5 @@
 				</div>
 			{/if}
 		{/each}
-	{/if}
+	{/await}
 </main>

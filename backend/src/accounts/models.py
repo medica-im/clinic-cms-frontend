@@ -107,6 +107,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class GrammaticalGender(models.Model):
     name = models.CharField(max_length=255)
     label = models.CharField(max_length=255)
+    code = models.CharField(max_length=1)
 
     def __str__(self) -> str:
         return self.label

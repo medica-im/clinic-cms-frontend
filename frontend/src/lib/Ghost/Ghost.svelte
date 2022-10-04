@@ -1,19 +1,13 @@
-<script lang='ts'>
+<script lang="ts">
 	import { useQuery } from '@sveltestack/svelte-query';
 	import { variables } from '$lib/utils/constants';
 	import { locale } from '$i18n/i18n-svelte';
-  import { language } from '$lib/store/languageStore';
-  import fetchFacilitiesStore from '$lib/store/facilityStore';
+	import { language } from '$lib/store/languageStore';
+	import facilityStore from '$lib/store/facilityStore';
+	import CircularProgress from '@smui/circular-progress';
 
 	const key = variables.GHOST_API_KEY;
 	const apiUrl = `https://msp-vedene.fr/blog/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
-
-	let [facilitiesData, facilitiesLoading, facilitiesError, get] = fetchFacilitiesStore();
-	function onLocaleChange(...args) {
-		console.log($language);
-		[facilitiesData, facilitiesLoading, facilitiesError, get] = fetchFacilitiesStore();
-	}
-	$: onLocaleChange($language);
 
 	const queryResult = useQuery('ghostLatestPosts', async () => {
 		const response = await fetch(apiUrl);
@@ -30,12 +24,12 @@
 	}
 </script>
 
-{#if $queryResult.isLoading || $facilitiesLoading}
-	<span>Loading...</span>
+{#if $queryResult.isLoading}
+	<div style="display: flex; justify-content: center">
+		<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+	</div>
 {:else if $queryResult.isError}
 	<span>Error: {$queryResult.error.message}</span>
-{:else if $facilitiesError}
-	<span>facilitiesData error</span>
 {:else}
 	<h2>Blog</h2>
 	<ul class="list-group list-group-flush">

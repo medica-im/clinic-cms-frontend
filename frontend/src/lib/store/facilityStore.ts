@@ -1,9 +1,47 @@
 import type { Facility } from '$lib/interfaces/facility.interface';
 import { variables } from '$lib/utils/constants';
-import { get, writable } from 'svelte/store'
+import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import { language } from '$lib/store/languageStore';
+import { browser } from "$app/env";
+import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 
-
+export const facilityStore = asyncDerived(
+	(language),
+	async ($language) => {
+		var cachelife = 300;
+		const cacheName = "facility";
+		let cacheddata;
+		if (browser) {
+			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
+		}
+		if (cacheddata) {
+			cacheddata = JSON.parse(cacheddata);
+			var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		}
+		//If cached data available and not expired return them. 
+		if (cacheddata && !expired) {
+			return cacheddata.data;
+		} else {
+			//otherwise fetch data from api then save the data in localstorage
+			var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
+			const apiUrl = `${variables.BASE_API_URI}/facility/${$language}/`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
+			if (response) {
+				let data = response;
+				console.log(data);
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
+				}
+				return data;
+			} else if (err) {
+				console.log(typeof err);
+				console.log(err);
+			}
+		}
+	},
+	true
+);
 
 export default function () {
 	const loading = writable(false)

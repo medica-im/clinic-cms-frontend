@@ -128,7 +128,7 @@
 								<div class="ms-2 me-auto">
 									<div class="fw-bold">{occupation.label}</div>
 									{#if occupation.specialty}
-										Spécialité: {occupation.specialty.label}<br />
+									{$LL.ADDRESSBOOK.SPECIALTY()}: {occupation.specialty.label}<br />
 										Lieu d'exercice:
 										{#each occupation.specialty.facilities as facility}
 											<a href="/contact#{facility.facility__name}_anchor"

@@ -9,6 +9,7 @@ from access.utils import get_role, authorize
 from access.models import Endpoint, AccessControl
 from addressbook.models import PhoneNumber, Profile, Appointment
 from addressbook.api.serializers import AppSerializer
+from accounts.serializers import GrammaticalGenderSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +19,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
     organization = serializers.SerializerMethodField()
     occupations = serializers.SerializerMethodField()
     formatted_name = serializers.SerializerMethodField()
+    grammatical_gender = serializers.SerializerMethodField()
     slug = serializers.SerializerMethodField()
     profile_picture_url = serializers.SerializerMethodField()
     account_email = serializers.SerializerMethodField()
@@ -35,6 +37,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
             'organization',
             'occupations',
             'formatted_name',
+            'grammatical_gender',
             'slug',
             'profile_picture_url',
             'account_email',
@@ -58,6 +61,10 @@ class WorkforceSerializer(serializers.ModelSerializer):
             return obj.user.contact.formatted_name
         except:
             return
+
+    def get_grammatical_gender(self, obj):
+        serializer = GrammaticalGenderSerializer(obj.user.grammatical_gender)
+        return serializer.data
 
     def get_slug(self, obj):
         site = get_current_site(self.context["request"])

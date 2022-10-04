@@ -63,15 +63,22 @@ class WorkforceNetworkedgeOrganizations(models.Model):
     id = models.BigAutoField(primary_key=True)
     networkedge = models.ForeignKey(
         "workforce.NetworkEdge",
-        models.DO_NOTHING
+        models.DO_NOTHING,
+        related_name="networkedge_organizations",
     )
     organization = models.ForeignKey(
         "facility.Organization",
-        models.DO_NOTHING
+        models.DO_NOTHING,
+        related_name="networkedge_organizations",
     )
     public_facing = models.BooleanField(
         default=False,
         help_text=_("Should the user node included in this edge be public?")
+    )
+    roles = models.ManyToManyField(
+        "access.Role",
+        blank=True,
+        help_text="Roles allowed so see the related object",
     )
 
     class Meta:

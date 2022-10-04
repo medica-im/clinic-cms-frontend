@@ -135,8 +135,11 @@ DICT_CONFIG = {
 }
 logging.config.dictConfig(DICT_CONFIG)
 
-ALLOWED_HOSTS = ['*']
+ADMIN = config('ADMIN', cast=Csv(post_process=tuple))
+ADMINS = [ADMIN]
+MANAGERS = ADMINS
 
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -162,6 +165,7 @@ INSTALLED_APPS = [
     'taggit',
     'taggit_labels',
     'crispy_forms',
+    'crispy_bootstrap5',
     'simple_history',
     # local apps
     'backend',
@@ -172,6 +176,7 @@ INSTALLED_APPS = [
     'staff',
     'directory',
     'access',
+    'contact',
 ]
 
 if DEBUG:
@@ -313,6 +318,8 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'accounts.User'
 
 CRISPY_FAIL_SILENTLY = not DEBUG
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 
@@ -414,4 +421,21 @@ CONSTANCE_CONFIG = {
         'using different language parsers and dictionaries as defined by the '
         'database'
     ),
+    'CONTACT_NOSMOKING_RECIPIENT_LIST': (
+        '',
+        'List of email addresses separated by a comma.',
+        str
+    ),
 }
+
+#Email
+DEFAULT_FROM_EMAIL=config('DEFAULT_FROM_EMAIL', default="webmaster@localhost")
+EMAIL_HOST=config('EMAIL_HOST')
+EMAIL_PORT=config('EMAIL_PORT')
+EMAIL_HOST_USER=config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS=True
+#EMAIL_USE_SSL
+#EMAIL_TIMEOUT
+#EMAIL_SSL_KEYFILE
+#EMAIL_SSL_CERTFILE

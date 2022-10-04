@@ -79,7 +79,6 @@ def occupation(node: NetworkNode, organization: Organization):
                     ),
                     "public_facing":public_facing,
                     "facilities": facilities
-                    #edge.facilities.all().values("name", "contact__formatted_name"),
                 }
             else:
                 dct["public_facing"]=public_facing

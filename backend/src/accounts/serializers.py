@@ -3,7 +3,7 @@ from rest_framework import exceptions, serializers
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth import get_user_model
 
-from .models import User
+from .models import User, GrammaticalGender
 from .utils import validate_email as email_is_valid
 
 
@@ -144,3 +144,14 @@ class LogoutSerializer(serializers.Serializer[User]):
 
         except TokenError as ex:
             raise exceptions.AuthenticationFailed(ex)
+
+
+class GrammaticalGenderSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = GrammaticalGender
+        fields = (
+            'name',
+            'label',
+            'code',
+        )

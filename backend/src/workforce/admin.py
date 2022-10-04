@@ -296,6 +296,7 @@ class NetworkEdgeAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'edge_tag',
+        'roles_tag',
     )
     list_filter = (
         EdgeOrganizationFilter,
@@ -310,6 +311,23 @@ class NetworkEdgeAdmin(admin.ModelAdmin):
     @admin.display(description='Edge')
     def edge_tag(self, obj):
         return display_edge(obj)
+
+    @admin.display(description='Roles')
+    def roles_tag(self, obj):
+        tag_array = []
+        for org in obj.organizations.all():
+            try:
+                weo=WorkforceNetworkedgeOrganizations.objects.get(
+                    networkedge=obj,
+                    organization=org
+                )
+            except WorkforceNetworkedgeOrganizations.DoesNotExist:
+                continue
+            roles = weo.roles.all()
+            if roles:
+                roles_str = ", ".join([role.name for role in roles])
+                tag_array.append(f'{org.name}: {roles_str}' )
+        return tag_array or None
 
 
 @admin.register(NetworkNode)
@@ -415,6 +433,7 @@ class LabelAdmin(admin.ModelAdmin):
         'grammatical_number',
         'node',
     )
+    autocomplete_fields = ['node',]
     
     def genders_tag(self, obj):
         return [gender.name for gender in obj.gender.all()]
