@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
 	import { userData } from '$lib/store/userStore';
 	import { facilityStore } from '$lib/store/facilityStore';
@@ -19,7 +19,6 @@
 	import LL from '$i18n/i18n-svelte';
 	//export let posts;
 	import Ghost from '$lib/Ghost/Ghost.svelte';
-	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 

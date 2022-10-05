@@ -2,7 +2,7 @@ import type { Facility } from '$lib/interfaces/facility.interface';
 import { variables } from '$lib/utils/constants';
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import { language } from '$lib/store/languageStore';
-import { browser } from "$app/env";
+import { browser } from "$app/environment";
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 
 export const facilityStore = asyncDerived(

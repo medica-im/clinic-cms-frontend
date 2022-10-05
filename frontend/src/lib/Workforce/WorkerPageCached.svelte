@@ -40,10 +40,10 @@
 
 	let wfd = [];
 
-	onMount(
+	/*onMount(
 		async () => {
 		    wfd = await getWorkforceDataCached();
-	});
+	});*/
 
 	async function getWorkerData() {
 		console.log($workforceDataCached);

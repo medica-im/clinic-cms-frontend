@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/v1/addressbook/', include('addressbook.api.urls', namespace='addressbook_api')),
     path('api/v1/facility/', include('facility.urls', namespace='facility')),
     path('api/v1/workforce/', include('workforce.urls', namespace='workforce')),
-    path('contact/', include('contact.urls', namespace='contact')),
+    path('form/', include('contact.urls', namespace='contact')),
 ]
 
 # Use static() to add url mappings to serve static files during development (only)

@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import { userData } from '$lib/store/userStore';
 	import { logOutUser } from '$lib/utils/requestUtils';
-	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
 	import { facilityStore } from '$lib/store/facilityStore';

@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
 import type { Token, UserResponse } from '$lib/interfaces/user.interface';
 import type { CustomError } from '$lib/interfaces/error.interface';

@@ -15,116 +15,116 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * Hi {name}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n
+	 * H​i​ ​{​n​a​m​e​}​!​ ​P​l​e​a​s​e​ ​l​e​a​v​e​ ​a​ ​s​t​a​r​ ​i​f​ ​y​o​u​ ​l​i​k​e​ ​t​h​i​s​ ​p​r​o​j​e​c​t​:​ ​h​t​t​p​s​:​/​/​g​i​t​h​u​b​.​c​o​m​/​i​v​a​n​h​o​f​e​r​/​t​y​p​e​s​a​f​e​-​i​1​8​n
 	 * @param {string} name
 	 */
 	HI: RequiredParams<'name'>
 	HOME: {
 		/**
-		 * Welcome to
+		 * W​e​l​c​o​m​e​ ​t​o
 		 */
 		WELCOME: string
 		TEAM: {
 			/**
-			 * Our team
+			 * O​u​r​ ​t​e​a​m
 			 */
 			TITLE: string
 			/**
-			 * The members of our multidisciplinary team are working together to deliver comprehensive care to you and your relatives.
+			 * T​h​e​ ​m​e​m​b​e​r​s​ ​o​f​ ​o​u​r​ ​m​u​l​t​i​d​i​s​c​i​p​l​i​n​a​r​y​ ​t​e​a​m​ ​a​r​e​ ​w​o​r​k​i​n​g​ ​t​o​g​e​t​h​e​r​ ​t​o​ ​d​e​l​i​v​e​r​ ​c​o​m​p​r​e​h​e​n​s​i​v​e​ ​c​a​r​e​ ​t​o​ ​y​o​u​ ​a​n​d​ ​y​o​u​r​ ​r​e​l​a​t​i​v​e​s​.
 			 */
 			TEXT: string
 		}
 	}
 	/**
-	 * Search
+	 * S​e​a​r​c​h
 	 */
 	SEARCH: string
 	ADDRESSBOOK: {
 		/**
-		 * Address book
+		 * A​d​d​r​e​s​s​ ​b​o​o​k
 		 */
 		TITLE: string
 		OCCUPATIONS: {
 			/**
-			 * Select by profession...
+			 * S​e​l​e​c​t​ ​b​y​ ​p​r​o​f​e​s​s​i​o​n​.​.​.
 			 */
 			PLACEHOLDER: string
 		}
 		SEARCH: {
 			/**
-			 * Search
+			 * S​e​a​r​c​h
 			 */
 			LABEL: string
 			/**
-			 * last name or first name
+			 * l​a​s​t​ ​n​a​m​e​ ​o​r​ ​f​i​r​s​t​ ​n​a​m​e
 			 */
 			PLACEHOLDER: string
 		}
 		/**
-		 * Go back to addressbook
+		 * G​o​ ​b​a​c​k​ ​t​o​ ​a​d​d​r​e​s​s​b​o​o​k
 		 */
 		GOTOADDRESSBOOK: string
 		APPOINTMENT: {
 			/**
-			 * Book an appointment
+			 * B​o​o​k​ ​a​n​ ​a​p​p​o​i​n​t​m​e​n​t
 			 */
 			LABEL: string
 		}
 		/**
-		 * Clinic location
+		 * C​l​i​n​i​c​ ​l​o​c​a​t​i​o​n
 		 */
 		LOCATION: string
 		/**
-		 * specialty
+		 * s​p​e​c​i​a​l​t​y
 		 */
 		SPECIALTY: string
 	}
 	NAVBAR: {
 		/**
-		 * Addressbook
+		 * A​d​d​r​e​s​s​b​o​o​k
 		 */
 		ADDRESSBOOK: string
 		/**
-		 * Login
+		 * L​o​g​i​n
 		 */
 		LOGIN: string
 		/**
-		 * Register
+		 * R​e​g​i​s​t​e​r
 		 */
 		REGISTER: string
 		/**
-		 * Logout
+		 * L​o​g​o​u​t
 		 */
 		LOGOUT: string
 	}
 	LOGIN: {
 		/**
-		 * Login
+		 * L​o​g​i​n
 		 */
 		LOGIN: string
 		/**
-		 * Login
+		 * L​o​g​i​n
 		 */
 		TOLOGIN: string
 		/**
-		 * No account yet?
+		 * N​o​ ​a​c​c​o​u​n​t​ ​y​e​t​?
 		 */
 		NOACCOUNT: string
 		/**
-		 * Signing in...
+		 * S​i​g​n​i​n​g​ ​i​n​.​.​.
 		 */
 		SIGNINGIN: string
 		/**
-		 * Create an account
+		 * C​r​e​a​t​e​ ​a​n​ ​a​c​c​o​u​n​t
 		 */
 		CREATEACCOUNT: string
 	}
 	/**
-	 * Email address
+	 * E​m​a​i​l​ ​a​d​d​r​e​s​s
 	 */
 	EMAILADDRESS: string
 	/**
-	 * Password
+	 * P​a​s​s​w​o​r​d
 	 */
 	PASSWORD: string
 }
