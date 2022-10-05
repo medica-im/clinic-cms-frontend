@@ -37,16 +37,6 @@
 
     $workerSlug = directory_slug;
 
-	/*function getWFD() {
-
-const workerData = $workforceData.find(element => element.slug == directory_slug);
-if ( workerData === undefined ) {
-    throw new Error(`La page ${directory_slug} n'existe pas.`);
-}
-console.log(`workerData:${workerData.formatted_name}`);
-return workerData;
-};*/
-
 onMount(async () => { 
  wfd = await getWorkforceDataCached();
  })

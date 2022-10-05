@@ -8,12 +8,12 @@ export const workerSlug = writable('');
 import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 
-export const workforceData = readable([], set => {
+/*export const workforceData = readable([], set => {
 	fetchWorkforce(set);
 	return function stop() {
 		//clearInterval(interval);
 	};
-});
+});*/
 
 
 export const workforceDict = asyncDerived(
@@ -22,13 +22,14 @@ export const workforceDict = asyncDerived(
 		var cachelife = 3600;
 		const cacheName = "workforceDict";
 		let cacheddata;
+		let expired: boolean = false
 		//let $language = get(language);
 		if (browser) {
 			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
 		}
 		if (cacheddata) {
 			cacheddata = JSON.parse(cacheddata);
-			var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
 		}
 		if (cacheddata && !expired) {
 			return cacheddata.data;
@@ -60,12 +61,13 @@ export const workforceDataCached = asyncDerived(
 		var cachelife = 300;
 		const cacheName = "wfd";
 		let cacheddata;
+		let expired: boolean = false
 		if (browser) {
 			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
 		}
 		if (cacheddata) {
 			cacheddata = JSON.parse(cacheddata);
-			var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
 		}
 		//If cached data available and not expired return them. 
 		if (cacheddata && !expired) {
@@ -91,21 +93,6 @@ export const workforceDataCached = asyncDerived(
 	},
 	true
 );
-
-async function fetchWorkforce(set) {
-	const workforceUrl = `${variables.BASE_API_URI}/workforce/`;
-	const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-	if (response) {
-		let data = response as Workforce;
-		console.log(typeof data);
-		console.log(data.constructor);
-		console.log(data);
-		set(data.sort(() => Math.random() - 0.5));
-	} else if (err) {
-		console.log(typeof err);
-		console.log(err);
-	}
-}
 
 function uniq(a) {
 	var seen = {};

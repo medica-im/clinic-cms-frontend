@@ -14,7 +14,6 @@
 	import Button, { Label } from '@smui/button';
 	import IconButton, { Icon } from '@smui/icon-button';
 	import {
-		workforceData,
 		workforceDataCached,
 		getWorkforceDataCached,
 		workerTitle,
