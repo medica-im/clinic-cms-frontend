@@ -106,7 +106,6 @@ export const occupations = asyncDerived(
 export const occupationsCardinal = asyncDerived(
 	([workforceDataCached, workforceDict, language]),
 	async ([$workforceDataCached, $workforceDict, $language]) => {
-		var occupationsCardinalArray = {};
 		let occupationArray = (
 			$workforceDataCached.map(function (workerElement, worforceIndex, workforceArray) {
 				return workerElement.occupations.map(function (occupationElement) {
@@ -121,8 +120,8 @@ export const occupationsCardinal = asyncDerived(
 				)
 			}
 			).flat(2));
+		let occupationsCardinalArray = {};
 		occupationArray.forEach(function (x) {
-			if (!(x.name in occupationsCardinalArray)) {
 				occupationsCardinalArray[x.name] = {
 					"count": {
 						"total": 0,
@@ -132,7 +131,8 @@ export const occupationsCardinal = asyncDerived(
 					},
 					"label": x.label
 				};
-			}
+		});
+		occupationArray.forEach(function (x) {
 			occupationsCardinalArray[x.name]["count"]["total"] = occupationsCardinalArray[x.name]["count"]["total"] + 1;
 			if (x.G == 'F') {
 				occupationsCardinalArray[x.name]["count"]["F"] = occupationsCardinalArray[x.name]["count"]["F"] + 1;
