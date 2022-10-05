@@ -8,14 +8,6 @@ export const workerSlug = writable('');
 import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 
-/*export const workforceData = readable([], set => {
-	fetchWorkforce(set);
-	return function stop() {
-		//clearInterval(interval);
-	};
-});*/
-
-
 export const workforceDict = asyncDerived(
 	(language),
 	async ($language) => {
@@ -111,28 +103,6 @@ export const occupations = asyncDerived(
 			).flat()));
 		return derivedWorkforceData
 	});
-/*
-export const occupationsCardinal = asyncDerived(
-	(workforceDataCached),
-	async ($workforceDataCached) => {
-		const occupationsCardinalArray = {};
-		let occupationArray = (
-			$workforceDataCached.map(function (currentElement) {
-				return currentElement.occupations.flat()
-			}
-			).flat());
-		occupationArray.forEach(function (x) {
-			if(!(x.name in occupationsCardinalArray)) {
-				occupationsCardinalArray[x.name] = {
-					"count": 0,
-				    "label": x.label
-				};
-			}
-			occupationsCardinalArray[x.name]["count"] = occupationsCardinalArray[x.name]["count"] + 1;
-		});
-		return occupationsCardinalArray
-	});
-*/
 
 export const occupationsCardinal = asyncDerived(
 	([workforceDataCached, workforceDict, language]),
@@ -170,7 +140,8 @@ export const occupationsCardinal = asyncDerived(
 				occupationsCardinalArray[x.name]["count"]["N"] = occupationsCardinalArray[x.name]["count"]["N"] + 1;
 			}
 		});
-		Object.keys(occupationsCardinalArray).forEach(function (key) {
+		let nameKeys = Object.keys(occupationsCardinalArray);
+		nameKeys.forEach(function (key) {
             if (occupationsCardinalArray[key]["count"]["total"]>1) {
 				if (occupationsCardinalArray[key]["count"]["F"]>occupationsCardinalArray[key]["count"]["M"]) {
 					occupationsCardinalArray[key]["label"]=$workforceDict[key]["P"]["F"]
