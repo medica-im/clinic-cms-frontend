@@ -107,7 +107,7 @@
 						{#if hasSoMed($facilityStore.contact.socialnetworks, 'Facebook')}
 							<a href={getUrl($facilityStore.contact.socialnetworks, 'Facebook')}>
 								<IconButton class="material-icons" size="button">
-									<Icon component={Svg} viewBox="0 0 24 24">
+									<Icon component={Svg} width=32 height=32 viewBox="0 0 24 24">
 										<path fill="currentColor" d={mdiFacebook} />
 									</Icon>
 								</IconButton>
@@ -118,7 +118,7 @@
 						{#if hasSoMed($facilityStore.contact.socialnetworks, 'LinkedIn')}
 							<a href={getUrl($facilityStore.contact.socialnetworks, 'LinkedIn')}>
 								<IconButton class="material-icons" size="button">
-									<Icon component={Svg} viewBox="0 0 24 24">
+									<Icon component={Svg} width=32 height=32 viewBox="0 0 24 24">
 										<path fill="currentColor" d={mdiLinkedin} />
 									</Icon>
 								</IconButton>
