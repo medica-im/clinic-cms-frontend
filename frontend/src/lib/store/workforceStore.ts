@@ -121,32 +121,54 @@ export const occupationsCardinal = asyncDerived(
 				)
 			}
 			).flat(2));
+			if ( browser ) {
+			console.log('occupationArray:');
+			console.log(occupationArray);
+			}
 		const occupationsCardinalObject = {} as OccupationCardinalObject;
 		occupationArray.forEach(function (x: Occupation) {
-			const countObj: Count = {
-				"total": 0,
-				"F": 0,
-				"M": 0,
-				"N": 0
-			};
-			occupationsCardinalObject[x.name] = { "count": countObj }
-		});
-		occupationArray.forEach(function (x: Occupation) {
-			occupationsCardinalObject[x.name]["count"]["total"] = occupationsCardinalObject[x.name]["count"]["total"] + 1;
-			if (x.gender == 'F') {
-				occupationsCardinalObject[x.name]["count"]["F"] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
+			if ( !(x.name in Object.keys(occupationsCardinalObject)) ) {
+			    occupationsCardinalObject[x.name] = {
+					"count": {
+						"total": 0,
+				        "F": 0,
+				        "M": 0,
+				        "N": 0
+					}
+				}
 			}
-			if (x.gender == 'M') {
+		});
+		if ( browser ) {
+			console.log(`occupationsCardinalObject`);
+			console.log(occupationsCardinalObject);
+		}
+		occupationArray.forEach(function (x: Occupation) {
+			let name = x["name"];
+			let gender = x["gender"];
+			if ( browser ) {
+				console.log(`name`);
+				console.log(name);
+			}
+			occupationsCardinalObject[name]['count']['total'] = occupationsCardinalObject[name]['count']['total'] + 1;
+			if ( gender == 'F' ) {
+				occupationsCardinalObject[x.name]['count']['F'] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
+			}
+			if ( gender == 'M' ) {
 				occupationsCardinalObject[x.name]["count"]["M"] = occupationsCardinalObject[x.name]["count"]["M"] + 1;
 			}
-			if (x.gender == 'N') {
+			if ( gender == 'N' ) {
 				occupationsCardinalObject[x.name]["count"]["N"] = occupationsCardinalObject[x.name]["count"]["N"] + 1;
 			}
 		});
-		const nameKeys: string[] = Object.getOwnPropertyNames(occupationsCardinalObject);
-		nameKeys.forEach(function (key) {
+		if ( browser ) {
+			console.log(occupationsCardinalObject);
+		}
+		Object.keys(occupationsCardinalObject).forEach(function (key) {
+			if ( browser ) {
+				console.log(key);
+			}
 			if ( occupationsCardinalObject[key]["count"]["total"] > 1 ) {
-				if ( occupationsCardinalObject[key]["count"]["F"] > occupationsCardinalObject[key]["count"]["M"] ) {
+				if ( occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"] ) {
 					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["F"]
 				} else {
 					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["M"]

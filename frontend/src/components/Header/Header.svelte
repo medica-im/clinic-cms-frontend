@@ -8,6 +8,7 @@
 	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { mdiTwitter, mdiFacebook, mdiLinkedin } from '@mdi/js';
+	import MdiTwitter from "svelte-material-icons/Check.svelte";
 	import { Svg } from '@smui/common/elements';
 	import {
 		Collapse,
@@ -44,7 +45,7 @@
 			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 		</div>
 	{:then}
-		<Navbar class="navbar navbar-expand-md navbar-light bg-light" expand="md">
+		<Navbar class="mb-2" expand="md">
 			<NavbarBrand href="/"
 				>{capitalizeFirstLetter(
 					$facilityStore.formatted_name,
@@ -71,7 +72,7 @@
 								>{$LL.NAVBAR.LOGIN()}</NavLink
 							>
 						</NavItem>
-						{#if facilityStore.registration === true}
+						{#if $facilityStore.registration === true}
 							<NavItem>
 								<NavLink
 									href="/accounts/register"
@@ -95,7 +96,7 @@
 						{#if hasSoMed($facilityStore.contact.socialnetworks, 'Twitter')}
 							<a href={getUrl($facilityStore.contact.socialnetworks, 'Twitter')}>
 								<IconButton class="material-icons" size="button">
-									<Icon component={Svg} viewBox="0 0 24 24">
+									<Icon component={Svg} width=32 height=32 viewBox="0 0 24 24">
 										<path fill="currentColor" d={mdiTwitter} />
 									</Icon>
 								</IconButton>
