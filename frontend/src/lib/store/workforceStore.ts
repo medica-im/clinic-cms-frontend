@@ -1,4 +1,3 @@
-//import { writable, derived, readable, get } from 'svelte/store';
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { variables } from '$lib/utils/constants';
@@ -111,14 +110,19 @@ export const occupationsCardinal = asyncDerived(
 		let occupationArray = (
 			$workforceDataCached.map(function (workerElement, worforceIndex, workforceArray) {
 				return workerElement.occupations.map(function (occupationElement) {
-					occupationElement["G"]=workerElement.grammatical_gender.code;
+					if (occupationElement.grammatical_gender !== null) {
+						let code = workerElement.grammatical_gender.code;
+						occupationElement["G"] = code;
+					} else {
+						occupationElement["G"] = null;
+					}
 					return occupationElement
 				}
 				)
 			}
 			).flat(2));
 		occupationArray.forEach(function (x) {
-			if(!(x.name in occupationsCardinalArray)) {
+			if (!(x.name in occupationsCardinalArray)) {
 				occupationsCardinalArray[x.name] = {
 					"count": {
 						"total": 0,
@@ -126,7 +130,7 @@ export const occupationsCardinal = asyncDerived(
 						"M": 0,
 						"N": 0
 					},
-				    "label": x.label
+					"label": x.label
 				};
 			}
 			occupationsCardinalArray[x.name]["count"]["total"] = occupationsCardinalArray[x.name]["count"]["total"] + 1;
@@ -142,17 +146,17 @@ export const occupationsCardinal = asyncDerived(
 		});
 		let nameKeys = Object.keys(occupationsCardinalArray);
 		nameKeys.forEach(function (key) {
-            if (occupationsCardinalArray[key]["count"]["total"]>1) {
-				if (occupationsCardinalArray[key]["count"]["F"]>occupationsCardinalArray[key]["count"]["M"]) {
-					occupationsCardinalArray[key]["label"]=$workforceDict[key]["P"]["F"]
+			if (occupationsCardinalArray[key]["count"]["total"] > 1) {
+				if (occupationsCardinalArray[key]["count"]["F"] > occupationsCardinalArray[key]["count"]["M"]) {
+					occupationsCardinalArray[key]["label"] = $workforceDict[key]["P"]["F"]
 				} else {
-					occupationsCardinalArray[key]["label"]=$workforceDict[key]["P"]["M"]
+					occupationsCardinalArray[key]["label"] = $workforceDict[key]["P"]["M"]
 				}
 			} else {
-				if (occupationsCardinalArray[key]["count"]["F"]>=occupationsCardinalArray[key]["count"]["M"]) {
-					occupationsCardinalArray[key]["label"]=$workforceDict[key]["S"]["F"]
+				if (occupationsCardinalArray[key]["count"]["F"] > occupationsCardinalArray[key]["count"]["M"]) {
+					occupationsCardinalArray[key]["label"] = $workforceDict[key]["S"]["F"]
 				} else {
-					occupationsCardinalArray[key]["label"]=$workforceDict[key]["S"]["M"]
+					occupationsCardinalArray[key]["label"] = $workforceDict[key]["S"]["M"]
 				}
 			}
 		});
@@ -209,7 +213,7 @@ export const getWorkforceDataCached = async () => {
 	let $language = get(language);
 	let cacheddata;
 	if (browser) {
-	    cacheddata = localStorage.getItem(`wfd_${$language}`);
+		cacheddata = localStorage.getItem(`wfd_${$language}`);
 	}
 	if (cacheddata) {
 		cacheddata = JSON.parse(cacheddata);
