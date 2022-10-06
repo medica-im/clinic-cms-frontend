@@ -8,7 +8,7 @@
 	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { mdiTwitter, mdiFacebook, mdiLinkedin } from '@mdi/js';
-	import MdiTwitter from "svelte-material-icons/Check.svelte";
+	import MdiTwitter from 'svelte-material-icons/Check.svelte';
 	import { Svg } from '@smui/common/elements';
 	import {
 		Collapse,
@@ -17,7 +17,7 @@
 		NavbarBrand,
 		Nav,
 		NavItem,
-		NavLink,
+		NavLink
 	} from 'sveltestrap/src';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -45,92 +45,102 @@
 			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 		</div>
 	{:then}
-		<Navbar class="mb-2" expand="md">
-			<NavbarBrand href="/"
-				>{capitalizeFirstLetter(
-					$facilityStore.formatted_name,
-					$language
-				)}</NavbarBrand
-			>
-			<NavbarToggler on:click={() => (isOpen = !isOpen)} />
-			<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
-				<Nav class="ms-auto" navbar>
-					<NavItem>
-						<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
-					</NavItem>
-					<NavItem>
-						<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}
-							>{$LL.NAVBAR.ADDRESSBOOK()}</NavLink
-						>
-					</NavItem>
-					<NavItem>
-						<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>
-					</NavItem>
-					{#if !$userData.username}
-						<NavItem>
-							<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}
-								>{$LL.NAVBAR.LOGIN()}</NavLink
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/"
+					>{capitalizeFirstLetter($facilityStore.formatted_name, $language)}</a
+				>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNavDropdown"
+					aria-controls="navbarNavDropdown"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon" />
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
+						</li>
+						<li class="nav-item">
+							<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}
+								>{$LL.NAVBAR.ADDRESSBOOK()}</NavLink
 							>
-						</NavItem>
-						{#if $facilityStore.registration === true}
-							<NavItem>
-								<NavLink
-									href="/accounts/register"
-									active={$page.url.pathname === '/accounts/register'}
-									>{$LL.NAVBAR.REGISTER()}</NavLink
+						</li>
+						<li class="nav-item">
+							<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>
+						</li>
+						{#if !$userData.username}
+							<li class="nav-item">
+								<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}
+									>{$LL.NAVBAR.LOGIN()}</NavLink
 								>
-							</NavItem>
+							</li>
+							{#if $facilityStore.registration === true}
+								<li class="nav-item">
+									<NavLink
+										href="/accounts/register"
+										active={$page.url.pathname === '/accounts/register'}
+										>{$LL.NAVBAR.REGISTER()}</NavLink
+									>
+								</li>
+							{/if}
+						{:else}
+							<li class="nav-item">
+								<NavLink
+									href="/accounts/user/{$userData.username}-{$userData.id}"
+									active={$page.url.pathname === '/accounts/user'}>Hi, {$userData.username}</NavLink
+								>
+							</li>
+							<li class="nav-item">
+								<NavLink href={null} on:click={logOutUser}>{$LL.NAVBAR.LOGOUT()}</NavLink>
+							</li>
 						{/if}
-					{:else}
-						<NavItem>
-							<NavLink
-								href="/accounts/user/{$userData.username}-{$userData.id}"
-								active={$page.url.pathname === '/accounts/user'}>Hi, {$userData.username}</NavLink
-							>
-						</NavItem>
-						<NavItem>
-							<NavLink href={null} on:click={logOutUser}>{$LL.NAVBAR.LOGOUT()}</NavLink>
-						</NavItem>
-					{/if}
-					<NavItem>
+
 						{#if hasSoMed($facilityStore.contact.socialnetworks, 'Twitter')}
-							<a href={getUrl($facilityStore.contact.socialnetworks, 'Twitter')}>
-								<IconButton class="material-icons" size="button">
-									<Icon component={Svg} width=32 height=32 viewBox="0 0 24 24">
-										<path fill="currentColor" d={mdiTwitter} />
-									</Icon>
-								</IconButton>
-							</a>
+							<li class="nav-item">
+								<a href={getUrl($facilityStore.contact.socialnetworks, 'Twitter')}>
+									<IconButton class="material-icons" size="button">
+										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
+											<path fill="currentColor" d={mdiTwitter} />
+										</Icon>
+									</IconButton>
+								</a>
+							</li>
 						{/if}
-					</NavItem>
-					<NavItem>
 						{#if hasSoMed($facilityStore.contact.socialnetworks, 'Facebook')}
-							<a href={getUrl($facilityStore.contact.socialnetworks, 'Facebook')}>
-								<IconButton class="material-icons" size="button">
-									<Icon component={Svg} width=32 height=32 viewBox="0 0 24 24">
-										<path fill="currentColor" d={mdiFacebook} />
-									</Icon>
-								</IconButton>
-							</a>
+							<li class="nav-item">
+								<a href={getUrl($facilityStore.contact.socialnetworks, 'Facebook')}>
+									<IconButton class="material-icons" size="button">
+										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
+											<path fill="currentColor" d={mdiFacebook} />
+										</Icon>
+									</IconButton>
+								</a>
+							</li>
 						{/if}
-					</NavItem>
-					<NavItem>
 						{#if hasSoMed($facilityStore.contact.socialnetworks, 'LinkedIn')}
-							<a href={getUrl($facilityStore.contact.socialnetworks, 'LinkedIn')}>
-								<IconButton class="material-icons" size="button">
-									<Icon component={Svg} width=32 height=32 viewBox="0 0 24 24">
-										<path fill="currentColor" d={mdiLinkedin} />
-									</Icon>
-								</IconButton>
-							</a>
+							<li class="nav-item">
+								<a href={getUrl($facilityStore.contact.socialnetworks, 'LinkedIn')}>
+									<IconButton class="material-icons" size="button">
+										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
+											<path fill="currentColor" d={mdiLinkedin} />
+										</Icon>
+									</IconButton>
+								</a>
+							</li>
 						{/if}
-					</NavItem>
-					<NavItem>
-						<LocaleSwitcher />
-					</NavItem>
-				</Nav>
-			</Collapse>
-		</Navbar>
+						<li class="nav-item">
+							<LocaleSwitcher />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 	{/await}
 </header>
 
