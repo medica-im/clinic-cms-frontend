@@ -48,7 +48,7 @@
 	);
 </script>
 
-<svelte:window on:popstate={handlePopStateEvent} />
+<!--svelte:window on:popstate={handlePopStateEvent} /-->
 
 {#each locales as l}
 	<input

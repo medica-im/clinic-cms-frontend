@@ -24,7 +24,7 @@ export async function handleSecond({ event, resolve }) {
 	return response;
   }
 
-export const handle = sequence(handleFirst, handleSecond);
+//export const handle = sequence(handleFirst, handleSecond);
 
 export const getSession: GetSession = (event) => {
 	// detect the preferred language the user has configured in his browser
