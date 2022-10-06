@@ -48,14 +48,14 @@ export const workforceDict = asyncDerived(
 );
 
 export const workforceDataCached = asyncDerived(
-	(language),
-	async ($language) => {
+	(locale),
+	async ($locale) => {
 		var cachelife = 300;
 		const cacheName = "wfd";
 		let cacheddata;
 		let expired: boolean = false
 		if (browser) {
-			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
+			cacheddata = localStorage.getItem(`${cacheName}_${$locale}`);
 		}
 		if (cacheddata) {
 			cacheddata = JSON.parse(cacheddata);
@@ -65,15 +65,13 @@ export const workforceDataCached = asyncDerived(
 		if (cacheddata && !expired) {
 			return cacheddata.data;
 		} else {
-			//otherwise fetch data from api then save the data in localstorage
-			var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
-			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${$language}`;
+			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${$locale}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
 			if (response) {
 				let data = response as Workforce;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
+					localStorage.setItem(`${cacheName}_${$locale}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
