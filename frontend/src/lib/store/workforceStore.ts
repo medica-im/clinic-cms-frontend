@@ -2,11 +2,13 @@ import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@
 import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { variables } from '$lib/utils/constants';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-export const term = writable('');
-export const workerSlug = writable('');
 import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, Worker } from '$lib/interfaces/workforce.interface';
+
+export const term = writable('');
+export const workerSlug = writable('');
+
 
 export const workforceDict = asyncDerived(
 	(language),
@@ -218,6 +220,15 @@ export const filteredWorkforceData = derived(
 );
 
 export const workerTitle = derived(
+	[workerSlug, workforceDataCached,],
+	([$workerSlug, $workforceDataCached]) => {
+		if ($workerSlug && $workforceDataCached.length) {
+			return $workforceDataCached.find((element) => element.slug == $workerSlug).formatted_name
+		} else { return '' }
+	}
+);
+
+export const workerData = asyncDerived(
 	[workerSlug, workforceDataCached,],
 	([$workerSlug, $workforceDataCached]) => {
 		if ($workerSlug && $workforceDataCached.length) {

@@ -37,19 +37,13 @@
 	let editorSwitch = false;
 	let worker=`worker_${variables.DEFAULT_LANGUAGE}`;
 
-	let wfd = [];
-
-	/*onMount(
-		async () => {
-		    wfd = await getWorkforceDataCached();
-	});*/
-
 	async function getWorkerData() {
 		console.log($workforceDataCached);
 		const wfdc = await getWorkforceDataCached();
 		console.log(wfdc);
 		console.log(slug);
 		if (wfdc) {
+			console.log(wfdc);
 			let worker = wfdc.find((element) => element.slug == slug);
 			let id = worker.id;
 			console.log(`id:${id}`);
