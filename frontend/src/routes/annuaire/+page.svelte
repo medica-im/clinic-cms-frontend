@@ -2,7 +2,6 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import {
 		filteredWorkforceDataCached,
-		workforceDataCached,
 		occupations
 	} from '$lib/store/workforceStore';
 	import Search from '$lib/Search.svelte';

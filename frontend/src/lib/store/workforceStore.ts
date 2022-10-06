@@ -26,7 +26,6 @@ export const workforceDict = asyncDerived(
 		if (cacheddata && !expired) {
 			return cacheddata.data;
 		} else {
-			let $language = get(language);
 			var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
 			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${$language}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);

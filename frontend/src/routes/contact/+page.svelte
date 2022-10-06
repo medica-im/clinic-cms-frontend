@@ -1,12 +1,10 @@
 <script>
 import FacilityList from '../../components/FacilityList.svelte';
 import LeafletMap from './map/LeafletMap.svelte';
-//import Map from './map/Map.svelte';
 import Address from '$lib/Address/Address.svelte';
 import CircularProgress from '@smui/circular-progress';
 import { facilityStore } from '$lib/store/facilityStore';
-import browser from '$app/environment';
-import { onMount } from 'svelte';
+
 const createFacilityGeoData = (fData) => {
 	let contact = fData.contact;
 	let address = {
@@ -46,7 +44,6 @@ const createFacilityGeoData = (fData) => {
 						<p class="card-text">
 							<Address contactData={facility.contact} />
 							<LeafletMap geoData={createFacilityGeoData(facility)} />
-							<!--Map /-->
 						</p>
 					</div>
 				</div>
