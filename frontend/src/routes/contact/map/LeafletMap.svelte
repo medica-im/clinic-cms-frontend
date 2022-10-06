@@ -2,8 +2,7 @@
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
     import type { Map } from 'leaflet';
-
-    //import Leaflet from 'leaflet?client'; // provides definition of 'L' needed by Leaflet
+    import "leaflet/dist/images/marker-shadow.png";
 
     export let geoData;
 

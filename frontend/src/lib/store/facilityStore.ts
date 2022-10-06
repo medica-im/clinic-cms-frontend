@@ -28,14 +28,12 @@ export const facilityStore = asyncDerived(
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				let data = response;
-				console.log(data);
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
-				console.log(typeof err);
 				console.log(err);
 			}
 		}
@@ -80,12 +78,8 @@ async function fetchFacilities(set) {
 	const response = await fetch(facilitiesUrl).then(function (response) {
 		if (response.ok) {
 			const data = response.json();
-			console.log(data);
 			if (data) {
 				let facility = data as Facility;
-				console.log(typeof facility);
-				console.log(facility.constructor);
-				console.log(facility);
 				set(facility);
 			} else {
 				return Promise.reject(response);
@@ -96,25 +90,3 @@ async function fetchFacilities(set) {
 	}
 	)
 }
-/*
-export const fetchFacilities = async (fetch) => {
-	const facilitiesUrl = `${variables.BASE_API_URI}/facility/`;
-	console.log(facilitiesUrl);
-	const response = await fetch(facilitiesUrl).then(function (response) {
-		if (response.ok) {
-			const data = response.json();
-			if (data) {
-				console.log(typeof data);
-				console.log(data.constructor);
-				console.log(data);
-				facilitiesData.set(data);
-			} else {
-				return Promise.reject(response);
-			}
-		}
-	}).catch(function (err) {
-		console.warn(`Could not get new token. error: ${err}`);
-	}
-	)
-}
-*/

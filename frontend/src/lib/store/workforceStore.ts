@@ -33,14 +33,12 @@ export const workforceDict = asyncDerived(
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				let data = response;// as ...;
-				console.log(data);
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
-				console.log(typeof err);
 				console.log(err);
 			}
 		}
@@ -72,14 +70,12 @@ export const workforceDataCached = asyncDerived(
 			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
 			if (response) {
 				let data = response as Workforce;
-				console.log(data);
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
-				console.log(typeof err);
 				console.log(err);
 			}
 		}
@@ -122,10 +118,6 @@ export const occupationsCardinal = asyncDerived(
 				)
 			}
 			).flat(2));
-			if ( browser ) {
-			console.log('occupationArray:');
-			console.log(occupationArray);
-			}
 		const occupationsCardinalObject = {} as OccupationCardinalObject;
 		occupationArray.forEach(function (x: Occupation) {
 			if ( !(x.name in Object.keys(occupationsCardinalObject)) ) {
@@ -139,17 +131,9 @@ export const occupationsCardinal = asyncDerived(
 				}
 			}
 		});
-		if ( browser ) {
-			console.log(`occupationsCardinalObject`);
-			console.log(occupationsCardinalObject);
-		}
 		occupationArray.forEach(function (x: Occupation) {
 			let name = x["name"];
 			let gender = x["gender"];
-			if ( browser ) {
-				console.log(`name`);
-				console.log(name);
-			}
 			occupationsCardinalObject[name]['count']['total'] = occupationsCardinalObject[name]['count']['total'] + 1;
 			if ( gender == 'F' ) {
 				occupationsCardinalObject[x.name]['count']['F'] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
@@ -161,13 +145,7 @@ export const occupationsCardinal = asyncDerived(
 				occupationsCardinalObject[x.name]["count"]["N"] = occupationsCardinalObject[x.name]["count"]["N"] + 1;
 			}
 		});
-		if ( browser ) {
-			console.log(occupationsCardinalObject);
-		}
 		Object.keys(occupationsCardinalObject).forEach(function (key) {
-			if ( browser ) {
-				console.log(key);
-			}
 			if ( occupationsCardinalObject[key]["count"]["total"] > 1 ) {
 				if ( occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"] ) {
 					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["F"]
@@ -263,16 +241,12 @@ export const getWorkforceDataCached = async () => {
 		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
 		if (response) {
 			let data = response as Workforce;
-			console.log(typeof data);
-			console.log(data.constructor);
-			console.log(data);
 			if (browser) {
 				var json = { data: data, cachetime: Date.now() / 1000 }
 				localStorage.setItem(`wfd_${$language}`, JSON.stringify(json));
 			}
 			return data;
 		} else if (err) {
-			console.log(typeof err);
 			console.log(err);
 		}
 
