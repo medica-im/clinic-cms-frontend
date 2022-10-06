@@ -7,7 +7,7 @@ const fr: Translation = {
     WELCOME: "Bienvenue dans",
     TEAM: {
       TITLE: "Notre équipe",
-      TEXT: "Les membres de notre équipe pluriprofessionnelle travaillent ensemble pour offrir des soins complets à vous et à vos proches."
+      TEXT: "Notre équipe pluriprofessionnelle s'engage pour votre santé et celle de vos proches."
     }
   },
   SEARCH: "Recherche",

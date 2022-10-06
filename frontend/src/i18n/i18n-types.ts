@@ -30,7 +30,7 @@ type RootTranslation = {
 			 */
 			TITLE: string
 			/**
-			 * T​h​e​ ​m​e​m​b​e​r​s​ ​o​f​ ​o​u​r​ ​m​u​l​t​i​d​i​s​c​i​p​l​i​n​a​r​y​ ​t​e​a​m​ ​a​r​e​ ​w​o​r​k​i​n​g​ ​t​o​g​e​t​h​e​r​ ​t​o​ ​d​e​l​i​v​e​r​ ​c​o​m​p​r​e​h​e​n​s​i​v​e​ ​c​a​r​e​ ​t​o​ ​y​o​u​ ​a​n​d​ ​y​o​u​r​ ​r​e​l​a​t​i​v​e​s​.
+			 * O​u​r​ ​m​u​l​t​i​d​i​s​c​i​p​l​i​n​a​r​y​ ​t​e​a​m​ ​i​s​ ​c​o​m​m​i​t​t​e​d​ ​t​o​ ​y​o​u​r​ ​h​e​a​l​t​h​.
 			 */
 			TEXT: string
 		}
@@ -145,7 +145,7 @@ export type TranslationFunctions = {
 			 */
 			TITLE: () => LocalizedString
 			/**
-			 * The members of our multidisciplinary team are working together to deliver comprehensive care to you and your relatives.
+			 * Our multidisciplinary team is committed to your health.
 			 */
 			TEXT: () => LocalizedString
 		}

@@ -7,7 +7,7 @@ const en: BaseTranslation = {
 		WELCOME: "Welcome to",
 		TEAM: {
 			TITLE: "Our team",
-			TEXT: "The members of our multidisciplinary team are working together to deliver comprehensive care to you and your relatives."
+			TEXT: "Our multidisciplinary team is committed to your health."
 		}
 	},
 	SEARCH: "Search",
