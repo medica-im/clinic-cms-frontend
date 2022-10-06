@@ -1,9 +1,21 @@
 import { detectLocale } from './i18n/i18n-util';
-import type { GetSession, Handle, RequestEvent } from '@sveltejs/kit';
+
+import type { Handle, RequestEvent } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors'
+import { setLocale, locale } from '$i18n/i18n-svelte';
+import { variables } from '$lib/utils/constants';
 
-export const handleFirst: Handle = async ({ event, resolve }) => {
+const defaultLanguage = variables.DEFAULT_LANGUAGE as Locales;
+
+/** @type {import('@sveltejs/kit').Handle} */
+export async function handleFirst({ event, resolve }) {
+	setLocale(defaultLanguage);
+	const response = await resolve(event);   
+	return response;
+  }
+
+/*export const handleFirst: Handle = async ({ event, resolve }) => {
 	const response = await resolve(event)
 
 	// read language slug
@@ -12,7 +24,7 @@ export const handleFirst: Handle = async ({ event, resolve }) => {
 	// replace html lang attribute with correct language
 	const body = await response.text();
 	return new Response(body.replace('<html lang="en">', `<html lang="${lang}">`), response)
-}
+}*/
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handleSecond({ event, resolve }) {
@@ -24,9 +36,9 @@ export async function handleSecond({ event, resolve }) {
 	return response;
   }
 
-//export const handle = sequence(handleFirst, handleSecond);
+export const handle = sequence(handleFirst);
 
-export const getSession: GetSession = (event) => {
+/*export const getSession: GetSession = (event) => {
 	// detect the preferred language the user has configured in his browser
 	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
 	const headers = getHeaders(event)
@@ -36,7 +48,7 @@ export const getSession: GetSession = (event) => {
 	return {
 		locale,
 	}
-}
+}*/
 
 const getHeaders = (event: RequestEvent) => {
 	const headers: Record<string, string> = {}
