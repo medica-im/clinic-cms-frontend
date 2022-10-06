@@ -3,14 +3,16 @@ import { detectLocale } from './i18n/i18n-util';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors'
-import { setLocale, locale } from '$i18n/i18n-svelte';
+import { setLocale } from '$i18n/i18n-svelte';
 import { variables } from '$lib/utils/constants';
+import { loadLocaleAsync } from '$i18n/i18n-util.async';
 
 const defaultLanguage = variables.DEFAULT_LANGUAGE as Locales;
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handleFirst({ event, resolve }) {
 	setLocale(defaultLanguage);
+	await loadLocaleAsync(defaultLanguage);
 	const response = await resolve(event);   
 	return response;
   }
