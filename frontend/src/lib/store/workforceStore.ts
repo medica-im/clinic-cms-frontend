@@ -5,6 +5,7 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, Worker } from '$lib/interfaces/workforce.interface';
+import { locale } from '$i18n/i18n-svelte';
 
 export const term = writable('');
 export const workerSlug = writable('');
@@ -102,8 +103,8 @@ export const occupations = asyncDerived(
 	});
 
 export const occupationsCardinal = asyncDerived(
-	([workforceDataCached, workforceDict, language]),
-	async ([$workforceDataCached, $workforceDict, $language]) => {
+	([workforceDataCached, workforceDict, language, locale]),
+	async ([$workforceDataCached, $workforceDict, $language, $locale]) => {
 		let occupationArray: Occupation[] = (
 			$workforceDataCached.map(function (workerElement: Worker) {
 				return workerElement.occupations.map(function (occupationElement) {
@@ -120,13 +121,13 @@ export const occupationsCardinal = asyncDerived(
 			).flat(2));
 		const occupationsCardinalObject = {} as OccupationCardinalObject;
 		occupationArray.forEach(function (x: Occupation) {
-			if ( !(x.name in Object.keys(occupationsCardinalObject)) ) {
-			    occupationsCardinalObject[x.name] = {
+			if (!(x.name in Object.keys(occupationsCardinalObject))) {
+				occupationsCardinalObject[x.name] = {
 					"count": {
 						"total": 0,
-				        "F": 0,
-				        "M": 0,
-				        "N": 0
+						"F": 0,
+						"M": 0,
+						"N": 0
 					}
 				}
 			}
@@ -135,19 +136,19 @@ export const occupationsCardinal = asyncDerived(
 			let name = x["name"];
 			let gender = x["gender"];
 			occupationsCardinalObject[name]['count']['total'] = occupationsCardinalObject[name]['count']['total'] + 1;
-			if ( gender == 'F' ) {
+			if (gender == 'F') {
 				occupationsCardinalObject[x.name]['count']['F'] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
 			}
-			if ( gender == 'M' ) {
+			if (gender == 'M') {
 				occupationsCardinalObject[x.name]["count"]["M"] = occupationsCardinalObject[x.name]["count"]["M"] + 1;
 			}
-			if ( gender == 'N' ) {
+			if (gender == 'N') {
 				occupationsCardinalObject[x.name]["count"]["N"] = occupationsCardinalObject[x.name]["count"]["N"] + 1;
 			}
 		});
 		Object.keys(occupationsCardinalObject).forEach(function (key) {
-			if ( occupationsCardinalObject[key]["count"]["total"] > 1 ) {
-				if ( occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"] ) {
+			if (occupationsCardinalObject[key]["count"]["total"] > 1) {
+				if (occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"]) {
 					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["F"]
 				} else {
 					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["M"]
@@ -161,7 +162,9 @@ export const occupationsCardinal = asyncDerived(
 			}
 		});
 		return occupationsCardinalObject
-	});
+	},
+	true
+);
 
 export const selectOccupations = writable([]);
 
