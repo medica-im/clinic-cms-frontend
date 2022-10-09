@@ -10,7 +10,7 @@ const en: BaseTranslation = {
 			TEXT: "Our multidisciplinary team is committed to your health."
 		},
 		FOOTER: {
-			WIP: "Website under construction. Contac the developer:"
+			WIP: "Website under construction. Contact the developer:"
 		}
 	},
 	SEARCH: "Search",

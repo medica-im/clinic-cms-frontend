@@ -115,33 +115,33 @@
 						{#if hasSoMed(facility.contact.socialnetworks, 'Twitter')}
 							<li class="nav-item">
 								<a href={getUrl(facility.contact.socialnetworks, 'Twitter')}>
-									<IconButton class="material-icons" size="button">
+									
 										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
 											<path fill="currentColor" d={mdiTwitter} />
 										</Icon>
-									</IconButton>
+									
 								</a>
 							</li>
 						{/if}
 						{#if hasSoMed(facility.contact.socialnetworks, 'Facebook')}
 							<li class="nav-item">
 								<a href={getUrl(facility.contact.socialnetworks, 'Facebook')}>
-									<IconButton class="material-icons" size="button">
+									
 										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
 											<path fill="currentColor" d={mdiFacebook} />
 										</Icon>
-									</IconButton>
+									
 								</a>
 							</li>
 						{/if}
 						{#if hasSoMed(facility.contact.socialnetworks, 'LinkedIn')}
 							<li class="nav-item">
 								<a href={getUrl(facility.contact.socialnetworks, 'LinkedIn')}>
-									<IconButton class="material-icons" size="button">
+									
 										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
 											<path fill="currentColor" d={mdiLinkedin} />
 										</Icon>
-									</IconButton>
+									
 								</a>
 							</li>
 						{/if}

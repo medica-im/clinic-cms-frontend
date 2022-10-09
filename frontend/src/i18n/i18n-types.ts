@@ -36,7 +36,7 @@ type RootTranslation = {
 		}
 		FOOTER: {
 			/**
-			 * W​e​b​s​i​t​e​ ​u​n​d​e​r​ ​c​o​n​s​t​r​u​c​t​i​o​n​.​ ​C​o​n​t​a​c​ ​t​h​e​ ​d​e​v​e​l​o​p​e​r​:
+			 * W​e​b​s​i​t​e​ ​u​n​d​e​r​ ​c​o​n​s​t​r​u​c​t​i​o​n​.​ ​C​o​n​t​a​c​t​ ​t​h​e​ ​d​e​v​e​l​o​p​e​r​:
 			 */
 			WIP: string
 		}
@@ -161,7 +161,7 @@ export type TranslationFunctions = {
 		}
 		FOOTER: {
 			/**
-			 * Website under construction. Contac the developer:
+			 * Website under construction. Contact the developer:
 			 */
 			WIP: () => LocalizedString
 		}
