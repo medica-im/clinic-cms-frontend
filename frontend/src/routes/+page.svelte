@@ -28,11 +28,11 @@
 
 <svelte:head>
 	{#await facilityStore.load()}
-	<title />
-	{:then} 
-	<title>
-		{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
-	</title>
+		<title />
+	{:then}
+		<title>
+			{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		</title>
 	{/await}
 </svelte:head>
 
@@ -42,9 +42,9 @@
 	</div>
 {:then}
 	<section in:fly={{ y: -100, duration: 500, delay: 500 }} out:fly={{ duration: 500 }}>
-		<div class="container-xl">
+		<div class="container">
 			<div class="row">
-				<div class="col">
+				<div class="col-md">
 					<h2>
 						{$LL.HOME.WELCOME()}
 						{$facilityStore.formatted_name_definite_article}
@@ -66,14 +66,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-md">
 					<QueryClientProvider client={queryClient}>
 						<Ghost />
 					</QueryClientProvider>
-					
-						
-						
-					
 				</div>
 			</div>
 		</div>
