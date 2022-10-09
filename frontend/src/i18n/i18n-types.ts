@@ -34,6 +34,12 @@ type RootTranslation = {
 			 */
 			TEXT: string
 		}
+		FOOTER: {
+			/**
+			 * W​e​b​s​i​t​e​ ​u​n​d​e​r​ ​c​o​n​s​t​r​u​c​t​i​o​n​.​ ​C​o​n​t​a​c​ ​t​h​e​ ​d​e​v​e​l​o​p​e​r​:
+			 */
+			WIP: string
+		}
 	}
 	/**
 	 * S​e​a​r​c​h
@@ -88,6 +94,10 @@ type RootTranslation = {
 		 * L​o​g​i​n
 		 */
 		LOGIN: string
+		/**
+		 * H​i​,
+		 */
+		HI: string
 		/**
 		 * R​e​g​i​s​t​e​r
 		 */
@@ -149,6 +159,12 @@ export type TranslationFunctions = {
 			 */
 			TEXT: () => LocalizedString
 		}
+		FOOTER: {
+			/**
+			 * Website under construction. Contac the developer:
+			 */
+			WIP: () => LocalizedString
+		}
 	}
 	/**
 	 * Search
@@ -203,6 +219,10 @@ export type TranslationFunctions = {
 		 * Login
 		 */
 		LOGIN: () => LocalizedString
+		/**
+		 * Hi,
+		 */
+		HI: () => LocalizedString
 		/**
 		 * Register
 		 */

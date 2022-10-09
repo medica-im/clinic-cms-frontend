@@ -8,6 +8,9 @@ const en: BaseTranslation = {
 		TEAM: {
 			TITLE: "Our team",
 			TEXT: "Our multidisciplinary team is committed to your health."
+		},
+		FOOTER: {
+			WIP: "Website under construction. Contac the developer:"
 		}
 	},
 	SEARCH: "Search",
@@ -30,6 +33,7 @@ const en: BaseTranslation = {
 	NAVBAR: {
 		ADDRESSBOOK: "Addressbook",
 		LOGIN: "Login",
+		HI: "Hi,",
 		REGISTER: "Register",
 		LOGOUT: "Logout"
 	},

@@ -19,14 +19,12 @@
 
 
     function handleSelect(event) {
-    console.log('selected item', event.detail);
     if (event.detail === null) {
         selectOccupations.set($occupations.map(x => x.name));
         return
     } else if (event.detail.length > 0) {
     selectOccupations.set(event.detail.map(x => x.name));
     }
-    console.log('selectOccupations:', $selectOccupations);
   }
 </script>
 
@@ -35,7 +33,7 @@
 	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 </div>
 {:then} 
-<Select {optionIdentifier} {labelIdentifier} items={$occupations} isMulti={true} on:select={handleSelect} on:clear={handleClear} placeholder="{$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}"></Select>
+<Select class="form-select" aria-label="Default select example" {optionIdentifier} {labelIdentifier} items={$occupations} isMulti={true} on:select={handleSelect} on:clear={handleClear} placeholder="{$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}"></Select>
 {/await}
 
 

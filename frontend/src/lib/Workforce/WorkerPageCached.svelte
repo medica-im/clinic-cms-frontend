@@ -38,19 +38,13 @@
 	let worker=`worker_${variables.DEFAULT_LANGUAGE}`;
 
 	async function getWorkerData() {
-		console.log($workforceDataCached);
 		const wfdc = await getWorkforceDataCached();
-		console.log(wfdc);
-		console.log(slug);
 		if (wfdc) {
-			console.log(wfdc);
 			let worker = wfdc.find((element) => element.slug == slug);
 			let id = worker.id;
-			console.log(`id:${id}`);
 			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/?lang=${$language}`;
 			const [response, error] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
-				console.log(`workerData: ${JSON.stringify(response)}`);
 				if (response.profile) {
 					html = response.profile.text;
 				}

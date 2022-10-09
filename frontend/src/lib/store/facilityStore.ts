@@ -11,12 +11,13 @@ export const facilityStore = asyncDerived(
 		var cachelife = 300;
 		const cacheName = "facility";
 		let cacheddata;
+		let expired = true;
 		if (browser) {
 			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
 		}
 		if (cacheddata) {
 			cacheddata = JSON.parse(cacheddata);
-			var expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
 		}
 		//If cached data available and not expired return them. 
 		if (cacheddata && !expired) {

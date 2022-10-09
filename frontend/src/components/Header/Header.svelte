@@ -1,14 +1,10 @@
 <script lang="ts">
 	import IconButton, { Icon } from '@smui/icon-button';
-	import CircularProgress from '@smui/circular-progress';
 	import { page } from '$app/stores';
-	import { userData } from '$lib/store/userStore';
 	import { logOutUser } from '$lib/utils/requestUtils';
 	import { language } from '$lib/store/languageStore';
 	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
-	import { facilityStore } from '$lib/store/facilityStore';
 	import { mdiTwitter, mdiFacebook, mdiLinkedin } from '@mdi/js';
-	import MdiTwitter from 'svelte-material-icons/Check.svelte';
 	import { Svg } from '@smui/common/elements';
 	import {
 		Collapse,
@@ -21,14 +17,14 @@
 	} from 'sveltestrap/src';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { userData } from '$lib/store/userStore';
+	import { facilityStore } from '$lib/store/facilityStore';
 
-	let isOpen = false;
+	export let user;
+	export let facility;
 
-	function handleUpdate(event) {
-		isOpen = event.detail.isOpen;
-	}
-	function isTwitter(element) {
-		return element.type == 'Twitter';
+	async function logOut() {
+		await logOutUser();
 	}
 	function hasSoMed(socialnetworks, somed) {
 		return socialnetworks.some((e) => e.type == somed);
@@ -40,15 +36,10 @@
 </script>
 
 <header>
-	{#await facilityStore.load()}
-		<div style="display: flex; justify-content: center">
-			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-		</div>
-	{:then}
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/"
-					>{capitalizeFirstLetter($facilityStore.formatted_name, $language)}</a
+					>{capitalizeFirstLetter(facility.formatted_name, $language)}</a
 				>
 				<button
 					class="navbar-toggler"
@@ -64,46 +55,66 @@
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<NavLink href="/contact" active={$page.url.pathname === '/contact'}>Contact</NavLink>
-						</li>
-						<li class="nav-item">
-							<NavLink href="/annuaire" active={$page.url.pathname === '/annuaire'}
-								>{$LL.NAVBAR.ADDRESSBOOK()}</NavLink
+							<a
+								class="nav-link {$page.url.pathname === '/contact'
+									? 'active aria-current="page"'
+									: ''}"
+								aria-current="page"
+								href="/contact">Contact</a
 							>
 						</li>
 						<li class="nav-item">
-							<NavLink href="https://msp-vedene.fr/blog">Blog</NavLink>
+							<a
+								class="nav-link {$page.url.pathname === '/annuaire'
+									? 'active aria-current="page"'
+									: ''}"
+								href="/annuaire">{$LL.NAVBAR.ADDRESSBOOK()}</a
+							>
 						</li>
-						{#if !$userData.username}
+						<li class="nav-item">
+							<a
+								class="nav-link {$page.url.pathname === '/blog'
+									? 'active aria-current="page"'
+									: ''} "
+								href="https://msp-vedene.fr/blog">Blog</a
+							>
+						</li>
+						{#if (user.username == undefined)}
 							<li class="nav-item">
-								<NavLink href="/accounts/login" active={$page.url.pathname === '/accounts/login'}
-									>{$LL.NAVBAR.LOGIN()}</NavLink
+								<a
+									class="nav-link {$page.url.pathname === '/accounts/login'
+										? 'active aria-current="page"'
+										: ''} "
+									href="/accounts/login">{$LL.NAVBAR.LOGIN()}</a
 								>
 							</li>
-							{#if $facilityStore.registration === true}
+							{#if facility.registration === true}
 								<li class="nav-item">
-									<NavLink
+									<a class="nav-link {$page.url.pathname === '/accounts/register'
+									? 'active aria-current="page"'
+									: ''}"
 										href="/accounts/register"
-										active={$page.url.pathname === '/accounts/register'}
-										>{$LL.NAVBAR.REGISTER()}</NavLink
+										>{$LL.NAVBAR.REGISTER()}</a
 									>
 								</li>
 							{/if}
-						{:else}
+						{/if}
+						{#if user.username}
 							<li class="nav-item">
 								<NavLink
-									href="/accounts/user/{$userData.username}-{$userData.id}"
-									active={$page.url.pathname === '/accounts/user'}>Hi, {$userData.username}</NavLink
+									href="/accounts/user/{user.username}-{user.id}"
+									active={$page.url.pathname ===
+										`/accounts/user/${user.username}-${user.id}`}
+									>{$LL.NAVBAR.HI()} {user.username}</NavLink
 								>
 							</li>
 							<li class="nav-item">
-								<NavLink href={null} on:click={logOutUser}>{$LL.NAVBAR.LOGOUT()}</NavLink>
+								<a class="nav-link" href="/#" on:click={async () => {await logOut()}}>{$LL.NAVBAR.LOGOUT()}</a>
 							</li>
 						{/if}
-
-						{#if hasSoMed($facilityStore.contact.socialnetworks, 'Twitter')}
+						{#if hasSoMed(facility.contact.socialnetworks, 'Twitter')}
 							<li class="nav-item">
-								<a href={getUrl($facilityStore.contact.socialnetworks, 'Twitter')}>
+								<a href={getUrl(facility.contact.socialnetworks, 'Twitter')}>
 									<IconButton class="material-icons" size="button">
 										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
 											<path fill="currentColor" d={mdiTwitter} />
@@ -112,9 +123,9 @@
 								</a>
 							</li>
 						{/if}
-						{#if hasSoMed($facilityStore.contact.socialnetworks, 'Facebook')}
+						{#if hasSoMed(facility.contact.socialnetworks, 'Facebook')}
 							<li class="nav-item">
-								<a href={getUrl($facilityStore.contact.socialnetworks, 'Facebook')}>
+								<a href={getUrl(facility.contact.socialnetworks, 'Facebook')}>
 									<IconButton class="material-icons" size="button">
 										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
 											<path fill="currentColor" d={mdiFacebook} />
@@ -123,9 +134,9 @@
 								</a>
 							</li>
 						{/if}
-						{#if hasSoMed($facilityStore.contact.socialnetworks, 'LinkedIn')}
+						{#if hasSoMed(facility.contact.socialnetworks, 'LinkedIn')}
 							<li class="nav-item">
-								<a href={getUrl($facilityStore.contact.socialnetworks, 'LinkedIn')}>
+								<a href={getUrl(facility.contact.socialnetworks, 'LinkedIn')}>
 									<IconButton class="material-icons" size="button">
 										<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
 											<path fill="currentColor" d={mdiLinkedin} />
@@ -141,44 +152,4 @@
 				</div>
 			</div>
 		</nav>
-	{/await}
 </header>
-
-<!--header>
-	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
-		<ul>
-			<li class:active={$page.url.pathname === '/'}>
-				<a sveltekit:prefetch href="/">Home</a>
-			</li>
-			<li class:active={$page.url.pathname === '/map'}>
-				<a sveltekit:prefetch href="/map">Map</a>
-			</li>
-			<li class:active={$page.url.pathname === '/blog'}>
-				<a sveltekit:prefetch href="https://msp-vedene.fr/blog">Blog</a>
-			</li>
-			{#if !$userData.username}
-				<li class:active={$page.url.pathname === '/accounts/login'}>
-					<a sveltekit:prefetch href="/accounts/login">Login</a>
-				</li>
-				<li class:active={$page.url.pathname === '/accounts/register'}>
-					<a sveltekit:prefetch href="/accounts/register">Register</a>
-				</li>
-			{:else}
-				<li>
-					Hi, <a sveltekit:prefetch href="/accounts/user/{$userData.username}-{$userData.id}"
-						>{$userData.username}</a
-					>
-				</li>
-				<li>
-					<a href={null} on:click={logOutUser} style="cursor: pointer;">Logout</a>
-				</li>
-			{/if}
-		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
-	</nav>
-</header-->

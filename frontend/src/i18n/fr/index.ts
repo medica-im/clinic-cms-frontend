@@ -8,7 +8,10 @@ const fr: Translation = {
     TEAM: {
       TITLE: "Notre équipe",
       TEXT: "Notre équipe pluriprofessionnelle s'engage pour votre santé et celle de vos proches."
-    }
+    },
+    FOOTER: {
+			WIP: "Site en construction. Contacter le développeur:"
+		}
   },
   SEARCH: "Recherche",
   ADDRESSBOOK: {
@@ -30,6 +33,7 @@ const fr: Translation = {
   NAVBAR: {
     ADDRESSBOOK: "Annuaire",
     LOGIN: "Se connecter",
+    HI: "Salut",
     REGISTER: "S'enregistrer",
     LOGOUT: "Se déconnecter"
   },

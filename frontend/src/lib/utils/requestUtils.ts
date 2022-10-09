@@ -8,6 +8,9 @@ import { userData } from '$lib/store/userStore';
 import { variables } from '$lib/utils/constants';
 import { formatText } from '$lib/formats/formatString';
 import type { Workforce } from '$lib/interfaces/workforce.interface';
+import { get } from 'svelte/store';
+import { facilityStore } from '$lib/store/facilityStore';
+import { mdiToyBrickMinusOutline } from '@mdi/js';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -96,6 +99,7 @@ export const getCurrentUser = async (
 };
 
 export const logOutUser = async (): Promise<void> => {
+	console.log('logOutUser()');
 	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
@@ -120,12 +124,15 @@ export const logOutUser = async (): Promise<void> => {
 	});
 	if (jres.status !== 204) {
 		const data = await jres.json();
-		const error = data.user.error[0];
-		throw { id: error.id, message: error };
+		//const error = data.user?.error[0];
+		//throw { id: error.id, message: error };
+		console.error(data);
 	}
 	localStorage.removeItem('refreshToken');
 	userData.set({});
+	console.log(get(userData));
 	notificationData.update(() => 'You have successfully logged out...');
+	facilityStore.reload();
 	await goto('/accounts/login');
 };
 
@@ -203,7 +210,6 @@ export const handleRequestsWithPermissions = async (
 	targetUrl: string
 ): Promise<[Workforce, Array<CustomError>]> => {
 	let refreshToken = browserGet('refreshToken');
-	console.log(`${refreshToken}`);
 	const accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
@@ -225,7 +231,6 @@ export const handleRequestsWithPermissions = async (
 	)
 	let fetchDict;
     if (accessRefresh) {
-	console.log(`${accessRefresh}`);
 	fetchDict = {
 		method: 'GET',
 		mode: 'cors',
@@ -273,7 +278,6 @@ export const UpdateField = async (
 		console.log(err);
 		return [{}, err];
 	}
-	console.log(response);
 	notificationData.update(() => `${formatText(fieldName)} has been updated successfully.`);
 	return [response, []];
 };
