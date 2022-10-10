@@ -70,8 +70,8 @@
 					</li>
 					<li class="nav-item">
 						<a
-							class="nav-link {$page.url.pathname === '/blog' ? 'active aria-current="page"' : ''} "
-							href="https://msp-vedene.fr/blog">Blog</a
+							class="nav-link {$page.url.pathname === '/blog/' ? 'active aria-current="page"' : ''} "
+							href="https://msp-vedene.fr/blog/">Blog</a
 						>
 					</li>
 				</ul>
