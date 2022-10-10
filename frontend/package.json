@@ -6,7 +6,7 @@
     "sveltekit": "vite dev --port 3000",
     "build": "vite build",
     "package": "svelte-kit package",
-    "preview": "vite preview",
+    "preview": "vite preview --port 3000",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",

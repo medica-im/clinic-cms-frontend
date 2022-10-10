@@ -18,7 +18,6 @@ export const workforceDict = asyncDerived(
 		const cacheName = "workforceDict";
 		let cacheddata;
 		let expired: boolean = false
-		//let $language = get(language);
 		if (browser) {
 			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
 		}
@@ -29,7 +28,6 @@ export const workforceDict = asyncDerived(
 		if (cacheddata && !expired) {
 			return cacheddata.data;
 		} else {
-			var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
 			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${$language}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
@@ -54,8 +52,12 @@ export const workforceDataCached = asyncDerived(
 		const cacheName = "wfd";
 		let cacheddata;
 		let expired: boolean = false
+		let lang = $locale as string;
+		if (lang == undefined) {
+			lang = variables.DEFAULT_LANGUAGE;
+		}
 		if (browser) {
-			cacheddata = localStorage.getItem(`${cacheName}_${$locale}`);
+			cacheddata = localStorage.getItem(`${cacheName}_${lang}`);
 		}
 		if (cacheddata) {
 			cacheddata = JSON.parse(cacheddata);
@@ -65,13 +67,13 @@ export const workforceDataCached = asyncDerived(
 		if (cacheddata && !expired) {
 			return cacheddata.data;
 		} else {
-			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${$locale}`;
+			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${lang}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
 			if (response) {
 				let data = response as Workforce;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${$locale}`, JSON.stringify(json));
+					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
@@ -217,39 +219,43 @@ export const workerData = asyncDerived(
 );
 
 export const getWorkforceDataCached = async () => {
-	// set cache lifetime in seconds
-	var cachelife = 60;
-	//get cached data from local storage
-	let $language = get(language);
-	let cacheddata;
-	let expired = false
-	if (browser) {
-		cacheddata = localStorage.getItem(`wfd_${$language}`);
-	}
-	if (cacheddata) {
-		cacheddata = JSON.parse(cacheddata);
-		expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
-	}
-	//If cached data available and not expired return them. 
-	if (cacheddata && !expired) {
-		//workforceDataCached.set(cacheddata.data);
-		return cacheddata.data;
-	} else {
-		//otherwise fetch data from api then save the data in localstorage
-		let $language = get(language);
-		var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
-		const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${$language}`;
-		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-		if (response) {
-			let data = response as Workforce;
-			if (browser) {
-				var json = { data: data, cachetime: Date.now() / 1000 }
-				localStorage.setItem(`wfd_${$language}`, JSON.stringify(json));
-			}
-			return data;
-		} else if (err) {
-			console.log(err);
+		// set cache lifetime in seconds
+		var cachelife = 60;
+		//get cached data from local storage
+		let cacheddata;
+		let expired = false
+		let lang = get(locale) as string;
+		if (lang == undefined) {
+			lang = get(language);
 		}
+		if (lang == undefined) {
+			lang = variables.DEFAULT_LANGUAGE;
+		}
+		if (browser) {
+			cacheddata = localStorage.getItem(`wfd_${lang}`);
+		}
+		if (cacheddata) {
+			cacheddata = JSON.parse(cacheddata);
+			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		}
+		//If cached data available and not expired return them. 
+		if (cacheddata && !expired) {
+			//workforceDataCached.set(cacheddata.data);
+			return cacheddata.data;
+		} else {
+			//otherwise fetch data from api then save the data in localstorage
+			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${lang}`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
+			if (response) {
+				let data = response as Workforce;
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`wfd_${lang}`, JSON.stringify(json));
+				}
+				return data;
+			} else if (err) {
+				console.log(err);
+			}
 
-	}
-}
+		}
+	};

@@ -1,10 +1,10 @@
 import type { Variables } from '$lib/interfaces/variables.interface';
 
-const BASE_API_URI: string = import.meta.env.VITE_DEV
+const BASE_API_URI: string = (import.meta.env.VITE_DEV == "true")
 	? import.meta.env.VITE_BASE_API_URI_DEV
 	: import.meta.env.VITE_BASE_API_URI_PROD;
 
-const BASE_URI: string = import.meta.env.VITE_DEV
+const BASE_URI: string = (import.meta.env.VITE_DEV == "true")
 	? import.meta.env.VITE_BASE_URI_DEV
 	: import.meta.env.VITE_BASE_URI_PROD;
 
@@ -18,5 +18,3 @@ export const variables: Variables = {
 	GHOST_API_KEY: GHOST_API_KEY,
 	DEFAULT_LANGUAGE: DEFAULT_LANGUAGE
 };
-
-//'http://localhost:8000/api' //'https://django-sveltekit-jwt-auth.herokuapp.com/api'

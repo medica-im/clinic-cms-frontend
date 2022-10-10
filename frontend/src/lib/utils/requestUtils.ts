@@ -11,6 +11,8 @@ import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { get } from 'svelte/store';
 import { facilityStore } from '$lib/store/facilityStore';
 import { mdiToyBrickMinusOutline } from '@mdi/js';
+import { locales } from '$i18n/i18n-util';
+import { locale } from '$i18n/i18n-svelte';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -98,6 +100,24 @@ export const getCurrentUser = async (
 	}
 };
 
+function emptyLocaleStorage() {
+	localStorage.removeItem('refreshToken');
+	const itemsToDelete: string[] = [];
+	let storedItemsRoot = ["facility_", "wfd_", "workforceDict_"];
+	console.log(locales);
+    locales.forEach(
+		(locale) => {
+			let items = storedItemsRoot.map((value)=> value+locale)
+			console.log(items);
+			itemsToDelete.push(...items);
+		}
+	);
+	console.log(`itemsToDelete`+itemsToDelete);
+	itemsToDelete.forEach(
+		(value)=>localStorage.removeItem(value)
+	);
+}
+
 export const logOutUser = async (): Promise<void> => {
 	console.log('logOutUser()');
 	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
@@ -128,11 +148,11 @@ export const logOutUser = async (): Promise<void> => {
 		//throw { id: error.id, message: error };
 		console.error(data);
 	}
-	localStorage.removeItem('refreshToken');
+	console.log(get(userData));
 	userData.set({});
 	console.log(get(userData));
+	emptyLocaleStorage();
 	notificationData.update(() => 'You have successfully logged out...');
-	facilityStore.reload();
 	await goto('/accounts/login');
 };
 

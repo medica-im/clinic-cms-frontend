@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script lang="ts">
 	import { userData } from '$lib/store/userStore';
 	import { navigating } from '$app/stores';
 	import { loading } from '$lib/store/loadingStore';
@@ -14,37 +14,7 @@
 	import Loader from '../components/Loader/Loader.svelte';
 	import CircularProgress from '@smui/circular-progress';
 	import LL from '$i18n/i18n-svelte';
- /* 
-  type LoadParams = {
-		lang?: Locales;
-	};
-	export const load: Load<LoadParams> = async ({ url, session, params }) => {
-		// fallback needed because of https://github.com/sveltejs/kit/issues/3647
-		const lang = params.lang || (url.pathname.split('/')[1] as Locales) || 'fr';
-		// redirect to preferred language if user comes from page root
-		if (!lang) {
-			return {
-				status: 302,
-				redirect: `/${session.locale}`
-			};
-		}
-		// redirect to base locale if language is not present
-		if (!locales.includes(lang)) {
-			return {
-				status: 302,
-				redirect: replaceLocaleInUrl(url.pathname, baseLocale)
-			};
-		}
-		// delete session locale since we don't need it to be sent to the client
-		delete session.locale;
-		await loadLocaleAsync(lang);
-		return { props: { locale: lang } };
-	};
-	*/
-</script>
-
-<script lang="ts">
-	import Header from '../components/Header/Header.svelte';
+	import Navigation from '../components/Header/Navigation.svelte';
 	import { setLocale } from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
 	import { facilityStore } from '$lib/store/facilityStore';
@@ -55,6 +25,9 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 
+	console.log(`dev?`, import.meta.env.DEV);
+	console.log(`prod?`, import.meta.env.PROD);
+
 	onMount(async () => {
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
@@ -64,6 +37,8 @@
 			);
 			if (errs.length <= 0) {
 				userData.set(response);
+			} else {
+				userData.set({});
 			}
 		}
 	});
@@ -86,17 +61,6 @@
 			userData.update(() => response);
 		}
 	});
-
-	/*$: if ($page.url.hash) {
-  // Workaround until https://github.com/sveltejs/kit/issues/2664 is fixed
-  if (typeof window !== "undefined" && window.location.hash) {
-    const deepLinkedElement = document.getElementById(
-      window.location.hash.substring(1)
-    );
-    if (deepLinkedElement) {
-		window.setTimeout(() => deepLinkedElement.scrollIntoView(), 100);    }
-  }
-}*/
 </script>
 
 <head>
@@ -131,13 +95,11 @@
 </head>
 
 {#await facilityStore.load()}
-<div style="display: flex; justify-content: center">
-	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-</div>
-{:then}
-{#if $userData}
-<Header user={$userData} facility={$facilityStore} />
-{/if}
+	<div style="display: flex; justify-content: center">
+		<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+	</div>
+{:then data}
+	<Navigation facility={data} />
 {/await}
 
 {#if $notificationData}
@@ -157,21 +119,25 @@
 		<slot />
 	</div>
 </main>
-<footer class="footer mt-auto py-3 bg-light">
-	<div class="container">
-	  <span class="text-muted"><svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="16"
-		height="16"
-		fill="currentColor"
-		class="bi bi-cone-striped"
-		viewBox="0 0 16 16"
-	>
-		<path
-			d="m9.97 4.88.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.158-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098zm4.396 8.613a.5.5 0 0 1 .037.96l-6 2a.5.5 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l2.391-.598.565-2.257c.862.212 1.964.339 3.165.339s2.303-.127 3.165-.339l.565 2.257 2.391.598z"
-		/>
-	</svg>
-	{$LL.HOME.FOOTER.WIP()} <a href="https://medecinelibre.com">Médecine Libre</a>.</span>
-	</div>
-  </footer>
-<!--footer in:fly={{ y: -50, duration: 500, delay: 500 }} out:fly={{ duration: 500 }} /-->
+
+{#if import.meta.env.DEV}
+	<footer class="footer mt-auto py-3 bg-light">
+		<div class="container">
+			<span class="text-muted"
+				><svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="16"
+					height="16"
+					fill="currentColor"
+					class="bi bi-cone-striped"
+					viewBox="0 0 16 16"
+				>
+					<path
+						d="m9.97 4.88.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.158-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098zm4.396 8.613a.5.5 0 0 1 .037.96l-6 2a.5.5 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l2.391-.598.565-2.257c.862.212 1.964.339 3.165.339s2.303-.127 3.165-.339l.565 2.257 2.391.598z"
+					/>
+				</svg>
+				{$LL.HOME.FOOTER.WIP()} <a href="https://medecinelibre.com">Médecine Libre</a>.</span
+			>
+		</div>
+	</footer>
+{/if}

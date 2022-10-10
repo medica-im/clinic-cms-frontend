@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { afterUpdate, onMount } from 'svelte';
+	import { get } from '@square/svelte-store';
 	import { variables } from '$lib/utils/constants';
 	import Card, {
 		Content,
