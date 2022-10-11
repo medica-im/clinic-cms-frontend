@@ -19,6 +19,10 @@ type RootTranslation = {
 	 * @param {string} name
 	 */
 	HI: RequiredParams<'name'>
+	/**
+	 * L​o​a​d​i​n​g​.​.​.
+	 */
+	LOADING: string
 	HOME: {
 		/**
 		 * W​e​l​c​o​m​e​ ​t​o
@@ -144,6 +148,10 @@ export type TranslationFunctions = {
 	 * Hi {name}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n
 	 */
 	HI: (arg: { name: string }) => LocalizedString
+	/**
+	 * Loading...
+	 */
+	LOADING: () => LocalizedString
 	HOME: {
 		/**
 		 * Welcome to

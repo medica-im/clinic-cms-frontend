@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { occupationsCardinal, workforceDataCached } from '$lib/store/workforceStore';
-	import CircularProgress from '@smui/circular-progress';
-
-
+    import LL from '$i18n/i18n-svelte';
 </script>
 
 {#await occupationsCardinal.load()}
-<div style="display: flex; justify-content: center">
-	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+<div class="spinner-border" role="status">
+	<span class="visually-hidden">{$LL.LOADING()}</span>
 </div>
 {:then}
 	<ul class="list-group list-group-flush">

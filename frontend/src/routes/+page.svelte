@@ -15,7 +15,6 @@
 		CardTitle,
 		Form
 	} from 'sveltestrap';
-	import CircularProgress from '@smui/circular-progress';
 	import LL from '$i18n/i18n-svelte';
 	//export let posts;
 	import Ghost from '$lib/Ghost/Ghost.svelte';
@@ -37,9 +36,9 @@
 </svelte:head>
 
 {#await facilityStore.load()}
-	<div style="display: flex; justify-content: center">
-		<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-	</div>
+<div class="spinner-border" role="status">
+	<span class="visually-hidden">{$LL.LOADING()}</span>
+</div>
 {:then}
 	<section in:fly={{ y: -100, duration: 500, delay: 500 }} out:fly={{ duration: 500 }}>
 		<div class="container">

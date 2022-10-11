@@ -3,7 +3,6 @@
     import { afterUpdate, onMount, beforeUpdate } from 'svelte';
 	import { occupations, selectOccupations } from '$lib/store/workforceStore';
     import LL from '$i18n/i18n-svelte';
-    import CircularProgress from '@smui/circular-progress';
 	let optionIdentifier = 'name';
 	let labelIdentifier = 'label';
 
@@ -29,8 +28,8 @@
 </script>
 
 {#await occupations.load()}
-<div style="display: flex; justify-content: center">
-	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+<div class="spinner-border" role="status">
+    <span class="visually-hidden">{$LL.LOADING()}</span>
 </div>
 {:then} 
 <Select class="form-select" aria-label="Default select example" {optionIdentifier} {labelIdentifier} items={$occupations} isMulti={true} on:select={handleSelect} on:clear={handleClear} placeholder="{$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}"></Select>

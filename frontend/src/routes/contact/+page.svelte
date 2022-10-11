@@ -2,8 +2,8 @@
 import FacilityList from '../../components/FacilityList.svelte';
 import LeafletMap from './map/LeafletMap.svelte';
 import Address from '$lib/Address/Address.svelte';
-import CircularProgress from '@smui/circular-progress';
 import { facilityStore } from '$lib/store/facilityStore';
+import LL from '$i18n/i18n-svelte';
 
 const createFacilityGeoData = (fData) => {
 	let contact = fData.contact;
@@ -29,9 +29,9 @@ const createFacilityGeoData = (fData) => {
 
 <main>
 	{#await facilityStore.load()}
-		<div style="display: flex; justify-content: center">
-			<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-		</div>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">{$LL.LOADING()}</span>
+	</div>
 	{:then}
 		<FacilityList organizationData={$facilityStore} />
 		{#each $facilityStore.facility as facility}

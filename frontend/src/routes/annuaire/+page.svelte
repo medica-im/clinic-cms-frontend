@@ -12,7 +12,6 @@
 	import LL from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import { locale } from '$i18n/i18n-svelte';
-	import CircularProgress from '@smui/circular-progress';
 
 	const optionIdentifier = 'slug';
 	const labelIdentifier = 'formatted_name';
@@ -25,9 +24,9 @@
 <main>
 	<div class="container my-2">
 		{#await occupations.load()}
-			<div style="display: flex; justify-content: center">
-				<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-			</div>
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">{$LL.LOADING()}</span>
+		</div>
 		{:then}
 			<div class="row my-2">
 				<div class="col">

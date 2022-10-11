@@ -12,7 +12,6 @@
 	import { baseLocale, locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import Loader from '../components/Loader/Loader.svelte';
-	import CircularProgress from '@smui/circular-progress';
 	import LL from '$i18n/i18n-svelte';
 	import Navigation from '../components/Header/Navigation.svelte';
 	import { setLocale } from '$i18n/i18n-svelte';
@@ -92,9 +91,9 @@
 </head>
 
 {#await facilityStore.load()}
-	<div style="display: flex; justify-content: center">
-		<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-	</div>
+<div class="spinner-border" role="status">
+	<span class="visually-hidden">{$LL.LOADING()}</span>
+</div>
 {:then}
 	<Navigation facility={$facilityStore} />
 {/await}

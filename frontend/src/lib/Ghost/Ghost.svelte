@@ -4,7 +4,7 @@
 	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import facilityStore from '$lib/store/facilityStore';
-	import CircularProgress from '@smui/circular-progress';
+	import LL from '$i18n/i18n-svelte';
 
 	const key = variables.GHOST_API_KEY;
 	const apiUrl = `https://msp-vedene.fr/blog/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
@@ -25,9 +25,9 @@
 </script>
 
 {#if $queryResult.isLoading}
-	<div style="display: flex; justify-content: center">
-		<CircularProgress style="height: 32px; width: 32px;" indeterminate />
-	</div>
+<div class="spinner-border" role="status">
+	<span class="visually-hidden">{$LL.LOADING()}</span>
+</div>
 {:else if $queryResult.isError}
 	<span>Error: {$queryResult.error.message}</span>
 {:else}

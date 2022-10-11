@@ -28,7 +28,6 @@
 	import { dataset_dev } from 'svelte/internal';
 	import Appointment from './Appointment.svelte';
 	import facilityStore from '$lib/store/facilityStore';
-	import CircularProgress from '@smui/circular-progress';
 	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 
@@ -81,8 +80,8 @@
 </script>
 
 {#if $queryResult.isLoading}
-<div style="display: flex; justify-content: center">
-	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+<div class="spinner-border" role="status">
+	<span class="visually-hidden">{$LL.LOADING()}</span>
 </div>
 {:else if $queryResult.error}
 	<span>An error has occurred: {$queryResult.error.message}</span>
