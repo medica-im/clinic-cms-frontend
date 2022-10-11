@@ -23,24 +23,23 @@
 
 	import { onMount } from 'svelte';
 	import WorkerPageCached from '$lib/Workforce/WorkerPageCached.svelte';
-    import { workerData, workerSlug } from '$lib/store/workforceStore';
-	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query'
+	import { workerData, workerSlug } from '$lib/store/workforceStore';
+	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
 
-    const queryClient = new QueryClient()
+	const queryClient = new QueryClient();
 	$: workerSlug.set(data.slug);
-
-
 </script>
+
 <svelte:head>
-{#await workerData.load() then _}
-   <title>{$workerData}</title>
-{/await}
+	{#await workerData.load()}
+		<title />
+	{:then}
+		<title>{$workerData}</title>
+	{/await}
 </svelte:head>
 
 <main>
 	<QueryClientProvider client={queryClient}>
-
 		<WorkerPageCached slug={data.slug} />
-		 
-		  </QueryClientProvider>
+	</QueryClientProvider>
 </main>

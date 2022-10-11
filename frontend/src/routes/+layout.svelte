@@ -25,9 +25,6 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 
-	console.log(`dev?`, import.meta.env.DEV);
-	console.log(`prod?`, import.meta.env.PROD);
-
 	onMount(async () => {
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
@@ -98,8 +95,8 @@
 	<div style="display: flex; justify-content: center">
 		<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 	</div>
-{:then data}
-	<Navigation facility={data} />
+{:then}
+	<Navigation facility={$facilityStore} />
 {/await}
 
 {#if $notificationData}

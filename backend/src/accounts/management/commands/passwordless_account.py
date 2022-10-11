@@ -1,8 +1,11 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth import get_user_model
 from workforce.models import NetworkNode, NodeSet
-from facility.models import Organization
+from facility.models import Organization, Facility
 from django.db import DatabaseError, IntegrityError
+from django.contrib.sites.models import Site
+from directory.models import Slug
+from addressbook.models import Contact
 
 import logging
 
@@ -24,7 +27,11 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('email', type=str)
         parser.add_argument('--occupation', type=str, nargs='*')
-        parser.add_argument('--organization', type=str)        
+        parser.add_argument('--organization', type=str)
+        parser.add_argument('--facility', type=str)
+        parser.add_argument('--site', type=str)
+        parser.add_argument('--slug', type=str)
+        parser.add_argument('--formatted_name', type=str)
 
     def handle(self, *args, **options):
         email: str = options['email']
@@ -46,6 +53,45 @@ class Command(BaseCommand):
         except Exception as e:
             raise CommandError('User creation failed. %s' % e)
             return
+
+        # create Slug
+        site=options['site']
+        slug=options['slug']
+        if site and slug:
+            try:
+                site = Site.objects.get(domain=options['site'])
+            except Site.DoesNotExist as e:
+                raise CommandError(
+                    f'Site with domain {site} does not exist.'
+                )
+                return
+            try:
+                Slug.objects.create(
+                    slug=slug,
+                    site=site,
+                    user=user
+                )
+            except Exception as e:
+                raise CommandError(
+                    f'Error during creation of Slug object: $s' % e
+                )
+                return
+
+        # create Contact
+        formatted_name = options['formatted_name']
+        if formatted_name:
+            person_type=Contact.PersonType.NATURAL
+            try:
+                Contact.objects.create(
+                    person_type=person_type,
+                    user=user,
+                    formatted_name=formatted_name,
+                )
+            except Exception as e:
+                raise CommandError(
+                    f'Error during creation of Contact object: $s' % e
+                )
+                return
         try:
             user_node_set = NodeSet.objects.get(name='user')
         except NodeSet.DoesNotExist:
@@ -71,6 +117,10 @@ class Command(BaseCommand):
             organization = Organization.objects.get(name=options['organization'])
         except Organization.DoesNotExist:
             organization = None
+        try:
+            facility = Facility.objects.get(name=options['facility'])
+        except Facility.DoesNotExist:
+            facility = None
         occupations = options['occupation']
         try:
             for occupation in occupations:
@@ -88,6 +138,7 @@ class Command(BaseCommand):
                 for edge in edges:
                     if edge.child_id == user_node.id:
                         edge.organizations.add(organization)
+                        edge.facilities.add(facility)
         except TypeError:
             return
         parents_qs = user_node.parents.all()

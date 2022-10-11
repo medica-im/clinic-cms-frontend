@@ -46,13 +46,13 @@ export const workforceDict = asyncDerived(
 );
 
 export const workforceDataCached = asyncDerived(
-	(locale),
-	async ($locale) => {
+	([locale, language]),
+	async ([$locale, $language]) => {
 		var cachelife = 300;
 		const cacheName = "wfd";
 		let cacheddata;
 		let expired: boolean = false
-		let lang = $locale as string;
+		let lang = $language;
 		if (lang == undefined) {
 			lang = variables.DEFAULT_LANGUAGE;
 		}
@@ -63,7 +63,6 @@ export const workforceDataCached = asyncDerived(
 			cacheddata = JSON.parse(cacheddata);
 			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
 		}
-		//If cached data available and not expired return them. 
 		if (cacheddata && !expired) {
 			return cacheddata.data;
 		} else {
@@ -168,7 +167,7 @@ export const occupationsCardinal = asyncDerived(
 
 export const selectOccupations = writable([]);
 
-export const filteredWorkforceDataCached = derived(
+export const filteredWorkforceDataCached = asyncDerived(
 	[term, selectOccupations, workforceDataCached],
 	([$term, $selectOccupations, $workforceDataCached]) => {
 		if (!$selectOccupations.length && $term == '') { return $workforceDataCached }
@@ -184,78 +183,45 @@ export const filteredWorkforceDataCached = derived(
 	}
 );
 
-export const filteredWorkforceData = derived(
-	[term, selectOccupations, workforceDataCached],
-	([$term, $selectOccupations, $workforceDataCached]) => {
-		if (!$selectOccupations.length && $term == '') { return $workforceData }
-		else if (!$selectOccupations.length) {
-			return $workforceDataCached.filter(x => x.formatted_name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes($term.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")))
-		} else {
-			return $workforceDataCached.filter(x => x.formatted_name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes($term.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))).filter(x => x.occupations.map(
-				function (currentElement) {
-					return currentElement.name
-				}
-			).some(r => $selectOccupations.includes(r)))
-		}
-	}
-);
-
-export const workerTitle = derived(
-	[workerSlug, workforceDataCached,],
-	([$workerSlug, $workforceDataCached]) => {
-		if ($workerSlug && $workforceDataCached.length) {
-			return $workforceDataCached.find((element) => element.slug == $workerSlug).formatted_name
-		} else { return '' }
-	}
-);
-
 export const workerData = asyncDerived(
 	[workerSlug, workforceDataCached,],
 	([$workerSlug, $workforceDataCached]) => {
-		if ($workerSlug && $workforceDataCached.length) {
+		if ($workerSlug && $workforceDataCached && $workforceDataCached.length) {
 			return $workforceDataCached.find((element) => element.slug == $workerSlug).formatted_name
 		} else { return '' }
 	}
 );
 
 export const getWorkforceDataCached = async () => {
-		// set cache lifetime in seconds
-		var cachelife = 60;
-		//get cached data from local storage
-		let cacheddata;
-		let expired = false
-		let lang = get(locale) as string;
-		if (lang == undefined) {
-			lang = get(language);
-		}
-		if (lang == undefined) {
-			lang = variables.DEFAULT_LANGUAGE;
-		}
-		if (browser) {
-			cacheddata = localStorage.getItem(`wfd_${lang}`);
-		}
-		if (cacheddata) {
-			cacheddata = JSON.parse(cacheddata);
-			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
-		}
-		//If cached data available and not expired return them. 
-		if (cacheddata && !expired) {
-			//workforceDataCached.set(cacheddata.data);
-			return cacheddata.data;
-		} else {
-			//otherwise fetch data from api then save the data in localstorage
-			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${lang}`;
-			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-			if (response) {
-				let data = response as Workforce;
-				if (browser) {
-					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`wfd_${lang}`, JSON.stringify(json));
-				}
-				return data;
-			} else if (err) {
-				console.log(err);
+	var cachelife = 300;
+	let cacheddata;
+	let expired = false
+	let lang = get(language);
+	if (lang == undefined) {
+		lang = variables.DEFAULT_LANGUAGE;
+	}
+	if (browser) {
+		cacheddata = localStorage.getItem(`wfd_${lang}`);
+	}
+	if (cacheddata) {
+		cacheddata = JSON.parse(cacheddata);
+		expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+	}
+	if (cacheddata && !expired) {
+		return cacheddata.data;
+	} else {
+		const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${lang}`;
+		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
+		if (response) {
+			let data = response as Workforce;
+			if (browser) {
+				var json = { data: data, cachetime: Date.now() / 1000 }
+				localStorage.setItem(`wfd_${lang}`, JSON.stringify(json));
 			}
-
+			return data;
+		} else if (err) {
+			console.log(err);
 		}
-	};
+
+	}
+};

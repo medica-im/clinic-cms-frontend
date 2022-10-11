@@ -17,7 +17,6 @@
 	import {
 		workforceDataCached,
 		getWorkforceDataCached,
-		workerTitle,
 		workerSlug,
 		occupations
 	} from '$lib/store/workforceStore';
