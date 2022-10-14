@@ -25,6 +25,10 @@ type RootTranslation = {
 	LOADING: string
 	HOME: {
 		/**
+		 * H​o​m​e
+		 */
+		TITLE: string
+		/**
 		 * W​e​l​c​o​m​e​ ​t​o
 		 */
 		WELCOME: string
@@ -44,6 +48,12 @@ type RootTranslation = {
 			 */
 			WIP: string
 		}
+	}
+	CONTACT: {
+		/**
+		 * C​o​n​t​a​c​t
+		 */
+		TITLE: string
 	}
 	/**
 	 * S​e​a​r​c​h
@@ -154,6 +164,10 @@ export type TranslationFunctions = {
 	LOADING: () => LocalizedString
 	HOME: {
 		/**
+		 * Home
+		 */
+		TITLE: () => LocalizedString
+		/**
 		 * Welcome to
 		 */
 		WELCOME: () => LocalizedString
@@ -173,6 +187,12 @@ export type TranslationFunctions = {
 			 */
 			WIP: () => LocalizedString
 		}
+	}
+	CONTACT: {
+		/**
+		 * Contact
+		 */
+		TITLE: () => LocalizedString
 	}
 	/**
 	 * Search

@@ -4,6 +4,10 @@ import LeafletMap from './map/LeafletMap.svelte';
 import Address from '$lib/Address/Address.svelte';
 import { facilityStore } from '$lib/store/facilityStore';
 import LL from '$i18n/i18n-svelte';
+import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+import { language } from '$lib/store/languageStore';
+
+const promise = facilityStore.load();
 
 const createFacilityGeoData = (fData) => {
 	let contact = fData.contact;
@@ -26,6 +30,18 @@ const createFacilityGeoData = (fData) => {
 
 </script>
 
+<svelte:head>
+	{#await promise}
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">{$LL.LOADING()}</span>
+	</div>
+	<title/>
+	{:then}
+		<title>
+			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.CONTACT.TITLE()}
+		</title>
+	{/await}
+</svelte:head>
 
 <main>
 	{#await facilityStore.load()}

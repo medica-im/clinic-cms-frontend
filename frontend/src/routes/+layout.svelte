@@ -59,81 +59,67 @@
 	});
 </script>
 
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-	<!-- The page supports both dark and light color schemes,
+<svelte:head>
+		<!-- The page supports both dark and light color schemes,
 			 and the page author prefers / default is light. -->
-	<meta name="color-scheme" content="light" />
+		<meta name="color-scheme" content="light" />
 
-	<!-- Replace the Bootstrap CSS with the
+		<!-- Replace the Bootstrap CSS with the
 			 Bootstrap-Dark Variant CSS -->
-	<!--link
+		<!--link
 		href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css"
 		rel="stylesheet"
 	/-->
 
-	<!-- Optional Meta Theme Color is also supported on Safari and Chrome -->
-	<meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
-	<!--meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" /-->
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-		crossorigin="anonymous"
-	/>
-	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
-	/>
-</head>
+		<!-- Optional Meta Theme Color is also supported on Safari and Chrome -->
+		<meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
+		<!--meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" /-->
+</svelte:head>
 
 {#await facilityStore.load()}
-<div class="spinner-border" role="status">
-	<span class="visually-hidden">{$LL.LOADING()}</span>
-</div>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">{$LL.LOADING()}</span>
+	</div>
 {:then}
 	<Navigation facility={$facilityStore} />
-{/await}
 
-{#if $notificationData}
-	<p
-		class="notification"
-		id="notification"
-		in:fly={{ x: 200, duration: 500, delay: 500 }}
-		out:fly={{ x: 200, duration: 500 }}
-	>
-		{$notificationData}
-	</p>
-{/if}
+	{#if $notificationData}
+		<p
+			class="notification"
+			id="notification"
+			in:fly={{ x: 200, duration: 500, delay: 500 }}
+			out:fly={{ x: 200, duration: 500 }}
+		>
+			{$notificationData}
+		</p>
+	{/if}
 
-<main>
-	<!--Loader /-->
-	<div class="container">
-		<slot />
-	</div>
-</main>
-
-{#if import.meta.env.DEV}
-	<footer class="footer mt-auto py-3 bg-light">
+	<main>
+		<!--Loader /-->
 		<div class="container">
-			<span class="text-muted"
-				><svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					fill="currentColor"
-					class="bi bi-cone-striped"
-					viewBox="0 0 16 16"
-				>
-					<path
-						d="m9.97 4.88.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.158-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098zm4.396 8.613a.5.5 0 0 1 .037.96l-6 2a.5.5 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l2.391-.598.565-2.257c.862.212 1.964.339 3.165.339s2.303-.127 3.165-.339l.565 2.257 2.391.598z"
-					/>
-				</svg>
-				{$LL.HOME.FOOTER.WIP()} <a href="https://medecinelibre.com">Médecine Libre</a>.</span
-			>
+			<slot />
 		</div>
-	</footer>
-{/if}
+	</main>
+
+	{#if import.meta.env.DEV}
+		<footer class="footer mt-auto py-3 bg-light">
+			<div class="container">
+				<span class="text-muted"
+					><svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-cone-striped"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="m9.97 4.88.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.158-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098zm4.396 8.613a.5.5 0 0 1 .037.96l-6 2a.5.5 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l2.391-.598.565-2.257c.862.212 1.964.339 3.165.339s2.303-.127 3.165-.339l.565 2.257 2.391.598z"
+						/>
+					</svg>
+					{$LL.HOME.FOOTER.WIP()} <a href="https://medecinelibre.com">Médecine Libre</a>.</span
+				>
+			</div>
+		</footer>
+	{/if}
+{/await}

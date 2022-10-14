@@ -51,6 +51,11 @@ class Organization(models.Model):
         blank=True,
         related_name="organization",
     )
+    google_site_verification = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Google site verification meta tag",
+    )
     language = models.CharField(
         max_length=3,
         blank=True,

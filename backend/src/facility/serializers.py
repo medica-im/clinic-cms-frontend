@@ -33,6 +33,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'contact',
             'facility',
             'registration',
+            'google_site_verification',
         ]
         depth = 4
 

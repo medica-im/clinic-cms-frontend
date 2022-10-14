@@ -5,14 +5,18 @@ const fr: Translation = {
   HI: "Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n",
   LOADING: "Chargement...",
   HOME: {
+    TITLE: "Accueil",
     WELCOME: "Bienvenue dans",
     TEAM: {
       TITLE: "Notre équipe",
       TEXT: "Notre équipe pluriprofessionnelle s'engage pour votre santé et celle de vos proches."
     },
     FOOTER: {
-			WIP: "Site en construction. Contacter le développeur:"
-		}
+      WIP: "Site en construction. Contacter le développeur:"
+    }
+  },
+  CONTACT: {
+    TITLE: "Contact"
   },
   SEARCH: "Recherche",
   ADDRESSBOOK: {

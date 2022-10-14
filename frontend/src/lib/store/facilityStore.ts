@@ -4,10 +4,11 @@ import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@
 import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment";
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+import { locale } from '$i18n/i18n-svelte';
 
 export const facilityStore = asyncDerived(
-	(language),
-	async ($language) => {
+	([language, locale]),
+	async ([$language, $locale]) => {
 		var cachelife = 300;
 		const cacheName = "facility";
 		let cacheddata;

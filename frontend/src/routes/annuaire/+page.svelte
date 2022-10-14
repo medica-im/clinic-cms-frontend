@@ -1,32 +1,30 @@
-<script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
+<script>
+	import { facilityStore } from '$lib/store/facilityStore';
 	import { filteredWorkforceDataCached, occupations } from '$lib/store/workforceStore';
+	import Worker from '$lib/Workforce/Worker.svelte';
+	import LL from '$i18n/i18n-svelte';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { language } from '$lib/store/languageStore';
 	import Search from '$lib/Search.svelte';
 	import SelectOccupations from '$lib/SelectOccupations.svelte';
-	import Worker from '$lib/Workforce/Worker.svelte';
-	import type { Workforce } from '$lib/interfaces/workforce.interface';
-	import { variables } from '$lib/utils/constants';
-	import Select from 'svelte-select';
-	import Actions from '@smui/card/src/Actions.svelte';
-	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
-	import { locale } from '$i18n/i18n-svelte';
-
-	const optionIdentifier = 'slug';
-	const labelIdentifier = 'formatted_name';
 </script>
 
 <svelte:head>
-	<title>{$LL.ADDRESSBOOK.TITLE()}</title>
+	{#await facilityStore.load()}
+		<title />
+	{:then}
+	<title>
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}
+	</title>
+	{/await}
 </svelte:head>
 
 <main>
 	<div class="container my-2">
 		{#await occupations.load()}
-		<div class="spinner-border" role="status">
-			<span class="visually-hidden">{$LL.LOADING()}</span>
-		</div>
+			<div class="spinner-border" role="status">
+				<span class="visually-hidden">{$LL.LOADING()}</span>
+			</div>
 		{:then}
 			<div class="row my-2">
 				<div class="col">

@@ -32,7 +32,7 @@
     <span class="visually-hidden">{$LL.LOADING()}</span>
 </div>
 {:then} 
-<Select class="form-select" aria-label="Default select example" {optionIdentifier} {labelIdentifier} items={$occupations} isMulti={true} on:select={handleSelect} on:clear={handleClear} placeholder="{$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}"></Select>
+<Select {optionIdentifier} {labelIdentifier} items={$occupations} isMulti={true} on:select={handleSelect} on:clear={handleClear} placeholder="{$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}"></Select>
 {/await}
 
 

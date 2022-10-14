@@ -4,23 +4,10 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { fly } from 'svelte/transition';
 	import Occupations from '$lib/Organization/Occupations.svelte';
-	import {
-		Button,
-		Card,
-		CardBody,
-		CardFooter,
-		CardHeader,
-		CardSubtitle,
-		CardText,
-		CardTitle,
-		Form
-	} from 'sveltestrap';
 	import LL from '$i18n/i18n-svelte';
-	//export let posts;
 	import Ghost from '$lib/Ghost/Ghost.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import Actions from '@smui/card/src/Actions.svelte';
 
 	const queryClient = new QueryClient();
 </script>
@@ -29,8 +16,9 @@
 	{#await facilityStore.load()}
 		<title />
 	{:then}
+	    <meta name="google-site-verification" content="{$facilityStore.google_site_verification}">
 		<title>
-			{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.HOME.TITLE()}
 		</title>
 	{/await}
 </svelte:head>
