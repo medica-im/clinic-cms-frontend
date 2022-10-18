@@ -6,6 +6,7 @@ import { facilityStore } from '$lib/store/facilityStore';
 import LL from '$i18n/i18n-svelte';
 import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 import { language } from '$lib/store/languageStore';
+import { page } from '$app/stores';
 
 const promise = facilityStore.load();
 
@@ -55,8 +56,7 @@ const createFacilityGeoData = (fData) => {
 				<div class="card">
 					<!--img class="card-img-top" src="..." alt="Card image cap" /-->
 					<div class="card-body">
-						<div id="{facility.name}_anchor" />
-						<h5 class="card-title">{facility.contact.formatted_name}</h5>
+						<h5 id="{facility.name}_anchor" class="card-title">{facility.contact.formatted_name}</h5>
 						<p class="card-text">
 							<Address contactData={facility.contact} />
 							<LeafletMap geoData={createFacilityGeoData(facility)} />

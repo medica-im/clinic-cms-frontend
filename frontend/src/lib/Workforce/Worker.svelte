@@ -15,7 +15,9 @@
 <div class="card mb-3 h-100" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
+        <a href="/{workerData.slug}">
         <img src="{getUrl(workerData.profile_picture_url.fb)}" class="img-fluid rounded-start" alt="profile">
+        </a>
       </div>
       <div class="col-md-8">
         <div class="card-body">

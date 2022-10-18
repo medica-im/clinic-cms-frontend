@@ -49,6 +49,13 @@ const en: BaseTranslation = {
 		SIGNINGIN: "Signing in...",
 		CREATEACCOUNT: "Create an account"
 	},
+	ERROR404: {
+		OOPS: "Oops!",
+		PAGENOTFOUND: "Page not found.",
+		DOESNOTEXIST: "The page you're looking for doesn't exist.",
+		HOME: "Go Home",
+		BACK: "Go back",
+	},
 	EMAILADDRESS: "Email address",
 	PASSWORD: "Password"
 }

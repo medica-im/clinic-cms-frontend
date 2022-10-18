@@ -143,6 +143,28 @@ type RootTranslation = {
 		 */
 		CREATEACCOUNT: string
 	}
+	ERROR404: {
+		/**
+		 * O​o​p​s​!
+		 */
+		OOPS: string
+		/**
+		 * P​a​g​e​ ​n​o​t​ ​f​o​u​n​d​.
+		 */
+		PAGENOTFOUND: string
+		/**
+		 * T​h​e​ ​p​a​g​e​ ​y​o​u​'​r​e​ ​l​o​o​k​i​n​g​ ​f​o​r​ ​d​o​e​s​n​'​t​ ​e​x​i​s​t​.
+		 */
+		DOESNOTEXIST: string
+		/**
+		 * G​o​ ​H​o​m​e
+		 */
+		HOME: string
+		/**
+		 * G​o​ ​b​a​c​k
+		 */
+		BACK: string
+	}
 	/**
 	 * E​m​a​i​l​ ​a​d​d​r​e​s​s
 	 */
@@ -281,6 +303,28 @@ export type TranslationFunctions = {
 		 * Create an account
 		 */
 		CREATEACCOUNT: () => LocalizedString
+	}
+	ERROR404: {
+		/**
+		 * Oops!
+		 */
+		OOPS: () => LocalizedString
+		/**
+		 * Page not found.
+		 */
+		PAGENOTFOUND: () => LocalizedString
+		/**
+		 * The page you're looking for doesn't exist.
+		 */
+		DOESNOTEXIST: () => LocalizedString
+		/**
+		 * Go Home
+		 */
+		HOME: () => LocalizedString
+		/**
+		 * Go back
+		 */
+		BACK: () => LocalizedString
 	}
 	/**
 	 * Email address

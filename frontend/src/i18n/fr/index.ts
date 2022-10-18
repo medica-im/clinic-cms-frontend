@@ -49,6 +49,13 @@ const fr: Translation = {
     SIGNINGIN: "Connexion en cours...",
     CREATEACCOUNT: "Créer un compte"
   },
+  ERROR404: {
+		OOPS: "Oups!",
+		PAGENOTFOUND: "Page non trouvée.",
+		DOESNOTEXIST: "La page que vous cherchez n'existe pas.",
+		HOME: "Retourner à l'accueil",
+		BACK: "Revenir en arrière",
+	},
   EMAILADDRESS: "Adresse e-mail",
   PASSWORD: "Mot de passe"
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Error404 from '$lib/components/404/Error404.svelte';
 	import { afterUpdate, onMount } from 'svelte';
 	import { get } from '@square/svelte-store';
 	import { variables } from '$lib/utils/constants';
@@ -27,9 +28,11 @@
 	import Editor from 'cl-editor/src/Editor.svelte';
 	import { dataset_dev } from 'svelte/internal';
 	import Appointment from './Appointment.svelte';
+	import Website from '$lib/components/Website/Website.svelte';
 	import facilityStore from '$lib/store/facilityStore';
 	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
+	import { goto } from '$app/navigation';
 
 	let html = '';
 	let editor;
@@ -39,13 +42,19 @@
 	async function getWorkerData() {
 		const wfdc = await getWorkforceDataCached();
 		if (wfdc) {
-			let worker = wfdc.find((element) => element.slug == slug);
-			let id = worker.id;
+			let w = wfdc.find((element) => element.slug == slug);
+			if (w==undefined) {
+                throw new Error(`${slug} does not correspond to any worker slug in our database.`);
+			}
+			let id = w.id;
 			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/?lang=${$language}`;
 			const [response, error] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				if (response.profile) {
 					html = response.profile.text;
+				}
+				if (import.meta.env.DEV) {
+					console.log(response);
 				}
 				return response;
 			} else {
@@ -83,13 +92,8 @@
 <div class="spinner-border" role="status">
 	<span class="visually-hidden">{$LL.LOADING()}</span>
 </div>
-{:else if $queryResult.error}
-	<span>An error has occurred: {$queryResult.error.message}</span>
-	<div style="display: flex; align-items: center;">
-		<IconButton class="material-icons" href="/annuaire">arrow_back</IconButton><a href="/annuaire"
-			>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</a
-		>
-	</div>
+{:else if $queryResult.isError}
+	<Error404 />
 {:else}
 	<div style="display: flex; align-items: center;">
 		<IconButton class="material-icons" href="/annuaire">arrow_back</IconButton><a href="/annuaire"
@@ -177,10 +181,7 @@
 						{#if $queryResult.data.websites}
 							{#each $queryResult.data.websites as website}
 								<li class="list-group-item d-flex justify-content-between align-items-start">
-									<small
-										><a href={website.url} class="card-link text-muted">{website.url}</a>
-										[{website.type}]</small
-									>
+									<Website website={website} />
 								</li>
 							{/each}
 						{/if}

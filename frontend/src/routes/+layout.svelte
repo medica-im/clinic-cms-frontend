@@ -60,20 +60,9 @@
 </script>
 
 <svelte:head>
-		<!-- The page supports both dark and light color schemes,
-			 and the page author prefers / default is light. -->
-		<meta name="color-scheme" content="light" />
-
-		<!-- Replace the Bootstrap CSS with the
-			 Bootstrap-Dark Variant CSS -->
-		<!--link
-		href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css"
-		rel="stylesheet"
-	/-->
-
-		<!-- Optional Meta Theme Color is also supported on Safari and Chrome -->
-		<meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
-		<!--meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" /-->
+	{#await facilityStore.load() then}
+<meta name="google-site-verification" content="{$facilityStore.google_site_verification}">
+{/await}
 </svelte:head>
 
 {#await facilityStore.load()}

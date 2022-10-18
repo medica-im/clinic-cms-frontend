@@ -14,9 +14,11 @@
 
 <svelte:head>
 	{#await facilityStore.load()}
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">{$LL.LOADING()}</span>
+	</div>
 		<title />
 	{:then}
-	    <meta name="google-site-verification" content="{$facilityStore.google_site_verification}">
 		<title>
 			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.HOME.TITLE()}
 		</title>
