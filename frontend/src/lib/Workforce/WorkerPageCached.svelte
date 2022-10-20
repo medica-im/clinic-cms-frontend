@@ -119,7 +119,7 @@
 									<div class="fw-bold">{occupation.label}</div>
 									{#if occupation.specialty}
 									{$LL.ADDRESSBOOK.SPECIALTY()}: {occupation.specialty.label}<br />
-										Lieu d'exercice:
+									{$LL.ADDRESSBOOK.LOCATION()}:
 										{#each occupation.specialty.facilities as facility}
 											<a href="/contact#{facility.facility__name}_anchor"
 												>{facility.facility__contact__formatted_name}</a

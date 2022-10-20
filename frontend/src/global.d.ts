@@ -1,4 +1,5 @@
 type Locales = import('$i18n/i18n-types').Locales
+type TranslationFunctions = import('$i18n/i18n-types').TranslationFunctions
 
 interface ImportMetaEnv {
     readonly VITE_BASE_API_URI_PROD: string,
@@ -11,7 +12,10 @@ interface ImportMeta {
 }
 
 declare namespace App {
-	// interface Locals { }
+	interface Locals {
+		locale: Locales
+		LL: TranslationFunctions
+	}
 
 	// interface Platform { }
 

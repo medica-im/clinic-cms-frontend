@@ -2,13 +2,14 @@ import type { Translation } from '../i18n-types';
 
 
 const fr: Translation = {
+  log: `Ce log a été appelé part '{fileName:string}'`,
   HI: "Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n",
   LOADING: "Chargement...",
   HOME: {
     TITLE: "Accueil",
     WELCOME: "Bienvenue dans",
     TEAM: {
-      TITLE: "Notre équipe",
+      TITLE: "Équipe",
       TEXT: "Notre équipe pluriprofessionnelle s'engage pour votre santé et celle de vos proches."
     },
     FOOTER: {

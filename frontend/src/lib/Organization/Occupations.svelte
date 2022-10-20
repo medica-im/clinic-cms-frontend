@@ -1,17 +1,24 @@
 <script lang="ts">
-	import { occupationsCardinal, workforceDataCached } from '$lib/store/workforceStore';
-    import LL from '$i18n/i18n-svelte';
+	import { occupationsCardinal } from '$lib/store/workforceStore';
+	import { page } from '$app/stores';
+	import LL from '$i18n/i18n-svelte';
 </script>
 
 {#await occupationsCardinal.load()}
-<div class="spinner-border" role="status">
-	<span class="visually-hidden">{$LL.LOADING()}</span>
-</div>
+	<ul class="list-group list-group-flush">
+		{#each Object.keys($page.data.occupationsCardinal) as name}
+			<li class="list-group-item">
+				{$page.data.occupationsCardinal[name]['count']['total']}
+				{$page.data.occupationsCardinal[name]['label']}
+			</li>
+		{/each}
+	</ul>
 {:then}
 	<ul class="list-group list-group-flush">
 		{#each Object.keys($occupationsCardinal) as name}
 			<li class="list-group-item">
-				{$occupationsCardinal[name]["count"]["total"]} {$occupationsCardinal[name]["label"]}
+				{$occupationsCardinal[name]['count']['total']}
+				{$occupationsCardinal[name]['label']}
 			</li>
 		{/each}
 	</ul>

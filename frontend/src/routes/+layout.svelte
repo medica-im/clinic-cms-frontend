@@ -17,12 +17,16 @@
 	import { setLocale } from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
 	import { facilityStore } from '$lib/store/facilityStore';
+	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
+	import { variables } from '$lib/utils/constants';
+	import { language } from '$lib/store/languageStore';
+
+
+    /** @type {import('./$types').LayoutData} */
+	export let data;
 
 	$: loading.setNavigate(!!$navigating);
 	$: loading.setLoading(!!$navigating, 'Loading, please wait...');
-
-	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
-	import { variables } from '$lib/utils/constants';
 
 	onMount(async () => {
 		if (browserGet('refreshToken')) {
@@ -59,18 +63,11 @@
 	});
 </script>
 
-<svelte:head>
-	{#await facilityStore.load() then}
-<meta name="google-site-verification" content="{$facilityStore.google_site_verification}">
-{/await}
-</svelte:head>
-
 {#await facilityStore.load()}
-	<div class="spinner-border" role="status">
-		<span class="visually-hidden">{$LL.LOADING()}</span>
-	</div>
+    <Navigation facility={data.facilityStore} />
 {:then}
 	<Navigation facility={$facilityStore} />
+{/await}
 
 	{#if $notificationData}
 		<p
@@ -111,4 +108,6 @@
 			</div>
 		</footer>
 	{/if}
+<!--
 {/await}
+-->

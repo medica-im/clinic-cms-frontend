@@ -3,7 +3,7 @@
 import type { BaseTranslation as BaseTranslationType, LocalizedString, RequiredParams } from 'typesafe-i18n'
 
 export type BaseTranslation = BaseTranslationType
-export type BaseLocale = 'en'
+export type BaseLocale = 'fr'
 
 export type Locales =
 	| 'en'
@@ -15,36 +15,41 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * H​i​ ​{​n​a​m​e​}​!​ ​P​l​e​a​s​e​ ​l​e​a​v​e​ ​a​ ​s​t​a​r​ ​i​f​ ​y​o​u​ ​l​i​k​e​ ​t​h​i​s​ ​p​r​o​j​e​c​t​:​ ​h​t​t​p​s​:​/​/​g​i​t​h​u​b​.​c​o​m​/​i​v​a​n​h​o​f​e​r​/​t​y​p​e​s​a​f​e​-​i​1​8​n
-	 * @param {string} name
+	 * C​e​ ​l​o​g​ ​a​ ​é​t​é​ ​a​p​p​e​l​é​ ​p​a​r​t​ ​'​{​f​i​l​e​N​a​m​e​}​'
+	 * @param {string} fileName
+	 */
+	log: RequiredParams<'fileName'>
+	/**
+	 * S​a​l​u​t​ ​{​n​a​m​e​}​!​ ​M​e​r​c​i​ ​d​e​ ​l​a​i​s​s​e​r​ ​u​n​e​ ​é​t​o​i​l​e​ ​s​i​ ​v​o​u​s​ ​a​i​m​e​z​ ​c​e​ ​p​r​o​j​e​c​t​:​ ​h​t​t​p​s​:​/​/​g​i​t​h​u​b​.​c​o​m​/​i​v​a​n​h​o​f​e​r​/​t​y​p​e​s​a​f​e​-​i​1​8​n
+	 * @param {unknown} name
 	 */
 	HI: RequiredParams<'name'>
 	/**
-	 * L​o​a​d​i​n​g​.​.​.
+	 * C​h​a​r​g​e​m​e​n​t​.​.​.
 	 */
 	LOADING: string
 	HOME: {
 		/**
-		 * H​o​m​e
+		 * A​c​c​u​e​i​l
 		 */
 		TITLE: string
 		/**
-		 * W​e​l​c​o​m​e​ ​t​o
+		 * B​i​e​n​v​e​n​u​e​ ​d​a​n​s
 		 */
 		WELCOME: string
 		TEAM: {
 			/**
-			 * O​u​r​ ​t​e​a​m
+			 * É​q​u​i​p​e
 			 */
 			TITLE: string
 			/**
-			 * O​u​r​ ​m​u​l​t​i​d​i​s​c​i​p​l​i​n​a​r​y​ ​t​e​a​m​ ​i​s​ ​c​o​m​m​i​t​t​e​d​ ​t​o​ ​y​o​u​r​ ​h​e​a​l​t​h​.
+			 * N​o​t​r​e​ ​é​q​u​i​p​e​ ​p​l​u​r​i​p​r​o​f​e​s​s​i​o​n​n​e​l​l​e​ ​s​'​e​n​g​a​g​e​ ​p​o​u​r​ ​v​o​t​r​e​ ​s​a​n​t​é​ ​e​t​ ​c​e​l​l​e​ ​d​e​ ​v​o​s​ ​p​r​o​c​h​e​s​.
 			 */
 			TEXT: string
 		}
 		FOOTER: {
 			/**
-			 * W​e​b​s​i​t​e​ ​u​n​d​e​r​ ​c​o​n​s​t​r​u​c​t​i​o​n​.​ ​C​o​n​t​a​c​t​ ​t​h​e​ ​d​e​v​e​l​o​p​e​r​:
+			 * S​i​t​e​ ​e​n​ ​c​o​n​s​t​r​u​c​t​i​o​n​.​ ​C​o​n​t​a​c​t​e​r​ ​l​e​ ​d​é​v​e​l​o​p​p​e​u​r​:
 			 */
 			WIP: string
 		}
@@ -56,156 +61,160 @@ type RootTranslation = {
 		TITLE: string
 	}
 	/**
-	 * S​e​a​r​c​h
+	 * R​e​c​h​e​r​c​h​e
 	 */
 	SEARCH: string
 	ADDRESSBOOK: {
 		/**
-		 * A​d​d​r​e​s​s​ ​b​o​o​k
+		 * A​n​n​u​a​i​r​e
 		 */
 		TITLE: string
 		OCCUPATIONS: {
 			/**
-			 * S​e​l​e​c​t​ ​b​y​ ​p​r​o​f​e​s​s​i​o​n​.​.​.
+			 * S​e​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​p​r​o​f​e​s​s​i​o​n​.​.​.
 			 */
 			PLACEHOLDER: string
 		}
 		SEARCH: {
 			/**
-			 * S​e​a​r​c​h
+			 * R​e​c​h​e​r​c​h​e
 			 */
 			LABEL: string
 			/**
-			 * l​a​s​t​ ​n​a​m​e​ ​o​r​ ​f​i​r​s​t​ ​n​a​m​e
+			 * n​o​m​ ​o​u​ ​p​r​é​n​o​m
 			 */
 			PLACEHOLDER: string
 		}
 		/**
-		 * G​o​ ​b​a​c​k​ ​t​o​ ​a​d​d​r​e​s​s​b​o​o​k
+		 * R​e​t​o​u​r​n​e​r​ ​v​e​r​s​ ​l​'​a​n​n​u​a​i​r​e
 		 */
 		GOTOADDRESSBOOK: string
 		APPOINTMENT: {
 			/**
-			 * B​o​o​k​ ​a​n​ ​a​p​p​o​i​n​t​m​e​n​t
+			 * P​r​e​n​d​r​e​ ​r​e​n​d​e​z​-​v​o​u​s
 			 */
 			LABEL: string
 		}
 		/**
-		 * C​l​i​n​i​c​ ​l​o​c​a​t​i​o​n
+		 * L​i​e​u​ ​d​'​e​x​e​r​c​i​c​e
 		 */
 		LOCATION: string
 		/**
-		 * s​p​e​c​i​a​l​t​y
+		 * S​p​é​c​i​a​l​i​t​é
 		 */
 		SPECIALTY: string
 	}
 	NAVBAR: {
 		/**
-		 * A​d​d​r​e​s​s​b​o​o​k
+		 * A​n​n​u​a​i​r​e
 		 */
 		ADDRESSBOOK: string
 		/**
-		 * L​o​g​i​n
+		 * S​e​ ​c​o​n​n​e​c​t​e​r
 		 */
 		LOGIN: string
 		/**
-		 * H​i​,
+		 * S​a​l​u​t
 		 */
 		HI: string
 		/**
-		 * R​e​g​i​s​t​e​r
+		 * S​'​e​n​r​e​g​i​s​t​r​e​r
 		 */
 		REGISTER: string
 		/**
-		 * L​o​g​o​u​t
+		 * S​e​ ​d​é​c​o​n​n​e​c​t​e​r
 		 */
 		LOGOUT: string
 	}
 	LOGIN: {
 		/**
-		 * L​o​g​i​n
+		 * C​o​n​n​e​x​i​o​n
 		 */
 		LOGIN: string
 		/**
-		 * L​o​g​i​n
+		 * S​e​ ​c​o​n​n​e​c​t​e​r
 		 */
 		TOLOGIN: string
 		/**
-		 * N​o​ ​a​c​c​o​u​n​t​ ​y​e​t​?
+		 * P​a​s​ ​e​n​c​o​r​e​ ​d​e​ ​c​o​m​p​t​e​?
 		 */
 		NOACCOUNT: string
 		/**
-		 * S​i​g​n​i​n​g​ ​i​n​.​.​.
+		 * C​o​n​n​e​x​i​o​n​ ​e​n​ ​c​o​u​r​s​.​.​.
 		 */
 		SIGNINGIN: string
 		/**
-		 * C​r​e​a​t​e​ ​a​n​ ​a​c​c​o​u​n​t
+		 * C​r​é​e​r​ ​u​n​ ​c​o​m​p​t​e
 		 */
 		CREATEACCOUNT: string
 	}
 	ERROR404: {
 		/**
-		 * O​o​p​s​!
+		 * O​u​p​s​!
 		 */
 		OOPS: string
 		/**
-		 * P​a​g​e​ ​n​o​t​ ​f​o​u​n​d​.
+		 * P​a​g​e​ ​n​o​n​ ​t​r​o​u​v​é​e​.
 		 */
 		PAGENOTFOUND: string
 		/**
-		 * T​h​e​ ​p​a​g​e​ ​y​o​u​'​r​e​ ​l​o​o​k​i​n​g​ ​f​o​r​ ​d​o​e​s​n​'​t​ ​e​x​i​s​t​.
+		 * L​a​ ​p​a​g​e​ ​q​u​e​ ​v​o​u​s​ ​c​h​e​r​c​h​e​z​ ​n​'​e​x​i​s​t​e​ ​p​a​s​.
 		 */
 		DOESNOTEXIST: string
 		/**
-		 * G​o​ ​H​o​m​e
+		 * R​e​t​o​u​r​n​e​r​ ​à​ ​l​'​a​c​c​u​e​i​l
 		 */
 		HOME: string
 		/**
-		 * G​o​ ​b​a​c​k
+		 * R​e​v​e​n​i​r​ ​e​n​ ​a​r​r​i​è​r​e
 		 */
 		BACK: string
 	}
 	/**
-	 * E​m​a​i​l​ ​a​d​d​r​e​s​s
+	 * A​d​r​e​s​s​e​ ​e​-​m​a​i​l
 	 */
 	EMAILADDRESS: string
 	/**
-	 * P​a​s​s​w​o​r​d
+	 * M​o​t​ ​d​e​ ​p​a​s​s​e
 	 */
 	PASSWORD: string
 }
 
 export type TranslationFunctions = {
 	/**
-	 * Hi {name}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n
+	 * Ce log a été appelé part '{fileName}'
 	 */
-	HI: (arg: { name: string }) => LocalizedString
+	log: (arg: { fileName: string }) => LocalizedString
 	/**
-	 * Loading...
+	 * Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n
+	 */
+	HI: (arg: { name: unknown }) => LocalizedString
+	/**
+	 * Chargement...
 	 */
 	LOADING: () => LocalizedString
 	HOME: {
 		/**
-		 * Home
+		 * Accueil
 		 */
 		TITLE: () => LocalizedString
 		/**
-		 * Welcome to
+		 * Bienvenue dans
 		 */
 		WELCOME: () => LocalizedString
 		TEAM: {
 			/**
-			 * Our team
+			 * Équipe
 			 */
 			TITLE: () => LocalizedString
 			/**
-			 * Our multidisciplinary team is committed to your health.
+			 * Notre équipe pluriprofessionnelle s'engage pour votre santé et celle de vos proches.
 			 */
 			TEXT: () => LocalizedString
 		}
 		FOOTER: {
 			/**
-			 * Website under construction. Contact the developer:
+			 * Site en construction. Contacter le développeur:
 			 */
 			WIP: () => LocalizedString
 		}
@@ -217,121 +226,121 @@ export type TranslationFunctions = {
 		TITLE: () => LocalizedString
 	}
 	/**
-	 * Search
+	 * Recherche
 	 */
 	SEARCH: () => LocalizedString
 	ADDRESSBOOK: {
 		/**
-		 * Address book
+		 * Annuaire
 		 */
 		TITLE: () => LocalizedString
 		OCCUPATIONS: {
 			/**
-			 * Select by profession...
+			 * Selectionner par profession...
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}
 		SEARCH: {
 			/**
-			 * Search
+			 * Recherche
 			 */
 			LABEL: () => LocalizedString
 			/**
-			 * last name or first name
+			 * nom ou prénom
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}
 		/**
-		 * Go back to addressbook
+		 * Retourner vers l'annuaire
 		 */
 		GOTOADDRESSBOOK: () => LocalizedString
 		APPOINTMENT: {
 			/**
-			 * Book an appointment
+			 * Prendre rendez-vous
 			 */
 			LABEL: () => LocalizedString
 		}
 		/**
-		 * Clinic location
+		 * Lieu d'exercice
 		 */
 		LOCATION: () => LocalizedString
 		/**
-		 * specialty
+		 * Spécialité
 		 */
 		SPECIALTY: () => LocalizedString
 	}
 	NAVBAR: {
 		/**
-		 * Addressbook
+		 * Annuaire
 		 */
 		ADDRESSBOOK: () => LocalizedString
 		/**
-		 * Login
+		 * Se connecter
 		 */
 		LOGIN: () => LocalizedString
 		/**
-		 * Hi,
+		 * Salut
 		 */
 		HI: () => LocalizedString
 		/**
-		 * Register
+		 * S'enregistrer
 		 */
 		REGISTER: () => LocalizedString
 		/**
-		 * Logout
+		 * Se déconnecter
 		 */
 		LOGOUT: () => LocalizedString
 	}
 	LOGIN: {
 		/**
-		 * Login
+		 * Connexion
 		 */
 		LOGIN: () => LocalizedString
 		/**
-		 * Login
+		 * Se connecter
 		 */
 		TOLOGIN: () => LocalizedString
 		/**
-		 * No account yet?
+		 * Pas encore de compte?
 		 */
 		NOACCOUNT: () => LocalizedString
 		/**
-		 * Signing in...
+		 * Connexion en cours...
 		 */
 		SIGNINGIN: () => LocalizedString
 		/**
-		 * Create an account
+		 * Créer un compte
 		 */
 		CREATEACCOUNT: () => LocalizedString
 	}
 	ERROR404: {
 		/**
-		 * Oops!
+		 * Oups!
 		 */
 		OOPS: () => LocalizedString
 		/**
-		 * Page not found.
+		 * Page non trouvée.
 		 */
 		PAGENOTFOUND: () => LocalizedString
 		/**
-		 * The page you're looking for doesn't exist.
+		 * La page que vous cherchez n'existe pas.
 		 */
 		DOESNOTEXIST: () => LocalizedString
 		/**
-		 * Go Home
+		 * Retourner à l'accueil
 		 */
 		HOME: () => LocalizedString
 		/**
-		 * Go back
+		 * Revenir en arrière
 		 */
 		BACK: () => LocalizedString
 	}
 	/**
-	 * Email address
+	 * Adresse e-mail
 	 */
 	EMAILADDRESS: () => LocalizedString
 	/**
-	 * Password
+	 * Mot de passe
 	 */
 	PASSWORD: () => LocalizedString
 }

@@ -2,13 +2,14 @@ import type { BaseTranslation } from '../i18n-types'
 
 const en: BaseTranslation = {
 	// TODO: your translations go here
+	log: `This log was called from '{fileName:string}'`,
 	HI: "Hi {name:string}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n",
 	LOADING: "Loading...",
 	HOME: {
 		TITLE: "Home",
 		WELCOME: "Welcome to",
 		TEAM: {
-			TITLE: "Our team",
+			TITLE: "Team",
 			TEXT: "Our multidisciplinary team is committed to your health."
 		},
 		FOOTER: {
@@ -32,7 +33,7 @@ const en: BaseTranslation = {
 		APPOINTMENT: {
 			LABEL: "Book an appointment"
 		},
-		LOCATION: "Clinic location",
+		LOCATION: "Practice location",
 		SPECIALTY: "specialty"
 	},
 	NAVBAR: {

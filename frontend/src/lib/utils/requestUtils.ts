@@ -104,22 +104,18 @@ function emptyLocaleStorage() {
 	localStorage.removeItem('refreshToken');
 	const itemsToDelete: string[] = [];
 	let storedItemsRoot = ["facility_", "wfd_", "workforceDict_"];
-	console.log(locales);
     locales.forEach(
 		(locale) => {
 			let items = storedItemsRoot.map((value)=> value+locale)
-			console.log(items);
 			itemsToDelete.push(...items);
 		}
 	);
-	console.log(`itemsToDelete`+itemsToDelete);
 	itemsToDelete.forEach(
 		(value)=>localStorage.removeItem(value)
 	);
 }
 
 export const logOutUser = async (): Promise<void> => {
-	console.log('logOutUser()');
 	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
@@ -148,9 +144,7 @@ export const logOutUser = async (): Promise<void> => {
 		//throw { id: error.id, message: error };
 		console.error(data);
 	}
-	console.log(get(userData));
 	userData.set({});
-	console.log(get(userData));
 	emptyLocaleStorage();
 	notificationData.update(() => 'You have successfully logged out...');
 	await goto('/accounts/login');

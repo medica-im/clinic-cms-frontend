@@ -18,7 +18,6 @@
 	});
 
 	function formatDate(datetime: string, locale) {
-		console.log(`locale: ${locale}`);
 		const event = new Date(datetime);
 		return event.toLocaleDateString(locale);
 	}
@@ -31,12 +30,14 @@
 {:else if $queryResult.isError}
 	<span>Error: {$queryResult.error.message}</span>
 {:else}
-	<h2>Blog</h2>
+	<div class="card">
+		<h5 class="card-header">
+			Blog
+		</h5>
 	<ul class="list-group list-group-flush">
 		{#each $queryResult.data.posts as post}
 			<a href={post.url} class="list-group-item">
 				<div class="card">
-					<div class="card-header" />
 					<img src={post.feature_image} class="card-img-top" alt="post.feature_image_alt" />
 					<div class="card-body">
 						<div class="d-flex w-100 justify-content-between">
@@ -51,4 +52,5 @@
 			</a>
 		{/each}
 	</ul>
+	</div>
 {/if}

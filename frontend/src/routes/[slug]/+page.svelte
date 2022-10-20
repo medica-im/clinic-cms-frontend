@@ -5,8 +5,6 @@
 	export async function load({ params, fetch }) {
 		const { slug } = params;
 		const { url } = fetch;
-		console.log(`slug:${slug}`);
-		console.log(`url:${url}`);
 		let directory_slug;
 		if (slug === undefined) {
 			directory_slug = url;
