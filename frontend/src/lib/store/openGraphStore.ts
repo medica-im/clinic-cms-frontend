@@ -1,16 +1,16 @@
 import { writable, derived, readable, get, asyncReadable, asyncWritable, asyncDerived } from '@square/svelte-store';
-import type { TwitterCard } from '$lib/interfaces/openGraph.interface';
+import type { OpenGraph } from '$lib/interfaces/openGraph.interface';
 import { variables } from '$lib/utils/constants';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 
-export const twitterCardStore= asyncReadable(
+export const openGraphStore= asyncReadable(
 	{},
 	async () => {
-		const url = `${variables.BASE_API_URI}/opengraph/twitter`;
+		const url = `${variables.BASE_API_URI}/opengraph`;
         try {
 		const [response, err] = await handleRequestsWithPermissions(fetch, url);
 			if (response) {
-				let data: TwitterCard = response;
+				let data: OpenGraph = response;
 				return data;
 			} else if (err) {
 				console.log(err);

@@ -8,7 +8,7 @@
 	import Team from '$lib/components/Team/Team.svelte';
 	import LL from '$i18n/i18n-svelte';
 	import Ghost from '$lib/Ghost/Ghost.svelte';
-	import TwitterCard from '$lib/components/OpenGraph/TwitterCard.svelte';
+	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 
@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-	<TwitterCard twitter={data.twitterCard} />
+	<OpenGraph opengraph={data.openGraph} />
 	{#await facilityStore.load()}
 	<title>
 		{capitalizeFirstLetter(data.facilityStore.formatted_name, $language)} - {$LL.HOME.TITLE()}

@@ -1,6 +1,6 @@
 import { facilityStore } from '$lib/store/facilityStore';
 import { occupationsCardinal } from '$lib/store/workforceStore';
-import { twitterCardStore } from '$lib/store/openGraphStore';
+import { openGraphStore } from '$lib/store/openGraphStore';
 
 export const prerender = true;
 
@@ -8,10 +8,10 @@ export const prerender = true;
 export async function load() {
     const fData = await facilityStore.load();
     const oData = await occupationsCardinal.load();
-    const tData = await twitterCardStore.load();
+    const openGraphData = await openGraphStore.load();
     return {
         facilityStore: fData,
         occupationsCardinal: oData,
-        twitterCard: tData
+        openGraph: openGraphData
     };
 }

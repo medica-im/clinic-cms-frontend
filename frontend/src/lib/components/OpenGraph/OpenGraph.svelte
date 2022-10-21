@@ -1,19 +1,18 @@
 <script lang="ts">
-	import { twitterCardStore } from '$lib/store/openGraphStore';
-	import type { TwitterCard } from '$lib/interfaces/openGraph.interface';
-	import { page } from '$app/stores';
+	import type { OpenGraph } from '$lib/interfaces/openGraph.interface';
 
-	export let twitter: TwitterCard;
+	export let opengraph: OpenGraph;
 	const {
 		title = null,
 		image_url = null,
 		image_alt = null,
 		description = null,
+		twitter_description = null,
 		username = null
-	} = twitter;
+	} = opengraph;
 </script>
 
-{#if title && description}
+{#if title && twitter_description}
 	<meta name="twitter:card" content="summary" />
 	<meta property="og:type" content="website" />
 {/if}
@@ -29,8 +28,11 @@
 	{/if}
 {/if}
 {#if description}
-	<meta property="og:description" content={description} />
-	<meta name="twitter:description" content={description} />
+	<meta name="description" content={description} />
+{/if}
+{#if twitter_description}
+	<meta property="og:description" content={twitter_description} />
+	<meta name="twitter:description" content={twitter_description} />
 {/if}
 {#if username}
 	<meta name="twitter:site" content={username} />
