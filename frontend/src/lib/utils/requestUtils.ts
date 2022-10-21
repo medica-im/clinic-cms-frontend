@@ -10,7 +10,6 @@ import { formatText } from '$lib/formats/formatString';
 import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { get } from 'svelte/store';
 import { facilityStore } from '$lib/store/facilityStore';
-import { mdiToyBrickMinusOutline } from '@mdi/js';
 import { locales } from '$i18n/i18n-util';
 import { locale } from '$i18n/i18n-svelte';
 
