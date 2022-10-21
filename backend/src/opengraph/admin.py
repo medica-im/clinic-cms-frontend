@@ -6,6 +6,7 @@ class TwitterCardAdmin(admin.ModelAdmin):
     list_display = (
         'site',
         'title',
+        'twitter_description',
         'description',
         'username',
         'image',

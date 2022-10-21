@@ -13,6 +13,7 @@ class TwitterCardSerializer(serializers.ModelSerializer):
         fields = [
             'title',
             'username',
+            'twitter_description',
             'description',
             'image_url',
             'image_alt',

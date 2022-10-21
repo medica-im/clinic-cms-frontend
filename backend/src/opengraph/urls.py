@@ -10,7 +10,7 @@ app_name = 'opengraph'
 
 urlpatterns = [
     path(
-        'twitter',
+        '',
         views.OpenGraphView.as_view(),
     ),
     path(

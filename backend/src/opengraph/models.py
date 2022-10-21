@@ -16,9 +16,15 @@ class TwitterCard(models.Model):
     title = models.CharField(
         max_length=70
     )
-    description = models.TextField(
+    twitter_description = models.TextField(
         max_length=200,
         validators=[MaxLengthValidator(200, message="200 characters max!")],
+        blank=True,
+    )
+    description = models.TextField(
+        max_length=160,
+        validators=[MaxLengthValidator(160, message="160 characters max!")],
+        blank=True,
     )
     username = models.CharField(
         max_length=16,
