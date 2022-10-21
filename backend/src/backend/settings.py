@@ -177,6 +177,7 @@ INSTALLED_APPS = [
     'directory',
     'access',
     'contact',
+    'opengraph',
 ]
 
 if DEBUG:

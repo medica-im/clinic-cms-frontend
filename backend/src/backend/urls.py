@@ -22,6 +22,7 @@ urlpatterns = [
     path('addressbook/', include('addressbook.urls', namespace='addressbook')),
     path('api/v1/addressbook/', include('addressbook.api.urls', namespace='addressbook_api')),
     path('api/v1/facility/', include('facility.urls', namespace='facility')),
+    path('api/v1/opengraph/', include('opengraph.urls', namespace='opengraph')),
     path('api/v1/workforce/', include('workforce.urls', namespace='workforce')),
     path('form/', include('contact.urls', namespace='contact')),
 ]
