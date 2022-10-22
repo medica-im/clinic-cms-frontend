@@ -223,7 +223,9 @@ export const handleRequestsWithPermissions = async (
 	targetUrl: string
 ): Promise<[Workforce, Array<CustomError>]> => {
 	let refreshToken = browserGet('refreshToken');
-	const accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
+	let accessRefresh;
+	if (refreshToken) {
+	accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -241,7 +243,7 @@ export const handleRequestsWithPermissions = async (
 	}).catch(function (err) {
 		console.warn(`Could not get new token. error: ${err}`);
 	}
-	)
+	)}
 	let fetchDict;
     if (accessRefresh) {
 	fetchDict = {

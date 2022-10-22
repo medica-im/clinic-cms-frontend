@@ -9,6 +9,7 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { variables } from '$lib/utils/constants';
+	import { browser } from '$app/environment';
 
 	const defaultLanguage = variables.DEFAULT_LANGUAGE as Locales;
 
@@ -24,7 +25,9 @@
 		setLocale(newLocale);
 
 		// update `lang` attribute
-		document.querySelector('html').setAttribute('lang', newLocale);
+		if (browser) {
+		    document.querySelector('html').setAttribute('lang', newLocale);
+		}
 
 		if (updateHistoryState) {
 			// update url to reflect locale changes

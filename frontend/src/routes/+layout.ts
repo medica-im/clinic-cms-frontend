@@ -23,7 +23,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }
     
   return {
       locale: locale,
-      facilityStore: fData,
+      facility: fData,
       sections: [
         { slug: 'profile', title: 'Profile' },
         { slug: 'notifications', title: 'Notifications' }

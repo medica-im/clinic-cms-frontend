@@ -7,11 +7,18 @@
 	import { language } from '$lib/store/languageStore';
 	import Search from '$lib/Search.svelte';
 	import SelectOccupations from '$lib/SelectOccupations.svelte';
+	import { page } from '$app/stores';
+    
+	let promise;
+	$: promise = facilityStore.load(), $language;
+
 </script>
 
 <svelte:head>
-	{#await facilityStore.load()}
-		<title />
+	{#await promise}
+	<title>
+		{capitalizeFirstLetter($page.data.facility.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}
+	</title>
 	{:then}
 	<title>
 		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}

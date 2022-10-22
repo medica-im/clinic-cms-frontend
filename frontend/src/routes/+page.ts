@@ -10,7 +10,7 @@ export async function load() {
     const oData = await occupationsCardinal.load();
     const openGraphData = await openGraphStore.load();
     return {
-        facilityStore: fData,
+        facility: fData,
         occupationsCardinal: oData,
         openGraph: openGraphData
     };

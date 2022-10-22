@@ -23,7 +23,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		})
 	}*/
 	const locale = variables.DEFAULT_LANGUAGE as Locales;
-    const lang =variables.DEFAULT_LANGUAGE;
+    const lang = variables.DEFAULT_LANGUAGE;
 	//const locale = lang as Locales
 	const LL = L[locale]
 
@@ -33,8 +33,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	//console.info(LL.log({ fileName: 'hooks.server.ts' }))
 
-	// replace html lang attribute with correct language
-	return resolve(event, { transformPageChunk: ({ html }) => html.replace('%lang%', lang) })
+	return resolve(event, {
+		transformPageChunk: ({ html }) => html.replace('%lang%', lang)
+	});
 }
 
 const getPreferredLocale = ({ request }: RequestEvent) => {

@@ -20,7 +20,7 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 	import { language } from '$lib/store/languageStore';
-
+	import favicon from '$lib/assets/favicon.png';
 
     /** @type {import('./$types').LayoutData} */
 	export let data;
@@ -63,8 +63,12 @@
 	});
 </script>
 
+<svelte:head>
+	<link rel="icon" href={favicon} /> 
+</svelte:head>
+
 {#await facilityStore.load()}
-    <Navigation facility={data.facilityStore} />
+    <Navigation facility={data.facility} />
 {:then}
 	<Navigation facility={$facilityStore} />
 {/await}

@@ -8,7 +8,8 @@ import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 import { language } from '$lib/store/languageStore';
 import { page } from '$app/stores';
 
-const promise = facilityStore.load();
+let promise;
+$: promise = facilityStore.load(), $language;
 
 const createFacilityGeoData = (fData) => {
 	let contact = fData.contact;
@@ -33,10 +34,9 @@ const createFacilityGeoData = (fData) => {
 
 <svelte:head>
 	{#await promise}
-	<div class="spinner-border" role="status">
-		<span class="visually-hidden">{$LL.LOADING()}</span>
-	</div>
-	<title/>
+	<title>
+		{capitalizeFirstLetter($page.data.facility.formatted_name, $language)} - {$LL.CONTACT.TITLE()}
+	</title>
 	{:then}
 		<title>
 			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.CONTACT.TITLE()}

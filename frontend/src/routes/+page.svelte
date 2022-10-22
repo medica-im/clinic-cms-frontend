@@ -16,13 +16,15 @@
 	export let data;
 
 	const queryClient = new QueryClient();
+	let promise;
+	$: promise = facilityStore.load(), $language;
 </script>
 
 <svelte:head>
 	<OpenGraph opengraph={data.openGraph} />
-	{#await facilityStore.load()}
+	{#await promise}
 	<title>
-		{capitalizeFirstLetter(data.facilityStore.formatted_name, $language)} - {$LL.HOME.TITLE()}
+		{capitalizeFirstLetter(data.facility.formatted_name, $language)} - {$LL.HOME.TITLE()}
 	</title>
 	{:then}
 		<title>
@@ -34,7 +36,7 @@
 {#await facilityStore.load()}
 <div class="container">
 	<div class="row">
-		<Welcome formattedNameDefiniteArticle={data.facilityStore.formatted_name_definite_article} />
+		<Welcome formattedNameDefiniteArticle={data.facility.formatted_name_definite_article} />
 	</div>
 	<div class="row">
 		<div class="col-md">
