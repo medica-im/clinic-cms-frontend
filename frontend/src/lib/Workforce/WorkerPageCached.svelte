@@ -29,6 +29,7 @@
 	import { dataset_dev } from 'svelte/internal';
 	import Appointment from './Appointment.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
+	import SocialNetworks from '$lib/components/SoMed/SocialNetworks.svelte';
 	import facilityStore from '$lib/store/facilityStore';
 	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
@@ -37,14 +38,14 @@
 	let html = '';
 	let editor;
 	let editorSwitch = false;
-	let worker=`worker_${variables.DEFAULT_LANGUAGE}`;
+	let worker = `worker_${variables.DEFAULT_LANGUAGE}`;
 
 	async function getWorkerData() {
 		const wfdc = await getWorkforceDataCached();
 		if (wfdc) {
 			let w = wfdc.find((element) => element.slug == slug);
-			if (w==undefined) {
-                throw new Error(`${slug} does not correspond to any worker slug in our database.`);
+			if (w == undefined) {
+				throw new Error(`${slug} does not correspond to any worker slug in our database.`);
 			}
 			let id = w.id;
 			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/?lang=${$language}`;
@@ -64,13 +65,14 @@
 	}
 
 	let queryResult = useQuery(worker, getWorkerData);
+	console.log(queryResult);
 
 	function onLocaleChange(locale) {
 		worker = `worker_${locale}`;
 		queryResult = useQuery(worker, getWorkerData);
 	}
 
-	$: onLocaleChange($locale)
+	$: onLocaleChange($locale);
 
 	function getUrl(url) {
 		if (!url) {
@@ -89,9 +91,9 @@
 </script>
 
 {#if $queryResult.isLoading}
-<div class="spinner-border" role="status">
-	<span class="visually-hidden">{$LL.LOADING()}</span>
-</div>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">{$LL.LOADING()}</span>
+	</div>
 {:else if $queryResult.isError}
 	<Error404 />
 {:else}
@@ -100,14 +102,19 @@
 			>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</a
 		>
 	</div>
-	<div class="card mb-3" style="max-width: 540px;">
+	<div class="card mb-3">
 		<div class="row g-0">
-			<div class="col-md-4">
-				<img
-					src={getUrl($queryResult.data.profile_picture_url.lt)}
-					class="img-fluid rounded-start"
-					alt="profile"
-				/>
+			<div class="col-lg-4">
+				<div class="row g-0">
+					<img
+						src={getUrl($queryResult.data.profile_picture_url.lt)}
+						class="img-fluid rounded-start"
+						alt="profile"
+					/>
+				</div>
+				<div class="row g-0">
+                    <SocialNetworks data={$queryResult.data.socialnetworks} />
+				</div>
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
@@ -118,8 +125,8 @@
 								<div class="ms-2 me-auto">
 									<div class="fw-bold">{occupation.label}</div>
 									{#if occupation.specialty}
-									{$LL.ADDRESSBOOK.SPECIALTY()}: {occupation.specialty.label}<br />
-									{$LL.ADDRESSBOOK.LOCATION()}:
+										{$LL.ADDRESSBOOK.SPECIALTY()}: {occupation.specialty.label}<br />
+										{$LL.ADDRESSBOOK.LOCATION()}:
 										{#each occupation.specialty.facilities as facility}
 											<a href="/contact#{facility.facility__name}_anchor"
 												>{facility.facility__contact__formatted_name}</a
@@ -181,7 +188,7 @@
 						{#if $queryResult.data.websites}
 							{#each $queryResult.data.websites as website}
 								<li class="list-group-item d-flex justify-content-between align-items-start">
-									<Website website={website} />
+									<Website {website} />
 								</li>
 							{/each}
 						{/if}

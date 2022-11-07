@@ -1,6 +1,16 @@
-from addressbook.models import Profile, App, AppLink, AppStore
-
+import logging
+from addressbook.models import Profile, App, AppLink, AppStore, SocialNetwork
 from rest_framework import serializers
+
+logger=logging.getLogger(__name__)
+
+
+class SocialNetworkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialNetwork
+        fields = [
+            'id', 'handle', 'type', 'url',
+        ]
 
 
 class ProfileSerializer(serializers.ModelSerializer):

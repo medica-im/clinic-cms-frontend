@@ -278,6 +278,7 @@ class SocialNetwork(models.Model):
         YOUTUBE = 'YT', 'YouTube'
         TIKTOK = 'TT', 'TikTok'
         SNAPCHAT = 'SC', 'Snapchat'
+        TWITCH = 'TH', 'Twitch'
 
     contact = models.ForeignKey(
         Contact,

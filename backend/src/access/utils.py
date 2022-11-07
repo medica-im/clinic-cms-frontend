@@ -9,7 +9,7 @@ User=get_user_model()
 
 logger = logging.getLogger(__name__)
 
-def get_roles():
+def get_role_objs():
     roles = dict()
     for role in [
         "superuser", "administrator", "staff", "registered", "anonymous"
@@ -21,10 +21,24 @@ def get_roles():
             return
     return roles
 
+def get_roles(request: HttpRequest)->[Role]:
+    user = request.user
+    role_objs = get_role_objs()
+    if user.is_anonymous:
+        return [role_objs["anonymous"]]
+    roles = []
+    if user.is_superuser:
+        roles.append(role_objs["superuser"])
+    if is_staff(request):
+        roles.append(role_objs["staff"])
+    if user.is_authenticated:
+        roles.append(role_objs["registered"])
+    return roles
+
 def get_role(request: HttpRequest):
     user = request.user
     logger.debug(f'{user=}')
-    roles = get_roles()
+    roles = get_role_objs()
     if user.is_anonymous:
         return roles["anonymous"]
     elif user.is_superuser:

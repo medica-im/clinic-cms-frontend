@@ -5,10 +5,10 @@ from rest_framework import serializers
 from facility.utils import get_organization
 from workforce.utils import occupation
 from django.contrib.sites.shortcuts import get_current_site
-from access.utils import get_role, authorize
+from access.utils import get_role, get_roles, authorize
 from access.models import Endpoint, AccessControl
-from addressbook.models import PhoneNumber, Profile, Appointment
-from addressbook.api.serializers import AppSerializer
+from addressbook.models import PhoneNumber, Profile, Appointment, SocialNetwork
+from addressbook.api.serializers import AppSerializer, SocialNetworkSerializer
 from accounts.serializers import GrammaticalGenderSerializer
 
 logger = logging.getLogger(__name__)
@@ -27,6 +27,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
     websites = serializers.SerializerMethodField()
     profile = serializers.SerializerMethodField()
     appointments = serializers.SerializerMethodField()
+    socialnetworks = serializers.SerializerMethodField()
 
 
     class Meta:
@@ -45,8 +46,9 @@ class WorkforceSerializer(serializers.ModelSerializer):
             'websites',
             'profile',
             'appointments',
+            'socialnetworks',
         )
-        depth=1
+        depth=2
 
     def get_organization(self, obj):
         organization = get_organization(self.context["request"])
@@ -202,6 +204,14 @@ class WorkforceSerializer(serializers.ModelSerializer):
                     appointments.append(a)
                 continue
             if authorize("appointment", role, 1):
-                a = create_appointment(self, id=appointment.id)
+                a = self.create_appointment(self, id=appointment.id)
                 appointments.append(a)
         return appointments
+
+    def get_socialnetworks(self, obj):
+        roles = get_roles(self.context["request"])
+        queryset = SocialNetwork.objects.filter(
+            contact=obj.user.contact,
+            roles__in=roles
+        ).distinct()
+        return SocialNetworkSerializer(queryset, many=True).data

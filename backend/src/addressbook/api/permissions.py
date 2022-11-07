@@ -10,7 +10,12 @@ class ProfilePermissions(permissions.BasePermission):
             return True
         endpoint = "profile"
         return authorize_api(endpoint, request)
-    
+
     def has_permission(self, request, view):
         endpoint = "profile"
         return authorize_api(endpoint, request)
+
+class ObjectPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if obj.contact.user == request.user:
+            return True
