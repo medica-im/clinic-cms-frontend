@@ -8,6 +8,8 @@ import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 import { language } from '$lib/store/languageStore';
 import { page } from '$app/stores';
 
+export let data;
+
 let promise;
 $: promise = facilityStore.load(), $language;
 
@@ -35,7 +37,7 @@ const createFacilityGeoData = (fData) => {
 <svelte:head>
 	{#await promise}
 	<title>
-		{capitalizeFirstLetter($page.data.facility.formatted_name, $language)} - {$LL.CONTACT.TITLE()}
+		{capitalizeFirstLetter(data.facilityData.formatted_name, $language)} - {$LL.CONTACT.TITLE()}
 	</title>
 	{:then}
 		<title>
@@ -46,9 +48,21 @@ const createFacilityGeoData = (fData) => {
 
 <main>
 	{#await facilityStore.load()}
-	<div class="spinner-border" role="status">
-		<span class="visually-hidden">{$LL.LOADING()}</span>
-	</div>
+	<FacilityList organizationData={data.facilityData} />
+	{#each data.facilityData.facility as facility}
+		{#if facility.contact}
+			<div class="card">
+				<!--img class="card-img-top" src="..." alt="Card image cap" /-->
+				<div class="card-body">
+					<h5 id="{facility.name}_anchor" class="card-title">{facility.contact.formatted_name}</h5>
+					<p class="card-text">
+						<Address contactData={facility.contact} />
+						<LeafletMap geoData={createFacilityGeoData(facility)} />
+					</p>
+				</div>
+			</div>
+		{/if}
+	{/each}
 	{:then}
 		<FacilityList organizationData={$facilityStore} />
 		{#each $facilityStore.facility as facility}
