@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-	import { beforeUpdate, afterUpdate } from 'svelte';
 	export let contactData;
 	let addressData = {
 		formattedName: null,

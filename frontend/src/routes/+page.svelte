@@ -9,10 +9,10 @@
 	import LL from '$i18n/i18n-svelte';
 	import Ghost from '$lib/Ghost/Ghost.svelte';
 	import Ghost2 from '$lib/Ghost/Ghost2.svelte';
-
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { onMount } from 'svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;

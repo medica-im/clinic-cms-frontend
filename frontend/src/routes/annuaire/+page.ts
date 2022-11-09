@@ -1,4 +1,4 @@
-import { workforceDataCached, occupations } from '$lib/store/workforceStore';
+import { workforceDataCached, occupations, occupationsCardinal } from '$lib/store/workforceStore';
 
 export const prerender = true;
 
@@ -6,8 +6,10 @@ export const prerender = true;
 export async function load() {
     const wDC = await workforceDataCached.load();
     const o = await occupations.load();
+    const oC = await occupationsCardinal.load()
     return {
         workforceDataCached: wDC,
-        occupations: o
+        occupations: o,
+        occupationsCardinal: oC
     };
 }

@@ -102,7 +102,20 @@ export const occupations = asyncDerived(
 		return derivedWorkforceData
 	});
 
-export const occupationsCardinal = asyncDerived(
+function mapWorkforceData (workerElement: Worker) {
+		return workerElement.occupations.map(function (occupationElement) {
+			if (workerElement.grammatical_gender !== null) {
+				let code = workerElement.grammatical_gender.code;
+				occupationElement["gender"] = code;
+			} else {
+				occupationElement["gender"] = null;
+			}
+			return occupationElement
+		}
+		)
+	}
+
+export const occupationsCardinalBak = asyncDerived(
 	([workforceDataCached, workforceDict, language, locale]),
 	async ([$workforceDataCached, $workforceDict, $language, $locale]) => {
 		let occupationArray: Occupation[] = (
@@ -178,28 +191,37 @@ export const filteredWorkforceDataCached = asyncDerived(
 		if (!$selectOccupations.length && !$selectFacilities.length && $term == '') { return $workforceDataCached }
 		else {
 			return $workforceDataCached.filter(function (x) {
+				if (!$selectOccupations.length) {
+					return true
+				} else {
+					return x.occupations.map(
+						function (currentElement) {
+							return currentElement.name
+						}
+					).some(r => $selectOccupations.includes(r))
+				}
+			}).filter(function (x) {
 				if (!$selectFacilities.length) {
 					return true
 				}
 				let facilities = [];
-				try {
-					let elements = x.occupations.map(x => x.specialty.facilities);
-					for (let e of elements) {
-						if (e) { facilities.push(e) }
+				for (let o of x.occupations) {
+					try {
+						let _facilities = o.specialty.facilities;
+						for (let f of _facilities) {
+							if (f) { facilities.push(f) }
+						}
+					} catch(err) {
 					}
-
-				} catch (err) {
-				}
-				try {
-					let elements = x.occupations.map(x => x.facilities);
-					for (let e of elements) {
-						if (e) { facilities.push(e) }
+					try {
+						let _facilities = o.facilities;
+						for (let f of _facilities) {
+							if (f) { facilities.push(f) }
+						}
+					} catch(err) {
 					}
-
-				} catch (err) {
 				}
-				let facilitiesFlat = facilities.flat();
-				let names = facilitiesFlat.map(x => x.facility__name);
+				let names = facilities.map(x => x.facility__name);
 				if (names) {
 					let filterBool = names.some(r => $selectFacilities.includes(r));
 					return filterBool;
@@ -213,20 +235,71 @@ export const filteredWorkforceDataCached = asyncDerived(
 				} else {
 					return normalize(x.formatted_name).includes(normalize($term))
 				}
-			}).filter(function (x) {
-				if (!$selectOccupations.length) {
-					return true
-				} else {
-					return x.occupations.map(
-						function (currentElement) {
-							return currentElement.name
-						}
-					).some(r => $selectOccupations.includes(r))
-				}
 			})
 		}
 	}
 );
+
+export const occupationsCardinal = asyncDerived(
+	([filteredWorkforceDataCached, selectOccupations, workforceDict, language, locale]),
+	async ([$filteredWorkforceDataCached, $selectOccupations, $workforceDict, $language, $locale]) => {
+		let occupationArray: Occupation[] = ($filteredWorkforceDataCached.map(mapWorkforceData).flat(2));
+		let filteredOccupationArray: Occupation[] = occupationArray.filter(
+			function (x) {
+			if ($selectOccupations.length) {
+			    return $selectOccupations.indexOf(x.name)>=0;
+			} else {
+				return true;
+			}
+		}
+		);
+		const occupationsCardinalObject = {} as OccupationCardinalObject;
+		filteredOccupationArray.forEach(function (x: Occupation) {
+			if (!(x.name in Object.keys(occupationsCardinalObject))) {
+				occupationsCardinalObject[x.name] = {
+					"count": {
+						"total": 0,
+						"F": 0,
+						"M": 0,
+						"N": 0
+					}
+				}
+			}
+		});
+		filteredOccupationArray.forEach(function (x: Occupation) {
+			let name = x["name"];
+			let gender = x["gender"];
+			occupationsCardinalObject[name]['count']['total'] = occupationsCardinalObject[name]['count']['total'] + 1;
+			if (gender == 'F') {
+				occupationsCardinalObject[x.name]['count']['F'] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
+			}
+			if (gender == 'M') {
+				occupationsCardinalObject[x.name]["count"]["M"] = occupationsCardinalObject[x.name]["count"]["M"] + 1;
+			}
+			if (gender == 'N') {
+				occupationsCardinalObject[x.name]["count"]["N"] = occupationsCardinalObject[x.name]["count"]["N"] + 1;
+			}
+		});
+		Object.keys(occupationsCardinalObject).forEach(function (key) {
+			if (occupationsCardinalObject[key]["count"]["total"] > 1) {
+				if (occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"]) {
+					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["F"]
+				} else {
+					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["M"]
+				}
+			} else {
+				if (occupationsCardinalObject[key]["count"]["F"] > occupationsCardinalObject[key]["count"]["M"]) {
+					occupationsCardinalObject[key]["label"] = $workforceDict[key]["S"]["F"]
+				} else {
+					occupationsCardinalObject[key]["label"] = $workforceDict[key]["S"]["M"]
+				}
+			}
+		});
+		return occupationsCardinalObject
+	},
+	true
+);
+
 
 export const workerData = asyncDerived(
 	[workerSlug, workforceDataCached,],

@@ -1,8 +1,15 @@
 <script lang="ts">
-	import { occupationsCardinal } from '$lib/store/workforceStore';
+	import { occupationsCardinal, selectOccupations } from '$lib/store/workforceStore';
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';
+	import { afterUpdate, onMount, beforeUpdate } from 'svelte';
+
+	onMount(() => {
+	selectOccupations.set([]);
+});
+
 </script>
+
 
 {#await occupationsCardinal.load()}
 	<ul class="list-group list-group-flush">

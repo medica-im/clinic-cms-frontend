@@ -36,7 +36,6 @@ export const facilityStore = asyncDerived(
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
 				}
-				console.log(data);
 				return data;
 			} else if (err) {
 				console.log(err);
