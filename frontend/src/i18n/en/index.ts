@@ -25,6 +25,9 @@ const en: BaseTranslation = {
 		OCCUPATIONS: {
 			PLACEHOLDER: "Select by profession..."
 		},
+		FACILITIES: {
+            PLACEHOLDER: "Select by facility..."
+		},
 		SEARCH: {
 			LABEL: "Search",
 			PLACEHOLDER: "last name or first name"

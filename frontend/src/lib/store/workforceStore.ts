@@ -6,6 +6,7 @@ import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, Worker } from '$lib/interfaces/workforce.interface';
 import { locale } from '$i18n/i18n-svelte';
+import { selectFacilities } from '$lib/store/facilityStore';
 
 export const term = writable('');
 export const workerSlug = writable('');
@@ -167,18 +168,62 @@ export const occupationsCardinal = asyncDerived(
 
 export const selectOccupations = writable([]);
 
+function normalize(x) {
+	return x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+}
+
 export const filteredWorkforceDataCached = asyncDerived(
-	[term, selectOccupations, workforceDataCached],
-	([$term, $selectOccupations, $workforceDataCached]) => {
-		if (!$selectOccupations.length && $term == '') { return $workforceDataCached }
-		else if (!$selectOccupations.length) {
-			return $workforceDataCached.filter(x => x.formatted_name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes($term.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")))
-		} else {
-			return $workforceDataCached.filter(x => x.formatted_name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes($term.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))).filter(x => x.occupations.map(
-				function (currentElement) {
-					return currentElement.name
+	[term, selectOccupations, selectFacilities, workforceDataCached],
+	([$term, $selectOccupations, $selectFacilities, $workforceDataCached]) => {
+		if (!$selectOccupations.length && !$selectFacilities.length && $term == '') { return $workforceDataCached }
+		else {
+			return $workforceDataCached.filter(function (x) {
+				if (!$selectFacilities.length) {
+					return true
 				}
-			).some(r => $selectOccupations.includes(r)))
+				let facilities = [];
+				try {
+					let elements = x.occupations.map(x => x.specialty.facilities);
+					for (let e of elements) {
+						if (e) { facilities.push(e) }
+					}
+
+				} catch (err) {
+				}
+				try {
+					let elements = x.occupations.map(x => x.facilities);
+					for (let e of elements) {
+						if (e) { facilities.push(e) }
+					}
+
+				} catch (err) {
+				}
+				let facilitiesFlat = facilities.flat();
+				let names = facilitiesFlat.map(x => x.facility__name);
+				if (names) {
+					let filterBool = names.some(r => $selectFacilities.includes(r));
+					return filterBool;
+				} else {
+					return false;
+				}
+			}
+			).filter(function (x) {
+				if ($term == '') {
+					return true
+				} else {
+					return normalize(x.formatted_name).includes(normalize($term))
+				}
+			}).filter(function (x) {
+				if (!$selectOccupations.length) {
+					return true
+				} else {
+					return x.occupations.map(
+						function (currentElement) {
+							return currentElement.name
+						}
+					).some(r => $selectOccupations.includes(r))
+				}
+			})
 		}
 	}
 );

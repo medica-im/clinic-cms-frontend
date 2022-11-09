@@ -6,6 +6,8 @@ import { browser } from "$app/environment";
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { locale } from '$i18n/i18n-svelte';
 
+export const selectFacilities = writable([]);
+
 export const facilityStore = asyncDerived(
 	([language, locale]),
 	async ([$language, $locale]) => {
@@ -34,6 +36,7 @@ export const facilityStore = asyncDerived(
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
 				}
+				console.log(data);
 				return data;
 			} else if (err) {
 				console.log(err);

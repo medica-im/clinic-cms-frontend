@@ -7,19 +7,21 @@
 	let labelIdentifier = 'label';
 
     onMount(() => {
-        selectOccupations.set($occupations.map(x => x.name));
+        selectOccupations.set([]);
 	});
 
     function handleClear(event) {
     if (event.detail === null) {
-    selectOccupations.set($occupations.map(x => x.name));
+    //selectOccupations.set($occupations.map(x => x.name));
+    selectOccupations.set([]);
     }
   }
 
 
     function handleSelect(event) {
     if (event.detail === null) {
-        selectOccupations.set($occupations.map(x => x.name));
+        //selectOccupations.set($occupations.map(x => x.name));
+        selectOccupations.set([]);
         return
     } else if (event.detail.length > 0) {
     selectOccupations.set(event.detail.map(x => x.name));

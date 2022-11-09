@@ -71,7 +71,13 @@ type RootTranslation = {
 		TITLE: string
 		OCCUPATIONS: {
 			/**
-			 * S​e​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​p​r​o​f​e​s​s​i​o​n​.​.​.
+			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​p​r​o​f​e​s​s​i​o​n​.​.​.
+			 */
+			PLACEHOLDER: string
+		}
+		FACILITIES: {
+			/**
+			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​é​t​a​b​l​i​s​s​e​m​e​n​t​.​.​.
 			 */
 			PLACEHOLDER: string
 		}
@@ -236,7 +242,13 @@ export type TranslationFunctions = {
 		TITLE: () => LocalizedString
 		OCCUPATIONS: {
 			/**
-			 * Selectionner par profession...
+			 * Sélectionner par profession...
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
+		FACILITIES: {
+			/**
+			 * Sélectionner par établissement...
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}

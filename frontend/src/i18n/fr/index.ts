@@ -23,8 +23,11 @@ const fr: Translation = {
   ADDRESSBOOK: {
     TITLE: "Annuaire",
     OCCUPATIONS: {
-      PLACEHOLDER: "Selectionner par profession..."
+      PLACEHOLDER: "Sélectionner par profession..."
     },
+		FACILITIES: {
+            PLACEHOLDER: "Sélectionner par établissement..."
+		},
     SEARCH: {
       LABEL: "Recherche",
       PLACEHOLDER: "nom ou prénom"

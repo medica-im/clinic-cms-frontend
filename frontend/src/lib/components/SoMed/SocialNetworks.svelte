@@ -4,7 +4,6 @@
 	import { Icon } from '@smui/icon-button';
 
     export let data;
-    console.log(data);
 	
     function hasSoMed(somed) {
 		return data.some((e) => e.type == somed);
@@ -17,7 +16,6 @@
     
     function getIcon(somed) {
         let type = somed.type
-        console.log(`type:${type}`);
         const icons = {
             "T": mdiTwitter,
             "F": mdiFacebook,

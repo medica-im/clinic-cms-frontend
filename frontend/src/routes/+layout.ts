@@ -20,7 +20,6 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }
 	//console.info($LL.log({ fileName: '+layout.ts' }))
 
   const fData = await facilityStore.load();
-    
   return {
       locale: locale,
       facility: fData,

@@ -65,7 +65,6 @@
 	}
 
 	let queryResult = useQuery(worker, getWorkerData);
-	console.log(queryResult);
 
 	function onLocaleChange(locale) {
 		worker = `worker_${locale}`;
