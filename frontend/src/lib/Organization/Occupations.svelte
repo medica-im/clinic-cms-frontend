@@ -1,11 +1,14 @@
 <script lang="ts">
-	import { occupationsCardinal, selectOccupations } from '$lib/store/workforceStore';
+	import { occupationsCardinal, selectOccupations, term } from '$lib/store/workforceStore';
+	import { selectFacilities } from '$lib/store/facilityStore';
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount, beforeUpdate } from 'svelte';
 
 	onMount(() => {
 	selectOccupations.set([]);
+	selectFacilities.set([]);
+	term.set('');
 });
 
 </script>
