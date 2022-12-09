@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  nodeserver_staging:
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: .
+    ports:
+      - "${NODE_PORT_EXTERNAL_STAGING}:3000"
+    environment:
+      NODE_ENV: development
