@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  nodeserver_production:
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: .
+    ports:
+      - "${NODE_PORT_EXTERNAL_PRODUCTION}:3000"
+    environment:
+      NODE_ENV: production
+      ORIGIN: ${ORIGIN}
