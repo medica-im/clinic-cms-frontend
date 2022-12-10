@@ -21,6 +21,7 @@
 	import { facilityStore } from '$lib/store/facilityStore';
     import User from './User.svelte';
 	import { get } from '@square/svelte-store';
+	import SocialNetworks from '$lib/components/SoMed/SocialNetworks.svelte';
 
 	export let facility;
 
@@ -29,7 +30,7 @@
 	}
 	function getUrl(array, type) {
 		var element = array.find((e) => e.type == type);
-		return element.url;
+		return element.website;
 	}
 </script>
 
@@ -77,34 +78,8 @@
 					</li>
 				</ul>
 				<User user={$userData} facility={facility} />
+				<SocialNetworks data={facility.contact.socialnetworks} isNavbar=true />
 				<ul class="navbar-nav d-flex flex-row">
-						{#if hasSoMed(facility.contact.socialnetworks, 'Twitter')}
-							<li class="nav-item">
-								<a href={getUrl(facility.contact.socialnetworks, 'Twitter')}>
-									<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
-										<path fill="currentColor" d={mdiTwitter} />
-									</Icon>
-								</a>
-							</li>
-						{/if}
-						{#if hasSoMed(facility.contact.socialnetworks, 'Facebook')}
-							<li class="nav-item">
-								<a href={getUrl(facility.contact.socialnetworks, 'Facebook')}>
-									<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
-										<path fill="currentColor" d={mdiFacebook} />
-									</Icon>
-								</a>
-							</li>
-						{/if}
-						{#if hasSoMed(facility.contact.socialnetworks, 'LinkedIn')}
-							<li class="nav-item">
-								<a href={getUrl(facility.contact.socialnetworks, 'LinkedIn')}>
-									<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
-										<path fill="currentColor" d={mdiLinkedin} />
-									</Icon>
-								</a>
-							</li>
-							{/if}
 					<li class="nav-item">
 						<LocaleSwitcher />
 					</li>

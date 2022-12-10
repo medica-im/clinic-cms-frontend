@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  django_1:
+  django_production:
     restart: always
     env_file:
       - .env
@@ -22,4 +22,4 @@ services:
       - redis
     working_dir: /backend/src
     ports:
-      - "8081:80"
+      - "${EXTERNAL_PORT_PRODUCTION}:80"

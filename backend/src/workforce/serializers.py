@@ -127,7 +127,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
                 continue
             w = {
                 "type": website.type,
-                "url": website.website,
+                "website": website.website,
             }
             if website.roles.all():
                 if role in website.roles.all():

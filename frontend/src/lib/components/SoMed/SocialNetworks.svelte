@@ -4,6 +4,22 @@
 	import { Icon } from '@smui/icon-button';
 
     export let data;
+    export let isNavbar=false;
+
+    function ulClasses() {
+        if (isNavbar) {
+            return "navbar-nav d-flex flex-row"
+        } else {
+            return "list-group list-group-flush list-group-horizontal"
+        }
+    }
+    function liClasses() {
+        if (isNavbar) {
+            return "nav-item"
+        } else {
+            return "list-group-item border-0"
+        }
+    }
 	
     function hasSoMed(somed) {
 		return data.some((e) => e.type == somed);
@@ -28,9 +44,9 @@
     }
 </script>
 
-<ul class="list-group list-group-flush list-group-horizontal">
+<ul class="{ulClasses()}">
 {#each data as somed}
-        <li class="list-group-item">
+        <li class="{liClasses()}">
             <a href={somed.url}>
                 <Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
                     <path fill="currentColor" d={getIcon(somed)} />

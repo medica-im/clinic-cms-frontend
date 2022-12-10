@@ -1,9 +1,8 @@
 version: '3.8'
 
-services:
-          
+services:    
   database:
-    restart: always                                                                       
+    restart: always                                                                      
     image: postgre-non-root
     build:
       context: .

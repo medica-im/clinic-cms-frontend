@@ -32,7 +32,7 @@ SITE_ID = 1
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default='False')
 
 LOG_LEVEL = config('LOG_LEVEL', default='DEBUG')
 
@@ -245,7 +245,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'database',
+        'HOST': config('POSTGRES_HOST', default='database_development'),
         'NAME': config('POSTGRES_DB', default='postgres'),
         'USER': config('POSTGRES_USER', default='postgres'),
         'PASSWORD': config('POSTGRES_PASSWORD', default=''),

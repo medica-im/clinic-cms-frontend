@@ -12,15 +12,15 @@
 </script>
 
 {#if website.type == "Blog"}
-<a href="{website.url}" rel="external" class="card-link">
+<a href="{website.website}" rel="external" class="card-link">
 <Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
     <path fill="currentColor" d={mdiPostOutline} />
 </Icon>Blog
 </a>
 {:else}
-<a href="{website.url}" rel="external" class="card-link">
+<a href="{website.website}" rel="external" class="card-link">
     <Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
         <path fill="currentColor" d={mdiWeb} />
-    </Icon>{removeHttp(website.url)}
+    </Icon>{removeHttp(website.website)}
     </a>
 {/if}

@@ -10,3 +10,4 @@ services:
       - "${NODE_PORT_EXTERNAL_STAGING}:3000"
     environment:
       NODE_ENV: development
+      ORIGIN: ${ORIGIN}

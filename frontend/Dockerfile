@@ -1,6 +1,6 @@
 ### Build Step
 # pull the Node.js Docker image
-FROM node:17 as build
+FROM node:16 as build
 
 # change working directory
 WORKDIR /app
@@ -12,7 +12,6 @@ COPY static /app/build/static
 
 # run npm install in our local machine
 RUN npm ci
-RUN ls -alh
 
 # copy the generated modules and all other files to the container
 COPY . .
@@ -23,7 +22,7 @@ RUN npm run build
 
 ### Serve Step
 # pull the Node.js Docker image
-FROM node:17
+FROM node:16
 
 # change working directory
 WORKDIR /app
@@ -37,6 +36,5 @@ COPY --from=build /app/node_modules ./node_modules
 
 # our app is running on port 3000 within the container, so need to expose it
 EXPOSE 3000
-#ENV ORIGIN=https://medecinelibre.com
 # the command that starts our app
 CMD ["node", "index.js"]

@@ -48,7 +48,6 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
-    socialnetworks = SocialNetworkSerializer(many=True, read_only=True)
     
     class Meta:
         model = Contact
@@ -60,5 +59,6 @@ class ContactSerializer(serializers.ModelSerializer):
             'addresses',
             'phonenumbers',
             'socialnetworks',
+            'websites',
         ]
         depth = 3

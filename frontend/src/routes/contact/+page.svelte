@@ -2,6 +2,8 @@
 import FacilityList from '../../components/FacilityList.svelte';
 import LeafletMap from './map/LeafletMap.svelte';
 import Address from '$lib/Address/Address.svelte';
+import SocialNetworks from '$lib/components/SoMed/SocialNetworks.svelte';
+import Website from '$lib/components/Website/Website.svelte';
 import { facilityStore } from '$lib/store/facilityStore';
 import LL from '$i18n/i18n-svelte';
 import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -47,6 +49,7 @@ const createFacilityGeoData = (fData) => {
 </svelte:head>
 
 <main>
+	<div class="d-grid gap-2">
 	{#await facilityStore.load()}
 	<FacilityList organizationData={data.facilityData} />
 	{#each data.facilityData.facility as facility}
@@ -57,6 +60,16 @@ const createFacilityGeoData = (fData) => {
 					<h5 id="{facility.name}_anchor" class="card-title">{facility.contact.formatted_name}</h5>
 					<p class="card-text">
 						<Address contactData={facility.contact} />
+						{#if facility.contact.websites}
+						<ul class="list-group list-group-flush">
+							{#each facility.contact.websites as website}
+								<li class="list-group-item justify-content-between align-items-start">
+									<Website {website} />
+								</li>
+							{/each}
+						</ul>
+						{/if}
+						<SocialNetworks data={facility.contact.socialnetworks} />
 						<LeafletMap geoData={createFacilityGeoData(facility)} />
 					</p>
 				</div>
@@ -73,6 +86,16 @@ const createFacilityGeoData = (fData) => {
 						<h5 id="{facility.name}_anchor" class="card-title">{facility.contact.formatted_name}</h5>
 						<p class="card-text">
 							<Address contactData={facility.contact} />
+							{#if facility.contact.websites}
+							<ul class="list-group list-group-flush">
+							{#each facility.contact.websites as website}
+								<li class="list-group-item d-flex justify-content-between align-items-start border-0">
+									<Website {website} />
+								</li>
+							{/each}
+						</ul>
+							{/if}
+							<SocialNetworks data={facility.contact.socialnetworks} />
 							<LeafletMap geoData={createFacilityGeoData(facility)} />
 						</p>
 					</div>
@@ -80,4 +103,5 @@ const createFacilityGeoData = (fData) => {
 			{/if}
 		{/each}
 	{/await}
+</div>
 </main>
