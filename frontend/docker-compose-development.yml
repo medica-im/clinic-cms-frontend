@@ -1,3 +1,5 @@
+version: '3.8'
+services:
   nodeserver_development:
     restart: always
     env_file:
@@ -7,5 +9,5 @@
     ports:
       - "${NODE_PORT_EXTERNAL_DEVELOPMENT}:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       ORIGIN: ${ORIGIN}

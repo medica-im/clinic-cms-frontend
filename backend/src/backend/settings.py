@@ -192,7 +192,7 @@ if DEBUG:
     MIDDLEWARE += "corsheaders.middleware.CorsMiddleware",
 
 MIDDLEWARE += [
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -202,11 +202,14 @@ MIDDLEWARE += [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ALLOW_ALL_ORIGINS: True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
     "http://127.0.0.1:8000",
+    "http://127.0.0.1:8084",
+    "http://127.0.0.1:443",
+    "http://127.0.1.1:8084",
     "https://dev.msp-vedene.fr",
     "https://msp-vedene.fr",
 ]

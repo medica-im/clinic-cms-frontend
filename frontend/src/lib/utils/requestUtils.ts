@@ -4,7 +4,6 @@ import type { Token, UserResponse } from '$lib/interfaces/user.interface';
 import type { CustomError } from '$lib/interfaces/error.interface';
 import { notificationData } from '$lib/store/notificationStore';
 import { userData } from '$lib/store/userStore';
-
 import { variables } from '$lib/utils/constants';
 import { formatText } from '$lib/formats/formatString';
 import type { Workforce } from '$lib/interfaces/workforce.interface';
@@ -222,7 +221,10 @@ export const handleRequestsWithPermissions = async (
 	fetch,
 	targetUrl: string
 ): Promise<[Workforce, Array<CustomError>]> => {
-	let refreshToken = browserGet('refreshToken');
+	let refreshToken;
+	if (browser) {
+		refreshToken = browserGet('refreshToken')
+	}
 	let accessRefresh;
 	if (refreshToken) {
 	accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
@@ -247,7 +249,7 @@ export const handleRequestsWithPermissions = async (
 	let fetchDict;
     if (accessRefresh) {
 	fetchDict = {
-		method: 'GET',
+		method: 'POST',
 		mode: 'cors',
 		headers: {
 			Authorization: `Bearer ${accessRefresh.access}`,
@@ -256,13 +258,14 @@ export const handleRequestsWithPermissions = async (
 	};
     } else {
 		fetchDict = {
-			method: 'GET',
+			method: 'POST',
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 		};
 	}
+	try {
 	const jres = await fetch(targetUrl, fetchDict);
 	if (jres.status !== 200) {
 		const data = await jres.json();
@@ -272,6 +275,11 @@ export const handleRequestsWithPermissions = async (
 		return [[], errs];
 	}
 	return [await jres.json(), []];
+} catch (error) {
+	console.log(error);
+	let errs = ["error"] as CustomError[];
+	return [[], errs];
+}
 };
 
 export const UpdateField = async (

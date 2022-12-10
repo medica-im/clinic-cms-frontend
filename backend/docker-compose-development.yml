@@ -21,7 +21,7 @@ services:
       - ${GUNICORN_LOG}:${GUNICORN_LOG}
       - ${DJANGO_LOG_DIR}:${DJANGO_LOG_DIR}
     ports:
-      - "8084:80"
+      - "${EXTERNAL_PORT_DEVELOPMENT}:80"
       - "8888:8888" # ipython notebook
     depends_on:
       - database

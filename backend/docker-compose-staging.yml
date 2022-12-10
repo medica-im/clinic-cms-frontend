@@ -22,4 +22,4 @@ services:
       - redis
     working_dir: /backend/src
     ports:
-      - "${EXTERNAL_PORT_PRODUCTION}:80"
+      - "${EXTERNAL_PORT_STAGING}:80"

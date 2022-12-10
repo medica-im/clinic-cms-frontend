@@ -15,10 +15,9 @@ RUN npm ci
 
 # copy the generated modules and all other files to the container
 COPY . .
-RUN ls -alh
 
 # build the application
-RUN npm run build
+RUN npm run build --verbose
 
 ### Serve Step
 # pull the Node.js Docker image
