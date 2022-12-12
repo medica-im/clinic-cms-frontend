@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
+  database:
+    container_name: database_production
+
   django_production:
     restart: always
     env_file:

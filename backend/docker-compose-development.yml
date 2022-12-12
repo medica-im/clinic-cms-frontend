@@ -20,10 +20,10 @@ services:
       - ${MEDIA_ROOT}:${MEDIA_ROOT}
       - ${GUNICORN_LOG}:${GUNICORN_LOG}
       - ${DJANGO_LOG_DIR}:${DJANGO_LOG_DIR}
-    ports:
-      - "${EXTERNAL_PORT_DEVELOPMENT}:80"
-      - "8888:8888" # ipython notebook
     depends_on:
       - database
       - redis
     working_dir: /backend/src
+    ports:
+      - "${EXTERNAL_PORT_DEVELOPMENT}:80"
+      - "8888:8888" # ipython notebook
