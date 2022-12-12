@@ -249,7 +249,7 @@ export const handleRequestsWithPermissions = async (
 	let fetchDict;
     if (accessRefresh) {
 	fetchDict = {
-		method: 'POST',
+		method: 'GET',
 		mode: 'cors',
 		headers: {
 			Authorization: `Bearer ${accessRefresh.access}`,
@@ -258,7 +258,7 @@ export const handleRequestsWithPermissions = async (
 	};
     } else {
 		fetchDict = {
-			method: 'POST',
+			method: 'GET',
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json'
