@@ -6,7 +6,7 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 export const openGraphStore= asyncReadable(
 	{},
 	async () => {
-		const url = `${variables.BASE_API_URI}/opengraph`;
+		const url = `${variables.BASE_API_URI}/opengraph/`;
         try {
 		const [response, err] = await handleRequestsWithPermissions(fetch, url);
 			if (response) {
