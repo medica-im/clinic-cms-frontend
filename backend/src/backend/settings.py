@@ -192,7 +192,6 @@ if DEBUG:
     MIDDLEWARE += "corsheaders.middleware.CorsMiddleware",
 
 MIDDLEWARE += [
-    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -202,17 +201,8 @@ MIDDLEWARE += [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS: True
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:8000",
-    "http://127.0.0.1:8084",
-    "http://127.0.0.1:443",
-    "http://127.0.1.1:8084",
-    "https://dev.msp-vedene.fr",
-    "https://msp-vedene.fr",
-]
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS=True
 
 ROOT_URLCONF = config('ROOT_URLCONF')
 
@@ -400,12 +390,13 @@ SIMPLE_JWT = {
 
 
 # Redis
-REDIS_HOST = config('REDIS_HOST', default='redis')
+REDIS_HOST = config('REDIS_HOST', default='redis_development')
 REDIS_PORT = config('REDIS_PORT', cast=str, default='6379')
+REDIS_DATABASE_ID = config('REDIS_DATABASE_ID', default='0')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0",
+        "LOCATION": "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/" + REDIS_DATABASE_ID,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
