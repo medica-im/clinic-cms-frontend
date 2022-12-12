@@ -3,7 +3,8 @@ version: '3.8'
 services:
   database:
     container_name: database_development
-
+  redis:
+    container_name: redis_development
   django_development:
     restart: always
     env_file:

@@ -4,6 +4,9 @@ services:
   database:
     container_name: database_production
 
+  redis:
+    container_name: redis_production
+
   django_production:
     restart: always
     env_file:
