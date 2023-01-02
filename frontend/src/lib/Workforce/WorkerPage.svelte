@@ -10,8 +10,12 @@
 	import Editor from 'cl-editor/src/Editor.svelte';
 
 	export let userData: Worker;
+
+    if (import.meta.env.VITE_DEV == "true") {
     console.log(JSON.stringify(userData));
-	let html = '';
+    }
+
+    let html = '';
 	let editorSwitch = false;
 
 	function getUrl(userData: Worker) {
