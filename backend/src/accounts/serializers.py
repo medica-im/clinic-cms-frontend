@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate
 from rest_framework import exceptions, serializers
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth import get_user_model
-
+from access.utils import get_role
+from access.serializers import RoleSerializer
 from .models import User, GrammaticalGender
 from .utils import validate_email as email_is_valid
 
@@ -97,6 +98,7 @@ class UserSerializer(serializers.ModelSerializer):
         min_length=8,
         write_only=True
     )
+    role = serializers.SerializerMethodField()
 
     class Meta:
         model = get_user_model()
@@ -110,22 +112,23 @@ class UserSerializer(serializers.ModelSerializer):
             'full_name',
             'birth_date',
             'is_staff',
+            'role',
         )
-        read_only_fields = ('tokens', 'is_staff')
+        read_only_fields = ('tokens', 'is_staff', 'role',)
 
     def update(self, instance, validated_data):  # type: ignore
-
         password = validated_data.pop('password', None)
-
         for (key, value) in validated_data.items():
             setattr(instance, key, value)
-
         if password is not None:
             instance.set_password(password)
-
         instance.save()
-
         return instance
+
+    def get_role(self, object):
+        role = get_role(self.context['request'])
+        serializer = RoleSerializer(role)
+        return serializer.data
 
 
 class LogoutSerializer(serializers.Serializer[User]):

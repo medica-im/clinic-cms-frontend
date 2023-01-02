@@ -30,7 +30,7 @@
 			errors = err;
 		} else if (response.user) {
 			browserSet('refreshToken', response.user.tokens.refresh);
-			notificationData.update(() => 'Login successful...');
+			notificationData.update(() => `${$LL.LOGIN.SUCCESSFUL()}`);
 			await goto('/');
 		}
 	};

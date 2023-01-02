@@ -39,5 +39,3 @@ export interface Facility {
 	category?: Category[];
 	contact?: Contact[];
 }
-
-//export interface Facilities extends Array<Facility>{}

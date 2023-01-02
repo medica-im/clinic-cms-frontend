@@ -153,6 +153,14 @@ type RootTranslation = {
 		 * C​r​é​e​r​ ​u​n​ ​c​o​m​p​t​e
 		 */
 		CREATEACCOUNT: string
+		/**
+		 * C​o​n​n​e​x​i​o​n​ ​r​é​u​s​s​i​e​.​.​.
+		 */
+		SUCCESSFUL: string
+		/**
+		 * D​é​c​o​n​n​e​x​i​o​n​ ​r​é​u​s​s​i​e​.​.​.
+		 */
+		LOGOUT: string
 	}
 	ERROR404: {
 		/**
@@ -184,6 +192,17 @@ type RootTranslation = {
 	 * M​o​t​ ​d​e​ ​p​a​s​s​e
 	 */
 	PASSWORD: string
+	USER: {
+		/**
+		 * P​r​o​f​i​l​ ​d​e​ ​{​u​s​e​r​N​a​m​e​}
+		 * @param {string} userName
+		 */
+		PROFILE: RequiredParams<'userName'>
+		/**
+		 * R​ô​l​e
+		 */
+		ROLE: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -324,6 +343,14 @@ export type TranslationFunctions = {
 		 * Créer un compte
 		 */
 		CREATEACCOUNT: () => LocalizedString
+		/**
+		 * Connexion réussie...
+		 */
+		SUCCESSFUL: () => LocalizedString
+		/**
+		 * Déconnexion réussie...
+		 */
+		LOGOUT: () => LocalizedString
 	}
 	ERROR404: {
 		/**
@@ -355,6 +382,16 @@ export type TranslationFunctions = {
 	 * Mot de passe
 	 */
 	PASSWORD: () => LocalizedString
+	USER: {
+		/**
+		 * Profil de {userName}
+		 */
+		PROFILE: (arg: { userName: string }) => LocalizedString
+		/**
+		 * Rôle
+		 */
+		ROLE: () => LocalizedString
+	}
 }
 
 export type Formatters = {}

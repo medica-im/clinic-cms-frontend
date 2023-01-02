@@ -4,7 +4,14 @@
 	import { variables } from '$lib/utils/constants';
 	import { nodeBefore } from '$lib/helpers/whitespacesHelper';
 	import type { User, UserResponse } from '$lib/interfaces/user.interface';
-
+	import LL from '$i18n/i18n-svelte';
+	import Tooltip, {
+    Wrapper,
+    Title,
+    Content,
+    Link,
+    RichActions,
+  } from '@smui/tooltip';
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -25,7 +32,9 @@
 			if (updateResponse) currentUserData = updateResponse.user; // if updated data is available, update the currentUserData too...
 		})();
 </script>
-
+<style>
+/*.help {cursor: help;}*/
+</style>
 <!--div class="container d-grid gap-3">
 	<div class="row g-3">
 		<div class="col-auto">
@@ -112,8 +121,7 @@
 <div class="container d-grid gap-3 my-3">
 {#if currentUserData}
 	{#if currentUserData.id}
-		<h1>
-			{currentUserData.full_name ? currentUserData.full_name : currentUserData.username} profile
+		<h1>{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
 		</h1>
 	{/if}
 
@@ -182,5 +190,32 @@
 				>Update</button>
 		</div>
 	</div>
+	
+    <div class="card" style="width: 18rem;">
+		<div class="card-header">
+			{$LL.USER.ROLE()}
+		  </div>
+		<div class="card-body">
+		  <h5 class="card-title">{currentUserData.role.label}</h5>
+		  <p class="card-text">{currentUserData.role.description}</p>
+		</div>
+	  </div>  
+			  <!-- Modal -->
+			  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">{currentUserData.role.label}</h5>
+					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						{currentUserData.role.description}
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
 {/if}
 </div>

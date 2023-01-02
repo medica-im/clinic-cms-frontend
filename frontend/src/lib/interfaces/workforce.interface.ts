@@ -1,3 +1,5 @@
+
+
 interface GrammaticalGender {
     name: string;
     lable: string;
@@ -10,7 +12,13 @@ export interface Occupation {
     public_facing?: boolean;
     gender?: string | null;
     specialty?: Occupation;
+    facilities: Array<Facility>;
 
+}
+
+interface Facility {
+    facility__name: string;
+    facility__contact__formatted_name: string;
 }
 
 export interface Count {
@@ -31,18 +39,40 @@ export interface OccupationCardinalObject {
   };
 
 
-export interface Occupations extends Array<Occupation>{}
-
 export interface Worker {
     id?: bigint;
 	node_set?: NodeSet;
     facility?: string;
-    occupations: Occupation[];
+    occupations: Array<Occupation>;
     formatted_name?: string;
     slug?: string;
-    profile_picture_url?: string;
+    profile_picture_url?: ProfilePictureUrl;
     grammatical_gender: GrammaticalGender;
+    websites: Websites;
+    phone_numbers: PhoneNumbers;
+    account_email: string;
 }
+
+interface ProfilePictureUrl {
+    fb: string;
+    lt: string;
+}
+
+interface Websites extends Array<Website>{}
+
+interface Website {
+    type: string;
+    website: string
+}
+
+interface PhoneNumbers {
+    mobile: Array<string>;
+    mobile_work: Array<string>;
+    work: Array<string>;
+    fax: Array<string>;
+}
+
+
 
 export interface NodeSet {
     id?: bigint;

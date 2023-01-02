@@ -51,7 +51,9 @@ const fr: Translation = {
     TOLOGIN: "Se connecter",
     NOACCOUNT: "Pas encore de compte?",
     SIGNINGIN: "Connexion en cours...",
-    CREATEACCOUNT: "Créer un compte"
+    CREATEACCOUNT: "Créer un compte",
+		SUCCESSFUL: "Connexion réussie...",
+		LOGOUT: "Déconnexion réussie..."
   },
   ERROR404: {
 		OOPS: "Oups!",
@@ -61,7 +63,11 @@ const fr: Translation = {
 		BACK: "Revenir en arrière",
 	},
   EMAILADDRESS: "Adresse e-mail",
-  PASSWORD: "Mot de passe"
+  PASSWORD: "Mot de passe",
+	USER: {
+		PROFILE: `Profil de {userName:string}`,
+    ROLE: 'Rôle'
+	}
 }
 
 export default fr

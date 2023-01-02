@@ -8,9 +8,15 @@ import { variables } from '$lib/utils/constants';
 import { formatText } from '$lib/formats/formatString';
 import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { get } from 'svelte/store';
-import { facilityStore } from '$lib/store/facilityStore';
 import { locales } from '$i18n/i18n-util';
-import { locale } from '$i18n/i18n-svelte';
+import { language } from '$lib/store/languageStore';
+import { setLocale } from '$i18n/i18n-svelte';
+import type { Locales } from '$i18n/i18n-types'
+import LL from '$i18n/i18n-svelte';
+
+//const lang = get(language) as Locales;
+//console.log(lang);
+//setLocale(lang);
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -144,7 +150,7 @@ export const logOutUser = async (): Promise<void> => {
 	}
 	userData.set({});
 	emptyLocaleStorage();
-	notificationData.update(() => 'You have successfully logged out...');
+	notificationData.update(() => get(LL).LOGIN.LOGOUT());
 	await goto('/accounts/login');
 };
 

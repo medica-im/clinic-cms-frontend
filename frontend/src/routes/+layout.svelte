@@ -2,7 +2,7 @@
 	import { userData } from '$lib/store/userStore';
 	import { navigating } from '$app/stores';
 	import { loading } from '$lib/store/loadingStore';
-	import { notificationData } from '$lib/store/notificationStore';
+	import { i18nNotificationData, notificationData } from '$lib/store/notificationStore';
 	import { fly } from 'svelte/transition';
 	import { afterUpdate, onMount } from 'svelte';
 	import type { Load } from '@sveltejs/kit';

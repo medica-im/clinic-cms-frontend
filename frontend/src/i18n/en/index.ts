@@ -51,7 +51,9 @@ const en: BaseTranslation = {
 		TOLOGIN: "Login",
 		NOACCOUNT: "No account yet?",
 		SIGNINGIN: "Signing in...",
-		CREATEACCOUNT: "Create an account"
+		CREATEACCOUNT: "Create an account",
+		SUCCESSFUL: "Login successful...",
+		LOGOUT: "You have successfully logged out..."
 	},
 	ERROR404: {
 		OOPS: "Oops!",
@@ -61,7 +63,11 @@ const en: BaseTranslation = {
 		BACK: "Go back",
 	},
 	EMAILADDRESS: "Email address",
-	PASSWORD: "Password"
+	PASSWORD: "Password",
+	USER: {
+		PROFILE: `{userName:string} profile`,
+		ROLE: 'Role'
+	}
 }
 
 export default en
