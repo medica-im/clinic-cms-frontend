@@ -11,7 +11,6 @@ import { selectFacilities } from '$lib/store/facilityStore';
 export const term = writable('');
 export const workerSlug = writable('');
 
-
 export const workforceDict = asyncDerived(
 	(language),
 	async ($language) => {
@@ -82,6 +81,17 @@ export const workforceDataCached = asyncDerived(
 		}
 	},
 	true
+);
+
+export const workforceSlugs = asyncDerived(
+	(workforceDataCached),
+	async ($workforceDataCached) => {
+		console.log($workforceDataCached);
+		let slugs = $workforceDataCached.map(function (currentElement) {
+			return currentElement.slug });
+		console.log(slugs);
+		return slugs
+	}	
 );
 
 function uniq(a) {
