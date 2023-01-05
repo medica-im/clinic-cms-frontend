@@ -7,6 +7,8 @@ import { browser } from "$app/environment"
 import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, Worker } from '$lib/interfaces/workforce.interface';
 import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/facilityStore';
+import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
+
 
 export const term = writable('');
 export const workerSlug = writable('');
@@ -310,12 +312,11 @@ export const occupationsCardinal = asyncDerived(
 	true
 );
 
-
 export const workerData = asyncDerived(
 	[workerSlug, workforceDataCached,],
 	([$workerSlug, $workforceDataCached]) => {
 		if ($workerSlug && $workforceDataCached && $workforceDataCached.length) {
-			return $workforceDataCached.find((element) => element.slug == $workerSlug).formatted_name
+			return workerTitleFormattedName($workforceDataCached.find((element) => element.slug == $workerSlug))
 		} else { return '' }
 	}
 );

@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
 	import { variables } from '$lib/utils/constants';
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
-	export let workerData;
+	import type { Worker } from "$lib/interfaces/workforce.interface";
+
+	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
+
+	export let workerData: Worker;
 	export let currentOccupationName;
 
 	function getUrl(url) {
@@ -28,7 +32,7 @@
 				<div class="card-body">
 					<a href="/{workerData.slug}">
 						<h5 class="card-title">
-							{workerData.formatted_name}
+							{workerTitleFormattedName(workerData)}
 						</h5>
 					</a>
 					<ul class="list-group list-group-flush">

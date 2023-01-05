@@ -8,6 +8,7 @@
 	import Website from '$lib/components/Website/Website.svelte';
 	import Button, { Label } from '@smui/button';
 	import Editor from 'cl-editor/src/Editor.svelte';
+	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 
 	export let userData: Worker;
 
@@ -70,7 +71,7 @@
 		</div>
 		<div class="col-md-8">
 			<div class="card-body">
-				<h5 class="card-title">{userData.formatted_name}</h5>
+				<h5 class="card-title">{workerTitleFormattedName(userData)}</h5>
 				<ul class="list-group list-group">
 					{#if userData.occupations}
                     {#each userData.occupations as occupation}

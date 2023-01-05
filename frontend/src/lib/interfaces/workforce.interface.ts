@@ -44,6 +44,7 @@ export interface Worker {
 	node_set?: NodeSet;
     facility?: string;
     occupations: Array<Occupation>;
+    title?: string;
     formatted_name?: string;
     slug?: string;
     profile_picture_url?: ProfilePictureUrl;

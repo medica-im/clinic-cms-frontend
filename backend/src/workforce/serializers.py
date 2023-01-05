@@ -18,6 +18,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
 
     organization = serializers.SerializerMethodField()
     occupations = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
     formatted_name = serializers.SerializerMethodField()
     grammatical_gender = serializers.SerializerMethodField()
     slug = serializers.SerializerMethodField()
@@ -37,6 +38,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
             'node_set',
             'organization',
             'occupations',
+            'title',
             'formatted_name',
             'grammatical_gender',
             'slug',
@@ -57,6 +59,12 @@ class WorkforceSerializer(serializers.ModelSerializer):
     def get_occupations(self, obj):
         organization = get_organization(self.context["request"])
         return occupation(obj, organization)
+
+    def get_title(self, obj):
+        try:
+            return obj.user.contact.title
+        except:
+            return
 
     def get_formatted_name(self, obj):
         try:
