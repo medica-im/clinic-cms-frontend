@@ -8,32 +8,32 @@ import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, W
 import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/facilityStore';
 import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
-
+import { isAuth } from '$lib/store/authStore';
 
 export const term = writable('');
 export const workerSlug = writable('');
 
 export const workforceDict = asyncDerived(
-	(language),
-	async ($language) => {
+	([language, isAuth]),
+	async ([$language, $isAuth]) => {
 		var cachelife = 3600;
 		const cacheName = "workforceDict";
-		let cacheddata;
-		let expired: boolean = false
+		let cachedData;
+		let expired: boolean = true;
 		if (browser) {
-			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
+			cachedData = localStorage.getItem(`${cacheName}_${$language}`);
 		}
-		if (cacheddata) {
-			cacheddata = JSON.parse(cacheddata);
-			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
 		}
-		if (cacheddata && !expired) {
-			return cacheddata.data;
+		if (cachedData && !expired) {
+			return cachedData.data;
 		} else {
 			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${$language}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
-				let data = response;// as ...;
+				let data = response;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
@@ -48,25 +48,31 @@ export const workforceDict = asyncDerived(
 );
 
 export const workforceDataCached = asyncDerived(
-	([locale, language]),
-	async ([$locale, $language]) => {
-		var cachelife = 300;
+	([locale, language, isAuth]),
+	async ([$locale, $language, $isAuth]) => {
+		var cachelife = 600;
 		const cacheName = "wfd";
-		let cacheddata;
-		let expired: boolean = false
+		let cachedData;
+		let expired: boolean = true;
 		let lang = $language;
+		let empty: boolean = true;
 		if (lang == undefined) {
 			lang = variables.DEFAULT_LANGUAGE;
 		}
 		if (browser) {
-			cacheddata = localStorage.getItem(`${cacheName}_${lang}`);
+			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
 		}
-		if (cacheddata) {
-			cacheddata = JSON.parse(cacheddata);
-			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data.length) {
+					empty = false;
+				}
+			}
 		}
-		if (cacheddata && !expired) {
-			return cacheddata.data;
+		if (cachedData && !expired && !empty) {
+			return cachedData.data;
 		} else {
 			const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${lang}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
@@ -193,13 +199,13 @@ export const occupationsCardinalBak = asyncDerived(
 
 export const selectOccupations = writable([]);
 
-function normalize(x) {
+function normalize(x: string) {
 	return x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
 export const filteredWorkforceDataCached = asyncDerived(
-	[term, selectOccupations, selectFacilities, workforceDataCached],
-	([$term, $selectOccupations, $selectFacilities, $workforceDataCached]) => {
+	([term, selectOccupations, selectFacilities, workforceDataCached]),
+	async ([$term, $selectOccupations, $selectFacilities, $workforceDataCached]) => {
 		if (!$selectOccupations.length && !$selectFacilities.length && $term == '') { return $workforceDataCached }
 		else {
 			return $workforceDataCached.filter(function (x) {
@@ -313,31 +319,32 @@ export const occupationsCardinal = asyncDerived(
 );
 
 export const workerData = asyncDerived(
-	[workerSlug, workforceDataCached,],
-	([$workerSlug, $workforceDataCached]) => {
+	([workerSlug, workforceDataCached,]),
+	async ([$workerSlug, $workforceDataCached]) => {
 		if ($workerSlug && $workforceDataCached && $workforceDataCached.length) {
 			return workerTitleFormattedName($workforceDataCached.find((element) => element.slug == $workerSlug))
 		} else { return '' }
-	}
+	},
+	true
 );
 
 export const getWorkforceDataCached = async () => {
 	var cachelife = 300;
-	let cacheddata;
-	let expired = false
+	let cachedData;
+	let expired: boolean = true;
 	let lang = get(language);
 	if (lang == undefined) {
 		lang = variables.DEFAULT_LANGUAGE;
 	}
 	if (browser) {
-		cacheddata = localStorage.getItem(`wfd_${lang}`);
+		cachedData = localStorage.getItem(`wfd_${lang}`);
 	}
-	if (cacheddata) {
-		cacheddata = JSON.parse(cacheddata);
-		expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+	if (cachedData) {
+		cachedData = JSON.parse(cachedData);
+		expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
 	}
-	if (cacheddata && !expired) {
-		return cacheddata.data;
+	if (cachedData && !expired) {
+		return cachedData.data;
 	} else {
 		const workforceUrl = `${variables.BASE_API_URI}/workforce/?lang=${lang}`;
 		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);

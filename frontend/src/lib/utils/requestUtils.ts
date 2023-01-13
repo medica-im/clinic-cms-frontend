@@ -13,10 +13,7 @@ import { language } from '$lib/store/languageStore';
 import { setLocale } from '$i18n/i18n-svelte';
 import type { Locales } from '$i18n/i18n-types'
 import LL from '$i18n/i18n-svelte';
-
-//const lang = get(language) as Locales;
-//console.log(lang);
-//setLocale(lang);
+import { toggleAuth } from '$lib/store/authStore';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -104,8 +101,11 @@ export const getCurrentUser = async (
 	}
 };
 
-function emptyLocaleStorage() {
+function removeRefreshToken() {
 	localStorage.removeItem('refreshToken');
+}
+
+export const emptyLocaleStorage = () => {
 	const itemsToDelete: string[] = [];
 	let storedItemsRoot = ["facility_", "wfd_", "workforceDict_"];
     locales.forEach(
@@ -117,7 +117,7 @@ function emptyLocaleStorage() {
 	itemsToDelete.forEach(
 		(value)=>localStorage.removeItem(value)
 	);
-}
+};
 
 export const logOutUser = async (): Promise<void> => {
 	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
@@ -149,7 +149,9 @@ export const logOutUser = async (): Promise<void> => {
 		console.error(data);
 	}
 	userData.set({});
+	removeRefreshToken();
 	emptyLocaleStorage();
+	toggleAuth();
 	notificationData.update(() => get(LL).LOGIN.LOGOUT());
 	await goto('/accounts/login');
 };
@@ -226,7 +228,7 @@ export const handlePostRequestsWithPermissions = async (
 export const handleRequestsWithPermissions = async (
 	fetch,
 	targetUrl: string
-): Promise<[Workforce, Array<CustomError>]> => {
+): Promise<[{}, Array<CustomError>]> => {
 	let refreshToken;
 	if (browser) {
 		refreshToken = browserGet('refreshToken')

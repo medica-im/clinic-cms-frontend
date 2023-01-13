@@ -13,18 +13,18 @@ export const facilityStore = asyncDerived(
 	async ([$language, $locale]) => {
 		var cachelife = 300;
 		const cacheName = "facility";
-		let cacheddata;
+		let cachedData;
 		let expired = true;
 		if (browser) {
-			cacheddata = localStorage.getItem(`${cacheName}_${$language}`);
+			cachedData = localStorage.getItem(`${cacheName}_${$language}`);
 		}
-		if (cacheddata) {
-			cacheddata = JSON.parse(cacheddata);
-			expired = (Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
 		}
-		//If cached data available and not expired return them. 
-		if (cacheddata && !expired) {
-			return cacheddata.data;
+		//If cached data available and not expired and array not empty, return it. Else, fetch it.
+		if (cachedData && !expired) {
+			return cachedData.data;
 		} else {
 			//otherwise fetch data from api then save the data in localstorage
 			var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;

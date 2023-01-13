@@ -4,11 +4,14 @@
 	import { goto } from '$app/navigation';
 	import { variables } from '$lib/utils/constants';
 	import { fly } from 'svelte/transition';
+	import { emptyLocaleStorage } from '$lib/utils/requestUtils';
+	import { toggleAuth } from '$lib/store/authStore';
 
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { changeText } from '$lib/helpers/buttonText';
 	import LL from '$i18n/i18n-svelte';
+
 
 	let email = '',
 		password = '',
@@ -29,7 +32,9 @@
 		if (err.length > 0) {
 			errors = err;
 		} else if (response.user) {
+			emptyLocaleStorage();
 			browserSet('refreshToken', response.user.tokens.refresh);
+			toggleAuth();
 			notificationData.update(() => `${$LL.LOGIN.SUCCESSFUL()}`);
 			await goto('/');
 		}
