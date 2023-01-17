@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { Timeline } from './timelinejs';
 
 	export let data: any;
+	
+	let tl;
 
 	console.log(`Timeline data:${JSON.stringify(data)}`);
 
@@ -83,19 +84,27 @@
 	};
 
 	onMount(async () => {
-		if (browser) {
-			let timeline = await new Promise((resolve) => {
-				let tl = new Timeline('timeline-embed', processJson(data));
-				//tl.on('dataloaded', () => resolve(tl));
-			});
-		}
+		//const res = await fetch(`/tutorial/api/album`);
+		//photos = await res.json();
+		initializeTimeline()
 	});
+
+	const initializeTimeline = () => {
+		var additionalOptions = {
+            script_path: '/timeline3/js/',
+            language: 'fr'
+        }
+		let processedData = processJson(data);
+		tl = new TL.Timeline('timeline-embed', processedData);
+	}
 </script>
+
+
+<svelte:head>
+	<link rel="stylesheet" href="/timeline3/css/timeline.css"/>
+	<script src="/timeline3/js/timeline.js" on:load={initializeTimeline}></script>
+</svelte:head>
 
 <main>
 	<div id="timeline-embed" style="width: 100%; height: 600px" />
 </main>
-
-<style>
-	@import '@knight-lab/timelinejs/dist/css/timeline.css';
-</style>
