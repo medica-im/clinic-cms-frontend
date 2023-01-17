@@ -15,7 +15,8 @@
     "typesafe-i18n": "typesafe-i18n",
     "smui": "svelte-kit sync && npm run smui-theme-light && npm run smui-theme-dark",
     "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
-    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
+    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
+    "postinstall": "cd ./node_modules/@knight-lab/timelinejs && npm install && npm run stage_dev"
   },
   "devDependencies": {
     "@material/theme": "^13.0.0",
@@ -65,7 +66,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@knight-lab/timelinejs": "github:jeromecc/TimelineJS3#d69b05f2e5a7b347a86caf00c458e804c972c652",
+    "@knight-lab/timelinejs": "github:jeromecc/TimelineJS3#3.10.0",
     "@mdi/js": "^7.0.96",
     "@square/svelte-store": "^0.2.3",
     "@sveltestack/svelte-query": "^1.6.0",
