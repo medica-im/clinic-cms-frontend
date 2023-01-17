@@ -1,15 +1,15 @@
-<script language = "javascript" type = "text/javascript">
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { Timeline } from '@knight-lab/timelinejs';
+	import { Timeline } from './timelinejs';
 
-	export let data;
+	export let data: any;
 
 	console.log(`Timeline data:${JSON.stringify(data)}`);
 
-	function processJson(d) {
+	function processJson(d: Array<any>) {
 		let events = d[1].value;
-		events.forEach(function (event) {
+		events.forEach(function (event: any) {
 			let count = 3;
 			['start_date', 'end_date'].forEach(function (key) {
 				['year', 'month', 'day', 'hour', 'minute', 'second', 'millisecond'].forEach(function (
