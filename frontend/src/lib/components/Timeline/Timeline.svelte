@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { variables } from '$lib/utils/constants';
 
+    const BASE_URI = variables.BASE_URI;
 	export let data: any;
 
 	console.log(`Timeline data:${JSON.stringify(data)}`);
@@ -51,8 +53,8 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="/timeline3/css/timeline.css"/>
-	<script src="/timeline3/js/timeline.js"></script>
+	<link rel="stylesheet" href="{BASE_URI}/timeline3/css/timeline.css"/>
+	<script src="{BASE_URI}/timeline3/js/timeline.js"></script>
 </svelte:head>
 
 <main>
