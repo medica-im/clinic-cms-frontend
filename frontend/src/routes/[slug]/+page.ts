@@ -16,11 +16,17 @@ export async function load({ params }) {
 		if (wfdc) {
 			let w = wfdc.find((element) => element.slug == params.slug);
 			if (w == undefined) {
-				throw new Error(`${params.slug} does not correspond to any worker slug in our database.`);
+				if (import.meta.env.DEV) {
+					throw error(404, `${params.slug} does not correspond to any worker slug in our database.`);
+				} else {
+				    throw error(404, {
+					    message: 'Not found'
+				  });
+				}
 			}
 			let id = w.id;
 			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/?lang=${language}`;
-			const [response, error] = await handleRequestsWithPermissions(fetch, apiUrl);
+			const [response, _error] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				if (response.profile) {
 					html = response.profile.text;
@@ -30,11 +36,11 @@ export async function load({ params }) {
 				}
 				return response;
 			} else {
-				throw new Error(error);
+				throw new Error(_error);
 			}
 		}
 	}
-  const userData: Worker = await getWorkerData();
+  const userData = await getWorkerData() as Worker;
   console.log(userData);
     return {
       slug: params.slug,

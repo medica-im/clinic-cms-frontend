@@ -1,0 +1,29 @@
+{% load wagtailimages_tags %}
+
+<div class="container mb-sm-5 mt-sm-5">
+    <h1 class="text-center mb-sm-5">{{ self.title }}</h1>
+    <div class="card-deck">
+        {% for slide in self.slides %}
+            {% image slide.image fill-300x200 as img %}
+            <div class="card">
+                <div class="card-header">
+                    {{ slide.start_date }}{% if slide.start_time %} {{ slide.start_time }}{% endif %}{% if slide.end_date %} - {{ slide.end_date }}{{ slide.end_time|default:"" }}{% endif %}
+                </div>
+                <img src="{{ img.url }}" alt="{{ slide.alt|default:'' }}" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">{{ slide.title }}</h5>
+                    <p class="card-text">{{ slide.text }}</p>
+                    {% if slide.page_url %}
+                        <a href="{{ slide.page_url.url }}" class="card-link">
+                            link: {{ slide.page_url.url }}
+                        </a>
+                    {% elif slide.web_url %}
+                        <a href="{{ slide.web_url }}" class="card-link">
+                            link: {{ slide.web_url }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

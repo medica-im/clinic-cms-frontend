@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
+from cms.api import api_router
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/accounts/', include('accounts.urls', namespace='accounts')),
@@ -25,6 +31,10 @@ urlpatterns = [
     path('api/v1/opengraph/', include('opengraph.urls', namespace='opengraph')),
     path('api/v1/workforce/', include('workforce.urls', namespace='workforce')),
     path('form/', include('contact.urls', namespace='contact')),
+    path('cms/api/v2/', api_router.urls),
+    path('cms/', include(wagtailadmin_urls)),
+    path('documents/', include(wagtaildocs_urls)),
+    path('pages/', include(wagtail_urls)),
 ]
 
 # Use static() to add url mappings to serve static files during development (only)

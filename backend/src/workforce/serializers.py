@@ -110,7 +110,7 @@ class WorkforceSerializer(serializers.ModelSerializer):
         logger.debug(f'{role=}')
         if authorize("account_email", role, 1):
             return obj.user.email
-        
+
     def get_phone_numbers(self, obj):
         role = get_role(self.context["request"])
         logger.debug(f'{role=}')

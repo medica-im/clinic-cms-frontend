@@ -156,6 +156,20 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'simple_history',
+    #wagtail
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail',
+    'wagtail.api.v2',
+    'modelcluster',
     # local apps
     'backend',
     'accounts',
@@ -167,6 +181,7 @@ INSTALLED_APPS = [
     'access',
     'contact',
     'opengraph',
+    'cms',
 ]
 
 if DEBUG:
@@ -189,6 +204,7 @@ MIDDLEWARE += [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=Csv())
@@ -420,3 +436,6 @@ EMAIL_USE_TLS=True
 #EMAIL_TIMEOUT
 #EMAIL_SSL_KEYFILE
 #EMAIL_SSL_CERTFILE
+
+#Wagtail
+WAGTAIL_SITE_NAME = 'Healthcenter'
