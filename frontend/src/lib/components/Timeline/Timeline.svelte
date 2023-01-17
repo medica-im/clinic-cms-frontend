@@ -53,8 +53,12 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="{BASE_URI}/timeline3/css/timeline.css"/>
-	<script src="{BASE_URI}/timeline3/js/timeline.js"></script>
+	<!--link rel="stylesheet" href="{BASE_URI}/timeline3/css/timeline.css"-->
+	<link title="timeline-styles" rel="stylesheet" 
+              href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+	<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+
+	<!--script src="{BASE_URI}/timeline3/js/timeline.js"></script-->
 </svelte:head>
 
 <main>
