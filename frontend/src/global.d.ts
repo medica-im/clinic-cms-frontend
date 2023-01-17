@@ -25,3 +25,5 @@ declare namespace App {
 
 	// interface Stuff { }
 }
+
+declare module '@knight-lab/timelinejs';
