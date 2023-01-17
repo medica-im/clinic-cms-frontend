@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import { browser } from '$app/environment';
-    import { Timeline } from './helper.mjs';
+    import { Timeline } from '@knight-lab/timelinejs/index';
 	
     export let data: any;
 
@@ -31,14 +31,12 @@ function processJson(d: Array<any>) {
         title: d[0].value,
         events: events
     };
-    console.log(JSON.stringify(p));
     return p;
 }
 onMount(async () => {
 		if (browser) {
-
 			let timeline = await new Promise((resolve) => {
-				let tl = new Timeline('timeline-embed', processJson(data));
+			let tl = new Timeline('timeline-embed', processJson(data));
 			});
 		}
 	});
