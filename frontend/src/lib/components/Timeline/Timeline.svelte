@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import { browser } from '$app/environment';
-    import { Timeline } from '@knight-lab/timelinejs/src/js/index.js';
+    import { Timeline } from './helper.mjs';
 	
     export let data: any;
 
