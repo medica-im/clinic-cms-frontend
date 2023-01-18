@@ -3,6 +3,8 @@
 	//import '@knight-lab/timelinejs/dist/css/timeline.css';
 	import { variables } from '$lib/utils/constants';
 
+	export let data: any;
+
 	const BASE_CMS_API_URI = variables.BASE_CMS_API_URI;
 
 	let tl;
@@ -35,19 +37,21 @@
 		return p;
 	}
 
-	const  initializeTimeline = async function() {
-	const apiUri=`${BASE_CMS_API_URI}/pages/?type=cms.Timeline&fields=*`;
-    const res = await fetch(apiUri);
-    const resJson = await res.json();
-    let data = resJson.items[0].content
-	let dataJsn = processJson(data);
-	tl = new TL.Timeline('timeline-embed', dataJsn);
-	};
+	onMount(() => {
+		let script = document.createElement('script');
+		script.src = 'https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js';
+		document.head.append(script);
+
+		script.onload = function () {
+			let dataJsn = processJson(data);
+			tl = new TL.Timeline('timeline-embed', dataJsn);
+		};
+	});
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
-	<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline-min.js" on:load={initializeTimeline}></script>
+	<link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css" />
+	<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
 </svelte:head>
 
- <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+<div id="timeline-embed" style="width: 100%; height: 600px" />
