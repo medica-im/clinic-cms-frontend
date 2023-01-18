@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+    import { Timeline } from '@knight-lab/timelinejs/src/js/timeline/Timeline.mjs';
 	import '@knight-lab/timelinejs/dist/css/timeline.css';
 
 	export let data: any;
-    let Timeline;
 	let tl;
 	function processJson(d: Array<any>) {
 		let events = d[1].value;
@@ -33,10 +33,9 @@
 		return p;
 	}
 
-	onMount(async () => {
-        const TL = await import("@knight-lab/timelinejs/src/js/timeline/Timeline.mjs");
+	onMount(() => {
         let dataJsn=processJson(data);
-		tl = new TL.Timeline('timeline-embed', dataJsn);
+		tl = new Timeline('timeline-embed', dataJsn);
 	})	
 </script>
 
