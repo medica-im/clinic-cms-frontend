@@ -42,12 +42,12 @@
     let data = resJson.items[0].content
 	let dataJsn = processJson(data);
 	tl = new TL.Timeline('timeline-embed', dataJsn);
-	}
+	};
 </script>
 
 <svelte:head>
 	<link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
-	<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline-min.js" on:load={initializeTimeline()}></script>
+	<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline-min.js" on:load={initializeTimeline}></script>
 </svelte:head>
 
  <div id='timeline-embed' style="width: 100%; height: 600px"></div>
