@@ -3,7 +3,6 @@
 	import '@knight-lab/timelinejs/dist/css/timeline.css';
 
 	export let data: any;
-    let Timeline;
 	let tl;
 	function processJson(d: Array<any>) {
 		let events = d[1].value;
@@ -33,13 +32,14 @@
 		return p;
 	}
 
-	onMount(async () => {
-        const TL = await import("@knight-lab/timelinejs/src/js/timeline/Timeline.mjs");
-        let dataJsn=processJson(data);
+	const initializeRemarkable = () => {
+		let dataJsn=processJson(data);
 		tl = new TL.Timeline('timeline-embed', dataJsn);
-	})	
+	}
 </script>
 
-<main>
-	<div id="timeline-embed" style="width: 100%; height: 600px" />
-</main>
+<svelte:head>
+	<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline-min.js" on:load={initializeRemarkable}></script>
+</svelte:head>
+
+ <div id='timeline-embed' style="width: 100%; height: 600px"></div>
