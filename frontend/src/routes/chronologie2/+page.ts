@@ -1,8 +1,5 @@
 import { variables } from '$lib/utils/constants';
 
-export const prerender = false;
-export const ssr = false;
-
 const BASE_CMS_API_URI = variables.BASE_CMS_API_URI;
 
 
