@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import { browser } from '$app/environment';
-    import { Timeline } from '@knight-lab/timelinejs/index';
+    import { Timeline } from '@knight-lab/timelinejs';
 	import '@knight-lab/timelinejs/dist/css/timeline.css';
 
     export let data: any;
@@ -42,7 +42,6 @@ onMount(async () => {
 		}
 	});
 </script>
-
 
 <main>
 	<div id="timeline-embed" style="width: 100%; height: 600px" />

@@ -66,7 +66,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@knight-lab/timelinejs": "github:jeromecc/TimelineJS3#3.10.0",
+    "@knight-lab/timelinejs": "github:jeromecc/TimelineJS3#ca281f49bb02b056c524331bdfacc9d2e2f70b41",
     "@mdi/js": "^7.0.96",
     "@square/svelte-store": "^0.2.3",
     "@sveltestack/svelte-query": "^1.6.0",
