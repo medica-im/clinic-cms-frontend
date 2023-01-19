@@ -1,10 +1,14 @@
 version: '3'
 services:
-  app-node:
+  nodeserver-staging:
+    restart: always
     image: svelte-docker-node
     build:
       context: .
       dockerfile: Dockerfile
       target: deploy-node
     ports:
-      - 3002:3000
+      - "${NODE_PORT_EXTERNAL_STAGING}:3000"
+    environment:
+      NODE_ENV: production
+      ORIGIN: ${ORIGIN}

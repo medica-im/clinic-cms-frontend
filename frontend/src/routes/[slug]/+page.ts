@@ -3,13 +3,12 @@ import { variables } from '$lib/utils/constants';
 import { getWorkforceDataCached } from '$lib/store/workforceStore';
 import { language } from '$lib/store/languageStore';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+import type { PageLoad } from './$types';
 
 let html = '';
 
-/** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-
-  let worker = `worker_${variables.DEFAULT_LANGUAGE}`;
+export const load: PageLoad = async ({ fetch, params }) => {
+	let worker = `worker_${variables.DEFAULT_LANGUAGE}`;
 
 	async function getWorkerData() {
 		const wfdc = await getWorkforceDataCached();
@@ -19,9 +18,9 @@ export async function load({ params }) {
 				if (import.meta.env.DEV) {
 					throw error(404, `${params.slug} does not correspond to any worker slug in our database.`);
 				} else {
-				    throw error(404, {
-					    message: 'Not found'
-				  });
+					throw error(404, {
+						message: 'Not found'
+					});
 				}
 			}
 			let id = w.id;
@@ -40,10 +39,10 @@ export async function load({ params }) {
 			}
 		}
 	}
-  const userData = await getWorkerData() as Worker;
-  console.log(userData);
-    return {
-      slug: params.slug,
-      userData: userData,
-    };
+	const userData = await getWorkerData() as Worker;
+	console.log(userData);
+	return {
+		slug: params.slug,
+		userData: userData,
+	};
 }
