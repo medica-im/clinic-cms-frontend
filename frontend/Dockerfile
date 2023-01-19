@@ -1,14 +1,36 @@
-FROM node:16-alpine AS build
+### Build Step
+# pull the Node.js Docker image
+FROM node:16 as build
 
+# change working directory
 WORKDIR /app
-COPY . .
+
+# copy the package.json files from local machine to the workdir in container
+COPY svelte.config.js package*.json /app/
+RUN mkdir -p /app/build/static
+COPY static /app/build/static
+
+# run npm install in our local machine
 RUN npm ci
+
+# copy the generated modules and all other files to the container
+COPY . .
+
+# build the application
 RUN npm run build --verbose
 
-FROM node:16-alpine AS deploy-node
+### Serve Step
+# pull the Node.js Docker image
+FROM node:16
 
+# change working directory
 WORKDIR /app
-COPY --from=build /app/package*.json ./
-RUN npm ci
+
+# copy files from previous step
+
+COPY --from=build /app/package.json .
 COPY --from=build /app/build .
+COPY --from=build /app/node_modules ./node_modules
+
+# the command that starts our app
 CMD ["node", "index.js"]
