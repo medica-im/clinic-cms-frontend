@@ -22,10 +22,7 @@
 			"$i18n/*": [
 				"src/i18n/*"
 			]
-		},
-		"module": "esnext",
-		"moduleResolution": "node",
-		"target": "es2021"
+		}
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

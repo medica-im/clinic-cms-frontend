@@ -12,7 +12,6 @@ const config: UserConfig = {
         resolve: {
                 alias: {
                         '$': path.resolve(__dirname, 'src'),
-                        //'$lib': path.resolve('./src/lib/'),
                         '$i18n': path.resolve('./src/i18n/')
                 }
         }
