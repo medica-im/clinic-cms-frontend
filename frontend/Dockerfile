@@ -9,9 +9,7 @@ FROM node:18-alpine AS deploy-node
 
 ENV NODE_ENV=production
 WORKDIR /app
-RUN rm -rf ./*
-COPY --from=build /app/package.json .
-COPY --from=build /app/package-lock.json .
-COPY --from=build /app/build .
+COPY --from=build /app/package*.json .
 RUN npm ci
+COPY --from=build /app/build .
 CMD ["node", "index.js"]
