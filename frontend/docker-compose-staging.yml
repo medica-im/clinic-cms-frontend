@@ -1,6 +1,6 @@
 version: '3'
 services:
-  nodeserver-staging:
+  nodeserver_staging:
     restart: always
     image: svelte-docker-node
     build:
