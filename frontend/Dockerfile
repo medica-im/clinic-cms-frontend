@@ -2,7 +2,7 @@ FROM node:16-alpine AS build
 
 WORKDIR /app
 COPY . .
-RUN npm ci --include=dev
+RUN npm ci
 RUN npm run build --verbose
 
 FROM node:18-alpine AS deploy-node
