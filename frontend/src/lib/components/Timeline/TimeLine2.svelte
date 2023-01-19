@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	//import '@knight-lab/timelinejs/dist/css/timeline.css';
 	import { variables } from '$lib/utils/constants';
 
 	export let data: any;

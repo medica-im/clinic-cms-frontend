@@ -15,8 +15,7 @@
     "typesafe-i18n": "typesafe-i18n",
     "smui": "svelte-kit sync && npm run smui-theme-light && npm run smui-theme-dark",
     "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
-    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
-    "postinstall": "cd ./node_modules/@knight-lab/timelinejs && npm install && npm run stage_dev"
+    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
   },
   "devDependencies": {
     "@material/theme": "^13.0.0",

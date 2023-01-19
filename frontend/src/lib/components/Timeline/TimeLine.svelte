@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import { Timeline } from '@knight-lab/timelinejs/src/js/timeline/Timeline.mjs';
-	import '@knight-lab/timelinejs/dist/css/timeline.css';
 
 	export let data: any;
 	let tl;
@@ -39,6 +38,9 @@
 	})	
 </script>
 
+<svelte:head>
+    <link rel='stylesheet' href='/timeline3/css/timeline.css'>
+</svelte:head>
 <main>
 	<div id="timeline-embed" style="width: 100%; height: 600px" />
 </main>
