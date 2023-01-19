@@ -77,6 +77,7 @@
 			bind:value={password}
 			name="password"
 			type="password"
+			autocomplete="on"
 			aria-label={$LL.PASSWORD()}
 			required
 		/>

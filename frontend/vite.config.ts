@@ -9,6 +9,9 @@ const config: UserConfig = {
                 sveltekit(),
                 isoImport()
         ],
+        test: {
+		include: ['src/**/*.{test,spec}.{js,ts}']
+	},
         resolve: {
                 alias: {
                         '$': path.resolve(__dirname, 'src'),
