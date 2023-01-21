@@ -37,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@mdi/js": "^7.1.96",
+		"@medecinelibre/timelinejs": "github:jeromecc/TimelineJS3",
 		"@smui/button": "^7.0.0-beta.0",
 		"@smui/common": "^7.0.0-beta.0",
 		"@smui/icon-button": "^7.0.0-beta.0",

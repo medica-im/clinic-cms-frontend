@@ -26,4 +26,4 @@ declare namespace App {
 	// interface Stuff { }
 }
 
-declare module '@knight-lab/timelinejs/src/js/timeline/Timeline.mjs';
+declare module '@medecinelibre/timelinejs/src/js/timeline/Timeline.mjs';
