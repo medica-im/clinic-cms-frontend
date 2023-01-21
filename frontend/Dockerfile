@@ -2,6 +2,8 @@ FROM node:16-alpine AS build
 
 WORKDIR /app
 COPY . .
+RUN apk update && \
+    apk add git
 RUN yarn
 RUN yarn build
 
@@ -11,5 +13,7 @@ WORKDIR /app
 RUN rm -rf ./*
 COPY --from=build /app/package.json .
 COPY --from=build /app/build .
+RUN apk update && \
+    apk add git
 RUN yarn --prod
 CMD ["node", "index.js"]
