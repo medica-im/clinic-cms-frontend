@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { filteredWorkforceDataCached, occupations, occupationsCardinal} from '$lib/store/workforceStore';
 	import Worker from '$lib/Workforce/Worker.svelte';
@@ -9,8 +9,9 @@
 	import SelectOccupations from '$lib/Workforce/SelectOccupations.svelte';
 	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
 	import { page } from '$app/stores';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 
 	let promise;
 	$: (promise = facilityStore.load()), $language;

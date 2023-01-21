@@ -8,7 +8,6 @@
 	import type { Load } from '@sveltejs/kit';
 	import type { Locales } from '$i18n/i18n-types';
 	import type { Facility } from '$lib/interfaces/facility.interface';
-	import { replaceLocaleInUrl } from '../utils';
 	import { baseLocale, locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import Loader from '../components/Loader/Loader.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Svg } from '@smui/common/elements';
+    import { Svg } from '@smui/common';
 	import { Icon } from '@smui/icon-button';
     import { mdiMapMarkerOutline } from '@mdi/js';
 	export let facility;

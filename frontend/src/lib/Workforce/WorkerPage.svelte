@@ -53,7 +53,7 @@
 </script>
 
 <div style="display: flex; align-items: center;">
-	<IconButton class="material-icons" href="/annuaire">arrow_back</IconButton><a href="/annuaire"
+	<IconButton class="material-icons" href="/annuaire">arrow_back</IconButton> <a href="/annuaire"
 		>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</a
 	>
 </div>

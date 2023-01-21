@@ -1,26 +1,11 @@
 <script lang="ts">
-	import IconButton, { Icon } from '@smui/icon-button';
 	import { page } from '$app/stores';
-	import { logOutUser } from '$lib/utils/requestUtils';
 	import { language } from '$lib/store/languageStore';
 	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
-	import { mdiTwitter, mdiFacebook, mdiLinkedin } from '@mdi/js';
-	import { Svg } from '@smui/common/elements';
-	import {
-		Collapse,
-		Navbar,
-		NavbarToggler,
-		NavbarBrand,
-		Nav,
-		NavItem,
-		NavLink
-	} from 'sveltestrap/src';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { userData } from '$lib/store/userStore';
-	import { facilityStore } from '$lib/store/facilityStore';
     import User from './User.svelte';
-	import { get } from '@square/svelte-store';
 	import SocialNetworks from '$lib/components/SoMed/SocialNetworks.svelte';
 
 	export let facility;

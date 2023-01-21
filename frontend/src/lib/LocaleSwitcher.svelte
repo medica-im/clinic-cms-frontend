@@ -4,7 +4,7 @@
 	import type { Locales } from '$i18n/i18n-types';
 	import { locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
-	import { replaceLocaleInUrl } from '../utils';
+	import { replaceLocaleInUrl } from '$lib/utils/utils.js';
 	import { onMount } from 'svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';

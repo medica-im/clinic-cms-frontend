@@ -1,6 +1,5 @@
 <script lang="ts">
-import TimeLine from '$lib/components/Timeline/TimeLine.svelte';
-export let data;
+import TimeLine from '$lib/components/Timeline/TimeLine3.svelte';
 </script>
 
-<TimeLine data={data.timeline} />
+<TimeLine/>

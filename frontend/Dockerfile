@@ -1,36 +1,15 @@
-### Build Step
-# pull the Node.js Docker image
-FROM node:16 as build
+FROM node:16-alpine AS build
 
-# change working directory
 WORKDIR /app
-
-# copy the package.json files from local machine to the workdir in container
-COPY svelte.config.js package*.json /app/
-RUN mkdir -p /app/build/static
-COPY static /app/build/static
-
-# run npm install in our local machine
-RUN npm ci
-
-# copy the generated modules and all other files to the container
 COPY . .
+RUN yarn
+RUN yarn build
 
-# build the application
-RUN npm run build --verbose
+FROM node:18-alpine AS deploy-node
 
-### Serve Step
-# pull the Node.js Docker image
-FROM node:16
-
-# change working directory
 WORKDIR /app
-
-# copy files from previous step
-
+RUN rm -rf ./*
 COPY --from=build /app/package.json .
 COPY --from=build /app/build .
-COPY --from=build /app/node_modules ./node_modules
-
-# the command that starts our app
+RUN yarn --prod
 CMD ["node", "index.js"]

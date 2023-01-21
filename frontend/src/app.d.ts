@@ -1,3 +1,13 @@
-// See https://kit.svelte.dev/docs/types#the-app-namespace
+// See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
-declare namespace App {}
+// and what to do when importing types
+declare global {
+	namespace App {
+		interface Error {}
+		interface Locals {}
+		interface PageData {}
+		interface Platform {}
+	}
+}
+
+export {};

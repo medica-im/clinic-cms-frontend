@@ -2,7 +2,7 @@
 	import LL from '$i18n/i18n-svelte';
     import { mdiPostOutline } from '@mdi/js';
     import { mdiWeb } from '@mdi/js'; 
-    import { Svg } from '@smui/common/elements';
+    import { Svg } from '@smui/common';
     import { Icon } from '@smui/icon-button';
     export let website;
 

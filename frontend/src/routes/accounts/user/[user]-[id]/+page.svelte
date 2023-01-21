@@ -5,15 +5,9 @@
 	import { nodeBefore } from '$lib/helpers/whitespacesHelper';
 	import type { User, UserResponse } from '$lib/interfaces/user.interface';
 	import LL from '$i18n/i18n-svelte';
-	import Tooltip, {
-    Wrapper,
-    Title,
-    Content,
-    Link,
-    RichActions,
-  } from '@smui/tooltip';
-	/** @type {import('./$types').PageData} */
-	export let data;
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	const url = `${variables.BASE_API_URI}/accounts/user/`;
 
