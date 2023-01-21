@@ -53,23 +53,18 @@
     "svelte-leafletjs": "^0.8.2",
     "smui-theme": "^6.0.0-beta.16",
     "@material/theme": "^13.0.0",
-    "@smui/card": "^6.0.0-beta.16",
-    "@smui/circular-progress": "^6.0.0-beta.16",
     "@smui/icon-button": "^6.0.0-beta.16",
-    "@smui/list": "^6.0.0-beta.16",
     "@smui/tooltip": "^7.0.0-beta.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@knight-lab/timelinejs": "github:jeromecc/TimelineJS3#d15a6533a43f569c24f03fce5ee39b2d715ba52a",
     "@mdi/js": "^7.0.96",
-    "@square/svelte-store": "^0.2.3",
+    "@square/svelte-store": "^1.0.13",
     "@sveltestack/svelte-query": "^1.6.0",
-    "broadcast-channel": "^4.13.0",
     "cl-editor": "^2.3.0",
     "cookie": "^0.4.2",
     "svelte-material-icons": "^2.0.4",
     "svelte-select": "^4.4.7",
-    "sveltestrap": "github:laxadev/sveltestrap",
-    "vite-plugin-host": "^1.0.2"
+    "sveltestrap": "github:laxadev/sveltestrap"
   }
 }

@@ -10,7 +10,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
         `${variables.BASE_API_URI}/accounts/token/refresh/`,
         `${variables.BASE_API_URI}/accounts/user/`
     );
-    const userResponse: User = userRes;
+    const userResponse = userRes as User;
     if (errs.length > 0) {
         return {
             status: 302,

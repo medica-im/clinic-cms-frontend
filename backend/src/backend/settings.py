@@ -21,7 +21,7 @@ SITE_ID = 1
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG: bool = config('DEBUG', cast=bool, default=False)
+DEBUG = config('DEBUG', cast=bool, default=False)
 
 LOG_LEVEL = config('LOG_LEVEL', default='DEBUG')
 
