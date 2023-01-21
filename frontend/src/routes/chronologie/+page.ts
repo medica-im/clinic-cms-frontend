@@ -1,6 +1,8 @@
 import { variables } from '$lib/utils/constants';
 import type { PageLoad } from './$types';
 
+export const ssr = false;
+
 const BASE_CMS_API_URI = variables.BASE_CMS_API_URI;
 
 export const load: PageLoad = async ({ fetch, params }) => {
