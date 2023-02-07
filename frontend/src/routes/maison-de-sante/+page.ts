@@ -1,4 +1,6 @@
 import { variables } from '$lib/utils/constants';
+import { facilityStore } from '$lib/store/facilityStore';
+
 import type { PageLoad } from './$types';
 
 export const prerender = false;
@@ -11,7 +13,9 @@ export const load: PageLoad = async ({ fetch, params }) =>  {
     const res = await fetch(apiUri);
     const resJson = await res.json();
     const data = resJson.items[0]
+    const fData = await facilityStore.load();
     return {
-        about: data
+        about: data,
+        facilityData: fData
     };
 }
