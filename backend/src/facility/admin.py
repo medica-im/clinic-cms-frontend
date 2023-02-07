@@ -31,6 +31,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'name',
         'formatted_name',
         'definition',
+        'slug',
     )
     search_fields = ['name', 'formatted_name',]
 

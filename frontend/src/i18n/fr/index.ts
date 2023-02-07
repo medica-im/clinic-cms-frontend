@@ -25,9 +25,9 @@ const fr: Translation = {
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."
     },
-		FACILITIES: {
-            PLACEHOLDER: "Sélectionner par établissement..."
-		},
+    FACILITIES: {
+      PLACEHOLDER: "Sélectionner par établissement..."
+    },
     SEARCH: {
       LABEL: "Recherche",
       PLACEHOLDER: "nom ou prénom"
@@ -44,7 +44,9 @@ const fr: Translation = {
     LOGIN: "Se connecter",
     HI: "Salut",
     REGISTER: "S'enregistrer",
-    LOGOUT: "Se déconnecter"
+    LOGOUT: "Se déconnecter",
+    ABOUT: "À propos",
+    TIMELINE: "Chronologie"
   },
   LOGIN: {
     LOGIN: "Connexion",
@@ -52,21 +54,27 @@ const fr: Translation = {
     NOACCOUNT: "Pas encore de compte?",
     SIGNINGIN: "Connexion en cours...",
     CREATEACCOUNT: "Créer un compte",
-		SUCCESSFUL: "Connexion réussie...",
-		LOGOUT: "Déconnexion réussie..."
+    SUCCESSFUL: "Connexion réussie...",
+    LOGOUT: "Déconnexion réussie..."
   },
   ERROR404: {
-		OOPS: "Oups!",
-		PAGENOTFOUND: "Page non trouvée.",
-		DOESNOTEXIST: "La page que vous cherchez n'existe pas.",
-		HOME: "Retourner à l'accueil",
-		BACK: "Revenir en arrière",
-	},
+    OOPS: "Oups!",
+    PAGENOTFOUND: "Page non trouvée.",
+    DOESNOTEXIST: "La page que vous cherchez n'existe pas.",
+    HOME: "Retourner à l'accueil",
+    BACK: "Revenir en arrière",
+  },
   EMAILADDRESS: "Adresse e-mail",
+  TIMELINE: {
+    TITLE: "Chronologie"
+  },
   PASSWORD: "Mot de passe",
-	USER: {
-		PROFILE: `Profil de {userName:string}`,
+  USER: {
+    PROFILE: `Profil de {userName:string}`,
     ROLE: 'Rôle'
+  },
+  FACILITY: {
+		OUTPATIENT_CLINIC: 'Maison de santé'
 	}
 }
 

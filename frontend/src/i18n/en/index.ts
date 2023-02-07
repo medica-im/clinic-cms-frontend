@@ -44,7 +44,9 @@ const en: BaseTranslation = {
 		LOGIN: "Login",
 		HI: "Hi,",
 		REGISTER: "Register",
-		LOGOUT: "Logout"
+		LOGOUT: "Logout",
+		ABOUT: "About us",
+		TIMELINE: "Timeline"
 	},
 	LOGIN: {
 		LOGIN: "Login",
@@ -64,9 +66,15 @@ const en: BaseTranslation = {
 	},
 	EMAILADDRESS: "Email address",
 	PASSWORD: "Password",
+	TIMELINE: {
+        TITLE: "Timeline"
+	},
 	USER: {
 		PROFILE: `{userName:string} profile`,
 		ROLE: 'Role'
+	},
+	FACILITY: {
+		OUTPATIENT_CLINIC: 'Outpatient clinic'
 	}
 }
 

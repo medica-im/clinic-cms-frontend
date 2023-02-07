@@ -37,8 +37,14 @@ class OrganizationSerializer(serializers.ModelSerializer):
         ]
         depth = 4
 
-        
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'formatted_name', 'definition']
+        fields = [
+            'id',
+            'name',
+            'formatted_name',
+            'definition',
+            'slug',
+        ]

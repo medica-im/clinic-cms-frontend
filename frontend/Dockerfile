@@ -2,8 +2,7 @@ FROM node:16-alpine AS build
 
 WORKDIR /app
 COPY . .
-RUN apk update && \
-    apk add git
+RUN apk add git
 RUN yarn
 RUN yarn build
 

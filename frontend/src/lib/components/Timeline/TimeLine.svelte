@@ -42,5 +42,5 @@
     <link rel='stylesheet' href='/timeline3/css/timeline.css'>
 </svelte:head>
 <main>
-	<div id="timeline-embed" style="width: 100%; height: 600px" />
+	<div id="timeline-embed" style="width: 100%; height: 700px" />
 </main>

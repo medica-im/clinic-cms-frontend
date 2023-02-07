@@ -23,7 +23,7 @@ export const facilityStore = asyncDerived(
 			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
 		}
 		//If cached data available and not expired and array not empty, return it. Else, fetch it.
-		if (cachedData && !expired) {
+		if (cachedData && !expired && cachedData.data.length) {
 			return cachedData.data;
 		} else {
 			//otherwise fetch data from api then save the data in localstorage

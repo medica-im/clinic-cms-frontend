@@ -5,4 +5,5 @@ export interface Variables {
 	readonly BASE_URI: string;
 	readonly GHOST_API_KEY: string;
 	readonly DEFAULT_LANGUAGE: string;
+	readonly TIMELINE: boolean;
 }

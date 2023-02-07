@@ -105,6 +105,13 @@ class Category(models.Model):
     )
     definition = models.TextField()
 
+    slug = models.SlugField(
+        max_length=255,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
     objects = CategoryManager()
 
     def __str__(self):
