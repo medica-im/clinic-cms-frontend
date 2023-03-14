@@ -18,15 +18,9 @@
 </script>
 
 <svelte:head>
-	{#await promise}
-		<!--title>
-        {capitalizeFirstLetter(data.facilityData.formatted_name, $language)} - {$LL.CONTACT.TITLE()}
-    </title-->
-	{:then}
 		<title>
 			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.TIMELINE.TITLE()}
 		</title>
-	{/await}
 </svelte:head>
 <Content>
 	<Grid padding>
