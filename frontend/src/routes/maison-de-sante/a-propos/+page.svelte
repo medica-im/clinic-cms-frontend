@@ -70,7 +70,7 @@
 	Une <Def w="MSP" /> regroupe des professionnels de santé qui assurent des soins de premier recours.
 </p>
 <h4>Géographie</h4>
-<p>Ils exerçent sur un ou plusieurs plusieurs sites.</p>
+<p>Ils exerçent sur un ou plusieurs sites.</p>
 <div class="card variant-ringed-primary p-4 max-w-fit">
 	Deux types de MSP selon la répartition géographique des professionnels.
 	<dl class="list-dl">
