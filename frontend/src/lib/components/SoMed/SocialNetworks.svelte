@@ -1,4 +1,5 @@
-<script lang="ts">
+<
+    script lang="ts">
     import { mdiTwitter, mdiFacebook, mdiLinkedin, mdiInstagram, mdiYoutube, mdiSkype, mdiTwitch } from '@mdi/js';
     import { Svg } from '@smui/common';
 	import { Icon } from '@smui/icon-button';

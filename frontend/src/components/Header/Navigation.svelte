@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { language } from '$lib/store/languageStore';
-	import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
+	import LocaleSwitcher from '$lib/components/LocaleSwitcher.svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { userData } from '$lib/store/userStore';
@@ -47,6 +47,13 @@
 				</li>
 				<li class="nav-item">
 					<a
+						class="nav-link {$page.url.pathname === '/sites' ? 'active aria-current="page"' : ''}"
+						aria-current="page"
+						href="/sites">Sites</a
+					>
+				</li>
+				<li class="nav-item">
+					<a
 						class="nav-link {$page.url.pathname === '/annuaire'
 							? 'active aria-current="page"'
 							: ''}"
@@ -57,17 +64,15 @@
 					<a
 						class="nav-link {$page.url.pathname === '/blog' ? 'active aria-current="page"' : ''}"
 						rel="external"
-						href="https://msp-vedene.fr/blog/">Blog</a
+						href="{variables.BLOG_URI}">Blog</a
 					>
 				</li>
 				{#if facility.category.name == 'msp'}
 					<li class="nav-item dropdown">
 						<a
 							class="nav-link dropdown-toggle"
-							href="#"
 							role="button"
 							data-bs-toggle="dropdown"
-							aria-expanded="false"
 						>
 							{$LL.FACILITY.OUTPATIENT_CLINIC()}
 						</a>

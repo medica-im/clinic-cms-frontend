@@ -2,22 +2,17 @@
 	import type { Worker } from '$lib/interfaces/workforce.interface';
 	import { variables } from '$lib/utils/constants';
 	import LL from '$i18n/i18n-svelte';
-	import IconButton, { Icon } from '@smui/icon-button';
-	import SocialNetworks from '$lib/components/SoMed/SocialNetworks.svelte';
+	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Appointment from './Appointment.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
-	import Button, { Label } from '@smui/button';
-	import Editor from 'cl-editor/src/Editor.svelte';
 	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
+	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
 
 	export let userData: Worker;
 
-    if (import.meta.env.VITE_DEV == "true") {
-    console.log(JSON.stringify(userData));
-    }
-
-    let html = '';
-	let editorSwitch = false;
+	if (import.meta.env.VITE_DEV == 'true') {
+		console.log(JSON.stringify(userData));
+	}
 
 	function getUrl(userData: Worker) {
 		if (userData.profile_picture_url && userData.profile_picture_url.lt) {
@@ -26,136 +21,78 @@
 			return `${variables.BASE_URI}/media/profile_images/default_profile_picture.png`;
 		}
 	}
-
-	function displayEditor(userData: Worker) {
-		let permissions;
-		try {
-			permissions = userData.profile.permissions;
-		} catch {
-			return false;
-		}
-		if (permissions & 2 || permissions & 4) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	function hasOccupationFacilities(occupation) {
-		console.log(Boolean(occupation.facilities));
-		console.log(Boolean(occupation.facilities.length > 0));
-		if (occupation && occupation.facilities && occupation.facilities.length > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 </script>
 
-<div style="display: flex; align-items: center;">
-	<IconButton class="material-icons" href="/annuaire">arrow_back</IconButton> <a href="/annuaire"
-		>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</a
-	>
-</div>
-<div class="card mb-3">
-	<div class="row g-0">
-		<div class="col-lg-4">
-			<div class="row g-0">
-				<img src={getUrl(userData)} class="img-fluid rounded-start" alt="profile" />
-			</div>
-			<div class="row g-0">
-				{#if userData.socialnetworks}
-					<SocialNetworks data={userData.socialnetworks} />
+<div class="lg:flex m-auto font-serif m-4 p-4 gap-8">
+	<div class="space-y-2">
+		<h2 class="w-full text-2xl">
+			{workerTitleFormattedName(userData)}
+		</h2>
+
+		{#each userData.occupations as occupation}
+			<p>
+				{#if occupation.specialty}
+					<h5>
+						{occupation.specialty.label}
+					</h5>
+					{#each occupation.specialty.facilities as facility}
+						<WorkerFacility {facility} />
+					{/each}
+				{:else}
+					<h5>
+						{occupation.label}
+					</h5>
+					{#each occupation.facilities as facility}
+						<WorkerFacility {facility} />
+					{/each}
 				{/if}
-			</div>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body">
-				<h5 class="card-title">{workerTitleFormattedName(userData)}</h5>
-				<ul class="list-group list-group">
-					{#if userData.occupations}
-                    {#each userData.occupations as occupation}
+			</p>
+		{/each}
+		<ul class="list-group list-group">
+			{#if userData.account_email}
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<p class="card-text">
+						<small class="text-muted">{userData.account_email}</small>
+					</p>
+				</li>
+			{/if}
+
+			{#if userData.phone_numbers}
+				{#each Object.keys(userData.phone_numbers) as key}
+					{#each userData.phone_numbers[key] as phone}
 						<li class="list-group-item d-flex justify-content-between align-items-start">
-							<div class="ms-2 me-auto">
-								<div class="fw-bold">{occupation.label}</div>
-								{#if occupation.specialty}
-									{$LL.ADDRESSBOOK.SPECIALTY()}: {occupation.specialty.label}<br />
-									{$LL.ADDRESSBOOK.LOCATION()}:
-                                    {#if occupation.specialty.facilities}
-									  {#each occupation.specialty.facilities as facility}
-										<a href="/contact#{facility.facility__name}_anchor"
-											>{facility.facility__contact__formatted_name}</a
-										>
-									  {/each}
-                                    {/if}
-								{:else}
-                                    {#if occupation.facilities && occupation.facilities.length > 0}
-									{$LL.ADDRESSBOOK.LOCATION()}:
-                                    {#each occupation.facilities as facility}
-										<a href="/contact#{facility.facility__name}_anchor"
-											>{facility.facility__contact__formatted_name}</a
-										>
-									{/each}
-                                    {/if}
-								{/if}
-							</div>
+							<p class="card-text"><small class="text-muted">{key}: {phone}</small></p>
 						</li>
 					{/each}
-                    {/if}
-				</ul>
-                
-				{#if userData.profile && userData.profile.text && !editorSwitch}
-					<p class="card-text">
-						{userData.profile.text}
-					</p>
-					{#if displayEditor(userData)}
-						<Button color="secondary" on:click={() => (editorSwitch = true)} variant="outlined">
-							<Label>Edit</Label>
-						</Button>
-					{/if}
-				{:else if displayEditor(userData) && !editorSwitch}
-					<Button color="secondary" on:click={() => (editorSwitch = true)} variant="outlined">
-						<Label>Create profile</Label>
-					</Button>
-				{/if}
-				{#if displayEditor(userData) && editorSwitch}
-					{@html html}
-					<Editor {html} on:change={(evt) => (html = evt.detail)} />
-					<Button color="secondary" on:click={() => (editorSwitch = false)} variant="outlined">
-						<Label>Close without saving</Label>
-					</Button>
-				{/if}
-				<ul class="list-group list-group">
-					{#if userData.account_email}
-						<li class="list-group-item d-flex justify-content-between align-items-start">
-							<p class="card-text">
-								<small class="text-muted">{userData.account_email}</small>
-							</p>
+				{/each}
+			{/if}
+
+			{#if userData.websites}
+				<ul
+					class="mb-12 whitespace-nowrap no-scrollbar overflow-x-scroll overflow-y-hidden space-x-2"
+				>
+					{#each userData.websites as website}
+						<li class="w-fit inline-block">
+							<Website {website} />
 						</li>
-					{/if}
-
-					{#if userData.phone_numbers}
-						{#each Object.keys(userData.phone_numbers) as key}
-							{#each userData.phone_numbers[key] as phone}
-								<li class="list-group-item d-flex justify-content-between align-items-start">
-									<p class="card-text"><small class="text-muted">{key}: {phone}</small></p>
-								</li>
-							{/each}
-						{/each}
-					{/if}
-
-					{#if userData.websites}
-						{#each userData.websites as website}
-							<li class="list-group-item d-flex justify-content-between align-items-start">
-								<Website {website} />
-							</li>
-						{/each}
-					{/if}
-					{#if userData.appointments && userData.appointments.length}
-						<Appointment appointments={userData.appointments} />
-					{/if}
+					{/each}
 				</ul>
-			</div>
+			{/if}
+			{#if userData.appointments && userData.appointments.length}
+				<Appointment appointments={userData.appointments} />
+			{/if}
+		</ul>
+	</div>
+	<div class="card p-4 space-y-2">
+		<img
+			src={getUrl(userData)}
+			alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(userData)}"
+			class="w-auto h-auto lg:w-72 lg:h-72 rounded-lg"
+		/>
+		<div>
+			{#if userData.socialnetworks}
+				<SoMed data={userData.socialnetworks} appBar={false} />
+			{/if}
 		</div>
 	</div>
 </div>

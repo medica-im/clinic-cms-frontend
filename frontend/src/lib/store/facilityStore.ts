@@ -11,7 +11,7 @@ export const selectFacilities = writable([]);
 export const facilityStore = asyncDerived(
 	([language, locale]),
 	async ([$language, $locale]) => {
-		var cachelife = 300;
+		var cachelife = 600;
 		const cacheName = "facility";
 		let cachedData;
 		let expired = true;
@@ -43,6 +43,14 @@ export const facilityStore = asyncDerived(
 		}
 	},
 	true
+);
+
+export const siteCount = asyncDerived(
+	(facilityStore),
+	async ($facilityStore) => {
+		let len = $facilityStore.facility.length;
+		return len;
+	}	
 );
 
 export default function () {

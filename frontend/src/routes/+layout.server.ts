@@ -1,4 +1,4 @@
-import type { LayoutServerData } from './$types'
+import type { LayoutServerData } from './$types';
 
 export const load: LayoutServerData = ({ locals: { locale, LL } }) => {
 	//console.info(LL.log({ fileName: '+layout.server.ts' }))

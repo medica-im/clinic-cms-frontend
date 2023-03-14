@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { variables } from '$lib/utils/constants';
 import { getWorkforceDataCached } from '$lib/store/workforceStore';
+import { facilityStore } from '$lib/store/facilityStore';
 import { language } from '$lib/store/languageStore';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import type { PageLoad } from './$types';
@@ -40,9 +41,11 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		}
 	}
 	const userData = await getWorkerData() as Worker;
+	const fData = await facilityStore.load();
 	console.log(userData);
 	return {
 		slug: params.slug,
 		userData: userData,
+		facility: fData,
 	};
 }

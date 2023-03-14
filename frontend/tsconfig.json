@@ -21,6 +21,18 @@
 			],
 			"$i18n/*": [
 				"./src/i18n/*"
+			],
+			"$components": [
+				"./src/components"
+			],
+			"$components/*": [
+				"./src/components/*"
+			],
+			"$modals": [
+				"./src/modals"
+			],
+			"$modals/*": [
+				"./src/modals/*"
 			]
 		}
 	}

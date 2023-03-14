@@ -78,3 +78,6 @@ backend/database
 .pg_service.conf
 .healthcenter_local_pgpass
 db.sqlite3
+
+# SvelteKit assets
+frontend/src/lib/assets

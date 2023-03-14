@@ -5,9 +5,11 @@
 	export let facility;
 </script>
 
-<a href="/contact#{facility.facility__name}_anchor" class="card-link">
+<a href="/sites#{facility.facility__name}_anchor" class="">
+	<span class="badge variant-ringed-primary">
 	<Icon component={Svg} width="24" height="24" viewBox="0 0 24 24">
 		<path fill="currentColor" d={mdiMapMarkerOutline} />
 	</Icon>
-	{facility.facility__contact__formatted_name}</a
->
+	{facility.facility__contact__formatted_name}
+</span>
+	</a>

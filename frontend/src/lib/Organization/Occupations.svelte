@@ -3,7 +3,7 @@
 	import { selectFacilities } from '$lib/store/facilityStore';
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';
-	import { afterUpdate, onMount, beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 
 	onMount(() => {
 	selectOccupations.set([]);
@@ -13,23 +13,20 @@
 
 </script>
 
-
+<div>
 {#await occupationsCardinal.load()}
-	<ul class="list-group list-group-flush">
 		{#each Object.keys($page.data.occupationsCardinal) as name}
-			<li class="list-group-item">
+		<span class="badge variant-ringed-primary m-2">
 				{$page.data.occupationsCardinal[name]['count']['total']}
 				{$page.data.occupationsCardinal[name]['label']}
-			</li>
+		</span>
 		{/each}
-	</ul>
 {:then}
-	<ul class="list-group list-group-flush">
 		{#each Object.keys($occupationsCardinal) as name}
-			<li class="list-group-item">
+		<span class="badge variant-ringed-primary m-2">
 				{$occupationsCardinal[name]['count']['total']}
 				{$occupationsCardinal[name]['label']}
-			</li>
+		</span>
 		{/each}
-	</ul>
 {/await}
+</div>

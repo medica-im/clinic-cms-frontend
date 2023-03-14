@@ -8,7 +8,9 @@ const config: UserConfig = {
 	resolve: {
 		alias: {
 			'$': path.resolve(__dirname, 'src'),
-			'$i18n': path.resolve('./src/i18n/')
+			'$i18n': path.resolve('./src/i18n/'),
+			'$components': path.resolve('./src/components/'),
+			'$modals': path.resolve('./src/modals/')
 		}
 	},
 	test: {

@@ -2,7 +2,6 @@ import type { Translation } from '../i18n-types';
 
 
 const fr: Translation = {
-  log: `Ce log a été appelé part '{fileName:string}'`,
   HI: "Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n",
   LOADING: "Chargement...",
   HOME: {
@@ -17,10 +16,17 @@ const fr: Translation = {
     }
   },
   CONTACT: {
-    TITLE: "Contact"
+    TITLE: "Contact",
+		CALL_US: "Appelez-nous"
   },
+	SITES: {
+		TITLE: "Sites"
+	},
   SEARCH: "Recherche",
   ADDRESSBOOK: {
+    A11Y: {
+			PROFILE_PIC_OF: "Photo de profil de"
+		},
     TITLE: "Annuaire",
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."
@@ -46,7 +52,11 @@ const fr: Translation = {
     REGISTER: "S'enregistrer",
     LOGOUT: "Se déconnecter",
     ABOUT: "À propos",
-    TIMELINE: "Chronologie"
+    TIMELINE: "Chronologie",
+    HEALTH_PROJECT: "Projet de santé",
+    LANGUAGE: "Langue",
+    NAVIGATE: "Naviguer",
+		GO_HOME: "Aller à l'Accueil"
   },
   LOGIN: {
     LOGIN: "Connexion",
@@ -70,12 +80,17 @@ const fr: Translation = {
   },
   PASSWORD: "Mot de passe",
   USER: {
-    PROFILE: `Profil de {userName:string}`,
+    PROFILE: "Profil de {userName:string}",
     ROLE: 'Rôle'
   },
   FACILITY: {
 		OUTPATIENT_CLINIC: 'Maison de santé'
-	}
+	},
+  BLOG: {
+		READMORE: 'Lire la suite'
+	},
+	WEBSITE: 'site web',
+  LEARN_MORE: 'En savoir plus'
 }
 
 export default fr

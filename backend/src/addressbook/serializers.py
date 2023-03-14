@@ -21,13 +21,21 @@ class ChoiceField(serializers.ChoiceField):
 """
 
 class SocialNetworkSerializer(serializers.ModelSerializer):
-    #type = fields.ChoiceField(choices=SocialNetwork.SocialNetworkType.labels)
-    type = serializers.CharField(source='get_type_display')
-
+    #name = serializers.SerializerMethodField()
+    #name = serializers.CharField(source='get_type_display')
 
     class Meta:
         model = SocialNetwork
-        fields = ['type', 'handle', 'url']
+        fields = [
+            'type',
+            'get_type_display',
+            'handle',
+            'url',
+            'public_visible',
+            'contact_visible',
+        ]
+        
+        depth = 2
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -48,7 +56,8 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
-    
+    socialnetworks = SocialNetworkSerializer(read_only=True, many=True)
+
     class Meta:
         model = Contact
         fields = [

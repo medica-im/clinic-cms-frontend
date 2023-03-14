@@ -1,9 +1,9 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
-    import { mdiPostOutline } from '@mdi/js';
-    import { mdiWeb } from '@mdi/js'; 
-    import { Svg } from '@smui/common';
-    import { Icon } from '@smui/icon-button';
+    import Fa from 'svelte-fa'
+    import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
+    import { faGlobe, faBlog } from '@fortawesome/free-solid-svg-icons';
+
     export let website;
 
     function removeHttp(url) {
@@ -12,15 +12,11 @@
 </script>
 
 {#if website.type == "Blog"}
-<a href="{website.website}" rel="external" class="card-link">
-<Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
-    <path fill="currentColor" d={mdiPostOutline} />
-</Icon>Blog
+<a href="{website.website}" rel="external" class="btn variant-soft-secondary">
+<span><Fa icon={faBlog} /></span><span>Blog</span>
 </a>
 {:else}
-<a href="{website.website}" rel="external" class="card-link">
-    <Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
-        <path fill="currentColor" d={mdiWeb} />
-    </Icon>{removeHttp(website.website)}
+<a href="{website.website}" rel="external" class="btn variant-soft-secondary">
+    <span><Fa icon={faGlobe} /></span><span>{removeHttp(website.website)}</span>
     </a>
 {/if}
