@@ -46,7 +46,7 @@
 		<br>
 	    {dict[w][0]}
 		{#if dict[w][1]}
-		<br><a href="/maison-de-sante/lexique/#{w}">{$LL.LEARN_MORE()}</a>
+		<br><a data-sveltekit-reload href="/maison-de-sante/lexique/#{w}">{$LL.LEARN_MORE()}</a>
 		{/if}
 	</h4>
 	{/if}
