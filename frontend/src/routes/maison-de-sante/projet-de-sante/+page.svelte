@@ -3,7 +3,7 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import healthProjectPdf from '$lib/assets/projet_de_sante_ MSP_Vedene.pdf';
+	import healthProjectPdf from '$lib/assets/projet_de_sante_MSP_Vedene.pdf';
 </script>
 
 <svelte:head>
