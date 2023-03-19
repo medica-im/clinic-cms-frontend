@@ -49,7 +49,7 @@
 
 <p>
 	Une Maison de Santé Pluriprofessionnelle (<Def w="MSP"/>) est une forme particulière d’<Def w="Équipe de soins primaires"/>. Il s’agit d’une organisation créée par les professionnels de santé eux-mêmes, en
-	s’appuyant sur les relations existantes: les professionnels de santé de Vedène échangeaient déjà avant de créer la <Def w="MSP" />!
+	s’appuyant sur les relations existantes: les professionnels de santé {$facilityStore.city.from_label} échangeaient déjà avant de créer la <Def w="MSP" />!
 </p>
 <h3>Plusieurs professions</h3>
 <p>
@@ -86,10 +86,10 @@
 	Ces professionnels se mobilisent autour d’un <a href="/maison-de-sante/projet-de-sante">projet de santé</a> commun bénéficiant à leurs patients.
 </p>
 <h4>Communication</h4>
-<p>Ils se transmettent les informations de manière organisée.</p>
+<p>Les professionnels de santé se transmettent les informations de manière organisée.</p>
 <ul class="list">
-	<li><span><Fa icon={faPeopleGroup}/></span><span>Réunions de concertation pluriprofessionnelles</span></li>
-	<li><span><Fa icon={faNetworkWired}/></span><span>Logiciel métier partagé.</span></li>
+	<li><span><Fa icon={faPeopleGroup}/></span><span><a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle">Réunions de concertation pluriprofessionnelles</a></span></li>
+	<li><span><Fa icon={faNetworkWired}/></span><span><a href="/maison-de-sante/dossier-patient">Logiciel métier partagé</a>.</span></li>
 </ul>
 
 <h4>Au-delà des soins</h4>

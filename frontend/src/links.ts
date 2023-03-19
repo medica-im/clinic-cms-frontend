@@ -18,6 +18,16 @@ export const menuNavLinks: any = [
 				keywords: 'santé, projet'
 			},
 			{
+				href: '/maison-de-sante/reunion-concertation-pluriprofessionnelle',
+				label: 'RCP',
+				keywords: 'réunion, pluripro, concertation, RCP'
+			},
+			{
+				href: '/maison-de-sante/dossier-patient',
+				label: 'Dossier patient',
+				keywords: 'dossier, secret, partage, information, logiciel'
+			},
+			{
 				href: '/maison-de-sante/lexique',
 				label: 'Lexique',
 				keywords: 'lexique, dictionaire, définition'

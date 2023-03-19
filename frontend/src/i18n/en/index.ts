@@ -89,6 +89,9 @@ const en: BaseTranslation = {
 	BLOG: {
 		READMORE: 'Read more'
 	},
+	OUTPATIENT_CLINIC: {
+		MDT_MEETING: 'multi-disciplinary team meeting'
+	},
 	WEBSITE: 'website',
 	LEARN_MORE: 'Learn more'
 }

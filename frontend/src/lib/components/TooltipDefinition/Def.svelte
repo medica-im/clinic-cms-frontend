@@ -10,8 +10,6 @@
 	export let w: string;
 
 	let randString = Math.random().toString(36).substring(2);
-    
-	console.log(Object.keys(dict));
 
 	function pop() {
 		let settings: PopupSettings = {
@@ -27,7 +25,6 @@
 			let k = dict[w];
 			return dict[k];
 		}
-		console.log(w);
 		return dict[w];
 	}
 </script>

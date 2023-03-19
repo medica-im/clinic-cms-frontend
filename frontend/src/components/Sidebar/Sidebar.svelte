@@ -68,9 +68,7 @@
 	// Reactive
 	$: classesActive = (href: string) => {
 		const hrefArray = href.split("/");
-		console.log(hrefArray);
 		let last = hrefArray.pop();
-		console.log(last);
 		return $storeCurrentUrl?.includes(last) ? 'bg-primary-active-token' : '';
 	}
 </script>

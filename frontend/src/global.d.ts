@@ -30,3 +30,4 @@ declare namespace App {
 }
 
 declare module '@medecinelibre/timelinejs/src/js/timeline/Timeline.mjs';
+declare module 'svelte-carousel';

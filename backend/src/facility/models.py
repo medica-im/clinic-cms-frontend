@@ -75,6 +75,12 @@ class Organization(models.Model):
         blank=True,
     )
     registration = models.BooleanField(default=False)
+    city= models.ForeignKey(
+        "nlp.City",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
 
     objects = OrganizationManager()
 

@@ -256,6 +256,12 @@ type RootTranslation = {
 		 */
 		READMORE: string
 	}
+	OUTPATIENT_CLINIC: {
+		/**
+		 * r​é​u​n​i​o​n​ ​d​e​ ​c​o​n​c​e​r​t​a​t​i​o​n​ ​p​l​u​r​i​p​r​o​f​e​s​s​i​o​n​n​e​l​l​e
+		 */
+		MDT_MEETING: string
+	}
 	/**
 	 * s​i​t​e​ ​w​e​b
 	 */
@@ -506,6 +512,12 @@ export type TranslationFunctions = {
 		 * Lire la suite
 		 */
 		READMORE: () => LocalizedString
+	}
+	OUTPATIENT_CLINIC: {
+		/**
+		 * réunion de concertation pluriprofessionnelle
+		 */
+		MDT_MEETING: () => LocalizedString
 	}
 	/**
 	 * site web

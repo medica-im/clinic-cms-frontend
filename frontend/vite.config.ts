@@ -4,6 +4,9 @@ import * as path from 'path';
 
 
 const config: UserConfig = {
+	optimizeDeps: {
+        include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
+    },
 	plugins: [sveltekit()],
 	resolve: {
 		alias: {

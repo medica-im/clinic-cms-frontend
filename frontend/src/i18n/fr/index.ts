@@ -89,6 +89,9 @@ const fr: Translation = {
   BLOG: {
 		READMORE: 'Lire la suite'
 	},
+	OUTPATIENT_CLINIC: {
+		MDT_MEETING: 'réunion de concertation pluriprofessionnelle'
+	},
 	WEBSITE: 'site web',
   LEARN_MORE: 'En savoir plus'
 }

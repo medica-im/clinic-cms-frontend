@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     'contact',
     'opengraph',
     'cms',
+    'nlp',
 ]
 
 if DEBUG:
