@@ -16,26 +16,25 @@
 	}
 </script>
 
-<div class="card flex font-serif m-4 p-4">
+<div class="card flex flex-wrap font-serif m-2 p-2">
 	<div class="flex-none w-52 h-52 relative">
 		<a href="/{workerData.slug}">
 			<img
 				src={getUrl(workerData.profile_picture_url.fb)}
 				alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(workerData)}"
-				class="w-full h-full rounded-lg"
+				class="object-scale-down w-96 h-auto rounded-lg"
 			/>
 		</a>
 	</div>
-	<div class="p-3 m-3">
-		<a href="/{workerData.slug}" class="flex-wrap">
-			<h3 class="text-2xl">
+	<div class="p-2 m-2">
+		<a href="/{workerData.slug}" class="">
+			<h3>
 				{workerTitleFormattedName(workerData)}
 			</h3>
 		</a>
 
 		{#each workerData.occupations as occupation}
 			{#if occupation.name == currentOccupationName}
-				<div>
 					{#if occupation.specialty}
 						<h5>
 							{occupation.specialty.label}
@@ -51,7 +50,6 @@
 							<WorkerFacility {facility} />
 						{/each}
 					{/if}
-					</div>
 			{/if}
 		{/each}
 	</div>

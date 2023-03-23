@@ -5,7 +5,7 @@
 	export let facility;
 </script>
 
-<a href="/sites#{facility.facility__name}_anchor" class="">
+<a href="/sites#{facility.facility__name}_anchor" class="flex">
 	<span class="badge variant-ringed-primary">
 	<Icon component={Svg} width="24" height="24" viewBox="0 0 24 24">
 		<path fill="currentColor" d={mdiMapMarkerOutline} />

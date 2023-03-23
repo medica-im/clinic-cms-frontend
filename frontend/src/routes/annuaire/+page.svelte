@@ -33,10 +33,10 @@
 	{/await}
 </svelte:head>
 
-<div class="divide-y-2">
+<div class="space-y-4">
 	{#await occupationsCardinal.load()}
 		{#each Object.keys(data.occupationsCardinal) as name}
-			<section class="m-8">
+			<section class="space-y-4">
 				<h3>
 					{data.occupationsCardinal[name]['count']['total']}
 					{data.occupationsCardinal[name]['label']}
@@ -77,12 +77,12 @@
 				.flat()
 				.map((x) => x.name)
 				.includes(name)}
-				<section class="m-8">
+				<section class="space-y-4">
 					<h3>
 						{$occupationsCardinal[name]['count']['total']}
 						{$occupationsCardinal[name]['label']}
 					</h3>
-					<div class="grid lg:grid-cols-2 m-2">
+					<div class="grid lg:grid-cols-2">
 						{#each $filteredWorkforceDataCached as worker}
 							{#each worker.occupations as occupation}
 								{#if occupation.name == name}
