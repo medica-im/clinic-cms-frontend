@@ -33,5 +33,48 @@ export const menuNavLinks: any = [
 				keywords: 'lexique, dictionaire, définition'
 			}
 		]
+	},
+	{
+		id: 'education-therapeutique',
+		title: 'Éducation thérapeutique',
+		list: [
+			{
+				href: '/education-therapeutique/definition',
+				label: 'Définition',
+				keywords: 'patient, ETP, éducation, thérapeutique'
+			},
+			{
+				href: '/education-therapeutique/diabete',
+				label: 'Diabète',
+				keywords: 'patient, ETP, diabète, éducation, thérapeutique'
+			}
+		]
+	},
+	{
+		id: 'education-sante',
+		title: 'Éducation pour la santé',
+		list: [
+			{
+				href: '/education-sante/definition',
+				label: 'Définition',
+				keywords: 'éducation, santé'
+			},
+			{
+				href: '/education-sante/parentalite-petite-enfance',
+				label: 'Parentalité - Petite enfance',
+				keywords: 'éducation, santé, parentalité, enfant, enfance'
+			}
+		]
+	},
+	{
+		id: 'prevention',
+		title: 'Prévention en santé',
+		list: [
+			{
+				href: '/prevention/definition',
+				label: 'Définition',
+				keywords: 'prévention, santé, maladie, dépistage'
+			}
+		]
 	}
 ];

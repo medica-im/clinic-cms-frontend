@@ -1,6 +1,16 @@
 <script lang="ts">
-
+    import LL from '$i18n/i18n-svelte';
+	import { language } from '$lib/store/languageStore';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { facilityStore } from '$lib/store/facilityStore';
 </script>
+
+<svelte:head>
+	<title>
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {capitalizeFirstLetter($LL.HEALTH_RECORD(), $language)}
+	</title>
+</svelte:head>
+
 <h2>Partage d’information au sein de l’équipe de soins</h2>
 
 <h3>L'équipe de soins</h3>

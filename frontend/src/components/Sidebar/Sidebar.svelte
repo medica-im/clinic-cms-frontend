@@ -30,7 +30,8 @@
 		faRightToBracket,
 		faRightFromBracket,
 		faUserPlus,
-		faUser
+		faUser,
+		faPersonChalkboard
 	} from '@fortawesome/free-solid-svg-icons';
 	// Props
 	export let embedded = false;
@@ -52,7 +53,15 @@
 		storeCategory.set(c);
 		// prettier-ignore
 		switch($storeCategory) {
-			case('maison-de-sante'): filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet.id === 'maison-de-sante'); break;
+			case('education'):
+			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => ['education-therapeutique', 'education-sante'].includes(linkSet.id));
+				break;
+			case('maison-de-sante'):
+			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet.id === 'maison-de-sante');
+				break;
+			case('prevention'):
+			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet.id === 'prevention');
+				break;
 		}
 	}
 
@@ -60,24 +69,29 @@
 	page.subscribe((p) => {
 		let pathMatch: string = p.url.pathname.split('/')[1];
 		if (!pathMatch) return;
-		if (['components', 'actions'].includes(pathMatch)) pathMatch = 'svelte';
+		if (['education-sante', 'education-therapeutique'].includes(pathMatch)) pathMatch = 'education';
 		setNavCategory(pathMatch);
 	});
 	storeCategory.subscribe((c: string) => setNavCategory(c));
 
 	// Reactive
 	$: classesActive = (href: string) => {
-		const hrefArray = href.split("/");
-		let last = hrefArray.pop();
-		return $storeCurrentUrl?.includes(last) ? 'bg-primary-active-token' : '';
+		let urlPath = href.substring(href.indexOf('/')+1)
+		return $storeCurrentUrl?.includes(urlPath) ? 'bg-primary-active-token' : '';
 	}
 </script>
 
 <div class="grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ?? ''} p-1">
 	<!-- App Rail -->
 	<AppRail selected={storeCategory} background="bg-transparent" border="border-r border-surface-500/30">
-		<AppRailTile label="Maison de santé" value={'msp'}>
+		<AppRailTile label="Maison de santé" value={'maison-de-sante'}>
 			<DocsIcon name="outpatientClinic" width="w-6" height="h-6" />
+		</AppRailTile>
+		<AppRailTile label="Éducation" value={'education'}>
+			<DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" />
+		</AppRailTile>
+		<AppRailTile label="Prévention" value={'prevention'}>
+			<DocsIcon name="faShieldHeart" width="w-6" height="h-6" />
 		</AppRailTile>
 		<hr class="opacity-30" />
 		<AppRailTile label="Sites" value={'sites'} tag="a" href="/sites" on:click={onListItemClick} class="lg:hidden">

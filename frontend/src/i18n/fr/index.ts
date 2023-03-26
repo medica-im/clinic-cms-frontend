@@ -90,10 +90,19 @@ const fr: Translation = {
 		READMORE: 'Lire la suite'
 	},
 	OUTPATIENT_CLINIC: {
-		MDT_MEETING: 'réunion de concertation pluriprofessionnelle'
+		MDT_MEETING: 'réunion de concertation pluriprofessionnelle',
+    TPE: 'éducation thérapeutique du patient'
+	},
+	DISEASE: {
+		DIABETES: 'diabète'
 	},
 	WEBSITE: 'site web',
-  LEARN_MORE: 'En savoir plus'
+  LEARN_MORE: 'En savoir plus',
+  LEXICON: 'lexique',
+  HEALTH_RECORD: 'dossier patient',
+	HEALTH_EDUCATION: 'éducation pour la santé',
+  PREVENTION: 'prévention',
+	PREVENTIVE_HEALTHCARE: 'prévention en santé'
 }
 
 export default fr

@@ -31,7 +31,10 @@
 		</title>
 	{/await}
 </svelte:head>
-
+<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
+<div class="grid md:grid-cols-2 gap-4">
+	<div>
+		<!--
 	{#await facilityStore.load()}
 		<Welcome formattedNameDefiniteArticle={data.facility.formatted_name_definite_article} />
 		<section class="space-y-4">
@@ -39,16 +42,14 @@
 				<Team facility={data.facility} />
 			</div>
 		</section>
-	{:then}
-		<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
-		<section class="space-y-4">
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+	{:then}-->
 				<Team facility={$facilityStore} />
-			</div>
-		</section>
-	{/await}
-	<section class="space-y-4">
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+	<!--{/await}-->
+</div>
+<div>
+	
+		
 			<Ghost2 data={data.posts} />
-		</div>
-	</section>
+	
+</div>
+</div>

@@ -19,7 +19,8 @@
 		faRightToBracket,
 		faRightFromBracket,
 		faUserPlus,
-		faUser
+		faUser,
+		faPalette
 	} from '@fortawesome/free-solid-svg-icons';
 	import User from '$components/SkeletonAppBar/User.svelte';
 	// Types
@@ -32,9 +33,9 @@
 
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 
 	// Utilities
-	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { popup } from '@skeletonlabs/skeleton';
 	import { Modal, modalStore } from '@skeletonlabs/skeleton';
 
@@ -113,15 +114,17 @@
 
 <AppBar shadow="shadow-lg">
 	<svelte:fragment slot="lead">
-		<div class="flex space-x-3 lg:inline-block">
+		<div class="flex space-x-3 xl:inline-block">
 			<!-- Hamburger Menu -->
 			<button on:click={drawerOpen} class="btn-icon btn-icon-sm lg:!hidden">
 				<Fa icon={faBars} />
 			</button>
 			<!-- Logo -->
-			<a class="flex lg:inline-block" href="/" title={$LL.NAVBAR.GO_HOME()}>
-				<span class="lg:inline-block w-8 h-8 align-text-bottom"><OutpatientClinicLogo /></span>
+			<a class="flex xl:inline-block space-x-2" href="/" title={$LL.NAVBAR.GO_HOME()}>
+				
+				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
 				<span class="hidden xl:inline-block"><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span>
+			
 			</a>
 		</div>
 	</svelte:fragment>
@@ -216,59 +219,66 @@
 			<SkeletonLocaleSwitcher />
 		</div>
 
-		<!--div class="relative"-->
-		<!-- trigger-->
-		<!--button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme' }}>
-				<i class="fa-solid fa-palette text-lg md:hidden" />
-				<span class="hidden md:inline-block">Theme</span>
-				<i class="fa-solid fa-caret-down opacity-50" />
-			</button-->
-		<!-- popup -->
-		<!--div class="card p-4 w-60 shadow-xl" data-popup="theme">
-				<section class="flex justify-between items-center">
-					<h6>Mode</h6>
-					<LightSwitch />
-				</section>
-				<hr class="my-4" />
-				<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
-					<form action="/?/setTheme" method="POST" use:enhance={setTheme}>
-						<ul>
-							{#each themes as { icon, name, type }}
-								<li>
-									<button
-										class="option w-full h-full"
-										type="submit"
-										name="theme"
-										value={type}
-										class:bg-primary-active-token={$storeTheme === type}
-									>
-										<span>{icon}</span>
-										<span>{name}</span>
-									</button>
-								</li>
-							{/each}
-						</ul>
-					</form>
-				</nav>
-				<hr class="my-4" />
-				<div>
-					<a class="btn variant-ghost-surface w-full" href="/docs/generator">Theme Generator</a>
-				</div>
+		<div>
+			<!-- trigger-->
+			<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme' }}>
+					<span class="text-lg md:hidden">
+					<Fa icon={faPalette} />
+			</span>
+					<span class="hidden md:inline-block">Theme</span>
+					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
+				</button>
+			<!-- popup -->
+			<div class="card p-4 w-60 shadow-xl" data-popup="theme">
+					<section class="flex justify-between items-center">
+						<h6>Mode</h6>
+						<LightSwitch />
+					</section>
+					<!--hr class="my-4" />
+					<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
+						<form action="/?/setTheme" method="POST" use:enhance={setTheme}>
+							<ul>
+								{#each themes as { icon, name, type }}
+									<li>
+										<button
+											class="option w-full h-full"
+											type="submit"
+											name="theme"
+											value={type}
+											class:bg-primary-active-token={$storeTheme === type}
+										>
+											<span>{icon}</span>
+											<span>{name}</span>
+										</button>
+									</li>
+								{/each}
+							</ul>
+						</form>
+					</nav>
+					<hr class="my-4" />
+					<div>
+						<a class="btn variant-ghost-surface w-full" href="/docs/generator">Theme Generator</a>
+					</div>
+				</div-->
 			</div>
-		</div-->
+		</div>
 
 		<!-- Social -->
 		<!-- prettier-ignore -->
 		<div class="relative hidden lg:block">
 
-		<section class="flex space-x-2">
+		<section>
             <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
+			<a href={variables.BLOG_URI} title={'blog'} class="btn-icon btn-icon-sm hover:variant-soft-secondary" target="_blank" rel="noreferrer">
+				<span><Fa icon={faBlog} size="lg" /></span>
+			</a>
 			</section>
-		</div>
-		<div class="relative">
-			<section class="flex space-x-2">
+</div>
+<div>
+		<section class="space-x-1">
 			<User {facility} appBar={true} />
 		</section>
 		</div>
+		
 	</svelte:fragment>
 </AppBar>

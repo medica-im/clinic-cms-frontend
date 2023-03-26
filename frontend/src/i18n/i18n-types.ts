@@ -261,6 +261,16 @@ type RootTranslation = {
 		 * r​é​u​n​i​o​n​ ​d​e​ ​c​o​n​c​e​r​t​a​t​i​o​n​ ​p​l​u​r​i​p​r​o​f​e​s​s​i​o​n​n​e​l​l​e
 		 */
 		MDT_MEETING: string
+		/**
+		 * é​d​u​c​a​t​i​o​n​ ​t​h​é​r​a​p​e​u​t​i​q​u​e​ ​d​u​ ​p​a​t​i​e​n​t
+		 */
+		TPE: string
+	}
+	DISEASE: {
+		/**
+		 * d​i​a​b​è​t​e
+		 */
+		DIABETES: string
 	}
 	/**
 	 * s​i​t​e​ ​w​e​b
@@ -270,6 +280,26 @@ type RootTranslation = {
 	 * E​n​ ​s​a​v​o​i​r​ ​p​l​u​s
 	 */
 	LEARN_MORE: string
+	/**
+	 * l​e​x​i​q​u​e
+	 */
+	LEXICON: string
+	/**
+	 * d​o​s​s​i​e​r​ ​p​a​t​i​e​n​t
+	 */
+	HEALTH_RECORD: string
+	/**
+	 * é​d​u​c​a​t​i​o​n​ ​p​o​u​r​ ​l​a​ ​s​a​n​t​é
+	 */
+	HEALTH_EDUCATION: string
+	/**
+	 * p​r​é​v​e​n​t​i​o​n
+	 */
+	PREVENTION: string
+	/**
+	 * p​r​é​v​e​n​t​i​o​n​ ​e​n​ ​s​a​n​t​é
+	 */
+	PREVENTIVE_HEALTHCARE: string
 }
 
 export type TranslationFunctions = {
@@ -518,6 +548,16 @@ export type TranslationFunctions = {
 		 * réunion de concertation pluriprofessionnelle
 		 */
 		MDT_MEETING: () => LocalizedString
+		/**
+		 * éducation thérapeutique du patient
+		 */
+		TPE: () => LocalizedString
+	}
+	DISEASE: {
+		/**
+		 * diabète
+		 */
+		DIABETES: () => LocalizedString
 	}
 	/**
 	 * site web
@@ -527,6 +567,26 @@ export type TranslationFunctions = {
 	 * En savoir plus
 	 */
 	LEARN_MORE: () => LocalizedString
+	/**
+	 * lexique
+	 */
+	LEXICON: () => LocalizedString
+	/**
+	 * dossier patient
+	 */
+	HEALTH_RECORD: () => LocalizedString
+	/**
+	 * éducation pour la santé
+	 */
+	HEALTH_EDUCATION: () => LocalizedString
+	/**
+	 * prévention
+	 */
+	PREVENTION: () => LocalizedString
+	/**
+	 * prévention en santé
+	 */
+	PREVENTIVE_HEALTHCARE: () => LocalizedString
 }
 
 export type Formatters = {}

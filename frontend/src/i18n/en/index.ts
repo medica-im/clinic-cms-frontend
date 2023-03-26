@@ -90,10 +90,19 @@ const en: BaseTranslation = {
 		READMORE: 'Read more'
 	},
 	OUTPATIENT_CLINIC: {
-		MDT_MEETING: 'multi-disciplinary team meeting'
+		MDT_MEETING: 'multi-disciplinary team meeting',
+		TPE: 'therapeutic patient education'
+	},
+	DISEASE: {
+		DIABETES: 'diabetes'
 	},
 	WEBSITE: 'website',
-	LEARN_MORE: 'Learn more'
+	LEARN_MORE: 'Learn more',
+	LEXICON: 'lexicon',
+	HEALTH_RECORD: 'health record',
+	HEALTH_EDUCATION: 'health education',
+	PREVENTION: 'prevention',
+	PREVENTIVE_HEALTHCARE: 'preventive healthcare'
 }
 
 export default en

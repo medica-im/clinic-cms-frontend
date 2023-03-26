@@ -95,10 +95,26 @@
 		}
 	});
 
-	function matchPathWhitelist(pageUrlPath: string): boolean {
-		const url = ["maison-de-sante"];
-		if (pageUrlPath.includes(url)) return false;
-		return true;
+	function matchList(pageUrlPath: string): boolean {
+		const url = ["maison-de-sante", "education-therapeutique", "education-sante", "prevention"];
+		let match = (
+			url.filter(
+			function(e) {
+				let m: bool;
+				try {
+				    m = pageUrlPath.includes(e);
+				} catch(err) {
+					m = false;
+				}
+				console.log(url);
+				console.log(pageUrlPath);
+				console.log(m);
+				return m
+			}
+		));
+		console.log(`match: "${match}"`)
+		console.log(`match: ${match.length}`)
+		return Boolean(match.length);
 	}
 
 	// Registered list of Components for Modals
@@ -107,7 +123,7 @@
 	};
 
 // Disable left sidebar on homepage
-$: slotSidebarLeft = matchPathWhitelist($page.url.pathname) ? 'w-0' : 'bg-surface-50-900-token lg:w-auto';
+$: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto' : 'w-0';
 </script>
 
 <svelte:head>
