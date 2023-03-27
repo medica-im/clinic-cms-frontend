@@ -225,7 +225,7 @@
 					<span class="text-lg md:hidden">
 					<Fa icon={faPalette} />
 			</span>
-					<span class="hidden md:inline-block">Theme</span>
+					<span class="hidden md:inline-block">{$LL.NAVBAR.THEME()}</span>
 					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 				</button>
 			<!-- popup -->

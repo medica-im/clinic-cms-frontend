@@ -105,7 +105,7 @@
 		</AppRailTile>
 
 		<svelte:fragment slot="trail">
-			<AppRailTile label="Blog" tag="a" href={variables.BLOG_URI} value={'blog'} on:click={onListItemClick} class="lg:hidden">
+			<AppRailTile label="Blog" tag="a" href="{variables.BLOG_URI}" value={'blog'} on:click={onListItemClick} class="lg:hidden">
 				<span><Fa icon={faBlog} size="lg" /></span>
 			</AppRailTile>
 			<SoMed data={data.contact.socialnetworks} appRail={true} />

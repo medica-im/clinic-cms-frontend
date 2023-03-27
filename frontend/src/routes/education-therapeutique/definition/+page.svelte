@@ -8,7 +8,7 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - capitalizeFirstLetter({$LL.OUTPATIENT_CLINIC.TPE(),$language})
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(),$language)}
 	</title>
 </svelte:head>
 

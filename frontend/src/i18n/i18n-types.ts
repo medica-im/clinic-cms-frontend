@@ -166,6 +166,10 @@ type RootTranslation = {
 		 * A​l​l​e​r​ ​à​ ​l​'​A​c​c​u​e​i​l
 		 */
 		GO_HOME: string
+		/**
+		 * T​h​è​m​e
+		 */
+		THEME: string
 	}
 	LOGIN: {
 		/**
@@ -454,6 +458,10 @@ export type TranslationFunctions = {
 		 * Aller à l'Accueil
 		 */
 		GO_HOME: () => LocalizedString
+		/**
+		 * Thème
+		 */
+		THEME: () => LocalizedString
 	}
 	LOGIN: {
 		/**

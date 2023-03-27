@@ -106,14 +106,9 @@
 				} catch(err) {
 					m = false;
 				}
-				console.log(url);
-				console.log(pageUrlPath);
-				console.log(m);
 				return m
 			}
 		));
-		console.log(`match: "${match}"`)
-		console.log(`match: ${match.length}`)
 		return Boolean(match.length);
 	}
 

@@ -32,17 +32,20 @@
 	<p>Il s’adresse à tous les parents d’enfants âgés de 0 à 3 ans.</p>
 </section>
 
-<section class="w-fit text-token card p-4 m-4 bg-transparent space-y-4">
+<div class="w-fit card p-4 m-4 bg-transparent space-y-4">
 	<h3>Objectifs</h3>
-	<ul class="list variant-soft-surface">
+    <div class="variant-soft-surface pl-5 pr-2 py-2">
+	<ul class="list-disc space-y-4">
 		<li>Informer et sécuriser sur la santé de l’enfant de 0 à 3 ans</li>
 		<li>Approfondir et conforter les relations avec son enfant</li>
 	</ul>
-</section>
+    </div>
+</div>
 
 <section class="w-fit text-token card p-4 m-4 bg-transparent space-y-4">
 	<h3>Ateliers</h3>
-	<ul class="list variant-soft-surface">
+    <div class="variant-soft-surface pl-5 pr-2 py-2">
+	<ul class="list-disc space-y-4">
 		<li>Sommeil et rythme de vie de bébé</li>
 		<li>Approfondir et conforter les relations avec son enfant</li>
 		<li>Gestion des émotions parents / bébé</li>
@@ -53,22 +56,26 @@
 		<li>Portage physiologique</li>
 		<li>Massage bébé</li>
 	</ul>
+</div>
 </section>
 
 <section class="w-fit text-token card p-4 m-4 bg-transparent space-y-4">
 	<h3>Lieux</h3>
 	<p>Les ateliers ont lieu dans ces structures:</p>
-	<ul class="list variant-soft-surface">
+    <div class="variant-soft-surface pl-5 pr-2 py-2">
+	<ul class="list-disc space-y-4">
 		<li>Lieux d’accueil enfants-parents</li>
 		<li>Crèches</li>
 		<li>Écoles maternelles</li>
 		<li>Associations</li>
 	</ul>
+</div>
 </section>
 
 <section class="w-fit bg-transparent text-token card p-4 m-4 space-y-4">
 	<h3>Intervenantes</h3>
-	<ul class="list variant-soft-surface">
+    <div class="variant-soft-surface pl-5 pr-2 py-2">
+	<ul class="list-disc space-y-4">
 		<li>Diététicienne</li>
 		<li>Psychologue</li>
 		<li>Psychomotricienne</li>
@@ -76,6 +83,7 @@
 		<li>Infirmière</li>
 		<li>Kinésithérapeute</li>
 	</ul>
+</div>
 </section>
 
 <section class="w-fit card bg-transparent p-4 m-4 space-y-4">

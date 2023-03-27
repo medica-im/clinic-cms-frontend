@@ -56,7 +56,8 @@ const en: BaseTranslation = {
 		HEALTH_PROJECT: "Health project",
 		LANGUAGE: "Language",
 		NAVIGATE: "Navigate",
-		GO_HOME: "Go to Homepage"
+		GO_HOME: "Go to Homepage",
+		THEME: "Theme"
 	},
 	LOGIN: {
 		LOGIN: "Login",

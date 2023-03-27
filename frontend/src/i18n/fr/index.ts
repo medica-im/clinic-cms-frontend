@@ -56,7 +56,8 @@ const fr: Translation = {
     HEALTH_PROJECT: "Projet de santé",
     LANGUAGE: "Langue",
     NAVIGATE: "Naviguer",
-		GO_HOME: "Aller à l'Accueil"
+		GO_HOME: "Aller à l'Accueil",
+    THEME: "Thème"
   },
   LOGIN: {
     LOGIN: "Connexion",
