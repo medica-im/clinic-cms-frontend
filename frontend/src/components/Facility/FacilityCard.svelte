@@ -71,7 +71,7 @@
             </footer-->
 			</div>
 		</div>
-		<div class="m-1 p-1">
+		<div class="m-1 p-1 z-auto">
 			<LeafletMap geoData={createFacilityGeoData(facility)} />
 		</div>
 	</div>

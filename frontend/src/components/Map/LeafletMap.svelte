@@ -14,21 +14,25 @@
             map = leaflet.map(geoData.name).setView([geoData.latitude, geoData.longitude], geoData.zoom);
 
             leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                zIndex: -1
+            }).setZIndex(-1).addTo(map);
             leaflet.marker([geoData.latitude, geoData.longitude]).addTo(map)
         }
     });
 </script>
 
-<main>
-    <div id="{geoData.name}" class="map z-[100]"></div>
+<main class="z-auto">
+    <div id="{geoData.name}" class="map z-auto"></div>
 </main>
 
 <style>
     @import 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css';
     main .map {
         height: 400px;
-        z-index: 0;
+        z-index: -10;
     }
+    .leaflet-bottom {z-index: 0 !important;}
+    .leaflet-top {z-index: 0 !important;}
+    .leaflet-pane { z-index: 0 !important; }
 </style>

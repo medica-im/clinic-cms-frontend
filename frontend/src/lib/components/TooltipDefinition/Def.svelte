@@ -30,7 +30,7 @@
 </script>
 
 <button class="btn p-0 m-0" use:popup={pop()}><span class="p-0 m-0">{w}</span><span class="p-0 m-0 opacity-50"><Fa icon={faCircleQuestion}/></span></button>
-<div class="card variant-filled-secondary p-4 w-1/3" data-popup={randString}>
+<div class="card variant-filled-secondary p-2 w-3/4 lg:w-1/3" data-popup={randString}>
 	{#if dict[w] in dict}
 		<h4>
 			<dfn><abbr>{w}</abbr> {dict[w][0]}</dfn>

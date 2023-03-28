@@ -34,10 +34,10 @@
 	{/each}
 {:then}-->
 <div>
-<nav class="lg:sticky z-50 top-0 p-2 m-2 variant-filled-surface">
+<nav class="lg:sticky z-auto top-0 p-2 m-2 variant-filled-surface">
 	<FacilityList organizationData={$facilityStore} />
 </nav>
-<div>
+<div class="z-auto">
 	{#each $facilityStore.facility as facility}
 		{#if facility.contact}
 			<FacilityCard {facility} />
