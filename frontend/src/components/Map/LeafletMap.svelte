@@ -22,12 +22,13 @@
 </script>
 
 <main>
-    <div id="{geoData.name}" class="map"></div>
+    <div id="{geoData.name}" class="map z-[100]"></div>
 </main>
 
 <style>
-    @import 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
+    @import 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css';
     main .map {
         height: 400px;
+        z-index: 0;
     }
 </style>

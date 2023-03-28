@@ -43,13 +43,10 @@
 			</div>
 		</section>
 	{:then}-->
-				<Team facility={$facilityStore} />
-	<!--{/await}-->
-</div>
-<div>
-	
-		
-			<Ghost2 data={data.posts} />
-	
-</div>
+		<Team facility={$facilityStore} />
+		<!--{/await}-->
+	</div>
+	<div>
+		<Ghost2 data={data.posts} />
+	</div>
 </div>

@@ -14,17 +14,17 @@
 </script>
 
 <svelte:head>
-	{#await promise}
+	<!--{#await promise}
 		<title>
 			{capitalizeFirstLetter(data.facilityData.formatted_name, $language)} - {$LL.SITES.TITLE()}
 		</title>
-	{:then}
-		<title>
-			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.SITES.TITLE()}
-		</title>
-	{/await}
+	{:then}-->
+	<title>
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.SITES.TITLE()}
+	</title>
+	<!--{/await}-->
 </svelte:head>
-
+<!--
 {#await facilityStore.load()}
 	<FacilityList organizationData={data.facilityData} />
 	{#each data.facilityData.facility as facility}
@@ -32,11 +32,17 @@
 			<FacilityCard {facility} />
 		{/if}
 	{/each}
-{:then}
+{:then}-->
+<div>
+<nav class="lg:sticky z-50 top-0 p-2 m-2 variant-filled-surface">
 	<FacilityList organizationData={$facilityStore} />
+</nav>
+<div>
 	{#each $facilityStore.facility as facility}
 		{#if facility.contact}
 			<FacilityCard {facility} />
 		{/if}
 	{/each}
-{/await}
+</div>
+<!--{/await}-->
+</div>
