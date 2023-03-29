@@ -83,7 +83,7 @@ function onListItemClick(): void {
 	{#if isObjectEmpty($userData)}
 		<a class="{classesActive('/accounts/login')} btn hover:variant-soft-primary lg:inline-block" href="/accounts/login" title={$LL.NAVBAR.LOGIN()}
 			><span class="lg:inline-block align-text-bottom"><Fa icon={faRightToBracket} size="lg" /></span>
-			<span class="hidden xl:inline-block">{$LL.NAVBAR.LOGIN()}</span></a
+			<span class="hidden 2xl:inline-block">{$LL.NAVBAR.LOGIN()}</span></a
 		>
 	{/if}
 	{#if $userData.username && $userData.username.length}

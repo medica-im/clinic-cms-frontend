@@ -61,8 +61,8 @@
 
 	<!-- trigger -->
 	<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'language' }}>
-		<span class="text-lg xl:hidden"><Fa icon={faLanguage} /></span>
-		<span class="hidden xl:inline-block">{$LL.NAVBAR.LANGUAGE()}</span>
+		<span class="text-lg 2xl:hidden"><Fa icon={faLanguage} /></span>
+		<span class="hidden 2xl:inline-block">{$LL.NAVBAR.LANGUAGE()}</span>
 		<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 	</button>
 	<!-- popup -->

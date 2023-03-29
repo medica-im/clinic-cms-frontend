@@ -34,6 +34,7 @@
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
+	import MenuNavLinks from '$components/SkeletonAppBar/MenuNavLinks.svelte';
 
 	// Utilities
 	import { popup } from '@skeletonlabs/skeleton';
@@ -116,14 +117,14 @@
 	<svelte:fragment slot="lead">
 		<div class="flex space-x-3 xl:inline-block">
 			<!-- Hamburger Menu -->
-			<button on:click={drawerOpen} class="btn-icon btn-icon-sm lg:!hidden">
+			<button on:click={drawerOpen} class="btn-icon btn-icon xl:!hidden">
 				<Fa icon={faBars} />
 			</button>
 			<!-- Logo -->
 			<a class="flex xl:inline-block space-x-2" href="/" title={$LL.NAVBAR.GO_HOME()}>
 				
 				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
-				<span class="hidden xl:inline-block"><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span>
+				<span class="hidden 2xl:inline-block"><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span>
 			
 			</a>
 		</div>
@@ -139,7 +140,7 @@
 		</div-->
 
 		<!-- Navigate -->
-		<div class="relative hidden lg:block">
+		<div class="relative hidden xl:block">
 			<!-- trigger -->
 			<button
 				class="btn hover:variant-soft-primary"
@@ -179,7 +180,7 @@
 				</nav>
 			</div>
 		</div>
-		<div class="relative hidden lg:block">
+		<div class="hidden">
 			<!-- trigger -->
 			<button
 				class="btn hover:variant-soft-primary"
@@ -214,6 +215,9 @@
 				</nav>
 			</div>
 		</div>
+		<div class="relative hidden xl:block">
+        <MenuNavLinks />
+		</div>
 
 		<div class="relative">
 			<SkeletonLocaleSwitcher />
@@ -222,10 +226,10 @@
 		<div>
 			<!-- trigger-->
 			<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme' }}>
-					<span class="text-lg md:hidden">
+					<span class="text-lg 2xl:hidden">
 					<Fa icon={faPalette} />
 			</span>
-					<span class="hidden md:inline-block">{$LL.NAVBAR.THEME()}</span>
+					<span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span>
 					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 				</button>
 			<!-- popup -->
@@ -265,7 +269,7 @@
 
 		<!-- Social -->
 		<!-- prettier-ignore -->
-		<div class="relative hidden lg:block">
+		<div class="relative hidden xl:block">
 
 		<section>
             <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
