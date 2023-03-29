@@ -7,10 +7,8 @@ const base_uri = variables.BASE_URI;
 
 export async function GET() {
     const slugs = get(workforceSlugs);
-    console.log(slugs);
     const pages = [`contact`, `annuaire`, `accounts/login`, `timeline`];
     const paths = pages.concat(slugs);
-    console.log(paths);
     const body = sitemap(paths);
 
     return new Response(

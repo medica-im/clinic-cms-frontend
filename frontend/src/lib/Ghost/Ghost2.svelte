@@ -5,6 +5,7 @@
 	import { language } from '$lib/store/languageStore';
 	import facilityStore from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
+	import RoundCard from '$lib/components/RoundCard/RoundCard.svelte';
 	export let data;
 	const { posts } = data;
 
@@ -14,26 +15,19 @@
 	}
 </script>
 
-	<div class="card">
-		<h5 class="card-header">
-			Blog
-		</h5>
-	<ul class="list-group list-group-flush">
-		{#each posts as post}
-			<a href={post.url} class="list-group-item">
-				<div class="card">
-					<img src={post.feature_image} class="card-img-top" alt="post.feature_image_alt" />
-					<div class="card-body">
-						<div class="d-flex w-100 justify-content-between">
-							<h5 class="card-title">{post.title}</h5>
-							<small>{formatDate(post.published_at, $language)}</small>
-						</div>
-						{#if post.custom_excerpt}
-							<p class="card-text">{post.custom_excerpt}</p>
-						{/if}
-					</div>
-				</div>
-			</a>
-		{/each}
-	</ul>
-	</div>
+<div class="card overflow-hidden mx-auto p-8 space-y-8 bg-transparent">
+    <!-- Header -->
+    <header>
+        <h3>Blog</h3>
+    </header>
+	{#each posts as post}
+		<RoundCard
+		url={post.url}
+		img={post.feature_image}
+		alt={post.feature_image_alt}
+		title={post.title}
+		date={formatDate(post.published_at, $language)}
+		excerpt={post.custom_excerpt}
+		/>
+	{/each}
+</div>

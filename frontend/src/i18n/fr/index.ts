@@ -2,7 +2,6 @@ import type { Translation } from '../i18n-types';
 
 
 const fr: Translation = {
-  log: `Ce log a été appelé part '{fileName:string}'`,
   HI: "Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n",
   LOADING: "Chargement...",
   HOME: {
@@ -17,17 +16,24 @@ const fr: Translation = {
     }
   },
   CONTACT: {
-    TITLE: "Contact"
+    TITLE: "Contact",
+		CALL_US: "Appelez-nous"
   },
+	SITES: {
+		TITLE: "Sites"
+	},
   SEARCH: "Recherche",
   ADDRESSBOOK: {
+    A11Y: {
+			PROFILE_PIC_OF: "Photo de profil de"
+		},
     TITLE: "Annuaire",
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."
     },
-		FACILITIES: {
-            PLACEHOLDER: "Sélectionner par établissement..."
-		},
+    FACILITIES: {
+      PLACEHOLDER: "Sélectionner par établissement..."
+    },
     SEARCH: {
       LABEL: "Recherche",
       PLACEHOLDER: "nom ou prénom"
@@ -44,7 +50,14 @@ const fr: Translation = {
     LOGIN: "Se connecter",
     HI: "Salut",
     REGISTER: "S'enregistrer",
-    LOGOUT: "Se déconnecter"
+    LOGOUT: "Se déconnecter",
+    ABOUT: "À propos",
+    TIMELINE: "Chronologie",
+    HEALTH_PROJECT: "Projet de santé",
+    LANGUAGE: "Langue",
+    NAVIGATE: "Naviguer",
+		GO_HOME: "Aller à l'Accueil",
+    THEME: "Thème"
   },
   LOGIN: {
     LOGIN: "Connexion",
@@ -52,22 +65,45 @@ const fr: Translation = {
     NOACCOUNT: "Pas encore de compte?",
     SIGNINGIN: "Connexion en cours...",
     CREATEACCOUNT: "Créer un compte",
-		SUCCESSFUL: "Connexion réussie...",
-		LOGOUT: "Déconnexion réussie..."
+    SUCCESSFUL: "Connexion réussie...",
+    LOGOUT: "Déconnexion réussie..."
   },
   ERROR404: {
-		OOPS: "Oups!",
-		PAGENOTFOUND: "Page non trouvée.",
-		DOESNOTEXIST: "La page que vous cherchez n'existe pas.",
-		HOME: "Retourner à l'accueil",
-		BACK: "Revenir en arrière",
-	},
+    OOPS: "Oups!",
+    PAGENOTFOUND: "Page non trouvée.",
+    DOESNOTEXIST: "La page que vous cherchez n'existe pas.",
+    HOME: "Retourner à l'accueil",
+    BACK: "Revenir en arrière",
+  },
   EMAILADDRESS: "Adresse e-mail",
+  TIMELINE: {
+    TITLE: "Chronologie"
+  },
   PASSWORD: "Mot de passe",
-	USER: {
-		PROFILE: `Profil de {userName:string}`,
+  USER: {
+    PROFILE: "Profil de {userName:string}",
     ROLE: 'Rôle'
-	}
+  },
+  FACILITY: {
+		OUTPATIENT_CLINIC: 'Maison de santé'
+	},
+  BLOG: {
+		READMORE: 'Lire la suite'
+	},
+	OUTPATIENT_CLINIC: {
+		MDT_MEETING: 'réunion de concertation pluriprofessionnelle',
+    TPE: 'éducation thérapeutique du patient'
+	},
+	DISEASE: {
+		DIABETES: 'diabète'
+	},
+	WEBSITE: 'site web',
+  LEARN_MORE: 'En savoir plus',
+  LEXICON: 'lexique',
+  HEALTH_RECORD: 'dossier patient',
+	HEALTH_EDUCATION: 'éducation pour la santé',
+  PREVENTION: 'prévention',
+	PREVENTIVE_HEALTHCARE: 'prévention en santé'
 }
 
 export default fr

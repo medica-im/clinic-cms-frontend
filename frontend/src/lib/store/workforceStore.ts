@@ -94,7 +94,6 @@ export const workforceDataCached = asyncDerived(
 export const workforceSlugs = asyncDerived(
 	(workforceDataCached),
 	async ($workforceDataCached) => {
-		console.log($workforceDataCached);
 		let slugs = $workforceDataCached.map(function (currentElement) {
 			return currentElement.slug });
 		console.log(slugs);

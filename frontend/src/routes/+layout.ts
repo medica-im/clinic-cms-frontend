@@ -6,7 +6,6 @@ import LL, { setLocale } from '$i18n/i18n-svelte'
 import { get } from 'svelte/store'
 
 /** @type {import('./$types').LayoutLoad} */
-//export async function load() {
 
 export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }) => { 
 // load dictionary into memory

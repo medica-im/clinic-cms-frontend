@@ -9,13 +9,10 @@ export const notificationData = writable<string>('');
 export const i18nNotificationData = derived(
 	([language, notificationData]),
 	async ([$language, $notificationData]) => {
-        console.log($language);
-        console.log($notificationData);
         init({ initialLocale: $language, fallbackLocale: 'en' });
         //const $format = unwrapFunctionStore(format);
         //let str = $format();
         let str = get(_)($notificationData)
-        console.log(str);
         return str
     }
 );

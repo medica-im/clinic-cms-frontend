@@ -34,11 +34,18 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'facility',
             'registration',
             'google_site_verification',
+            'city',
         ]
         depth = 4
 
-        
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'formatted_name', 'definition']
+        fields = [
+            'id',
+            'name',
+            'formatted_name',
+            'definition',
+            'slug',
+        ]

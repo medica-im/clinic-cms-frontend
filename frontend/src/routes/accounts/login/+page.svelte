@@ -11,11 +11,42 @@
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { changeText } from '$lib/helpers/buttonText';
 	import LL from '$i18n/i18n-svelte';
-
-
+	import { afterUpdate, onMount } from 'svelte';
+	import {
+		Content,
+		Grid,
+		Row,
+		Column,
+		Form,
+		FluidForm,
+		FormGroup,
+		Checkbox,
+		RadioButtonGroup,
+		RadioButton,
+		Select,
+		SelectItem,
+		Button,
+		TextInput,
+		PasswordInput
+	} from 'carbon-components-svelte';
+	let submitButton;
+	let submitButtonInnerHTML: string = $LL.LOGIN.TOLOGIN();
+	let response: UserResponse;
+	let emailWarn = false;
+	let passwordWarn = false;
 	let email = '',
 		password = '',
 		errors: Array<CustomError>;
+
+	onMount(() => {
+		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+	});
+
+	$: if (response && response.user && response.user.error) {
+		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+		emailWarn = true;
+		passwordWarn = true;
+	}
 
 	const handleLogin = async () => {
 		if (browserGet('refreshToken')) {
@@ -27,11 +58,19 @@
 				password: password
 			}
 		});
-		const response: UserResponse = jsonRes;
+		console.log(`jsonRes: ${JSON.stringify(jsonRes)}`);
+		console.log(`err: ${JSON.stringify(err)}`);
+		response = jsonRes;
 
 		if (err.length > 0) {
 			errors = err;
-		} else if (response.user) {
+			console.log(`errors: ${errors}`);
+			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+		} else if (response.user && response.user.error) {
+			errors = response.user.error[0];
+			console.log(`errors: ${errors}`);
+			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+		} else if (response.user && response.user.tokens) {
 			emptyLocaleStorage();
 			browserSet('refreshToken', response.user.tokens.refresh);
 			toggleAuth();
@@ -45,46 +84,48 @@
 	<title>{$LL.LOGIN.LOGIN()}</title>
 </svelte:head>
 
+<h2>{$LL.LOGIN.LOGIN()}</h2>
 <section
 	class="container"
 	in:fly={{ x: -100, duration: 500, delay: 500 }}
 	out:fly={{ duration: 500 }}
 >
-	<h1>{$LL.LOGIN.LOGIN()}</h1>
-	{#if errors}
-		{#each errors as error}
-			<p class="center error">{error.error}</p>
-		{/each}
-	{/if}
-	<form class="form" on:submit|preventDefault={handleLogin}>
-		<div class="mb-3">
-			<label for="inputEmail" class="form-label">{$LL.EMAILADDRESS()}</label>
+	<form class="space-y-4 lg:max-w-2xl"
+		on:submit={(e) => {
+			e.preventDefault();
+			console.log('submit', e);
+			handleLogin();
+		}}
+	>
+		{#if errors}
+			<p>{errors}</p>
+		{/if}
 		<input
-		id="inputEmail"
-			bind:value={email}
-			name="email"
+			class="input"
 			type="email"
-			class="form-control"
-			aria-label={$LL.EMAILADDRESS()}
+			bind:value={email}
+			hideLabel
+			labelText={$LL.EMAILADDRESS()}
+			placeholder="{$LL.EMAILADDRESS()}..."
 			required
+			warn={emailWarn}
 		/>
-	</div>
-	<div class="mb-3">
-		<label for="inputPassword" class="form-label">{$LL.PASSWORD()}</label>
 		<input
-		id="inputPassword"
-		class="form-control"
+		class="input"
 			bind:value={password}
-			name="password"
-			type="password"
-			autocomplete="on"
-			aria-label={$LL.PASSWORD()}
 			required
+			type="password"
+			labelText={$LL.PASSWORD()}
+			placeholder="{$LL.PASSWORD()}..."
+			warn={passwordWarn}
 		/>
-		</div>
-		<button class="btn btn-primary" type="submit" on:click={(e) => changeText(e, $LL.LOGIN.SIGNINGIN())}>{$LL.LOGIN.TOLOGIN()}</button
+		<button
+		class="btn bg-primary-500"
+			bind:this={submitButton}
+			type="submit"
+			on:click={() => {
+				submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
+			}}>{submitButtonInnerHTML}</button
 		>
-		<!--div class="form-text">{$LL.LOGIN.NOACCOUNT()} <a href="/accounts/register">{$LL.LOGIN.CREATEACCOUNT()}</a>
-		</div-->
 	</form>
 </section>

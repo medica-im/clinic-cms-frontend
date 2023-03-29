@@ -16,13 +16,15 @@ class OrganizationAdmin(TranslationAdmin):
         'site',
         'language',
         'category',
+        'city',
     )
     list_filter = (
         'active',
         'category',
         'language',
+        'city',
     )
-    search_fields = ['name', 'formatted_name',]
+    search_fields = ['name', 'formatted_name', 'city']
 
 
 @admin.register(Category)
@@ -31,6 +33,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'name',
         'formatted_name',
         'definition',
+        'slug',
     )
     search_fields = ['name', 'formatted_name',]
 

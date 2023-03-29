@@ -11,7 +11,7 @@ export const selectFacilities = writable([]);
 export const facilityStore = asyncDerived(
 	([language, locale]),
 	async ([$language, $locale]) => {
-		var cachelife = 300;
+		var cachelife = 600;
 		const cacheName = "facility";
 		let cachedData;
 		let expired = true;
@@ -23,7 +23,7 @@ export const facilityStore = asyncDerived(
 			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
 		}
 		//If cached data available and not expired and array not empty, return it. Else, fetch it.
-		if (cachedData && !expired) {
+		if (cachedData && !expired && cachedData.data.length) {
 			return cachedData.data;
 		} else {
 			//otherwise fetch data from api then save the data in localstorage
@@ -43,6 +43,14 @@ export const facilityStore = asyncDerived(
 		}
 	},
 	true
+);
+
+export const siteCount = asyncDerived(
+	(facilityStore),
+	async ($facilityStore) => {
+		let len = $facilityStore.facility.length;
+		return len;
+	}	
 );
 
 export default function () {

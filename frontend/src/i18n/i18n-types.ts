@@ -15,11 +15,6 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * C​e​ ​l​o​g​ ​a​ ​é​t​é​ ​a​p​p​e​l​é​ ​p​a​r​t​ ​'​{​f​i​l​e​N​a​m​e​}​'
-	 * @param {string} fileName
-	 */
-	log: RequiredParams<'fileName'>
-	/**
 	 * S​a​l​u​t​ ​{​n​a​m​e​}​!​ ​M​e​r​c​i​ ​d​e​ ​l​a​i​s​s​e​r​ ​u​n​e​ ​é​t​o​i​l​e​ ​s​i​ ​v​o​u​s​ ​a​i​m​e​z​ ​c​e​ ​p​r​o​j​e​c​t​:​ ​h​t​t​p​s​:​/​/​g​i​t​h​u​b​.​c​o​m​/​i​v​a​n​h​o​f​e​r​/​t​y​p​e​s​a​f​e​-​i​1​8​n
 	 * @param {unknown} name
 	 */
@@ -59,12 +54,28 @@ type RootTranslation = {
 		 * C​o​n​t​a​c​t
 		 */
 		TITLE: string
+		/**
+		 * A​p​p​e​l​e​z​-​n​o​u​s
+		 */
+		CALL_US: string
+	}
+	SITES: {
+		/**
+		 * S​i​t​e​s
+		 */
+		TITLE: string
 	}
 	/**
 	 * R​e​c​h​e​r​c​h​e
 	 */
 	SEARCH: string
 	ADDRESSBOOK: {
+		A11Y: {
+			/**
+			 * P​h​o​t​o​ ​d​e​ ​p​r​o​f​i​l​ ​d​e
+			 */
+			PROFILE_PIC_OF: string
+		}
 		/**
 		 * A​n​n​u​a​i​r​e
 		 */
@@ -131,6 +142,34 @@ type RootTranslation = {
 		 * S​e​ ​d​é​c​o​n​n​e​c​t​e​r
 		 */
 		LOGOUT: string
+		/**
+		 * À​ ​p​r​o​p​o​s
+		 */
+		ABOUT: string
+		/**
+		 * C​h​r​o​n​o​l​o​g​i​e
+		 */
+		TIMELINE: string
+		/**
+		 * P​r​o​j​e​t​ ​d​e​ ​s​a​n​t​é
+		 */
+		HEALTH_PROJECT: string
+		/**
+		 * L​a​n​g​u​e
+		 */
+		LANGUAGE: string
+		/**
+		 * N​a​v​i​g​u​e​r
+		 */
+		NAVIGATE: string
+		/**
+		 * A​l​l​e​r​ ​à​ ​l​'​A​c​c​u​e​i​l
+		 */
+		GO_HOME: string
+		/**
+		 * T​h​è​m​e
+		 */
+		THEME: string
 	}
 	LOGIN: {
 		/**
@@ -188,6 +227,12 @@ type RootTranslation = {
 	 * A​d​r​e​s​s​e​ ​e​-​m​a​i​l
 	 */
 	EMAILADDRESS: string
+	TIMELINE: {
+		/**
+		 * C​h​r​o​n​o​l​o​g​i​e
+		 */
+		TITLE: string
+	}
 	/**
 	 * M​o​t​ ​d​e​ ​p​a​s​s​e
 	 */
@@ -203,13 +248,65 @@ type RootTranslation = {
 		 */
 		ROLE: string
 	}
+	FACILITY: {
+		/**
+		 * M​a​i​s​o​n​ ​d​e​ ​s​a​n​t​é
+		 */
+		OUTPATIENT_CLINIC: string
+	}
+	BLOG: {
+		/**
+		 * L​i​r​e​ ​l​a​ ​s​u​i​t​e
+		 */
+		READMORE: string
+	}
+	OUTPATIENT_CLINIC: {
+		/**
+		 * r​é​u​n​i​o​n​ ​d​e​ ​c​o​n​c​e​r​t​a​t​i​o​n​ ​p​l​u​r​i​p​r​o​f​e​s​s​i​o​n​n​e​l​l​e
+		 */
+		MDT_MEETING: string
+		/**
+		 * é​d​u​c​a​t​i​o​n​ ​t​h​é​r​a​p​e​u​t​i​q​u​e​ ​d​u​ ​p​a​t​i​e​n​t
+		 */
+		TPE: string
+	}
+	DISEASE: {
+		/**
+		 * d​i​a​b​è​t​e
+		 */
+		DIABETES: string
+	}
+	/**
+	 * s​i​t​e​ ​w​e​b
+	 */
+	WEBSITE: string
+	/**
+	 * E​n​ ​s​a​v​o​i​r​ ​p​l​u​s
+	 */
+	LEARN_MORE: string
+	/**
+	 * l​e​x​i​q​u​e
+	 */
+	LEXICON: string
+	/**
+	 * d​o​s​s​i​e​r​ ​p​a​t​i​e​n​t
+	 */
+	HEALTH_RECORD: string
+	/**
+	 * é​d​u​c​a​t​i​o​n​ ​p​o​u​r​ ​l​a​ ​s​a​n​t​é
+	 */
+	HEALTH_EDUCATION: string
+	/**
+	 * p​r​é​v​e​n​t​i​o​n
+	 */
+	PREVENTION: string
+	/**
+	 * p​r​é​v​e​n​t​i​o​n​ ​e​n​ ​s​a​n​t​é
+	 */
+	PREVENTIVE_HEALTHCARE: string
 }
 
 export type TranslationFunctions = {
-	/**
-	 * Ce log a été appelé part '{fileName}'
-	 */
-	log: (arg: { fileName: string }) => LocalizedString
 	/**
 	 * Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n
 	 */
@@ -249,12 +346,28 @@ export type TranslationFunctions = {
 		 * Contact
 		 */
 		TITLE: () => LocalizedString
+		/**
+		 * Appelez-nous
+		 */
+		CALL_US: () => LocalizedString
+	}
+	SITES: {
+		/**
+		 * Sites
+		 */
+		TITLE: () => LocalizedString
 	}
 	/**
 	 * Recherche
 	 */
 	SEARCH: () => LocalizedString
 	ADDRESSBOOK: {
+		A11Y: {
+			/**
+			 * Photo de profil de
+			 */
+			PROFILE_PIC_OF: () => LocalizedString
+		}
 		/**
 		 * Annuaire
 		 */
@@ -321,6 +434,34 @@ export type TranslationFunctions = {
 		 * Se déconnecter
 		 */
 		LOGOUT: () => LocalizedString
+		/**
+		 * À propos
+		 */
+		ABOUT: () => LocalizedString
+		/**
+		 * Chronologie
+		 */
+		TIMELINE: () => LocalizedString
+		/**
+		 * Projet de santé
+		 */
+		HEALTH_PROJECT: () => LocalizedString
+		/**
+		 * Langue
+		 */
+		LANGUAGE: () => LocalizedString
+		/**
+		 * Naviguer
+		 */
+		NAVIGATE: () => LocalizedString
+		/**
+		 * Aller à l'Accueil
+		 */
+		GO_HOME: () => LocalizedString
+		/**
+		 * Thème
+		 */
+		THEME: () => LocalizedString
 	}
 	LOGIN: {
 		/**
@@ -378,6 +519,12 @@ export type TranslationFunctions = {
 	 * Adresse e-mail
 	 */
 	EMAILADDRESS: () => LocalizedString
+	TIMELINE: {
+		/**
+		 * Chronologie
+		 */
+		TITLE: () => LocalizedString
+	}
 	/**
 	 * Mot de passe
 	 */
@@ -392,6 +539,62 @@ export type TranslationFunctions = {
 		 */
 		ROLE: () => LocalizedString
 	}
+	FACILITY: {
+		/**
+		 * Maison de santé
+		 */
+		OUTPATIENT_CLINIC: () => LocalizedString
+	}
+	BLOG: {
+		/**
+		 * Lire la suite
+		 */
+		READMORE: () => LocalizedString
+	}
+	OUTPATIENT_CLINIC: {
+		/**
+		 * réunion de concertation pluriprofessionnelle
+		 */
+		MDT_MEETING: () => LocalizedString
+		/**
+		 * éducation thérapeutique du patient
+		 */
+		TPE: () => LocalizedString
+	}
+	DISEASE: {
+		/**
+		 * diabète
+		 */
+		DIABETES: () => LocalizedString
+	}
+	/**
+	 * site web
+	 */
+	WEBSITE: () => LocalizedString
+	/**
+	 * En savoir plus
+	 */
+	LEARN_MORE: () => LocalizedString
+	/**
+	 * lexique
+	 */
+	LEXICON: () => LocalizedString
+	/**
+	 * dossier patient
+	 */
+	HEALTH_RECORD: () => LocalizedString
+	/**
+	 * éducation pour la santé
+	 */
+	HEALTH_EDUCATION: () => LocalizedString
+	/**
+	 * prévention
+	 */
+	PREVENTION: () => LocalizedString
+	/**
+	 * prévention en santé
+	 */
+	PREVENTIVE_HEALTHCARE: () => LocalizedString
 }
 
 export type Formatters = {}

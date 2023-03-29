@@ -5,15 +5,10 @@
 	import { nodeBefore } from '$lib/helpers/whitespacesHelper';
 	import type { User, UserResponse } from '$lib/interfaces/user.interface';
 	import LL from '$i18n/i18n-svelte';
-	import Tooltip, {
-    Wrapper,
-    Title,
-    Content,
-    Link,
-    RichActions,
-  } from '@smui/tooltip';
-	/** @type {import('./$types').PageData} */
-	export let data;
+	import type { PageData } from './$types';
+	import { Content, Grid, Row, Column, ToastNotification } from 'carbon-components-svelte';
+
+	export let data: PageData;
 
 	const url = `${variables.BASE_API_URI}/accounts/user/`;
 
@@ -117,13 +112,23 @@
 		</div>
 	</div>
 </div-->
-	
-<div class="container d-grid gap-3 my-3">
-{#if currentUserData}
-	{#if currentUserData.id}
+<Content>
+	<Grid padding>
+		<Row>
+			<Column>
+				
+
+{#if currentUserData && currentUserData.id}
+
 		<h1>{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
 		</h1>
-	{/if}
+
+		<ToastNotification
+		kind="info"
+		title={$LL.USER.ROLE()}
+		subtitle={currentUserData.role.label}
+		caption={currentUserData.role.description}
+	  />
 
 	<div class="user" transition:scale|local={{ start: 0.2 }}>
 		<div class="text">
@@ -199,23 +204,9 @@
 		  <h5 class="card-title">{currentUserData.role.label}</h5>
 		  <p class="card-text">{currentUserData.role.description}</p>
 		</div>
-	  </div>  
-			  <!-- Modal -->
-			  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title" id="exampleModalLabel">{currentUserData.role.label}</h5>
-					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						{currentUserData.role.description}
-					</div>
-					<div class="modal-footer">
-					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					</div>
-				  </div>
-				</div>
-			  </div>
+	</div>
 {/if}
-</div>
+</Column>
+</Row>
+</Grid>
+</Content>

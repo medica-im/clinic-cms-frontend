@@ -1,8 +1,10 @@
 from django.db import models
 
+from rest_framework import serializers
+
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
 
 from django import forms
@@ -18,18 +20,22 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from rest_framework.fields import Field
 from taggit.models import TaggedItemBase
 from wagtail.api import APIField
+
+from wagtail.admin.panels import FieldPanel
+"""
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
     InlinePanel,
 )
+"""
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page, Orderable
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.snippets.models import register_snippet
-
+from django.utils.translation import gettext_lazy as _
 from cms import blocks
 
 
@@ -41,13 +47,27 @@ class HomePage(Page):
         null=True,
         blank=True,
     )
+    categories = models.ForeignKey(
+        'cms.PageCategory',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="homepages",
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel('site'),
+        MultiFieldPanel([
+            FieldPanel('site'),
+            FieldPanel('categories'),
+        ], heading="Page information"),
         FieldPanel('body'),
     ]
 
     api_fields = [
+        APIField(
+            'categories',
+            #serializer=serializers.StringRelatedField(many=False)
+        ),
         APIField('body'),
     ]
 
@@ -59,6 +79,13 @@ class Timeline(Page):
         on_delete=models.PROTECT,
         null=True,
         blank=True,
+    )
+    categories = models.ForeignKey(
+        'cms.PageCategory',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="timelines",
     )
 
     template = "cms/home_page.html"
@@ -84,6 +111,10 @@ class Timeline(Page):
     )
 
     content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('site'),
+            FieldPanel('categories'),
+        ], heading="Page information"),
         FieldPanel('site'),
         FieldPanel("title"),
         #FieldPanel("tags"),
@@ -103,9 +134,12 @@ class Timeline(Page):
     ]
 
     api_fields = [
+        APIField(
+            'categories',
+            #serializer=serializers.StringRelatedField(many=False)
+        ),
         APIField("content"),
     ]
-
 
     #def save(self, *args, **kwargs):
     #    """Create a template fragment key.
@@ -116,3 +150,43 @@ class Timeline(Page):
     #    )
     #    cache.delete(key)
     #    return super().save(*args, **kwargs)
+
+
+class TimelineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Timeline
+        fields = (
+            "id",
+            "content",
+        )
+
+
+@register_snippet
+class PageCategory(models.Model):
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+    )
+
+    icon = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('icon'),
+    ]
+
+    api_fields = [
+        APIField("timelines", serializer=TimelineSerializer(many=True)),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = _('page categories')

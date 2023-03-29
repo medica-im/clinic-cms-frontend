@@ -6,11 +6,12 @@ logger=logging.getLogger(__name__)
 
 
 class SocialNetworkSerializer(serializers.ModelSerializer):
+    get_type_display = serializers.CharField()
+
+
     class Meta:
         model = SocialNetwork
-        fields = [
-            'id', 'handle', 'type', 'url',
-        ]
+        fields = ['type', 'get_type_display', 'handle', 'url']
 
 
 class ProfileSerializer(serializers.ModelSerializer):

@@ -3,8 +3,11 @@ type TranslationFunctions = import('$i18n/i18n-types').TranslationFunctions
 
 interface ImportMetaEnv {
     readonly VITE_BASE_API_URI_PROD: string,
-    readonly VITE_BASE_API_URI_DEV: string
-	readonly VITE_GHOST_API_KEY: string
+    readonly VITE_BASE_API_URI_DEV: string,
+	readonly VITE_BASE_CMS_API_URI_DEV: string,
+	readonly VITE_BASE_CMS_API_URI_PROD: string,
+	readonly VITE_GHOST_API_KEY: string,
+	readonly VITE_TIMELINE: boolean
 }
 
 interface ImportMeta {
@@ -26,4 +29,5 @@ declare namespace App {
 	// interface Stuff { }
 }
 
-declare module '@knight-lab/timelinejs/src/js/timeline/Timeline.mjs';
+declare module '@medecinelibre/timelinejs/src/js/timeline/Timeline.mjs';
+declare module 'svelte-carousel';

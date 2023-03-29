@@ -2,7 +2,6 @@ import type { BaseTranslation } from '../i18n-types'
 
 const en: BaseTranslation = {
 	// TODO: your translations go here
-	log: `This log was called from '{fileName:string}'`,
 	HI: "Hi {name:string}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n",
 	LOADING: "Loading...",
 	HOME: {
@@ -17,10 +16,17 @@ const en: BaseTranslation = {
 		}
 	},
 	CONTACT: {
-		TITLE: "Contact"
+		TITLE: "Contact",
+		CALL_US: "Call us"
+	},
+	SITES: {
+		TITLE: "Sites"
 	},
 	SEARCH: "Search",
 	ADDRESSBOOK: {
+		A11Y: {
+			PROFILE_PIC_OF: "Profile picture of"
+		},
 		TITLE: "Address book",
 		OCCUPATIONS: {
 			PLACEHOLDER: "Select by profession..."
@@ -44,7 +50,14 @@ const en: BaseTranslation = {
 		LOGIN: "Login",
 		HI: "Hi,",
 		REGISTER: "Register",
-		LOGOUT: "Logout"
+		LOGOUT: "Logout",
+		ABOUT: "About us",
+		TIMELINE: "Timeline",
+		HEALTH_PROJECT: "Health project",
+		LANGUAGE: "Language",
+		NAVIGATE: "Navigate",
+		GO_HOME: "Go to Homepage",
+		THEME: "Theme"
 	},
 	LOGIN: {
 		LOGIN: "Login",
@@ -64,10 +77,33 @@ const en: BaseTranslation = {
 	},
 	EMAILADDRESS: "Email address",
 	PASSWORD: "Password",
+	TIMELINE: {
+        TITLE: "Timeline"
+	},
 	USER: {
-		PROFILE: `{userName:string} profile`,
-		ROLE: 'Role'
-	}
+		PROFILE: "{userName:string} profile",
+		ROLE: "Role"
+	},
+	FACILITY: {
+		OUTPATIENT_CLINIC: 'Outpatient clinic'
+	},
+	BLOG: {
+		READMORE: 'Read more'
+	},
+	OUTPATIENT_CLINIC: {
+		MDT_MEETING: 'multi-disciplinary team meeting',
+		TPE: 'therapeutic patient education'
+	},
+	DISEASE: {
+		DIABETES: 'diabetes'
+	},
+	WEBSITE: 'website',
+	LEARN_MORE: 'Learn more',
+	LEXICON: 'lexicon',
+	HEALTH_RECORD: 'health record',
+	HEALTH_EDUCATION: 'health education',
+	PREVENTION: 'prevention',
+	PREVENTIVE_HEALTHCARE: 'preventive healthcare'
 }
 
 export default en
