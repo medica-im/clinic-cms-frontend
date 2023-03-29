@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
-	//import Popover from "carbon-components-svelte/src/Button/Button.svelte";
 	export let data;
 	import { facilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
@@ -108,16 +107,17 @@
 </p>
 <h4>Communication</h4>
 <p>Les professionnels de santé se transmettent les informations de manière organisée.</p>
+
 <ul class="list">
 	<li>
 		<span><Fa icon={faPeopleGroup} /></span><span
-			><a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
+		class="whitespace-normal"><a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
 				>Réunions de concertation pluriprofessionnelles</a
 			></span
 		>
 	</li>
 	<li>
-		<span><Fa icon={faNetworkWired} /></span><span
+		<span><Fa icon={faNetworkWired} /></span><span class="whitespace-normal"
 			><a href="/maison-de-sante/dossier-patient">Logiciel métier partagé</a>.</span
 		>
 	</li>

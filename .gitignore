@@ -81,3 +81,6 @@ db.sqlite3
 
 # SvelteKit assets
 frontend/src/lib/assets
+
+# SvelteKit test folder
+frontend/src/routes/test

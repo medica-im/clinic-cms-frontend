@@ -30,12 +30,15 @@
 </script>
 
 <button class="btn p-0 m-0" use:popup={pop()}><span class="p-0 m-0">{w}</span><span class="p-0 m-0 opacity-50"><Fa icon={faCircleQuestion}/></span></button>
-<div class="card variant-filled-secondary p-2 w-3/4 lg:w-1/3" data-popup={randString}>
+<div class="card variant-filled-secondary p-2 w-3/4 lg:w-1/3 z-10" data-popup={randString}>
 	{#if dict[w] in dict}
 		<h4>
 			<dfn><abbr>{w}</abbr> {dict[w][0]}</dfn>
 			<br>
-			{dict[dict[w][0]]}
+			{dict[dict[w][0]][0]}
+			{#if dict[dict[w][0]][1]}
+		<br><a data-sveltekit-reload href="/maison-de-sante/lexique/#{dict[w][0]}">{$LL.LEARN_MORE()}</a>
+		{/if}
 		</h4>
 	{:else}
 	<h4>
