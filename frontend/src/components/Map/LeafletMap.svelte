@@ -32,7 +32,4 @@
         height: 400px;
         z-index: -10;
     }
-    .leaflet-bottom {z-index: 0 !important;}
-    .leaflet-top {z-index: 0 !important;}
-    .leaflet-pane { z-index: 0 !important; }
 </style>

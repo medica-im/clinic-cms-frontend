@@ -7,8 +7,6 @@
 	import { page } from '$app/stores';
 	import FacilityCard from '$components/Facility/FacilityCard.svelte';
 
-	export let data;
-
 	let promise;
 	$: (promise = facilityStore.load()), $language;
 </script>
