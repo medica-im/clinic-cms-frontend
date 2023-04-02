@@ -42,9 +42,11 @@
         <nav class="list-nav">
             <ul>
                 {#each getNavGroups(navCat.id) as navGroup}
+				{#if getNavGroups(navCat.id).length > 1}
                 <li>
                     {navGroup.title}
                 </li>
+				{/if}
                 {#each navGroup.list as navLink}
                 <li>
                     <a href="{navLink.href}">
