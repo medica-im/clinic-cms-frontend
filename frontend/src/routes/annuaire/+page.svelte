@@ -33,42 +33,43 @@
 	{/await}
 </svelte:head>
 
-<div class="space-y-4">
-	{#await occupationsCardinal.load()}
-		{#each Object.keys(data.occupationsCardinal) as name}
-			<section class="space-y-4">
-				<h3>
-					{data.occupationsCardinal[name]['count']['total']}
-					{data.occupationsCardinal[name]['label']}
-				</h3>
-				<div class="grid grid-cols-2">
-					{#each data.workforceDataCached as worker}
-						{#each worker.occupations as occupation}
-							{#if occupation.name == name}
-								<Worker workerData={worker} currentOccupationName={name} />
-							{/if}
-						{/each}
+{#await occupationsCardinal.load()}
+	{#each Object.keys(data.occupationsCardinal) as name}
+		<section class="space-y-4">
+			<h3>
+				{data.occupationsCardinal[name]['count']['total']}
+				{data.occupationsCardinal[name]['label']}
+			</h3>
+			<div class="grid grid-cols-2">
+				{#each data.workforceDataCached as worker}
+					{#each worker.occupations as occupation}
+						{#if occupation.name == name}
+							<Worker workerData={worker} currentOccupationName={name} />
+						{/if}
 					{/each}
-				</div>
-			</section>
-		{/each}
-	{:then}
-		<div class="row my-2">
+				{/each}
+			</div>
+		</section>
+	{/each}
+{:then}
+	<div class="space-y-2">
+		<div class="row">
 			<div class="col">
 				<SelectOccupations />
 			</div>
 		</div>
-		<div class="row my-2">
+		<div class="row">
 			<div class="col">
 				<SelectFacilities />
 			</div>
 		</div>
-		<div class="row my-2">
+		<div class="row">
 			<div class="col">
 				<Search />
 			</div>
 		</div>
-
+	</div>
+	<div class="my-4">
 		{#each Object.keys($occupationsCardinal) as name}
 			{#if $filteredWorkforceDataCached
 				.map(function (currentElement) {
@@ -77,7 +78,7 @@
 				.flat()
 				.map((x) => x.name)
 				.includes(name)}
-				<section class="space-y-4">
+				<section class="space-y-4 my-4">
 					<h3>
 						{$occupationsCardinal[name]['count']['total']}
 						{$occupationsCardinal[name]['label']}
@@ -94,5 +95,5 @@
 				</section>
 			{/if}
 		{/each}
-	{/await}
-</div>
+	</div>
+{/await}
