@@ -171,10 +171,6 @@
 								<span class="w-6 text-center"><Fa icon={faEnvelope} /></span>
 								<span>Contact</span>
 							</a>
-							<a href="{variables.BLOG_URI}">
-								<span class="w-6 text-center"><Fa icon={faAddressBook} /></span>
-								<span>Blog</span>
-							</a>
 						</li>
 					</ul>
 				</nav>
