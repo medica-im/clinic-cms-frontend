@@ -67,6 +67,7 @@
 		items={items($facilityStore)}
 		bind:value
 		multiple
+		searchable={false}
 		on:change={handleSelect}
 		on:clear={handleClear}
 		placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()}

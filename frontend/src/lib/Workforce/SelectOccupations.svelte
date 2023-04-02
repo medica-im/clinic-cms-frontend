@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import 'svelte-select/tailwind.css';
 	import Select from 'svelte-select';
 	import { occupations, selectOccupations } from '$lib/store/workforceStore';
@@ -7,7 +7,7 @@
 	const label = 'label';
 	const itemId = 'name';
 	const items = get(occupations);
-	let value;
+	let value: string;
 	let searchable = true;
 
 	//$value: if (value && value.length) {selectOccupations.set(value.map(x => x.name))} else { selectOccupations.set([])};
@@ -61,6 +61,7 @@
 			{itemId}
 			items={$occupations}
 			multiple
+			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
 			placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}
