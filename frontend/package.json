@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "npm-run-all --parallel typesafe-i18n sveltekit ",
-		"sveltekit": "vite dev --port 3000",
+		"sveltekit": "vite dev --host --port 3000",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "playwright test",
