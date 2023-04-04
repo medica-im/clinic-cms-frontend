@@ -35,8 +35,8 @@ const en: BaseTranslation = {
             PLACEHOLDER: "Select by facility..."
 		},
 		SEARCH: {
-			LABEL: "Last name or first name",
-			PLACEHOLDER: "Search"
+			LABEL: "Name",
+			PLACEHOLDER: "Name..."
 		},
 		GOTOADDRESSBOOK: "Go back to addressbook",
 		APPOINTMENT: {

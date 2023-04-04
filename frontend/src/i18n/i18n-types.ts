@@ -98,7 +98,7 @@ type RootTranslation = {
 			 */
 			LABEL: string
 			/**
-			 * R​e​c​h​e​r​c​h​e
+			 * N​o​m​ ​o​u​ ​p​r​é​n​o​m​.​.​.
 			 */
 			PLACEHOLDER: string
 		}
@@ -394,7 +394,7 @@ export type TranslationFunctions = {
 			 */
 			LABEL: () => LocalizedString
 			/**
-			 * Recherche
+			 * Nom ou prénom...
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}

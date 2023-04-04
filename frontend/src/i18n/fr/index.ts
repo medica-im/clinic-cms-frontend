@@ -36,7 +36,7 @@ const fr: Translation = {
     },
     SEARCH: {
       LABEL: "Nom ou prénom",
-      PLACEHOLDER: "Recherche"
+      PLACEHOLDER: "Nom ou prénom..."
     },
     GOTOADDRESSBOOK: "Retourner vers l'annuaire",
     APPOINTMENT: {
