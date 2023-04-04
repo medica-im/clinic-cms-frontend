@@ -94,11 +94,11 @@ type RootTranslation = {
 		}
 		SEARCH: {
 			/**
-			 * R​e​c​h​e​r​c​h​e
+			 * N​o​m​ ​o​u​ ​p​r​é​n​o​m
 			 */
 			LABEL: string
 			/**
-			 * n​o​m​ ​o​u​ ​p​r​é​n​o​m
+			 * R​e​c​h​e​r​c​h​e
 			 */
 			PLACEHOLDER: string
 		}
@@ -120,6 +120,10 @@ type RootTranslation = {
 		 * S​p​é​c​i​a​l​i​t​é
 		 */
 		SPECIALTY: string
+		/**
+		 * E​f​f​a​c​e​r
+		 */
+		CLEAR: string
 	}
 	NAVBAR: {
 		/**
@@ -386,11 +390,11 @@ export type TranslationFunctions = {
 		}
 		SEARCH: {
 			/**
-			 * Recherche
+			 * Nom ou prénom
 			 */
 			LABEL: () => LocalizedString
 			/**
-			 * nom ou prénom
+			 * Recherche
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}
@@ -412,6 +416,10 @@ export type TranslationFunctions = {
 		 * Spécialité
 		 */
 		SPECIALTY: () => LocalizedString
+		/**
+		 * Effacer
+		 */
+		CLEAR: () => LocalizedString
 	}
 	NAVBAR: {
 		/**

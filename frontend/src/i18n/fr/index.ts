@@ -35,15 +35,16 @@ const fr: Translation = {
       PLACEHOLDER: "Sélectionner par établissement..."
     },
     SEARCH: {
-      LABEL: "Recherche",
-      PLACEHOLDER: "nom ou prénom"
+      LABEL: "Nom ou prénom",
+      PLACEHOLDER: "Recherche"
     },
     GOTOADDRESSBOOK: "Retourner vers l'annuaire",
     APPOINTMENT: {
       LABEL: "Prendre rendez-vous"
     },
     LOCATION: "Lieu d'exercice",
-    SPECIALTY: "Spécialité"
+    SPECIALTY: "Spécialité",
+		CLEAR: "Effacer"
   },
   NAVBAR: {
     ADDRESSBOOK: "Annuaire",

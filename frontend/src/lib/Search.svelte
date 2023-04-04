@@ -6,13 +6,14 @@
 	const noop = () => {};
 </script>
 
-<form class="form-floating" action="javascript:noop;" method="post">
-	<input
-		bind:value={val}
-		class="input"
-		type="text"
-		id="searchInput"
-		placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()}
-	/>
-	<!--label class="label" for="searchInput"><span>{$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()}</span></label-->
-</form>
+<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+	<div class="input-group-shim">{$LL.ADDRESSBOOK.SEARCH.LABEL()}</div>
+	<input type="search" autocomplete="off"
+	placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()} bind:value={val} />
+	<button
+		class="variant-filled-secondary"
+		on:click={() => {
+			val = '';
+		}}>{$LL.ADDRESSBOOK.CLEAR()}</button
+	>
+</div>

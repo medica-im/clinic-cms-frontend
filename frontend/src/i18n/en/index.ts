@@ -35,15 +35,16 @@ const en: BaseTranslation = {
             PLACEHOLDER: "Select by facility..."
 		},
 		SEARCH: {
-			LABEL: "Search",
-			PLACEHOLDER: "last name or first name"
+			LABEL: "Last name or first name",
+			PLACEHOLDER: "Search"
 		},
 		GOTOADDRESSBOOK: "Go back to addressbook",
 		APPOINTMENT: {
 			LABEL: "Book an appointment"
 		},
 		LOCATION: "Practice location",
-		SPECIALTY: "specialty"
+		SPECIALTY: "specialty",
+		CLEAR: "Clear"
 	},
 	NAVBAR: {
 		ADDRESSBOOK: "Addressbook",
