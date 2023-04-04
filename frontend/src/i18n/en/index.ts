@@ -36,7 +36,8 @@ const en: BaseTranslation = {
 		},
 		SEARCH: {
 			LABEL: "Name",
-			PLACEHOLDER: "Name..."
+			PLACEHOLDER: "Name...",
+			ARIA_LABEL: "Search by name"
 		},
 		GOTOADDRESSBOOK: "Go back to addressbook",
 		APPOINTMENT: {

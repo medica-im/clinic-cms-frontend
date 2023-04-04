@@ -101,6 +101,10 @@ type RootTranslation = {
 			 * N​o​m​ ​o​u​ ​p​r​é​n​o​m​.​.​.
 			 */
 			PLACEHOLDER: string
+			/**
+			 * R​e​c​h​e​r​c​h​e​ ​p​a​r​ ​N​o​m​ ​o​u​ ​p​r​é​n​o​m
+			 */
+			ARIA_LABEL: string
 		}
 		/**
 		 * R​e​t​o​u​r​n​e​r​ ​v​e​r​s​ ​l​'​a​n​n​u​a​i​r​e
@@ -397,6 +401,10 @@ export type TranslationFunctions = {
 			 * Nom ou prénom...
 			 */
 			PLACEHOLDER: () => LocalizedString
+			/**
+			 * Recherche par Nom ou prénom
+			 */
+			ARIA_LABEL: () => LocalizedString
 		}
 		/**
 		 * Retourner vers l'annuaire

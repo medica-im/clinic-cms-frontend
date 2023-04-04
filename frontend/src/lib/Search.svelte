@@ -12,8 +12,13 @@
 
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 	<div class="input-group-shim"><Fa icon={faMagnifyingGlass} /></div>
-	<input type="search" autocomplete="off"
-	placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()} bind:value={val} />
+	<input
+	type="search"
+	autocomplete="off"
+	placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()}
+	bind:value={val}
+	aria-label={$LL.ADDRESSBOOK.SEARCH.ARIA_LABEL()}
+	/>
 	<button
 		class="variant-filled-secondary"
 		on:click={() => {
