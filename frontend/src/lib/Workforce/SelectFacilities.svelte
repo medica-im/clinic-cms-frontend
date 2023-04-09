@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import Select from 'svelte-select';
 	import { get } from '@square/svelte-store';
 	import { facilityStore, selectFacilities } from '$lib/store/facilityStore';
@@ -7,6 +8,10 @@
 	const label = 'label';
     const itemId = 'value';
 	let value;
+
+	onMount( () => {
+		value = getValue();
+	});
 
 	function getValue() {
 		let facilities = get(selectFacilities);
@@ -60,7 +65,7 @@
 		<span class="visually-hidden">{$LL.LOADING()}</span>
 	</div>
 {:then $facilityStore}
-<div class="variant-filled-primary"> 
+<div class="text-surface-700 theme"> 
 	<Select
 	    {label}
 		{itemId}
@@ -74,3 +79,21 @@
 	/>
 </div>
 {/await}
+
+<style>
+	/*
+			CSS variables can be used to control theming.
+			https://github.com/rob-balfre/svelte-select/blob/master/docs/theming_variables.md
+	*/
+    .theme {
+        --border-radius: var(--theme-rounded-container);
+        --border-color: rgb(var(--color-secondary-500));
+        --border-focused: 1px solid rgb(var(--color-secondary-500));
+        --border-hover: 1px solid rgb(var(--color-secondary-500));
+        --multi-item-active-outline: 1px solid rgb(var(--color-secondary-500));
+        --multi-item-outline: 1px solid rgb(var(--color-secondary-500));
+        --clear-select-focus-outline: 1px solid rgb(var(--color-secondary-500));
+		--height: 3rem;
+		--multi-select-input-margin: 0px;
+    }
+</style>
