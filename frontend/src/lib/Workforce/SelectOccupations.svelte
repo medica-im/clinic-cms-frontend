@@ -6,7 +6,6 @@
 	import { get } from '@square/svelte-store';
 	const label = 'label';
 	const itemId = 'name';
-	const items = get(occupations);
 	let value: string;
 	let searchable = true;
 
@@ -21,7 +20,7 @@
 		if (!sOccupations.length) {
 			return null;
 		} else {
-			return get(occupations).filter((x) => sOccupations.includes(x.name));
+			return get(occupations).filter((x) => sOccupations.includes(x.name))[0];
 		}
 	}
 
@@ -45,7 +44,6 @@
 	}
 
 	function handleChange(event) {
-		console.log(event);
 		if (event.detail) {
 			selectOccupations.set([event.detail.name]);
 		}

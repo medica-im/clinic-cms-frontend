@@ -4,6 +4,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
 	import { term } from '$lib/store/workforceStore';
+	import DocsIcon from '$components/Icon/Icon.svelte';
 	let val = '';
 	import LL from '$i18n/i18n-svelte';
 	$: term.set(val);
@@ -23,6 +24,10 @@
 		class="variant-filled-secondary"
 		on:click={() => {
 			val = '';
-		}}>{$LL.ADDRESSBOOK.CLEAR()}</button
+		}}
+		aria-label={$LL.ADDRESSBOOK.CLEAR()}
+		disabled={!val}
 	>
+	<DocsIcon name="clear" width="w-5" height="h-5" />
+	</button>
 </div>
