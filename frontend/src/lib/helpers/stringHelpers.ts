@@ -6,3 +6,5 @@ first.toLocaleUpperCase(locale) + rest.join('')
 
 export const workerTitleFormattedName = (w: Worker) =>
 `${w.title}${w.title ? " " : ""}${w.formatted_name}`
+
+export const removeSpaces = (s: string) => s.replace(/\s+/g, '-');
