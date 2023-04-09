@@ -102,7 +102,7 @@ type RootTranslation = {
 			 */
 			PLACEHOLDER: string
 			/**
-			 * R​e​c​h​e​r​c​h​e​ ​p​a​r​ ​N​o​m​ ​o​u​ ​p​r​é​n​o​m
+			 * R​e​c​h​e​r​c​h​e​ ​p​a​r​ ​n​o​m​ ​o​u​ ​p​r​é​n​o​m
 			 */
 			ARIA_LABEL: string
 		}
@@ -402,7 +402,7 @@ export type TranslationFunctions = {
 			 */
 			PLACEHOLDER: () => LocalizedString
 			/**
-			 * Recherche par Nom ou prénom
+			 * Recherche par nom ou prénom
 			 */
 			ARIA_LABEL: () => LocalizedString
 		}
