@@ -97,7 +97,8 @@ const en: BaseTranslation = {
 		TPE: 'therapeutic patient education'
 	},
 	DISEASE: {
-		DIABETES: 'diabetes'
+		DIABETES: 'diabetes',
+		CANCER: 'cancer'
 	},
 	WEBSITE: 'website',
 	LEARN_MORE: 'Learn more',
@@ -105,7 +106,8 @@ const en: BaseTranslation = {
 	HEALTH_RECORD: 'health record',
 	HEALTH_EDUCATION: 'health education',
 	PREVENTION: 'prevention',
-	PREVENTIVE_HEALTHCARE: 'preventive healthcare'
+	PREVENTIVE_HEALTHCARE: 'preventive healthcare',
+	BURNOUT: 'occupational burnout'
 }
 
 export default en

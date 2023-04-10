@@ -283,6 +283,10 @@ type RootTranslation = {
 		 * d​i​a​b​è​t​e
 		 */
 		DIABETES: string
+		/**
+		 * c​a​n​c​e​r
+		 */
+		CANCER: string
 	}
 	/**
 	 * s​i​t​e​ ​w​e​b
@@ -312,6 +316,10 @@ type RootTranslation = {
 	 * p​r​é​v​e​n​t​i​o​n​ ​e​n​ ​s​a​n​t​é
 	 */
 	PREVENTIVE_HEALTHCARE: string
+	/**
+	 * s​y​n​d​r​ô​m​e​ ​d​'​é​p​u​i​s​e​m​e​n​t​ ​p​r​o​f​e​s​s​i​o​n​n​e​l
+	 */
+	BURNOUT: string
 }
 
 export type TranslationFunctions = {
@@ -582,6 +590,10 @@ export type TranslationFunctions = {
 		 * diabète
 		 */
 		DIABETES: () => LocalizedString
+		/**
+		 * cancer
+		 */
+		CANCER: () => LocalizedString
 	}
 	/**
 	 * site web
@@ -611,6 +623,10 @@ export type TranslationFunctions = {
 	 * prévention en santé
 	 */
 	PREVENTIVE_HEALTHCARE: () => LocalizedString
+	/**
+	 * syndrôme d'épuisement professionnel
+	 */
+	BURNOUT: () => LocalizedString
 }
 
 export type Formatters = {}

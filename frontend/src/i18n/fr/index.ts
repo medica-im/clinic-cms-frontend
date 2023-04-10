@@ -97,7 +97,8 @@ const fr: Translation = {
     TPE: 'éducation thérapeutique du patient'
 	},
 	DISEASE: {
-		DIABETES: 'diabète'
+		DIABETES: 'diabète',
+    CANCER: 'cancer'
 	},
 	WEBSITE: 'site web',
   LEARN_MORE: 'En savoir plus',
@@ -105,7 +106,8 @@ const fr: Translation = {
   HEALTH_RECORD: 'dossier patient',
 	HEALTH_EDUCATION: 'éducation pour la santé',
   PREVENTION: 'prévention',
-	PREVENTIVE_HEALTHCARE: 'prévention en santé'
+	PREVENTIVE_HEALTHCARE: 'prévention en santé',
+  BURNOUT: 'syndrôme d\'épuisement professionnel'
 }
 
 export default fr

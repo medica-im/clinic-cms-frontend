@@ -78,6 +78,12 @@ export const menuNavLinks: any = [
 				label: 'Diabète',
 				keywords: 'patient, ETP, diabète, éducation, thérapeutique',
 				icon: null
+			},
+			{
+				href: '/education-therapeutique/cancer',
+				label: 'Accompagnement cancer',
+				keywords: 'patient, ETP, cancer, éducation, thérapeutique',
+				icon: null
 			}
 		]
 	},
@@ -109,6 +115,12 @@ export const menuNavLinks: any = [
 				href: '/prevention/definition',
 				label: 'Définition',
 				keywords: 'prévention, santé, maladie, dépistage',
+				icon: null
+			},
+			{
+				href: '/prevention/syndrome-epuisement-professionnel',
+				label: 'Épuisement professionnel',
+				keywords: 'prévention, santé, maladie, dépistage, burnout, épuisement, professionnel',
 				icon: null
 			}
 		]

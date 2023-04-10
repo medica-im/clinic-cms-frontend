@@ -3,12 +3,11 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import healthProjectPdf from '$lib/assets/projet_de_sante_MSP_Vedene.pdf';
 </script>
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.OUTPATIENT_CLINIC.TPE()}: {$LL.DISEASE.DIABETES()}
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)}: {$LL.DISEASE.DIABETES()}
 	</title>
 </svelte:head>
 
@@ -16,7 +15,7 @@
 
 <h2>Vivez à fond avec votre diabète: programme d’éducation thérapeutique du patient diabétique</h2>  
 
-<h3>Public</h3>
+<h3>Personnes concernées</h3>
 <p>
 Ce programme s’adresse à toutes les personnes diabétiques de type 2 âgées de plus de 18 ans, que leur diabète soit insulino-requérant ou non.
 </p>

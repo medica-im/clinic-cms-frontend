@@ -63,7 +63,7 @@
 <section class="w-fit card p-4 m-4 bg-transparent space-y-4">
 	<h3>Ateliers</h3>
 	<div class="variant-soft-surface pl-5 pr-2 py-2">
-		<ul class="list-disc">
+		<ul class="list-disc space-y-4">
 			<li>Sommeil et rythme de vie de bébé</li>
 			<li>Approfondir et conforter les relations avec son enfant</li>
 			<li>Gestion des émotions parents / bébé</li>
