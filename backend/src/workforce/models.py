@@ -216,3 +216,15 @@ class Label(models.Model):
         except Label.DoesNotExist as e:
             logger.debug(f'{e} for {node=}, {gender=}, {number=}, {language=}')
             return
+
+    
+class WorkforceSlug(models.Model):
+    slug = models.SlugField(max_length=255, unique=True)
+    node = models.OneToOneField(
+        'workforce.NetworkNode',
+        on_delete=models.CASCADE,
+        related_name="slug",
+    )
+    
+    def __str__(self):
+        return self.slug

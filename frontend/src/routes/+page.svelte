@@ -10,9 +10,19 @@
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { occupationsCardinal, selectOccupations, term, workforceOccupation } from '$lib/store/workforceStore';
+	import { selectFacilities } from '$lib/store/facilityStore';
 	import { onMount } from 'svelte';
+	import { invalidate } from '$app/navigation';
+	
 	/** @type {import('./$types').PageData} */
 	export let data;
+
+	onMount(() => {
+	selectOccupations.set([]);
+	selectFacilities.set([]);
+	term.set('');
+});
 
 	const queryClient = new QueryClient();
 	let promise;
@@ -43,7 +53,15 @@
 			</div>
 		</section>
 	{:then}-->
-		<Team facility={$facilityStore} />
+		<Team data={
+		    {
+				"facility": $facilityStore,
+				"cO": data.occupationsCardinal,
+				"sO": $selectOccupations,
+				"term": $term,
+				"wO": data.workforceOccupation
+			}
+		} />
 		<!--{/await}-->
 	</div>
 	<div>

@@ -6,7 +6,7 @@
 	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
-	export let facility;
+	export let data: any;
 </script>
 
 <div class="card card-hover overflow-hidden">
@@ -20,14 +20,19 @@
 	</header>
 	<!-- Body -->
 	<div class="p-4 space-y-4">
-		<h6 class="text-primary-500">{capitalizeFirstLetter(facility.formatted_name, $language)}</h6>
+		<h6 class="text-primary-500">{capitalizeFirstLetter(data.facility.formatted_name, $language)}</h6>
 		<h3>{$LL.HOME.TEAM.TITLE()}</h3>
 		<article>
 			<p>
 				{$LL.HOME.TEAM.TEXT()}
 			</p>
 			<p>
-				<Occupations />
+				<Occupations data = {
+					{
+						"cO": data.cO,
+						"wO": data.wO
+					}
+				} />
 			</p>
 		</article>
 	</div>

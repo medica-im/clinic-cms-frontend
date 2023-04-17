@@ -23,15 +23,9 @@
 </script>
 
 <svelte:head>
-	{#await promise}
-		<title>
-			{capitalizeFirstLetter($page.data.facility.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}
-		</title>
-	{:then}
-		<title>
-			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}
-		</title>
-	{/await}
+	<title>
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}: {data.slug}
+	</title>
 </svelte:head>
 
 {#await filteredOccupationsCardinal.load()}
@@ -53,13 +47,13 @@
 		</div>
 	</div>
 	<div class="my-4">
-		{#each Object.keys(data.occupationsCardinal) as name}
+		{#each Object.keys(data.selectedOccupationsCardinal) as name}
 			<section class="space-y-4 my-4">
 				<h3>
-					{data.occupationsCardinal[name]['count']['total']}
-					{data.occupationsCardinal[name]['label']}
+					{data.selectedOccupationsCardinal[name]['count']['total']}
+					{data.selectedOccupationsCardinal[name]['label']}
 				</h3>
-				<div class="grid grid-cols-2">
+				<div class="grid lg:grid-cols-2">
 					{#each data.workforceDataCached as worker}
 						{#each worker.occupations as occupation}
 							{#if occupation.name == name}

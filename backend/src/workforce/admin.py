@@ -11,6 +11,7 @@ from .models import (
     Label,
     WorkforceNetworkedgeOrganizations,
     WorkforceNetworkedgeFacilities,
+    WorkforceSlug,
 )
 from modeltranslation.admin import TranslationAdmin
 from django.utils.translation import gettext_lazy as _
@@ -439,3 +440,13 @@ class LabelAdmin(admin.ModelAdmin):
         return [gender.name for gender in obj.gender.all()]
 
     genders_tag.short_description = _("Genders")
+
+
+@admin.register(WorkforceSlug)
+class WorkforceSlugAdmin(TranslationAdmin):
+    list_display = (
+        'slug',
+        'node',
+    )
+    
+    autocomplete_fields = ['node',]

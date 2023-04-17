@@ -25,7 +25,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 				}
 			}
 			let id = w.id;
-			let apiUrl = `${variables.BASE_API_URI}/workforce/${id}/?lang=${language}`;
+			let apiUrl = `${variables.BASE_API_URI}/workforce/user/${id}/?lang=${language}`;
 			const [response, _error] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				if (response.profile) {

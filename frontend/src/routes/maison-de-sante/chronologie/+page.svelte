@@ -4,12 +4,6 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import LL from '$i18n/i18n-svelte';
-	import {
-		Content,
-		Grid,
-		Row,
-		Column,
-	} from 'carbon-components-svelte';
 
 	export let data;
 
@@ -18,16 +12,9 @@
 </script>
 
 <svelte:head>
-		<title>
-			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.TIMELINE.TITLE()}
-		</title>
+	<title>
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.TIMELINE.TITLE()}
+	</title>
 </svelte:head>
-<Content>
-	<Grid padding>
-		<Row>
-			<Column>
-				<TimeLine data={data.timeline} />
-			</Column>
-		</Row>
-	</Grid>
-</Content>
+
+<TimeLine data={data.timeline} />
