@@ -12,8 +12,6 @@ import {
     selectOccupations,
     workforceOccupation } from '$lib/store/workforceStore';
 
-export const prerender = true;
-
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
   }
