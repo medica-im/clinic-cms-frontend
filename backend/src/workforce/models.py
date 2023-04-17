@@ -247,6 +247,6 @@ class WorkforceSlug(models.Model):
         return self.slug
     
     def natural_key(self):
-        return (self.slug,) + self.node.natural_key()
+        return (self.slug,)
     
     natural_key.dependencies = ['workforce.NetworkNode']
