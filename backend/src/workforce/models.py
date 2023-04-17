@@ -165,7 +165,7 @@ class NetworkNode(node_factory(NetworkEdge)):
         return self.name
     
     def natural_key(self):
-        return (self.name)
+        return (self.name,)
 
 
 class Label(models.Model):
