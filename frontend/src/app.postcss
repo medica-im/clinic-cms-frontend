@@ -1,2 +1,21 @@
 /* Write your global styles here, in PostCSS syntax */
-html, body { @apply h-full overflow-hidden; }
+html,
+body { @apply h-full overflow-hidden; }
+
+/* Page Styles */
+/* Use these to define common page styles. */
+.page-container {
+	@apply container mx-auto page-padding space-y-10;
+}
+.page-container-wide {
+	@apply w-full max-w-7xl mx-auto space-y-10;
+}
+.page-container-aside {
+	@apply w-full max-w-4xl mx-auto space-y-10;
+}
+.page-padding {
+	@apply p-4 md:p-10;
+}
+.page-section {
+	@apply space-y-4;
+}

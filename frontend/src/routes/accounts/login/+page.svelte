@@ -12,23 +12,6 @@
 	import { changeText } from '$lib/helpers/buttonText';
 	import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount } from 'svelte';
-	import {
-		Content,
-		Grid,
-		Row,
-		Column,
-		Form,
-		FluidForm,
-		FormGroup,
-		Checkbox,
-		RadioButtonGroup,
-		RadioButton,
-		Select,
-		SelectItem,
-		Button,
-		TextInput,
-		PasswordInput
-	} from 'carbon-components-svelte';
 	let submitButton;
 	let submitButtonInnerHTML: string = $LL.LOGIN.TOLOGIN();
 	let response: UserResponse;

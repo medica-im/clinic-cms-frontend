@@ -1,14 +1,4 @@
 <script lang="ts">
-	import { facilityStore } from '$lib/store/facilityStore';
-	import {
-		filteredWorkforceDataCached,
-		occupations,
-		occupationsCardinal
-	} from '$lib/store/workforceStore';
-	import Worker from '$lib/Workforce/Worker.svelte';
-	import Search from '$lib/Search.svelte';
-	import SelectOccupations from '$lib/Workforce/SelectOccupations.svelte';
-	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
 	import LeafletMap from '$components/Map/LeafletMap.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';

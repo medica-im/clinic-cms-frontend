@@ -86,10 +86,44 @@ class WorkforceLabel(APIView):
         return Response(dictionary)
 
 
-class WorkforceViewSet(viewsets.ReadOnlyModelViewSet):
+class WorkforceBaseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.NetworkNode.objects.all()
-    serializer_class = serializers.WorkforceSerializer
+    #serializer_class = serializers.WorkforceSerializer
     permission_classes = (AllowAny,)
+
+    def get_queryset(self):
+        #language = self.kwargs.get('language', None)
+        language = self.request.query_params.get('lang')
+        logger.debug(f'kwargs {language=}')
+        activate_locale(language,self.request)
+        organization = get_organization(self.request)
+        logger.debug(f'{organization=}')
+        #user=models.NodeSet.objects.get(name="user")
+        role=get_role(self.request)
+        organization_edge_qs_child_ids= (
+            models.NetworkEdge.objects
+            .filter(
+                organizations=organization,
+                networkedge_organizations__roles=role
+            )
+            .values_list("child_id", flat=True)
+        )
+        return models.NetworkNode.objects.filter(
+            #node_set=user,
+            id__in=organization_edge_qs_child_ids
+        )
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        logger.debug(f'{self.request=}')
+        return context
+
+
+class WorkforceUserViewSet(WorkforceBaseViewSet):
+    #queryset = models.NetworkNode.objects.all()
+    serializer_class = serializers.WorkforceUserSerializer
+    #permission_classes = (AllowAny,)
 
     def get_queryset(self):
         #language = self.kwargs.get('language', None)
@@ -113,8 +147,16 @@ class WorkforceViewSet(viewsets.ReadOnlyModelViewSet):
             id__in=organization_edge_qs_child_ids
         )
 
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context['request'] = self.request
-        logger.debug(f'{self.request=}')
-        return context
+
+class WorkforceOccupationViewSet(WorkforceBaseViewSet):
+    #queryset = models.NetworkNode.objects.all()
+    serializer_class = serializers.WorkforceOccupationSerializer
+    #permission_classes = (AllowAny,)
+
+    def get_queryset(self):
+        language = self.request.query_params.get('lang')
+        activate_locale(language,self.request)
+        occupation=models.NodeSet.objects.get(name="occupation")
+        return models.NetworkNode.objects.filter(
+            node_set=occupation,
+        )

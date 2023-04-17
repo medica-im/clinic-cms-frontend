@@ -26,7 +26,6 @@
 	import { variables } from '$lib/utils/constants';
 	import { language } from '$lib/store/languageStore';
 	import favicon from '$lib/assets/favicon.png';
-	import { Content, Grid, Row } from 'carbon-components-svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
 	import { Modal } from '@skeletonlabs/skeleton';
 	import { Toast } from '@skeletonlabs/skeleton';
@@ -88,7 +87,8 @@
 		// Store current page route URL
 		storeCurrentUrl.set($page.url.pathname);
 		// Scroll to top
-		const isNewPage: boolean = params.from && params.to && params.from.route.id !== params.to.route.id;
+		const isNewPage: boolean =
+			params.from && params.to && params.from.route.id !== params.to.route.id;
 		const elemPage = document.querySelector('#page');
 		if (isNewPage && elemPage !== null) {
 			elemPage.scrollTop = 0;
@@ -96,19 +96,16 @@
 	});
 
 	function matchList(pageUrlPath: string): boolean {
-		const url = ["maison-de-sante", "education-therapeutique", "education-sante", "prevention"];
-		let match = (
-			url.filter(
-			function(e) {
-				let m: bool;
-				try {
-				    m = pageUrlPath.includes(e);
-				} catch(err) {
-					m = false;
-				}
-				return m
+		const url = ['maison-de-sante', 'education-therapeutique', 'education-sante', 'prevention'];
+		let match = url.filter(function (e) {
+			let m: bool;
+			try {
+				m = pageUrlPath.includes(e);
+			} catch (err) {
+				m = false;
 			}
-		));
+			return m;
+		});
 		return Boolean(match.length);
 	}
 
@@ -117,8 +114,8 @@
 		modalSearch: { ref: Search }
 	};
 
-// Disable left sidebar on homepage
-$: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto' : 'w-0';
+	// Disable left sidebar on homepage
+	$: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto' : 'w-0';
 </script>
 
 <svelte:head>
@@ -129,7 +126,7 @@ $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg
 <Toast />
 
 {#await facilityStore.load()}
-<Drawer data={data.facility} />
+	<Drawer data={data.facility} />
 
 	<!-- App Shell -->
 	<!--Navigation facility="{data.facility}"></Navigation-->
@@ -152,13 +149,15 @@ $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg
 				</p>
 			{/if}
 		</svelte:fragment>
-		<slot />
+		<div class="container mx-auto p-6 space-y-6">
+			<slot />
+		</div>
 		<svelte:fragment slot="footer">
 			<Footer />
 		</svelte:fragment>
 	</AppShell>
 {:then}
-<Drawer data={$facilityStore} />
+	<Drawer data={$facilityStore} />
 	<!--Navigation facility="{$facilityStore}"></Navigation-->
 	<AppShell {slotSidebarLeft}>
 		<svelte:fragment slot="header">
@@ -179,7 +178,7 @@ $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg
 			</p>
 		{/if}
 		<div class="container mx-auto p-6 space-y-6">
-		<slot />
+			<slot />
 		</div>
 		<svelte:fragment slot="footer">
 			<Footer />

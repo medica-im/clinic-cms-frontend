@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { occupationsCardinal, selectOccupations, term } from '$lib/store/workforceStore';
+	import { occupationsCardinal, selectOccupations, term, workforceOccupation } from '$lib/store/workforceStore';
 	import { selectFacilities } from '$lib/store/facilityStore';
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';
 	import { onMount } from 'svelte';
+	export let data: any;
 
 	onMount(() => {
 	selectOccupations.set([]);
@@ -14,19 +15,20 @@
 </script>
 
 <div>
-{#await occupationsCardinal.load()}
+<!--
+{#await filteredOccupationsCardinal.load()}
 		{#each Object.keys($page.data.occupationsCardinal) as name}
 		<span class="badge variant-ringed-primary m-2">
-				{$page.data.occupationsCardinal[name]['count']['total']}
-				{$page.data.occupationsCardinal[name]['label']}
+				{$page.data.filteredOccupationsCardinal[name]['count']['total']}
+				{$page.data.filteredOccupationsCardinal[name]['label']}
 		</span>
 		{/each}
-{:then}
-		{#each Object.keys($occupationsCardinal) as name}
-		<span class="badge variant-ringed-primary m-2">
-				{$occupationsCardinal[name]['count']['total']}
-				{$occupationsCardinal[name]['label']}
-		</span>
+{:then}-->
+		{#each Object.keys(data.cO) as name}
+		<a href={`/annuaire/${data["wO"][name]}`} rel="external"><span class="badge variant-ringed-primary m-2">
+				{data.cO[name]['count']['total']}
+				{data.cO[name]['label']}
+		</span></a>
 		{/each}
-{/await}
+<!--{/await}-->
 </div>

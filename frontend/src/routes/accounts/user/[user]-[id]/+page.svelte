@@ -6,7 +6,7 @@
 	import type { User, UserResponse } from '$lib/interfaces/user.interface';
 	import LL from '$i18n/i18n-svelte';
 	import type { PageData } from './$types';
-	import { Content, Grid, Row, Column, ToastNotification } from 'carbon-components-svelte';
+
 
 	export let data: PageData;
 
@@ -27,108 +27,17 @@
 			if (updateResponse) currentUserData = updateResponse.user; // if updated data is available, update the currentUserData too...
 		})();
 </script>
-<style>
-/*.help {cursor: help;}*/
-</style>
-<!--div class="container d-grid gap-3">
-	<div class="row g-3">
-		<div class="col-auto">
-			<form class="form-floating">
-				<input
-					type="text"
-					class="form-control"
-					id="floatingInputValue"
-					placeholder="name@example.com"
-					value={currentUserData.username}
-				/>
-				<label for="floatingInputValue">Username</label>
-			</form>
-		</div>
-		<div class="col-auto">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-		</div>
-	</div>
-	<div class="row g-3">
-		<div class="col-auto">
-			<form class="form-floating">
-				<input
-					type="text"
-					class="form-control"
-					id="floatingInputValue"
-					placeholder="name@example.com"
-					value={currentUserData.full_name}
-				/>
-				<label for="floatingInputValue">Full name</label>
-			</form>
-		</div>
-		<div class="col-auto">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-		</div>
-	</div>
-	<div class="row g-3 justify-content-start">
-		<div class="col-auto">
-			<form class="form-floating">
-				<input
-					type="email"
-					class="form-control"
-					id="floatingInputValue"
-					placeholder="name@example.com"
-					value={currentUserData.email}
-				/>
-				<label for="floatingInputValue">Email</label>
-			</form>
-		</div>
-		<div class="col-auto">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-		</div>
-	</div>
-	<div class="row g-3 justify-content-start">
-		<div class="col-auto">
-			<div class="form-floating">
-				<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px">{currentUserData.bio}</textarea>
-                <label for="floatingTextarea">Bio</label>
-			</div>
-		</div>
-		<div class="col-auto">
-				<button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-		</div>
-	</div>
-	<div class="row g-3">
-		<div class="col-auto">
-			<form class="form-floating">
-				<input
-					type="date"
-					name="birth_date"
-					class="form-control"
-					id="birthDateInputValue"
-					placeholder="name@example.com"
-					value={currentUserData.birth_date}
-				/>
-				<label for="floatingInputValue">Date of birth</label>
-			</form>
-		</div>
-		<div class="col-auto">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-		</div>
-	</div>
-</div-->
-<Content>
-	<Grid padding>
-		<Row>
-			<Column>
-				
 
 {#if currentUserData && currentUserData.id}
 
 		<h1>{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
 		</h1>
 
-		<ToastNotification
-		kind="info"
-		title={$LL.USER.ROLE()}
-		subtitle={currentUserData.role.label}
-		caption={currentUserData.role.description}
-	  />
+		<div class="card">
+			<header class="card-header">{$LL.USER.ROLE()}</header>
+			<section class="p-4">{currentUserData.role.label}</section>
+			<footer class="card-footer">{currentUserData.role.description}</footer>
+		</div>
 
 	<div class="user" transition:scale|local={{ start: 0.2 }}>
 		<div class="text">
@@ -206,7 +115,3 @@
 		</div>
 	</div>
 {/if}
-</Column>
-</Row>
-</Grid>
-</Content>

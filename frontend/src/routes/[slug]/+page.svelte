@@ -9,7 +9,6 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
-	import { Content, Grid, Row, Column, ToastNotification } from 'carbon-components-svelte';
 	import WorkerPage from '$lib/Workforce/WorkerPage.svelte';
 	import { workerData, workerSlug } from '$lib/store/workforceStore';
 

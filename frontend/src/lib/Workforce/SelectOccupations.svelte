@@ -4,9 +4,11 @@
 	import { occupations, selectOccupations } from '$lib/store/workforceStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	const label = 'label';
 	const itemId = 'name';
-	let value: string;
+	let value: [];
 	let searchable = true;
 
 	//$value: if (value && value.length) {selectOccupations.set(value.map(x => x.name))} else { selectOccupations.set([])};
@@ -34,6 +36,7 @@
 	}
 
 	function handleClear(event) {
+		console.log(event.detail);
 		if (event.detail) {
 			const cleared = event.detail;
 			const clearedNames = toArray(cleared);
@@ -41,19 +44,30 @@
 			const arrayAfter = sOccupations.filter((x) => !clearedNames.includes(x));
 			selectOccupations.set(arrayAfter);
 		}
+		const pageStore = get(page);
+		console.log(pageStore);
+		if (pageStore.params) {
+			goto('/annuaire');
+		}
 	}
 
 	function handleChange(event) {
 		if (event.detail) {
 			selectOccupations.set([event.detail.name]);
 		}
+		const pageStore = get(page);
+		if (pageStore.params) {
+			goto('/annuaire');
+		}
 	}
 </script>
-
 {#await occupations.load()}
-	<div class="spinner-border" role="status">
-		<span class="visually-hidden">{$LL.LOADING()}</span>
-	</div>
+<div class="text-surface-700 theme">
+	<Select
+	    loading={true}
+		placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}
+	/>
+</div>
 {:then}
 	<div class="text-surface-700 theme">
 		<Select

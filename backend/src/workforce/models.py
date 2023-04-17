@@ -137,7 +137,14 @@ class NetworkEdge(edge_factory("NetworkNode", concrete=False)):
         super().save(*args, **kwargs)
 
 
+class NetworkNodeManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
 class NetworkNode(node_factory(NetworkEdge)):
+    objects = NetworkNodeManager()
+
     name = models.CharField(max_length=100, unique=True)
     label = models.CharField(max_length=255, blank=True)
     mesh = models.ForeignKey(
@@ -156,6 +163,9 @@ class NetworkNode(node_factory(NetworkEdge)):
 
     def __str__(self):
         return self.name
+    
+    def natural_key(self):
+        return (self.name,)
 
 
 class Label(models.Model):
@@ -216,3 +226,27 @@ class Label(models.Model):
         except Label.DoesNotExist as e:
             logger.debug(f'{e} for {node=}, {gender=}, {number=}, {language=}')
             return
+
+
+class WorkforceSlugManager(models.Manager):
+    def get_by_natural_key(self, slug):
+        return self.get(slug=slug)
+
+
+class WorkforceSlug(models.Model):
+    objects = WorkforceSlugManager()
+
+    slug = models.SlugField(max_length=255, unique=True)
+    node = models.OneToOneField(
+        'workforce.NetworkNode',
+        on_delete=models.CASCADE,
+        related_name="slug",
+    )
+
+    def __str__(self):
+        return self.slug
+    
+    def natural_key(self):
+        return (self.slug,)
+    
+    natural_key.dependencies = ['workforce.NetworkNode']

@@ -22,15 +22,6 @@
 	</title>
 	<!--{/await}-->
 </svelte:head>
-<!--
-{#await facilityStore.load()}
-	<FacilityList organizationData={data.facilityData} />
-	{#each data.facilityData.facility as facility}
-		{#if facility.contact}
-			<FacilityCard {facility} />
-		{/if}
-	{/each}
-{:then}-->
 <div>
 <nav class="lg:sticky z-auto top-0 p-2 m-2 variant-filled-surface">
 	<FacilityList organizationData={$facilityStore} />
