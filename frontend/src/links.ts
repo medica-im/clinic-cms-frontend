@@ -122,6 +122,12 @@ export const menuNavLinks: any = [
 				label: 'Épuisement professionnel',
 				keywords: 'prévention, santé, maladie, dépistage, burnout, épuisement, professionnel',
 				icon: null
+			},
+			{
+				href: '/prevention/alimentation',
+				label: 'Alimentation',
+				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
+				icon: null
 			}
 		]
 	}

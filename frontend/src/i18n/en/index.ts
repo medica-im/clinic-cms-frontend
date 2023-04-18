@@ -107,7 +107,8 @@ const en: BaseTranslation = {
 	HEALTH_EDUCATION: 'health education',
 	PREVENTION: 'prevention',
 	PREVENTIVE_HEALTHCARE: 'preventive healthcare',
-	BURNOUT: 'occupational burnout'
+	BURNOUT: 'occupational burnout',
+	EATING: 'Eating'
 }
 
 export default en

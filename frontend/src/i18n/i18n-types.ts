@@ -320,6 +320,10 @@ type RootTranslation = {
 	 * s​y​n​d​r​ô​m​e​ ​d​'​é​p​u​i​s​e​m​e​n​t​ ​p​r​o​f​e​s​s​i​o​n​n​e​l
 	 */
 	BURNOUT: string
+	/**
+	 * A​l​i​m​e​n​t​a​t​i​o​n
+	 */
+	EATING: string
 }
 
 export type TranslationFunctions = {
@@ -627,6 +631,10 @@ export type TranslationFunctions = {
 	 * syndrôme d'épuisement professionnel
 	 */
 	BURNOUT: () => LocalizedString
+	/**
+	 * Alimentation
+	 */
+	EATING: () => LocalizedString
 }
 
 export type Formatters = {}

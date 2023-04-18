@@ -44,14 +44,14 @@
 					<p class="space-x-2">
 						<Address contactData={facility.contact} />
 					</p>
-					<p class="space-x-2">
+					<span class="inline-block align-middle space-x-1">
 						{#if facility.contact.websites}
 							{#each facility.contact.websites as website}
 								<Website {website} />
 							{/each}
 						{/if}
 						<SoMed data={facility.contact.socialnetworks} appBar={false} />
-					</p>
+					</span>
 				</div>
 				<!-- Footer -->
 				<!--footer class="p-4 flex justify-start items-center space-x-4">

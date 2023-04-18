@@ -107,7 +107,8 @@ const fr: Translation = {
 	HEALTH_EDUCATION: 'éducation pour la santé',
   PREVENTION: 'prévention',
 	PREVENTIVE_HEALTHCARE: 'prévention en santé',
-  BURNOUT: 'syndrôme d\'épuisement professionnel'
+  BURNOUT: 'syndrôme d\'épuisement professionnel',
+  EATING: 'Alimentation'
 }
 
 export default fr
