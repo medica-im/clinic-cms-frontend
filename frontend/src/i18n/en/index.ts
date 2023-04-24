@@ -94,7 +94,12 @@ const en: BaseTranslation = {
 	},
 	OUTPATIENT_CLINIC: {
 		MDT_MEETING: 'multi-disciplinary team meeting',
-		TPE: 'therapeutic patient education'
+		TPE: 'therapeutic patient education',
+		PROGRAMS: 'programs',
+		OUR_PROGRAM: 'our program',
+		OUR_PROGRAMS: 'our programs',
+		OUR_OTHER_PROGRAM: 'our other program',
+		OUR_OTHER_PROGRAMS: 'our other programs'
 	},
 	DISEASE: {
 		DIABETES: 'diabetes',
@@ -108,7 +113,12 @@ const en: BaseTranslation = {
 	PREVENTION: 'prevention',
 	PREVENTIVE_HEALTHCARE: 'preventive healthcare',
 	BURNOUT: 'occupational burnout',
-	EATING: 'Eating'
+	EATING: 'Eating',
+	PRIVACY_POLICY: 'privacy policy',
+	LEGAL_NOTICES: 'legal notices',
+	RESOURCES: 'resources',
+	LEGAL: 'legal',
+	PHONE: 'phone'
 }
 
 export default en

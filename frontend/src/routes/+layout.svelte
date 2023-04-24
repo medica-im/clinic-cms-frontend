@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { facilityStore } from '$lib/store/facilityStore';
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
@@ -6,7 +7,6 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { storeCurrentUrl, storeTheme } from '$lib/store/skeletonStores';
 	import Sidebar from '$components/Sidebar/Sidebar.svelte';
-	import { facilityStore } from '$lib/store/facilityStore';
 	import { userData } from '$lib/store/userStore';
 	import { navigating } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
@@ -124,18 +124,17 @@
 <!-- Overlays -->
 <Modal components={modalComponentRegistry} />
 <Toast />
-
+<!--
 {#await facilityStore.load()}
-	<Drawer data={data.facility} />
+-->
+<Drawer data={$facilityStore} />
 
-	<!-- App Shell -->
-	<!--Navigation facility="{data.facility}"></Navigation-->
-	<AppShell {slotSidebarLeft}>
+<AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4">
 		<svelte:fragment slot="header">
-			<SkeletonAppBar facility={data.facility} />
+			<SkeletonAppBar facility={$facilityStore} />
 		</svelte:fragment>
 		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data={data.facility} class="hidden lg:grid w-[360px] overflow-hidden" />
+			<Sidebar data={$facilityStore} class="hidden lg:grid w-[360px] overflow-hidden" />
 		</svelte:fragment>
 		<svelte:fragment slot="pageHeader">
 			{#if $notificationData}
@@ -152,18 +151,16 @@
 		<div class="container mx-auto p-6 space-y-6">
 			<slot />
 		</div>
-		<svelte:fragment slot="footer">
-			<Footer />
-		</svelte:fragment>
+		<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 	</AppShell>
+
+	<!--
 {:then}
 	<Drawer data={$facilityStore} />
-	<!--Navigation facility="{$facilityStore}"></Navigation-->
 	<AppShell {slotSidebarLeft}>
 		<svelte:fragment slot="header">
 			<SkeletonAppBar facility={$facilityStore} />
 		</svelte:fragment>
-		<!-- Sidebar (Left) -->
 		<svelte:fragment slot="sidebarLeft">
 			<Sidebar data={$facilityStore} class="hidden lg:grid w-[360px] overflow-hidden" />
 		</svelte:fragment>
@@ -180,8 +177,7 @@
 		<div class="container mx-auto p-6 space-y-6">
 			<slot />
 		</div>
-		<svelte:fragment slot="footer">
-			<Footer />
-		</svelte:fragment>
+		<svelte:fragment slot="pageFooter"><Footer data={$facilityStore} /></svelte:fragment>
 	</AppShell>
 {/await}
+-->

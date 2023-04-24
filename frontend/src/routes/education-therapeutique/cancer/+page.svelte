@@ -3,6 +3,8 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
+	import { page } from '$app/stores';
+    import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
 <svelte:head>
@@ -54,3 +56,5 @@
 
 <h3>Conditions d'accès</h3>
 <p>Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc gratuite.</p>
+
+<ProgramNav data={$page.url.pathname} />

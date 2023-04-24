@@ -22,6 +22,8 @@
 		faHandshake,
 		faPeopleGroup
 	} from '@fortawesome/free-solid-svg-icons';
+	import { page } from '$app/stores';
+    import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
 <svelte:head>
@@ -111,3 +113,5 @@
 		gratuite.
 	</p>
 </section>
+
+<ProgramNav data={$page.url.pathname} />

@@ -3,7 +3,6 @@
 	import { variables } from '$lib/utils/constants';
 	import { locale } from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
-	import facilityStore from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import RoundCard from '$lib/components/RoundCard/RoundCard.svelte';
 	export let data;
@@ -15,11 +14,12 @@
 	}
 </script>
 
-<div class="card overflow-hidden mx-auto p-8 space-y-8 bg-transparent">
-    <!-- Header -->
-    <header>
-        <h3>Blog</h3>
-    </header>
+<div class="card variant-glass-surface p-4">
+<div class="card-header">
+<h3>Blog</h3>
+</div>
+<div class="p-4">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 items-start">
 	{#each posts as post}
 		<RoundCard
 		url={post.url}
@@ -30,4 +30,6 @@
 		excerpt={post.custom_excerpt}
 		/>
 	{/each}
+</div>
+</div>
 </div>

@@ -53,6 +53,7 @@ export const siteCount = asyncDerived(
 	}	
 );
 
+/*
 export default function () {
 	const loading = writable(false)
 	const error = writable(false)
@@ -77,28 +78,4 @@ export default function () {
 	
 	return [ data, loading, error, getIt]
 }
-
-
-export const facilitiesData = writable([], set => {
-	fetchFacilities(set);
-	return () => {
-	};
-});
-
-async function fetchFacilities(set) {
-	const facilitiesUrl = `${variables.BASE_API_URI}/facility/`;
-	const response = await fetch(facilitiesUrl).then(function (response) {
-		if (response.ok) {
-			const data = response.json();
-			if (data) {
-				let facility = data as Facility;
-				set(facility);
-			} else {
-				return Promise.reject(response);
-			}
-		}
-	}).catch(function (err) {
-		console.warn(`Could not get new token. error: ${err}`);
-	}
-	)
-}
+*/

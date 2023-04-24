@@ -133,9 +133,9 @@
 		<ul>
 			<li>
 				<a href="/annuaire">Soins</a></li>
-			<li><a href="/prevention/definition">Prévention</a></li>
-			<li><a href="/education-sante/definition">Éducation pour la santé</a></li>
-			<li><a href="/education-therapeutique/definition">Éducation thérapeutique du patient</a></li>
+			<li><a href="/prevention">Prévention</a></li>
+			<li><a href="/education-sante">Éducation pour la santé</a></li>
+			<li><a href="/education-therapeutique">Éducation thérapeutique du patient</a></li>
 		</ul>
 	</nav>
 </section>

@@ -7,6 +7,7 @@ from modeltranslation.admin import TranslationAdmin
 class OrganizationAdmin(TranslationAdmin):
     list_display = (
         'name',
+        'company_name',
         'formatted_name',
         'formatted_name_definite_article',
         'website_title',
@@ -24,7 +25,7 @@ class OrganizationAdmin(TranslationAdmin):
         'language',
         'city',
     )
-    search_fields = ['name', 'formatted_name', 'city']
+    search_fields = ['name', 'formatted_name', 'city', 'company_name']
 
 
 @admin.register(Category)

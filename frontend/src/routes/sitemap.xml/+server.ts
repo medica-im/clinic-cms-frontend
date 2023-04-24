@@ -7,7 +7,21 @@ const base_uri = variables.BASE_URI;
 
 export async function GET() {
     const slugs = get(workforceSlugs);
-    const pages = [`contact`, `annuaire`, `accounts/login`, `timeline`];
+    const pages = [
+        `contact`,
+        `annuaire`,
+        `sites`,
+        `accounts/login`,
+        `maison-de-sante/a-propos`,
+        `maison-de-sante/chronologie`,
+        `maison-de-sante/projet-de-sante`,
+        `maison-de-sante/reunion-concertation-pluriprofessionnelle`,
+        `maison-de-sante/dossier-patient`,
+        `maison-de-sante/lexique`,
+        `education-therapeutique`,
+        `education-sante`,
+        `prevention`
+    ];
     const paths = pages.concat(slugs);
     const body = sitemap(paths);
 

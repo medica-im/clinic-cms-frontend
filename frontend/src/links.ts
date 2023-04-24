@@ -17,12 +17,124 @@ import {
 	faPersonChalkboard
 } from '@fortawesome/free-solid-svg-icons';
 
+export const programsNavLinks: any = [
+	{
+		id: 'education-therapeutique',
+		title: 'Éducation thérapeutique',
+		menu: 'Éducation t.',
+		href: '/education-therapeutique',
+		list: [
+			{
+				href: '/education-therapeutique',
+				label: 'Définition',
+				keywords: 'patient, ETP, éducation, thérapeutique',
+				icon: null,
+				category: 'definition'
+			},
+			{
+				href: '/education-therapeutique/diabete',
+				label: 'Diabète',
+				keywords: 'patient, ETP, diabète, éducation, thérapeutique',
+				icon: null,
+				category: 'program'
+			},
+			{
+				href: '/education-therapeutique/cancer',
+				label: 'Accompagnement cancer',
+				keywords: 'patient, ETP, cancer, éducation, thérapeutique',
+				icon: null,
+				category: 'program'
+			}
+		]
+	},
+	{
+		id: 'education-sante',
+		title: 'Éducation pour la santé',
+		menu: 'Éducation s.',
+		href: '/education-sante',
+		list: [
+			{
+				href: '/education-sante',
+				label: 'Définition',
+				keywords: 'éducation, santé',
+				icon: null,
+				category: 'definition'
+			},
+			{
+				href: '/education-sante/parentalite-petite-enfance',
+				label: 'Parentalité - Petite enfance',
+				keywords: 'éducation, santé, parentalité, enfant, enfance',
+				icon: null,
+				category: 'program'
+			}
+		]
+	},
+	{
+		id: 'prevention',
+		title: 'Prévention en santé',
+		menu: 'Prévention',
+		href: '/prevention',
+		list: [
+			{
+				href: '/prevention',
+				label: 'Définition',
+				keywords: 'prévention, santé, maladie, dépistage',
+				icon: null,
+				category: 'definition'
+			},
+			{
+				href: '/prevention/syndrome-epuisement-professionnel',
+				label: 'Épuisement professionnel',
+				keywords: 'prévention, santé, maladie, dépistage, burnout, épuisement, professionnel',
+				icon: null,
+				category: 'program'
+			},
+			{
+				href: '/prevention/alimentation',
+				label: 'Alimentation',
+				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
+				icon: null,
+				category: 'program'
+			}
+		]
+	}
+];
+
+export const getIsOther = (url) => {
+	console.log(url);
+	const rootPath = "/" + url.split("/")[1]
+	console.log(rootPath);
+    const prog = programsNavLinks.find(({ href }) => href === rootPath);
+	const progArray = prog.list.filter((e) => e.href == url && e.category == "program");
+	if (typeof progArray != "undefined"
+                    && progArray != null
+                    && progArray.length != null
+                    && progArray.length > 0)
+            return true;
+        else
+            return false;
+}
+
+export const getProgram = (url) => {
+	console.log(url);
+	const rootPath = "/" + url.split("/")[1]
+	console.log(rootPath);
+    const prog = programsNavLinks.find(({ href }) => href === rootPath);
+	const dict = {
+		id: prog.id,
+		title: prog.title,
+		list: prog.list.filter((e) => e.href != url && e.category == "program")
+	}
+	return dict;
+};
+
 export const menuNavLinks: any = [
 	// outpatient clinic
 	{
 		id: 'maison-de-sante',
 		title: 'Maison de santé',
 		menu: 'MSP',
+		href: '/maison-de-sante',
 		list: [
 			{
 				href: '/maison-de-sante/a-propos',
@@ -61,77 +173,7 @@ export const menuNavLinks: any = [
 				icon: null
 			}
 		]
-	},
-	{
-		id: 'education-therapeutique',
-		title: 'Éducation thérapeutique',
-		menu: 'Éducation t.',
-		list: [
-			{
-				href: '/education-therapeutique/definition',
-				label: 'Définition',
-				keywords: 'patient, ETP, éducation, thérapeutique',
-				icon: null
-			},
-			{
-				href: '/education-therapeutique/diabete',
-				label: 'Diabète',
-				keywords: 'patient, ETP, diabète, éducation, thérapeutique',
-				icon: null
-			},
-			{
-				href: '/education-therapeutique/cancer',
-				label: 'Accompagnement cancer',
-				keywords: 'patient, ETP, cancer, éducation, thérapeutique',
-				icon: null
-			}
-		]
-	},
-	{
-		id: 'education-sante',
-		title: 'Éducation pour la santé',
-		menu: 'Éducation s.',
-		list: [
-			{
-				href: '/education-sante/definition',
-				label: 'Définition',
-				keywords: 'éducation, santé',
-				icon: null
-			},
-			{
-				href: '/education-sante/parentalite-petite-enfance',
-				label: 'Parentalité - Petite enfance',
-				keywords: 'éducation, santé, parentalité, enfant, enfance',
-				icon: null
-			}
-		]
-	},
-	{
-		id: 'prevention',
-		title: 'Prévention en santé',
-		menu: 'Prévention',
-		list: [
-			{
-				href: '/prevention/definition',
-				label: 'Définition',
-				keywords: 'prévention, santé, maladie, dépistage',
-				icon: null
-			},
-			{
-				href: '/prevention/syndrome-epuisement-professionnel',
-				label: 'Épuisement professionnel',
-				keywords: 'prévention, santé, maladie, dépistage, burnout, épuisement, professionnel',
-				icon: null
-			},
-			{
-				href: '/prevention/alimentation',
-				label: 'Alimentation',
-				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
-				icon: null
-			}
-		]
-	}
-];
+	}].concat(programsNavLinks)
 
 export const menuNavCats: any = [
 	// outpatient clinic

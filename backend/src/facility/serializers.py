@@ -25,6 +25,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'company_name',
             'language',
             'formatted_name',
             'formatted_name_definite_article',

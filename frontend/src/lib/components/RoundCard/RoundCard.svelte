@@ -12,24 +12,20 @@
     export let alt = 'alt description';
 </script>
 
-<div class="card card-hover overflow-hidden">
-    <!-- Header -->
-    <header>
-        <img src={img} class="bg-black/50 w-full" alt={alt} />
-    </header>
-    <!-- Body -->
-    <div class="p-4 space-y-4">
-        <h6 class="text-primary-500">{date}</h6>
+<div class="grid grid-cols-1 gap-4 md:gap-8 items-start">
+    <div class="col-span-2 p-2">
+        <img src={img} class="max-h-64 bg-black/50" alt={alt} />
+    </div>
+    <div class="p-2 space-y-2">
+        <h6>{date}</h6>
         <h3>{title}</h3>
         <article>
             <p>{excerpt}</p>
         </article>
-    </div>
     <hr />
     <!-- Footer -->
-    <footer class="p-4 flex justify-start items-center space-x-4">
         <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
             <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
         </a>
-    </footer>
+    </div>
 </div>

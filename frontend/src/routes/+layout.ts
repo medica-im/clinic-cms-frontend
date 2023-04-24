@@ -15,7 +15,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }
 	// you always need to call `setLocale` right before you access the `LL` store
 	setLocale(locale)
 	// get the translation functions value from the store
-	const $LL = get(LL)
+	//const $LL = get(LL)
 	//console.info($LL.log({ fileName: '+layout.ts' }))
 
   const fData = await facilityStore.load();

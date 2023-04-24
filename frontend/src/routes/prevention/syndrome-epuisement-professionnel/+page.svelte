@@ -5,6 +5,8 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
+	import { page } from '$app/stores';
+    import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
 <svelte:head>
@@ -51,3 +53,5 @@
 
 <h3>Conditions d'accès</h3>
 <p>Ce programme est porté et financé par {$facilityStore.formatted_name_definite_article}. La participation est donc gratuite.</p>
+
+<ProgramNav data={$page.url.pathname} />

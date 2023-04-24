@@ -3,6 +3,8 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
+	import { page } from '$app/stores';
+    import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
 <svelte:head>
@@ -67,3 +69,5 @@
 		fill="currentColor"
 	/></svg
 >
+
+<ProgramNav data={$page.url.pathname} />

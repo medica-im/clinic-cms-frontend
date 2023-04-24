@@ -9,38 +9,34 @@
 	export let data: any;
 </script>
 
-<div class="card card-hover overflow-hidden">
-	<!-- Header -->
-	<header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 items-start">
+	<div>
 		<img
-			src="https://source.unsplash.com/random/1280x540?healthcare"
-			class="bg-black/50 w-full aspect-[21/9]"
+			src="https://source.unsplash.com/random/500x500?healthcare"
+			class="w-full"
 			alt="healthcare"
 		/>
-	</header>
-	<!-- Body -->
-	<div class="p-4 space-y-4">
-		<h6 class="text-primary-500">{capitalizeFirstLetter(data.facility.formatted_name, $language)}</h6>
+	</div>
+	<div class="col-span-2 p-2 space-y-2">
+		<h6 class="text-primary-500">
+			{capitalizeFirstLetter(data.facility.formatted_name, $language)}
+		</h6>
 		<h3>{$LL.HOME.TEAM.TITLE()}</h3>
 		<article>
 			<p>
 				{$LL.HOME.TEAM.TEXT()}
 			</p>
-			<p>
-				<Occupations data = {
-					{
-						"cO": data.cO,
-						"wO": data.wO
-					}
-				} />
-			</p>
+			<div class="py-2">
+				<Occupations
+					data={{
+						cO: data.cO,
+						wO: data.wO
+					}}
+				/>
+				</div>
 		</article>
-	</div>
-	<hr />
-	<!-- Footer -->
-	<footer class="p-4 flex justify-start items-center space-x-4">
 		<a href="/annuaire" class="btn bg-primary-500" data-sveltekit-preload-data="hover">
 			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 		</a>
-	</footer>
+	</div>
 </div>

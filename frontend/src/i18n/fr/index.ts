@@ -94,7 +94,12 @@ const fr: Translation = {
 	},
 	OUTPATIENT_CLINIC: {
 		MDT_MEETING: 'réunion de concertation pluriprofessionnelle',
-    TPE: 'éducation thérapeutique du patient'
+    TPE: 'éducation thérapeutique du patient',
+    PROGRAMS: 'programmes',
+    OUR_PROGRAM: 'notre programme',
+    OUR_PROGRAMS: 'nos programmes',
+		OUR_OTHER_PROGRAM: 'notre autre programme',
+		OUR_OTHER_PROGRAMS: 'nos autres programmes'
 	},
 	DISEASE: {
 		DIABETES: 'diabète',
@@ -108,7 +113,12 @@ const fr: Translation = {
   PREVENTION: 'prévention',
 	PREVENTIVE_HEALTHCARE: 'prévention en santé',
   BURNOUT: 'syndrôme d\'épuisement professionnel',
-  EATING: 'Alimentation'
+  EATING: 'Alimentation',
+  PRIVACY_POLICY: 'politique de confidentialité',
+  LEGAL_NOTICES: 'mentions légales',
+	RESOURCES: 'ressources',
+	LEGAL: 'légal',
+	PHONE: 'téléphone'
 }
 
 export default fr

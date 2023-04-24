@@ -76,8 +76,7 @@
 
 	// Reactive
 	$: classesActive = (href: string) => {
-		let urlPath = href.substring(href.indexOf('/')+1)
-		return $storeCurrentUrl?.includes(urlPath) ? 'bg-primary-active-token' : '';
+		return $storeCurrentUrl==href ? 'variant-ringed-primary' : '';
 	}
 </script>
 
@@ -105,7 +104,7 @@
 		</AppRailTile>
 
 		<svelte:fragment slot="trail">
-			<AppRailTile label="Blog" tag="a" href="{variables.BLOG_URI}" target="_blank" rel="noreferrer" value={'blog'} on:click={onListItemClick} class="lg:hidden">
+			<AppRailTile label="Blog" tag="a" href="{variables.BLOG_URI}" rel="noreferrer" value={'blog'} on:click={onListItemClick} class="lg:hidden">
 				<span><Fa icon={faBlog} size="lg" /></span>
 			</AppRailTile>
 			<SoMed data={data.contact.socialnetworks} appRail={true} />
@@ -113,7 +112,7 @@
 	</AppRail>
 	<!-- Nav Links -->
 	<section class="p-4 pb-20 space-y-4 overflow-y-auto">
-		{#each filteredMenuNavLinks as { id, title, list }, i}
+		{#each filteredMenuNavLinks as { id, title, href, list }, i}
 			{#if list.length > 0}
 				<!-- Title -->
 				<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">{title}</div>

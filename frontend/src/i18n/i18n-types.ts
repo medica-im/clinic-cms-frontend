@@ -277,6 +277,26 @@ type RootTranslation = {
 		 * é​d​u​c​a​t​i​o​n​ ​t​h​é​r​a​p​e​u​t​i​q​u​e​ ​d​u​ ​p​a​t​i​e​n​t
 		 */
 		TPE: string
+		/**
+		 * p​r​o​g​r​a​m​m​e​s
+		 */
+		PROGRAMS: string
+		/**
+		 * n​o​t​r​e​ ​p​r​o​g​r​a​m​m​e
+		 */
+		OUR_PROGRAM: string
+		/**
+		 * n​o​s​ ​p​r​o​g​r​a​m​m​e​s
+		 */
+		OUR_PROGRAMS: string
+		/**
+		 * n​o​t​r​e​ ​a​u​t​r​e​ ​p​r​o​g​r​a​m​m​e
+		 */
+		OUR_OTHER_PROGRAM: string
+		/**
+		 * n​o​s​ ​a​u​t​r​e​s​ ​p​r​o​g​r​a​m​m​e​s
+		 */
+		OUR_OTHER_PROGRAMS: string
 	}
 	DISEASE: {
 		/**
@@ -324,6 +344,26 @@ type RootTranslation = {
 	 * A​l​i​m​e​n​t​a​t​i​o​n
 	 */
 	EATING: string
+	/**
+	 * p​o​l​i​t​i​q​u​e​ ​d​e​ ​c​o​n​f​i​d​e​n​t​i​a​l​i​t​é
+	 */
+	PRIVACY_POLICY: string
+	/**
+	 * m​e​n​t​i​o​n​s​ ​l​é​g​a​l​e​s
+	 */
+	LEGAL_NOTICES: string
+	/**
+	 * r​e​s​s​o​u​r​c​e​s
+	 */
+	RESOURCES: string
+	/**
+	 * l​é​g​a​l
+	 */
+	LEGAL: string
+	/**
+	 * t​é​l​é​p​h​o​n​e
+	 */
+	PHONE: string
 }
 
 export type TranslationFunctions = {
@@ -588,6 +628,26 @@ export type TranslationFunctions = {
 		 * éducation thérapeutique du patient
 		 */
 		TPE: () => LocalizedString
+		/**
+		 * programmes
+		 */
+		PROGRAMS: () => LocalizedString
+		/**
+		 * notre programme
+		 */
+		OUR_PROGRAM: () => LocalizedString
+		/**
+		 * nos programmes
+		 */
+		OUR_PROGRAMS: () => LocalizedString
+		/**
+		 * notre autre programme
+		 */
+		OUR_OTHER_PROGRAM: () => LocalizedString
+		/**
+		 * nos autres programmes
+		 */
+		OUR_OTHER_PROGRAMS: () => LocalizedString
 	}
 	DISEASE: {
 		/**
@@ -635,6 +695,26 @@ export type TranslationFunctions = {
 	 * Alimentation
 	 */
 	EATING: () => LocalizedString
+	/**
+	 * politique de confidentialité
+	 */
+	PRIVACY_POLICY: () => LocalizedString
+	/**
+	 * mentions légales
+	 */
+	LEGAL_NOTICES: () => LocalizedString
+	/**
+	 * ressources
+	 */
+	RESOURCES: () => LocalizedString
+	/**
+	 * légal
+	 */
+	LEGAL: () => LocalizedString
+	/**
+	 * téléphone
+	 */
+	PHONE: () => LocalizedString
 }
 
 export type Formatters = {}

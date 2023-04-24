@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { storeCurrentUrl } from '$lib/store/skeletonStores';
     import { popup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
+	import { page } from '$app/stores';
 	import {
 		faBars,
 		faCaretDown,
@@ -28,6 +29,12 @@
     const navGroup = menuNavLinks.filter((x: Array<any>) => cat.list.includes(x.id));
     return navGroup
     }
+	// Reactive
+	$: classesActive = (href: string) => {
+		console.log(href);
+		console.log($storeCurrentUrl);
+		return $page.url.pathname === href ? 'variant-ringed-primary' : '';
+	}
 </script>
 
 {#each menuNavCats as navCat}
@@ -47,15 +54,15 @@
                     {navGroup.title}
                 </li>
 				{/if}
-                {#each navGroup.list as navLink}
+                {#each navGroup.list as { href, label, icon }}
                 <li>
-                    <a href="{navLink.href}">
+                    <a {href} class="{classesActive(href)}">
                         <span class="w-6 text-center">
-							{#if navLink.icon}
-							<Fa icon={navLink.icon} />
+							{#if icon}
+							<Fa icon={icon} />
 							{/if}
 						</span>
-                        <span>{navLink.label}</span>
+                        <span>{label}</span>
                     </a>
                 </li>
                 {/each}

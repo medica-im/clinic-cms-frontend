@@ -22,7 +22,7 @@
 </svelte:head>
 
 <a href="/annuaire" class="btn bg-primary-500" data-sveltekit-preload-data="hover">
-	<span><Fa icon={faCircleArrowLeft} /></span>
-	<span><Fa icon={faAddressBook} /></span><span>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</span>
+	<span data-nosnippet><Fa icon={faCircleArrowLeft} /></span>
+	<span data-nosnippet><Fa icon={faAddressBook} /></span><span>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</span>
 </a>
 <WorkerPage userData={data.userData} />

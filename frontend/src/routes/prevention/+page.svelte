@@ -3,6 +3,8 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
+	import { page } from '$app/stores';
+    import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
 <svelte:head>
@@ -22,3 +24,5 @@
 <p>
 	La prévention de la maladie comprend des mesures qui visent non seulement à empêcher l’apparition de la maladie, telle que la lutte contre les facteurs de risque, mais également à en arrêter les progrès et à en réduire les conséquences.
 </p>
+
+<ProgramNav data={$page.url.pathname} />
