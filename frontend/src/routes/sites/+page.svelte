@@ -23,10 +23,10 @@
 	<!--{/await}-->
 </svelte:head>
 <div>
-<nav class="lg:sticky z-auto top-0 p-2 m-2 variant-filled-surface">
+<nav class="top-0 p-2 m-2 variant-soft-surface">
 	<FacilityList organizationData={$facilityStore} />
 </nav>
-<div class="z-auto">
+<div>
 	{#each $facilityStore.facility as facility}
 		{#if facility.contact}
 			<FacilityCard {facility} />

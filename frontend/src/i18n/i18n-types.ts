@@ -364,6 +364,10 @@ type RootTranslation = {
 	 * t​é​l​é​p​h​o​n​e
 	 */
 	PHONE: string
+	/**
+	 * i​t​i​n​é​r​a​i​r​e
+	 */
+	DIRECTION: string
 }
 
 export type TranslationFunctions = {
@@ -715,6 +719,10 @@ export type TranslationFunctions = {
 	 * téléphone
 	 */
 	PHONE: () => LocalizedString
+	/**
+	 * itinéraire
+	 */
+	DIRECTION: () => LocalizedString
 }
 
 export type Formatters = {}

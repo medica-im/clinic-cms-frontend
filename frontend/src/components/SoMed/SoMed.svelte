@@ -101,7 +101,7 @@
 		<a
             href={somed.url}
             title={somed.get_type_display}
-            class="btn-icon variant-soft-secondary"
+            class="btn-icon variant-ghost-secondary"
             target="_blank"
             rel="external">
 			<span><Fa icon={getIcon(somed)} size="lg" /></span>

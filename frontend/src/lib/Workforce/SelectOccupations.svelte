@@ -36,7 +36,6 @@
 	}
 
 	function handleClear(event) {
-		console.log(event.detail);
 		if (event.detail) {
 			const cleared = event.detail;
 			const clearedNames = toArray(cleared);
@@ -45,7 +44,6 @@
 			selectOccupations.set(arrayAfter);
 		}
 		const pageStore = get(page);
-		console.log(pageStore);
 		if (pageStore.params) {
 			goto('/annuaire');
 		}

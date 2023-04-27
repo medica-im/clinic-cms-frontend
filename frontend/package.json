@@ -17,7 +17,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.29.2",
-		"@skeletonlabs/skeleton": "^1.2.0",
+		"@skeletonlabs/skeleton": "^1.2.5",
 		"@square/svelte-store": "^1.0.13",
 		"@sveltejs/adapter-node": "^1.1.4",
 		"@sveltejs/kit": "^1.15.2",
@@ -31,6 +31,7 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"leaflet": "^1.9.3",
 		"postcss": "^8.4.14",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.0",
@@ -52,6 +53,7 @@
 		"@fortawesome/free-brands-svg-icons": "^6.3.0",
 		"@fortawesome/free-regular-svg-icons": "^6.3.0",
 		"@fortawesome/free-solid-svg-icons": "^6.3.0",
+		"@locationlabuo/leaflet-sveltified": "^0.1.1",
 		"@mdi/js": "^7.1.96",
 		"@medecinelibre/timelinejs": "github:jeromecc/TimelineJS3",
 		"@smui/button": "^7.0.0-beta.0",
@@ -63,8 +65,8 @@
 		"smui-theme": "^7.0.0-beta.0",
 		"svelte-fa": "^3.0.3",
 		"svelte-i18n": "^3.6.0",
-		"svelte-leafletjs": "^0.10.0",
 		"svelte-select": "^5.6.0",
-		"typesafe-i18n": "^5.20.0"
+		"typesafe-i18n": "^5.20.0",
+		"vite-plugin-iso-import": "^1.0.0"
 	}
 }

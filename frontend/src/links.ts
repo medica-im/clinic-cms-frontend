@@ -101,9 +101,7 @@ export const programsNavLinks: any = [
 ];
 
 export const getIsOther = (url) => {
-	console.log(url);
 	const rootPath = "/" + url.split("/")[1]
-	console.log(rootPath);
     const prog = programsNavLinks.find(({ href }) => href === rootPath);
 	const progArray = prog.list.filter((e) => e.href == url && e.category == "program");
 	if (typeof progArray != "undefined"
@@ -116,9 +114,7 @@ export const getIsOther = (url) => {
 }
 
 export const getProgram = (url) => {
-	console.log(url);
 	const rootPath = "/" + url.split("/")[1]
-	console.log(rootPath);
     const prog = programsNavLinks.find(({ href }) => href === rootPath);
 	const dict = {
 		id: prog.id,

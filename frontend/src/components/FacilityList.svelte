@@ -1,8 +1,8 @@
 <script lang="ts">
 	export let organizationData;
 	import { language } from '$lib/store/languageStore';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import Fa from 'svelte-fa';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { faMapPin } from '@fortawesome/free-solid-svg-icons';
 	let facility = organizationData.facility[0].name;
 

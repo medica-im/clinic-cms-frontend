@@ -2,7 +2,6 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
 import * as path from 'path';
 
-
 const config: UserConfig = {
 	optimizeDeps: {
         include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']

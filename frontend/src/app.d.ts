@@ -8,6 +8,10 @@ declare global {
 		interface PageData {}
 		interface Platform {}
 	}
+	interface Window {
+		PointerEvent: any;
+		TouchEvent: any;
+	  }
 }
 
 declare module '@fortawesome/free-solid-svg-icons/index.es' {

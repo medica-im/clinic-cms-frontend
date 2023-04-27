@@ -48,7 +48,7 @@
 <ul class="{ulClasses()}">
 {#each data as somed}
         <li class="{liClasses()}">
-            <a href={somed.url}>
+            <a href={somed.url} class="btn variant-ghost-secondary">
                 <Icon component={Svg} width="32" height="32" viewBox="0 0 24 24">
                     <path fill="currentColor" d={getIcon(somed)} />
                 </Icon>

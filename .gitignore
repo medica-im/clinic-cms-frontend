@@ -35,7 +35,8 @@ __pycache__/
 celerybeat-schedule.*
 
 # Node modules
-frontend/node_modules/*
+node_modules
+frontend/node_modules
 npm-debug.log
 
 # Coverage

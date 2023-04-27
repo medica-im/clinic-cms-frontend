@@ -118,7 +118,8 @@ const fr: Translation = {
   LEGAL_NOTICES: 'mentions légales',
 	RESOURCES: 'ressources',
 	LEGAL: 'légal',
-	PHONE: 'téléphone'
+	PHONE: 'téléphone',
+	DIRECTION: 'itinéraire'
 }
 
 export default fr

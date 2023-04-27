@@ -31,8 +31,6 @@
     }
 	// Reactive
 	$: classesActive = (href: string) => {
-		console.log(href);
-		console.log($storeCurrentUrl);
 		return $page.url.pathname === href ? 'variant-ringed-primary' : '';
 	}
 </script>

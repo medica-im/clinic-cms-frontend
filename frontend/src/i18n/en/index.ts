@@ -118,7 +118,8 @@ const en: BaseTranslation = {
 	LEGAL_NOTICES: 'legal notices',
 	RESOURCES: 'resources',
 	LEGAL: 'legal',
-	PHONE: 'phone'
+	PHONE: 'phone',
+	DIRECTION: 'direction'
 }
 
 export default en

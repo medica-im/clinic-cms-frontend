@@ -14,7 +14,7 @@
 </script>
 
 {#if website.type == "Blog"}
-<a href="{website.website}" rel="external" class="btn variant-soft-secondary">
+<a href="{website.website}" rel="external" class="btn variant-ghost-secondary">
 <span><Fa icon={faBlog} /></span><span>Blog</span>
 </a>
 {:else}
@@ -23,7 +23,7 @@
     title={removeHttp(website.website)}
     target="_blank"
     rel="external"
-    class="btn variant-soft-secondary">
+    class="btn variant-ghost-secondary">
     <span><Fa icon={faGlobe} /></span><span>{capitalizeFirstLetter($LL.WEBSITE(), $language)}</span>
     </a>
 {/if}
