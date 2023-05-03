@@ -13,7 +13,7 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.TIMELINE.TITLE()}
+		{$LL.TIMELINE.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 

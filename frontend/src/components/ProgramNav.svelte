@@ -1,32 +1,44 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { capitalizeFirstLetter, lowercaseFirstLetter } from '$lib/helpers/stringHelpers';
 	import { getProgram, getIsOther } from '../links';
+	import type { LocalizedString } from 'typesafe-i18n';
 	export let data;
 
 	const program = getProgram(data);
 	const isOther = getIsOther(data);
-</script>
 
-{#if program.list.length > 0}
-<hr>
+	function preposition(name: string) {
+		const vowels = ['a', 'e', 'i', 'o', 'u'];
+		const firstLetter = name[0].toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
+		if (vowels.includes(firstLetter)) {
+			return "d'"
+		} else {
+			return "de "
+		}
+	}
+
+	function programOf(program: LocalizedString, language: string, isOther: boolean, count: number) {
+		program = lowercaseFirstLetter(program[language]);
+        if (language == 'fr') {
+            if (count==1) {
+				return `Notre ${isOther ? 'autre' : '' } programme ${preposition(program)}${program}`
+			} else {
+				return `Nos ${isOther ? 'autres' : '' } programmes ${preposition(program)}${program}`
+			}
+
+		} else if (language == 'en') {
+            return `Our ${isOther ? "other " : ""}${program} program${count>1 ? "s" : ""}`
+		}
+	}
+</script>
+{#if getProgram(data).list.length > 0}
+{@const program = getProgram(data)}
 <div class="card bg-initial w-fit my-2 py-2">
 	<header class="card-header">
 		<h3>
-			{#if program.list.length > 1}
-				{#if isOther}
-					{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.OUR_OTHER_PROGRAMS(), $language)}
-				{:else}
-					{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.OUR_PROGRAMS(), $language)}
-				{/if}
-			{:else}
-			    {#if isOther}
-				    {capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.OUR_OTHER_PROGRAM(), $language)}
-			    {:else}
-				    {capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.OUR_PROGRAM(), $language)}
-				{/if}
-			{/if}
+			{programOf(program.title, $language, isOther, program.list.length)}
 		</h3>
 	</header>
 	<section class="p-4 space-y-4">

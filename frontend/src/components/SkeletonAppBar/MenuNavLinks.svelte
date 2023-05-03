@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { language } from '$lib/store/languageStore';
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
     import { popup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
@@ -38,7 +39,7 @@
 {#each menuNavCats as navCat}
 	<!-- trigger -->
 	<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: navCat.id }}>
-		<span>{navCat.title}</span>
+		<span>{navCat.title[$language]}</span>
 		<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 	</button>
 	<!-- popup -->
@@ -49,7 +50,7 @@
                 {#each getNavGroups(navCat.id) as navGroup}
 				{#if getNavGroups(navCat.id).length > 1}
                 <li>
-                    {navGroup.title}
+                    {navGroup.title[$language]}
                 </li>
 				{/if}
                 {#each navGroup.list as { href, label, icon }}

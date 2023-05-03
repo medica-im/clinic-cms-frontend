@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { language} from '$lib/store/languageStore';
 	import LL from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
 	import { writable, type Writable } from 'svelte/store';
@@ -115,7 +116,7 @@
 		{#each filteredMenuNavLinks as { id, title, href, list }, i}
 			{#if list.length > 0}
 				<!-- Title -->
-				<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">{title}</div>
+				<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">{title[$language]}</div>
 				<!-- Navigation List -->
 				<nav class="list-nav">
 					<ul>

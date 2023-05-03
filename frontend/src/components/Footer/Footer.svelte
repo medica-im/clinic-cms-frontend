@@ -59,7 +59,7 @@
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						{#each programsNavLinks as navLink}
 							<li class="mb-4">
-								<a href={navLink.href} class="hover:underline ">{navLink.title}</a>
+								<a href={navLink.href} class="hover:underline ">{navLink.title[$language]}</a>
 							</li>
 						{/each}
 					</ul>
@@ -98,7 +98,7 @@
 		<!-- Row 3 -->
 		<div class="sm:flex sm:items-center sm:justify-between">
 			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				>Site propulsé par la solution Pluripro Web développée par <a href="https://medecinelibre.com" class="hover:underline">Médecine Libre</a>.
+				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="hover:underline">Médecine Libre</a>.
 			</span>
 			<!--div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />

@@ -12,7 +12,7 @@
     export let alt = 'alt description';
 </script>
 
-<div class="grid grid-cols-1 gap-4 md:gap-8 items-start">
+<div class="card shadow-lg grid grid-cols-1 p-4 md:p-10 space-y-4 items-start">
     <div class="col-span-2 p-2">
         <img src={img} class="max-h-64 bg-black/50" alt={alt} />
     </div>
@@ -22,7 +22,6 @@
         <article>
             <p>{excerpt}</p>
         </article>
-    <hr />
     <!-- Footer -->
         <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
             <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>

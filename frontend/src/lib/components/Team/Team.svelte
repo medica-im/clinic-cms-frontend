@@ -21,7 +21,7 @@
 		<h6 class="text-primary-500">
 			{capitalizeFirstLetter(data.facility.formatted_name, $language)}
 		</h6>
-		<h3>{$LL.HOME.TEAM.TITLE()}</h3>
+		<h2>{$LL.HOME.TEAM.TITLE()}</h2>
 		<article>
 			<p>
 				{$LL.HOME.TEAM.TEXT()}

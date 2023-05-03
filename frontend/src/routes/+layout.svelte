@@ -148,9 +148,8 @@
 				</p>
 			{/if}
 		</svelte:fragment>
-		<div class="container mx-auto p-6 space-y-6">
+		<!-- Page Content -->
 			<slot />
-		</div>
 		<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 	</AppShell>
 

@@ -14,15 +14,21 @@ import {
 	faRightFromBracket,
 	faUserPlus,
 	faUser,
-	faPersonChalkboard
+	faPersonChalkboard,
+	faPills,
+	faShieldHeart
 } from '@fortawesome/free-solid-svg-icons';
 
 export const programsNavLinks: any = [
 	{
 		id: 'education-therapeutique',
-		title: 'Éducation thérapeutique',
+		title: {
+			en: 'Therapeutic education',
+			fr: 'Éducation thérapeutique'
+		},
 		menu: 'Éducation t.',
 		href: '/education-therapeutique',
+		icon: faPills,
 		list: [
 			{
 				href: '/education-therapeutique',
@@ -49,9 +55,13 @@ export const programsNavLinks: any = [
 	},
 	{
 		id: 'education-sante',
-		title: 'Éducation pour la santé',
+		title: {
+			en: 'Health education',
+			fr: 'Éducation pour la santé'
+		},
 		menu: 'Éducation s.',
 		href: '/education-sante',
+		icon: faPersonChalkboard,
 		list: [
 			{
 				href: '/education-sante',
@@ -71,9 +81,13 @@ export const programsNavLinks: any = [
 	},
 	{
 		id: 'prevention',
-		title: 'Prévention en santé',
+		title: {
+			en: 'Health prevention',
+			fr: 'Prévention en santé'
+		},
 		menu: 'Prévention',
 		href: '/prevention',
+	    icon: faShieldHeart,
 		list: [
 			{
 				href: '/prevention',
@@ -113,7 +127,7 @@ export const getIsOther = (url) => {
             return false;
 }
 
-export const getProgram = (url) => {
+export const getProgram = (url: string) => {
 	const rootPath = "/" + url.split("/")[1]
     const prog = programsNavLinks.find(({ href }) => href === rootPath);
 	const dict = {
@@ -124,11 +138,22 @@ export const getProgram = (url) => {
 	return dict;
 };
 
+export const getAllPrograms = () => {
+	let programArray = [];
+	for (let p of programsNavLinks) {
+		programArray.push(getProgram(p.href))
+	  }
+	return programArray
+}
+
 export const menuNavLinks: any = [
 	// outpatient clinic
 	{
 		id: 'maison-de-sante',
-		title: 'Maison de santé',
+		title: {
+			en: 'Outpatient clinic',
+			fr: 'Maison de santé'
+		},
 		menu: 'MSP',
 		href: '/maison-de-sante',
 		list: [
@@ -175,17 +200,26 @@ export const menuNavCats: any = [
 	// outpatient clinic
 	{
 		id: 'msp',
-		title: 'Maison de santé',
+		title: {
+			en: 'Outpatient clinic',
+			fr: 'Maison de santé'
+		},
 		list: ['maison-de-sante']
 	},
 	{
 		id: 'education',
-		title: 'Éducation',
+		title: {
+			en: 'Education',
+			fr: 'Éducation'
+		},
 		list: ['education-therapeutique', 'education-sante']
 	},
 	{
 		id: 'prevention',
-		title: 'Prévention',
+		title: {
+			en: 'Prevention',
+			fr: 'Prévention'
+		},
 		list: ['prevention']
 	}
 ]

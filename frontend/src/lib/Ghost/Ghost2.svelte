@@ -14,12 +14,11 @@
 	}
 </script>
 
-<div class="card variant-glass-surface p-4">
-<div class="card-header">
-<h3>Blog</h3>
+<div class="!bg-transparent space-y-4 md:space-y-10">
+<div class="text-center">
+<h2>Blog</h2>
 </div>
-<div class="p-4">
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 items-start">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 p-4">
 	{#each posts as post}
 		<RoundCard
 		url={post.url}
@@ -30,6 +29,5 @@
 		excerpt={post.custom_excerpt}
 		/>
 	{/each}
-</div>
 </div>
 </div>

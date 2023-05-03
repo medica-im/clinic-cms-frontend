@@ -67,48 +67,70 @@
 	<title>{$LL.LOGIN.LOGIN()}</title>
 </svelte:head>
 
-<h2>{$LL.LOGIN.LOGIN()}</h2>
-<section
-	class="container"
-	in:fly={{ x: -100, duration: 500, delay: 500 }}
-	out:fly={{ duration: 500 }}
->
-	<form class="space-y-4 lg:max-w-2xl"
-		on:submit={(e) => {
-			e.preventDefault();
-			console.log('submit', e);
-			handleLogin();
-		}}
+<div>
+	<header>
+		<div class="section-container">
+			<h1>{$LL.LOGIN.LOGIN()}</h1>
+		</div>
+	</header>
+
+	<section
+		class="container"
+		in:fly={{ x: -100, duration: 500, delay: 500 }}
+		out:fly={{ duration: 500 }}
 	>
-		{#if errors}
-			<p>{errors}</p>
-		{/if}
-		<input
-			class="input"
-			type="email"
-			bind:value={email}
-			hideLabel
-			labelText={$LL.EMAILADDRESS()}
-			placeholder="{$LL.EMAILADDRESS()}..."
-			required
-			warn={emailWarn}
-		/>
-		<input
-		class="input"
-			bind:value={password}
-			required
-			type="password"
-			labelText={$LL.PASSWORD()}
-			placeholder="{$LL.PASSWORD()}..."
-			warn={passwordWarn}
-		/>
-		<button
-		class="btn bg-primary-500"
-			bind:this={submitButton}
-			type="submit"
-			on:click={() => {
-				submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
-			}}>{submitButtonInnerHTML}</button
-		>
-	</form>
-</section>
+		<div class="section-container">
+			<form
+				class="space-y-4 lg:max-w-2xl"
+				on:submit={(e) => {
+					e.preventDefault();
+					console.log('submit', e);
+					handleLogin();
+				}}
+			>
+				{#if errors}
+					<p>{errors}</p>
+				{/if}
+				<input
+					class="input"
+					type="email"
+					bind:value={email}
+					hideLabel
+					labelText={$LL.EMAILADDRESS()}
+					placeholder="{$LL.EMAILADDRESS()}..."
+					required
+					warn={emailWarn}
+				/>
+				<input
+					class="input"
+					bind:value={password}
+					required
+					type="password"
+					labelText={$LL.PASSWORD()}
+					placeholder="{$LL.PASSWORD()}..."
+					warn={passwordWarn}
+				/>
+				<button
+					class="btn bg-primary-500"
+					bind:this={submitButton}
+					type="submit"
+					on:click={() => {
+						submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
+					}}>{submitButtonInnerHTML}</button
+				>
+			</form>
+		</div>
+	</section>
+</div>
+
+<style lang="postcss">
+	.section-container {
+		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
+	}
+	.list-disc {
+		@apply pl-4 space-y-4 p-4;
+	}
+	.list-card {
+		@apply w-fit text-token card p-4;
+	}
+</style>

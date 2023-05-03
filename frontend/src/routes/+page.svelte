@@ -1,6 +1,5 @@
-<script>
+<script lang="ts">
 	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
-	import { userData } from '$lib/store/userStore';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { fly } from 'svelte/transition';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
@@ -19,9 +18,10 @@
 	import { selectFacilities } from '$lib/store/facilityStore';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
+	import OutpatientClinicPrograms from "$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte";
+    import type { PageData } from './$types';
 
-	/** @type {import('./$types').PageData} */
-	export let data;
+	export let data: PageData;
 
 	onMount(() => {
 		selectOccupations.set([]);
@@ -30,21 +30,14 @@
 	});
 
 	const queryClient = new QueryClient();
-	let promise;
-	$: (promise = facilityStore.load()), $language;
 </script>
 
 <svelte:head>
 	<OpenGraph opengraph={data.openGraph} />
-	{#await promise}
+
 		<title>
-			{capitalizeFirstLetter(data.facility.formatted_name, $language)} - {$LL.HOME.TITLE()}
+			{$LL.HOME.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)} 
 		</title>
-	{:then}
-		<title>
-			{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.HOME.TITLE()}
-		</title>
-	{/await}
 </svelte:head>
 
 <div>
@@ -58,8 +51,8 @@
 	<!--div class="grid md:grid-cols-2 gap-4"-->
 	<!--/div-->
 
-	<!-- sveltekit -->
-	<section id="sveltekit" class="bg-surface-100-800-token sveltekit-gradient">
+	<!-- team -->
+	<section id="team" class="bg-surface-100-800-token team-gradient">
 		<div class="section-container"><Team
 			data={{
 				facility: $facilityStore,
@@ -76,6 +69,11 @@
 		<div class="section-container"><Ghost data={data.posts} /></div>
 	</section>
 
+	<!-- programs -->
+	<section id="programs" class="bg-surface-100-800-token programs-gradient">
+		<div class="section-container"><OutpatientClinicPrograms /></div>
+	</section>
+
 			
 </div>
 
@@ -90,9 +88,9 @@
 			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
 			radial-gradient(at 98% 1%, rgba(var(--color-error-500) / 0.33) 0px, transparent 50%);
 	}
-	/* SvelteKit Gradient */
+	/* Team Gradient */
 	/* prettier-ignore */
-	.sveltekit-gradient {
+	.team-gradient {
 		background-image:
 			radial-gradient(at 0% 100%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%);
 	}
@@ -102,5 +100,12 @@
 		background-image:
 			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%),
 			radial-gradient(at 100% 100%,  rgba(var(--color-primary-500) / 0.24) 0px, transparent 50%);
+	}
+    /* Programs Gradient */
+	/* prettier-ignore */
+	.programs-gradient {
+		background-image:
+			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
+			radial-gradient(at 100% 0%,  rgba(var(--color-primary-500) / 0.33) 0px, transparent 50%);
 	}
 </style>

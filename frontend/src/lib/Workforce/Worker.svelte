@@ -16,24 +16,18 @@
 	}
 </script>
 
-<div class="card font-serif m-2 p-2 lg:grid grid-flow-col auto-cols-max">
-	<div class="flex w-50 m-2">
-		<a href="/{workerData.slug}">
+<div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
+		<a href="/{workerData.slug}" class="shrink-0">
 			<img
 				src={getUrl(workerData.profile_picture_url.fb)}
 				alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(workerData)}"
-				class="w-32 md:w-40 lg:w-48 h-auto rounded-lg"
+				class="shrink-0 rounded-t-lg lg:rounded-none lg:rounded-l-lg"
 			/>
 		</a>
-	</div>
-	<div class="m-2 content-start">
-		<div class="my-2">
-			<a href="/{workerData.slug}" class="">
-				<h3>
-					{workerTitleFormattedName(workerData)}
-				</h3>
-			</a>
-		</div>
+	<div class="m-2 p-2">
+		<a href={workerData.slug}
+			><h3>{workerTitleFormattedName(workerData)}</h3></a
+		>
 		<div class="my-2">
 			{#each workerData.occupations as occupation}
 				{#if occupation.name == currentOccupationName}
@@ -44,7 +38,7 @@
 							</h5>
 						</div>
 						{#each occupation.specialty.facilities as facility}
-							<div class="my-2">
+							<div class="flex my-2">
 								<WorkerFacility {facility} />
 							</div>
 						{/each}
@@ -55,7 +49,7 @@
 							</h5>
 						</div>
 						{#each occupation.facilities as facility}
-							<div class="my-2">
+							<div class="flex my-2">
 								<WorkerFacility {facility} />
 							</div>
 						{/each}
