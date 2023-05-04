@@ -18,7 +18,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h2>{capitalizeFirstLetter($LL.HEALTH_EDUCATION(), $language)}</h2>
+			<h1>{capitalizeFirstLetter($LL.HEALTH_EDUCATION(), $language)}</h1>
 		</div>
 	</header>
 
@@ -82,8 +82,5 @@
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
-	}
-	.list-disc {
-		@apply pl-4 space-y-4;
 	}
 </style>

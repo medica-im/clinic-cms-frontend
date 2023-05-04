@@ -18,7 +18,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h2>{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)}</h2>
+			<h1>{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)}</h1>
 		</div>
 	</header>
 

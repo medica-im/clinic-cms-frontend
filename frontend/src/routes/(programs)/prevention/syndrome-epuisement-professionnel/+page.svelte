@@ -24,13 +24,13 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h2>Épuisement professionnel</h2>
+		<h1>Épuisement professionnel</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h3>Définition</h3>
+		<h2>Définition</h2>
 		<p>
 			Selon l’Institut national de recherche et de sécurité pour la prévention des accidents du
 			travail et des maladies professionnelles (INRS):
@@ -39,7 +39,8 @@
 			Le syndrome d'épuisement professionnel, ou burnout, est un ensemble de réactions consécutives
 			à des situations de stress professionnel chronique dans lesquelles la dimension de
 			l’engagement est prédominante. Il se caractérise par 3 dimensions:
-			<ul class="list-disc">
+			<div class="pl-5">
+			<ul class="list-disc space-y-4 p-4 pl-5">
 				<li>l’épuisement émotionnel : sentiment d’être vidé de ses ressources émotionnelles,</li>
 				<li>
 					la dépersonnalisation ou le cynisme : insensibilité au monde environnant, déshumanisation
@@ -52,13 +53,14 @@
 					sentiment de gâchis…
 				</li>
 			</ul>
+		</div>
 		</blockquote>
 	</div>
 </section>
 
 <section>
 	<div class="section-container">
-		<h3>Objectifs</h3>
+		<h2>Objectifs</h2>
 		<p>
 			Ce programme a pour objectif de repérer, soutenir, accompagner et orienter les personnes en
 			situation d’épuisement professionnel, de souffrance au travail.
@@ -68,20 +70,20 @@
 
 <section>
 	<div class="section-container">
-		<h3>Déroulement</h3>
+		<h2>Déroulement</h2>
 		<p>Deux ateliers d’une durée de deux heures:</p>
-		<div class="list-card">
-			<ul class="list-disc space-y-4 pl-4 p-2">
-				<li>Faire le point sur ma situation au travail</li>
-				<li>Gérer mon épuisement</li>
-			</ul>
+		<div class="pl-5">
+		<ul class="list-disc space-y-4 p-4">
+			<li>Faire le point sur ma situation au travail</li>
+			<li>Gérer mon épuisement</li>
+		</ul>
 		</div>
 		<p>Les ateliers sont animés par une psychologue.</p>
 	</div>
 </section>
 <section>
 	<div class="section-container">
-		<h3>Conditions d'accès</h3>
+		<h2>Conditions d'accès</h2>
 		<p>
 			Ce programme est porté et financé par {$facilityStore.formatted_name_definite_article}. La
 			participation est donc gratuite.
@@ -98,11 +100,5 @@
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
-	}
-	.list-disc {
-		@apply pl-4 space-y-4 p-4;
-	}
-	.list-card {
-		@apply w-fit text-token card p-4;
 	}
 </style>

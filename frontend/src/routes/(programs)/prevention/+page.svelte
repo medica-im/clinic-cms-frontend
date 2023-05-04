@@ -9,47 +9,42 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter(
-			$LL.PREVENTIVE_HEALTHCARE(),
+		{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
+			$facilityStore.formatted_name,
 			$language
-		)} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		)}
 	</title>
 </svelte:head>
+<div>
+	<header>
+		<div class="section-container">
+			<h1>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</h1>
+		</div>
+	</header>
 
-<header>
-	<div class="section-container">
-		<h2>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</h2>
-	</div>
-</header>
+	<section>
+		<div class="section-container">
+			<p>
+				La prévention est selon l’OMS en 1948, «l’ensemble des mesures visant à éviter ou réduire le
+				nombre et la gravité des maladies, des accidents et des handicaps».
+			</p>
+			<p>
+				La prévention de la maladie comprend des mesures qui visent non seulement à empêcher
+				l’apparition de la maladie, telle que la lutte contre les facteurs de risque, mais également
+				à en arrêter les progrès et à en réduire les conséquences.
+			</p>
+		</div>
+	</section>
 
-<section>
-	<div class="section-container">
-		<p>
-			La prévention est selon l’OMS en 1948, «l’ensemble des mesures visant à éviter ou réduire le
-			nombre et la gravité des maladies, des accidents et des handicaps».
-		</p>
-		<p>
-			La prévention de la maladie comprend des mesures qui visent non seulement à empêcher
-			l’apparition de la maladie, telle que la lutte contre les facteurs de risque, mais également à
-			en arrêter les progrès et à en réduire les conséquences.
-		</p>
-	</div>
-</section>
-
-<section>
-	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
-	</div>
-</section>
+	<section>
+		<div class="section-container">
+			<ProgramNav data={$page.url.pathname} />
+		</div>
+	</section>
+</div>
 
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
-	}
-	.list-disc {
-		@apply pl-4 space-y-4 p-4;
-	}
-	.list-card {
-		@apply w-fit text-token card p-4;
 	}
 </style>

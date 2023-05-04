@@ -25,7 +25,7 @@
 			/>
 		</a>
 	<div class="m-2 p-2">
-		<a href={workerData.slug}
+		<a href="/{workerData.slug}"
 			><h3>{workerTitleFormattedName(workerData)}</h3></a
 		>
 		<div class="my-2">

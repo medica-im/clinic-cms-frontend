@@ -40,13 +40,13 @@
 			<span class="badge variant-filled-surface"
 				>{capitalizeFirstLetter($LL.HEALTH_EDUCATION(), $language)}</span
 			>
-			<h2>Parentalité et petite enfance</h2>
+			<h1>Parentalité et petite enfance</h1>
 		</div>
 	</header>
 
 	<section>
 		<div class="section-container">
-			<h3>Organisation</h3>
+			<h2>Organisation</h2>
 			<p>
 				Ce programme est porté par {$facilityStore.formatted_name_definite_article}.
 			</p>
@@ -54,63 +54,71 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Public</h3>
+			<h2>Public</h2>
 			<p>Il s’adresse à tous les parents d’enfants âgés de 0 à 3 ans.</p>
 		</div>
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Objectifs</h3>
-			<ul class="list-disc">
-				<li>Informer et sécuriser sur la santé de l’enfant de 0 à 3 ans</li>
-				<li>Approfondir et conforter les relations avec son enfant</li>
-			</ul>
+			<h2>Objectifs</h2>
+			<div class="pl-5">
+				<ul class="list-disc p-4 space-y-4">
+					<li>Informer et sécuriser sur la santé de l’enfant de 0 à 3 ans</li>
+					<li>Approfondir et conforter les relations avec son enfant</li>
+				</ul>
+			</div>
 		</div>
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Ateliers</h3>
-			<ul class="list-disc">
-				<li>Sommeil et rythme de vie de bébé</li>
-				<li>Approfondir et conforter les relations avec son enfant</li>
-				<li>Gestion des émotions parents / bébé</li>
-				<li>Alimentation de l’enfant: diversification et équilibrage</li>
-				<li>Eveil et psychomotricité de l’enfant</li>
-				<li>Les écrans</li>
-				<li>Parole et langage</li>
-				<li>Portage physiologique</li>
-				<li>Massage bébé</li>
-			</ul>
+			<h2>Ateliers</h2>
+			<div class="pl-5">
+				<ul class="list-disc p-4 space-y-4">
+					<li>Sommeil et rythme de vie de bébé</li>
+					<li>Approfondir et conforter les relations avec son enfant</li>
+					<li>Gestion des émotions parents / bébé</li>
+					<li>Alimentation de l’enfant: diversification et équilibrage</li>
+					<li>Eveil et psychomotricité de l’enfant</li>
+					<li>Les écrans</li>
+					<li>Parole et langage</li>
+					<li>Portage physiologique</li>
+					<li>Massage bébé</li>
+				</ul>
+			</div>
 		</div>
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Lieux</h3>
+			<h2>Lieux</h2>
 			<p>Les ateliers ont lieu dans ces structures:</p>
-			<ul class="list-disc">
-				<li>Lieux d’accueil enfants-parents</li>
-				<li>Crèches</li>
-				<li>Écoles maternelles</li>
-				<li>Associations</li>
-			</ul>
+			<div class="pl-5">
+				<ul class="list-disc pl-4 space-y-4">
+					<li>Lieux d’accueil enfants-parents</li>
+					<li>Crèches</li>
+					<li>Écoles maternelles</li>
+					<li>Associations</li>
+				</ul>
+			</div>
 		</div>
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Intervenantes</h3>
-			<ul class="list-disc">
-				<li>Diététicienne</li>
-				<li>Psychologue</li>
-				<li>Psychomotricienne</li>
-				<li>Orthophoniste</li>
-				<li>Infirmière</li>
-				<li>Kinésithérapeute</li>
-			</ul>
+			<h2>Intervenantes</h2>
+			<div class="pl-5">
+				<ul class="list-disc p-4 space-y-4">
+					<li>Diététicienne</li>
+					<li>Psychologue</li>
+					<li>Psychomotricienne</li>
+					<li>Orthophoniste</li>
+					<li>Infirmière</li>
+					<li>Kinésithérapeute</li>
+				</ul>
+			</div>
 		</div>
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Financement</h3>
+			<h2>Financement</h2>
 			<p>
 				Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
 				gratuite.
@@ -128,8 +136,5 @@
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
-	}
-	.list-disc {
-		@apply pl-4 space-y-4;
 	}
 </style>

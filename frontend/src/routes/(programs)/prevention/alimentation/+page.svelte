@@ -23,14 +23,14 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h2>Les bons gestes au quotidien pour un bon équilibre</h2>
+		<h1>Les bons gestes au quotidien pour un bon équilibre</h1>
 		<p>Un programme de prévention pour l’équilibre alimentaire.</p>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h3>Personnes concernées</h3>
+		<h2>Personnes concernées</h2>
 		<p>
 			Ce programme, porté par la MSP d’Avignon, s’adresse à toutes les personnes âgés de plus de 16
 			ans.
@@ -40,9 +40,9 @@
 
 <section>
 	<div class="section-container">
-		<h3>Objectifs</h3>
+		<h2>Objectifs</h2>
 		<div class="pl-5">
-			<ul class="list-disc space-y-2">
+			<ul class="list-disc space-y-4 p-4">
 				<li>aider à développer autonomie alimentaire, bien-être et forme physique</li>
 				<li>aider à faire des choix alimentaires plus éclairés en matière de santé</li>
 			</ul>
@@ -52,11 +52,11 @@
 
 <section>
 	<div class="section-container">
-		<h3>Ateliers</h3>
+		<h2>Ateliers</h2>
 
 		<p>Les ateliers se déroulent en petits groupes et durent environ 2 heures.</p>
 		<div class="pl-5">
-			<ul class="list-disc space-y-2">
+			<ul class="list-disc space-y-4 p-4">
 				<li>Mangeons équilibré</li>
 				<li>Cuisinons sainement</li>
 				<li>Course et astuces</li>
@@ -73,10 +73,10 @@
 
 <section>
 	<div class="section-container">
-		<h3>Intervenants</h3>
+		<h2>Intervenants</h2>
 
 		<div class="pl-5">
-			<ul class="list-disc space-y-2">
+			<ul class="list-disc space-y-4 p-4">
 				<li>psychologue</li>
 				<li>diététicienne</li>
 				<li>éducatrice sportive</li>
@@ -89,7 +89,7 @@
 
 <section>
 	<div class="section-container">
-		<h3>Conditions d'accès</h3>
+		<h2>Conditions d'accès</h2>
 
 		<p>
 			Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
@@ -107,11 +107,5 @@
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
-	}
-	.list-disc {
-		@apply pl-4 space-y-4 p-4;
-	}
-	.list-card {
-		@apply w-fit text-token card p-4;
 	}
 </style>

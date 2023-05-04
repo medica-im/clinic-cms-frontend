@@ -191,10 +191,4 @@
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
 	}
-	.list-disc {
-		@apply pl-4 space-y-4 p-4;
-	}
-	.list-card {
-		@apply w-fit text-token card p-4;
-	}
 </style>

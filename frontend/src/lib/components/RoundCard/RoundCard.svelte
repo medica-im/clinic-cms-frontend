@@ -12,7 +12,7 @@
     export let alt = 'alt description';
 </script>
 
-<div class="card shadow-lg grid grid-cols-1 p-4 md:p-10 space-y-4 items-start">
+<div class="card shadow-lg grid grid-cols-1 p-2 md:p-4 space-y-4 items-start">
     <div class="col-span-2 p-2">
         <img src={img} class="max-h-64 bg-black/50" alt={alt} />
     </div>

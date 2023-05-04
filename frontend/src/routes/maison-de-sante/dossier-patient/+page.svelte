@@ -17,13 +17,13 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h2>Partage d’information au sein de l’équipe de soins</h2>
+			<h1>Partage d’information au sein de l’équipe de soins</h1>
 		</div>
 	</header>
 
 	<section>
 		<div class="section-container">
-			<h3>L'équipe de soins</h3>
+			<h2>L'équipe de soins</h2>
 			<p>
 				Les professionnels de la Maison de Santé Pluriprofessionnelle intervenant directement auprès
 				des patients pour la réalisation d’actes diagnostiques, thérapeutiques, de compensation du
@@ -37,7 +37,7 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h3>Secret partagé</h3>
+			<h2>Secret partagé</h2>
 			<p>
 				Le secret est implicitement partagé pour l’accès au dossier du patient entre les
 				professionnels de santé constituant cette équipe de soins (<a
@@ -62,11 +62,5 @@
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-2 md:space-y-4;
-	}
-	.list-disc {
-		@apply pl-4 space-y-4 p-4;
-	}
-	.list-card {
-		@apply w-fit text-token card p-4;
 	}
 </style>
