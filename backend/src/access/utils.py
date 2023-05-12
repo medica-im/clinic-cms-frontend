@@ -70,6 +70,5 @@ def authorize(endpoint: str, role: Role, permissions: int):
         ac = AccessControl.objects.get(endpoint=endpoint, role=role)
     except AccessControl.DoesNotExist:
         return False
-    logger.debug(f'{ac.check_permission(permissions)=}')
     return ac.check_permission(permissions)
     

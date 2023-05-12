@@ -45,7 +45,15 @@ const en: BaseTranslation = {
 		},
 		LOCATION: "Practice location",
 		SPECIALTY: "specialty",
-		CLEAR: "Clear"
+		CLEAR: "Clear",
+		PAYMENT_METHODS: "Payment methods",
+		PAYMENT_METHOD: "Payment method",
+		COSTS_AND_REIMBURSEMENTS: "Costs and reimbursements",
+		THIRD_PARTY_PAYER: "Third-party payer",
+		SOMED: "Social media",
+		SPOKEN_LANGUAGE: "spoken language",
+		SPOKEN_LANGUAGES: "spoken languages",
+		INFORMATIONS: "informations"
 	},
 	NAVBAR: {
 		ADDRESSBOOK: "Addressbook",
@@ -119,7 +127,10 @@ const en: BaseTranslation = {
 	RESOURCES: 'resources',
 	LEGAL: 'legal',
 	PHONE: 'phone',
-	DIRECTION: 'direction'
+	DIRECTION: 'direction',
+	YES: 'yes',
+	NO: 'no',
+	AND: 'and'
 }
 
 export default en

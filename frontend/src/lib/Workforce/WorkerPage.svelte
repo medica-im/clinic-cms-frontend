@@ -3,10 +3,16 @@
 	import { variables } from '$lib/utils/constants';
 	import LL from '$i18n/i18n-svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';
+	import Payment from '$components/Addressbook/Payment/Payment.svelte';
+	import Cost from '$components/Addressbook/Cost/Cost.svelte';
+	import Info from '$components/Addressbook/Info/Info.svelte';
 	import Appointment from './Appointment.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
 	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
+	import Fa from 'svelte-fa';
+	import { faCreditCard } from '@fortawesome/free-regular-svg-icons';
+	import { faGlobe, faCircleNodes } from '@fortawesome/free-solid-svg-icons';
 
 	export let userData: Worker;
 
@@ -30,25 +36,28 @@
 		</h2>
 
 		{#each userData.occupations as occupation}
-			<p>
-				{#if occupation.specialty}
-					<h5>
-						{occupation.specialty.label}
-					</h5>
-					{#each occupation.specialty.facilities as facility}
-						<WorkerFacility {facility} />
-					{/each}
-				{:else}
-					<h5>
-						{occupation.label}
-					</h5>
-					{#each occupation.facilities as facility}
-						<WorkerFacility {facility} />
-					{/each}
-				{/if}
-			</p>
+			{#if occupation.specialty}
+				<h3>
+					{occupation.specialty.label}
+				</h3>
+				{#each occupation.specialty.facilities as facility}
+					<WorkerFacility {facility} />
+				{/each}
+			{:else}
+				<h3>
+					{occupation.label}
+				</h3>
+				{#each occupation.facilities as facility}
+					<WorkerFacility {facility} />
+				{/each}
+			{/if}
 		{/each}
-		<ul class="list-group list-group">
+		<ul>
+			{#if userData.appointments && userData.appointments.length}
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<Appointment appointments={userData.appointments} />
+				</li>
+			{/if}
 			{#if userData.account_email}
 				<li class="list-group-item d-flex justify-content-between align-items-start">
 					<p class="card-text">
@@ -67,32 +76,56 @@
 				{/each}
 			{/if}
 
-			{#if userData.websites}
-				<ul
-					class="mb-12 whitespace-nowrap no-scrollbar overflow-x-scroll overflow-y-hidden space-x-2"
-				>
-					{#each userData.websites as website}
-						<li class="w-fit inline-block">
-							<Website {website} />
-						</li>
-					{/each}
-				</ul>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<Cost data={userData} />
+			</li>
+			{#if userData.payment != null}
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<Payment data={userData.payment} />
+				</li>
 			{/if}
-			{#if userData.appointments && userData.appointments.length}
-				<Appointment appointments={userData.appointments} />
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<Info data={userData}/>
+			</li>
+			{#if userData.websites.length}
+				<div class="flex items-center p-1">
+					<div class="w-9"><Fa icon={faGlobe} /></div>
+					<div>
+						<h3>Web</h3>
+					</div>
+				</div>
+				<div class="flex p-1">
+					<div class="w-9" />
+					<div class="py-2 my-2 space-x-2">
+						{#each userData.websites as website}
+							<Website {website} />
+						{/each}
+					</div>
+				</div>
+			{/if}
+			{#if userData.socialnetworks.length}
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<div class="flex items-center p-1">
+						<div class="w-9"><Fa icon={faCircleNodes} /></div>
+						<div>
+							<h3>{$LL.ADDRESSBOOK.SOMED()}</h3>
+						</div>
+					</div>
+					<div class="flex p-1">
+						<div class="w-9" />
+						<div class="py-2 my-2 space-x-2">
+							<SoMed data={userData.socialnetworks} appBar={false} />
+						</div>
+					</div>
+				</li>
 			{/if}
 		</ul>
 	</div>
-	<div class="card p-4 space-y-2">
+	<div class="p-4 space-y-2">
 		<img
 			src={getUrl(userData)}
 			alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(userData)}"
 			class="w-auto h-auto lg:w-72 lg:h-72 rounded-lg"
 		/>
-		<div>
-			{#if userData.socialnetworks}
-				<SoMed data={userData.socialnetworks} appBar={false} />
-			{/if}
-		</div>
 	</div>
 </div>

@@ -45,7 +45,15 @@ const fr: Translation = {
     },
     LOCATION: "Lieu d'exercice",
     SPECIALTY: "Spécialité",
-		CLEAR: "Effacer"
+		CLEAR: "Effacer",
+    PAYMENT_METHODS: "Moyens de paiement",
+    PAYMENT_METHOD: "Moyen de paiement",
+		COSTS_AND_REIMBURSEMENTS: "Tarifs et remboursements",
+		THIRD_PARTY_PAYER: "Tiers payant",
+		SOMED: "Réseaux sociaux",
+		SPOKEN_LANGUAGE: "langue parlée",
+		SPOKEN_LANGUAGES: "langues parlées",
+		INFORMATIONS: "informations"
   },
   NAVBAR: {
     ADDRESSBOOK: "Annuaire",
@@ -119,7 +127,10 @@ const fr: Translation = {
 	RESOURCES: 'ressources',
 	LEGAL: 'légal',
 	PHONE: 'téléphone',
-	DIRECTION: 'itinéraire'
+	DIRECTION: 'itinéraire',
+	YES: 'oui',
+	NO: 'non',
+  AND: 'et'
 }
 
 export default fr

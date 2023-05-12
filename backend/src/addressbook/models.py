@@ -207,6 +207,7 @@ class Email(models.Model):
     class EmailType(models.TextChoices):
         PERSONAL = 'P', _('Personal')
         WORK = 'W', _('Work')
+        MSSANTE = 'M', 'MSSanté'
 
     contact = models.ForeignKey(
         Contact,

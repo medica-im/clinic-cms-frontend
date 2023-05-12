@@ -1,11 +1,12 @@
 from django.db import models
 from django_postgresql_dag.models import node_factory, edge_factory
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
 from accounts.models import GrammaticalGender
+
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class WorkforceBase(models.Model):
     name = models.CharField(
@@ -250,3 +251,5 @@ class WorkforceSlug(models.Model):
         return (self.slug,)
     
     natural_key.dependencies = ['workforce.NetworkNode']
+
+

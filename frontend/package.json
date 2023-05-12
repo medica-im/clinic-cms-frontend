@@ -17,7 +17,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.29.2",
-		"@skeletonlabs/skeleton": "^1.2.5",
+		"@skeletonlabs/skeleton": "^1.5.1",
 		"@square/svelte-store": "^1.0.13",
 		"@sveltejs/adapter-node": "^1.1.4",
 		"@sveltejs/kit": "^1.15.2",

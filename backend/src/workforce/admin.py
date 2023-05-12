@@ -1,9 +1,10 @@
 import logging
 from django.contrib import admin
+from django.forms import ModelForm, ValidationError
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from facility.models import Organization, Facility
-from .models import (
+from workforce.models import (
     EdgeSet,
     NodeSet,
     NetworkEdge,
@@ -12,14 +13,45 @@ from .models import (
     WorkforceNetworkedgeOrganizations,
     WorkforceNetworkedgeFacilities,
     WorkforceSlug,
+    RPPS,
+    CarteVitale,
+    Convention,
+    Conventionnement,
+    PaymentMethod,
+    Payment,
+    ThirdPartyPayer,
+    ThirdPartyPayment,
+    SpokenLanguage,
 )
 from modeltranslation.admin import TranslationAdmin
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.translation import get_language
 from accounts.models import GrammaticalGender
+import langcodes
+from langcodes import Language
 
 logger = logging.getLogger(__name__)
+
+
+class RPPSInline(admin.TabularInline):
+    model = RPPS
+    extra = 0
+
+
+class CarteVitaleInline(admin.TabularInline):
+    model = CarteVitale
+    extra = 0
+
+
+class ConventionnementInline(admin.TabularInline):
+    model = Conventionnement
+    extra = 0
+
+
+class PaymentInline(admin.TabularInline):
+    model = Payment
+    extra = 0
 
 
 def get_edge(node, obj):
@@ -331,6 +363,55 @@ class NetworkEdgeAdmin(admin.ModelAdmin):
         return tag_array or None
 
 
+class ThirdPartyPaymentInline(admin.TabularInline):
+    model = ThirdPartyPayment
+    extra = 3
+    fk_name = 'node'
+
+
+class SpokenLanguageModelAdminForm(ModelForm):
+    class Meta:
+        model = SpokenLanguage
+        fields = '__all__'
+
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        if 'test' in tags:
+            raise ValidationError('invalid tag: test')
+        for tag in tags:
+            try:
+                Language.get(tag)
+            except:
+                try:
+                    langcodes.find(tag)
+                except:
+                    raise ValidationError(
+                        f'{tag} is invalid language code or language name'
+                    )
+        return tags
+
+
+class SpokenLanguageInline(admin.TabularInline):
+    model = SpokenLanguage
+    form = SpokenLanguageModelAdminForm
+    fields = (
+        'node',
+        'tags',
+        'language_name_tag',
+    )
+    readonly_fields = (
+        'language_name_tag',
+    )
+    
+    def language_name_tag(self, obj):
+        try:
+            return ", ".join(obj.display_name())
+        except:
+            return
+    
+    language_name_tag.short_description=_("Natural language name")
+
+
 @admin.register(NetworkNode)
 class NetworkNodeAdmin(TranslationAdmin):
     list_display = (
@@ -341,6 +422,7 @@ class NetworkNodeAdmin(TranslationAdmin):
         'parents_tag',
         'mesh',
         'node_set',
+        'rpps',
     )
     search_fields = ['name', 'user__contact__formatted_name']
     list_filter = (
@@ -370,7 +452,15 @@ class NetworkNodeAdmin(TranslationAdmin):
         'children_tag',
         'descendants_tag',  
     )
-    
+    inlines=[
+        RPPSInline,
+        CarteVitaleInline,
+        ConventionnementInline,
+        PaymentInline,
+        ThirdPartyPaymentInline,
+        SpokenLanguageInline
+    ]
+
     def label_tag(self, obj):
         lang=get_language()
         logger.debug(lang)
@@ -442,6 +532,16 @@ class LabelAdmin(admin.ModelAdmin):
     genders_tag.short_description = _("Genders")
 
 
+@admin.register(RPPS)
+class RPPSAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['node',]
+    
+
+@admin.register(CarteVitale)
+class CarteVitaleAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['node', 'organization']
+
+
 @admin.register(WorkforceSlug)
 class WorkforceSlugAdmin(TranslationAdmin):
     list_display = (
@@ -450,3 +550,78 @@ class WorkforceSlugAdmin(TranslationAdmin):
     )
     
     autocomplete_fields = ['node',]
+
+
+@admin.register(Convention)
+class ConventionAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'label',
+        'profession_tag',
+    )
+    
+    autocomplete_fields = ['profession',]
+    
+    def profession_tag(self, obj):
+        return [profession.name for profession in obj.profession.all()]
+    
+    profession_tag.short_description = _("Profession")
+    
+    
+@admin.register(Conventionnement)
+class ConventionnementAdmin(admin.ModelAdmin):
+    list_display = (
+        'convention',
+        'node',
+        'organization',
+    )
+    
+    autocomplete_fields = ['node',]
+
+
+@admin.register(PaymentMethod)
+class PaymentMethodAdmin(TranslationAdmin):
+    list_display = (
+        'name',
+        'label',
+    )
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = (
+        'node',
+        'method_tag',
+        'organization',
+    )
+    
+    def method_tag(self, obj):
+        return [method.label for method in obj.method.all()]
+    
+    method_tag.short_description = _("Payment method")
+
+
+@admin.register(ThirdPartyPayer)
+class ThirdPartyPayerAdmin(TranslationAdmin):
+    list_display = (
+        'name',
+        'label',
+    )
+
+
+@admin.register(SpokenLanguage)
+class SpokenLanguageAdmin(admin.ModelAdmin):
+    form=SpokenLanguageModelAdminForm
+    list_display = (
+        'node',
+        'tags',
+        'language_name_tag',
+    )
+    
+    def language_name_tag(self, obj):
+        try:
+            return ", ".join(obj.display_name())
+        except:
+            return
+    
+    language_name_tag.short_description=_("Natural language name")

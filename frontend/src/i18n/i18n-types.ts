@@ -128,6 +128,38 @@ type RootTranslation = {
 		 * E​f​f​a​c​e​r
 		 */
 		CLEAR: string
+		/**
+		 * M​o​y​e​n​s​ ​d​e​ ​p​a​i​e​m​e​n​t
+		 */
+		PAYMENT_METHODS: string
+		/**
+		 * M​o​y​e​n​ ​d​e​ ​p​a​i​e​m​e​n​t
+		 */
+		PAYMENT_METHOD: string
+		/**
+		 * T​a​r​i​f​s​ ​e​t​ ​r​e​m​b​o​u​r​s​e​m​e​n​t​s
+		 */
+		COSTS_AND_REIMBURSEMENTS: string
+		/**
+		 * T​i​e​r​s​ ​p​a​y​a​n​t
+		 */
+		THIRD_PARTY_PAYER: string
+		/**
+		 * R​é​s​e​a​u​x​ ​s​o​c​i​a​u​x
+		 */
+		SOMED: string
+		/**
+		 * l​a​n​g​u​e​ ​p​a​r​l​é​e
+		 */
+		SPOKEN_LANGUAGE: string
+		/**
+		 * l​a​n​g​u​e​s​ ​p​a​r​l​é​e​s
+		 */
+		SPOKEN_LANGUAGES: string
+		/**
+		 * i​n​f​o​r​m​a​t​i​o​n​s
+		 */
+		INFORMATIONS: string
 	}
 	NAVBAR: {
 		/**
@@ -368,6 +400,18 @@ type RootTranslation = {
 	 * i​t​i​n​é​r​a​i​r​e
 	 */
 	DIRECTION: string
+	/**
+	 * o​u​i
+	 */
+	YES: string
+	/**
+	 * n​o​n
+	 */
+	NO: string
+	/**
+	 * e​t
+	 */
+	AND: string
 }
 
 export type TranslationFunctions = {
@@ -484,6 +528,38 @@ export type TranslationFunctions = {
 		 * Effacer
 		 */
 		CLEAR: () => LocalizedString
+		/**
+		 * Moyens de paiement
+		 */
+		PAYMENT_METHODS: () => LocalizedString
+		/**
+		 * Moyen de paiement
+		 */
+		PAYMENT_METHOD: () => LocalizedString
+		/**
+		 * Tarifs et remboursements
+		 */
+		COSTS_AND_REIMBURSEMENTS: () => LocalizedString
+		/**
+		 * Tiers payant
+		 */
+		THIRD_PARTY_PAYER: () => LocalizedString
+		/**
+		 * Réseaux sociaux
+		 */
+		SOMED: () => LocalizedString
+		/**
+		 * langue parlée
+		 */
+		SPOKEN_LANGUAGE: () => LocalizedString
+		/**
+		 * langues parlées
+		 */
+		SPOKEN_LANGUAGES: () => LocalizedString
+		/**
+		 * informations
+		 */
+		INFORMATIONS: () => LocalizedString
 	}
 	NAVBAR: {
 		/**
@@ -723,6 +799,18 @@ export type TranslationFunctions = {
 	 * itinéraire
 	 */
 	DIRECTION: () => LocalizedString
+	/**
+	 * oui
+	 */
+	YES: () => LocalizedString
+	/**
+	 * non
+	 */
+	NO: () => LocalizedString
+	/**
+	 * et
+	 */
+	AND: () => LocalizedString
 }
 
 export type Formatters = {}
