@@ -16,7 +16,7 @@
 <div class="flex items-center p-1">
 	<div class="w-9" />
 	<div>
-		<ul class="list">
+		<ul>
 			{#each appointments as appointment}
 				<li>
 					{#if appointment.type == 'url'}

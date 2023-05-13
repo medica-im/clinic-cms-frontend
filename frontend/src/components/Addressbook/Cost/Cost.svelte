@@ -5,7 +5,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	export let data;
 </script>
-{#if data.conventionnement && data.carte_vitale && data.third_party_payer}
+{#if data.conventionnement || data.carte_vitale || data.third_party_payer.length}
 <div class="flex items-center p-1">
 	<div class="w-9"><Fa icon={faEuroSign} /></div>
 	<div>

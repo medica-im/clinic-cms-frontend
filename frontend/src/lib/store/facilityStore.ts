@@ -53,6 +53,25 @@ export const siteCount = asyncDerived(
 	}	
 );
 
+
+export const websiteSchema = asyncDerived(
+	(facilityStore),
+	async ($facilityStore) => {
+		const someds = [];
+		for (let somed of $facilityStore.contact.socialnetworks) {
+            someds.push(somed.url)
+		}
+		return {
+			'@context': 'https://schema.org',
+			'@type': 'WebSite',
+			name: $facilityStore.website_title,
+			url: variables.BASE_URI,
+			description: $facilityStore.website_description,
+			sameAs: someds,
+		}
+	}
+);
+
 /*
 export default function () {
 	const loading = writable(false)

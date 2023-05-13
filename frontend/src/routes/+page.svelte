@@ -20,6 +20,7 @@
 	import { invalidate } from '$app/navigation';
 	import OutpatientClinicPrograms from "$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte";
     import type { PageData } from './$types';
+	import LDTag from '$components/Schema/LDTag.svelte';
 
 	export let data: PageData;
 
@@ -31,7 +32,7 @@
 
 	const queryClient = new QueryClient();
 </script>
-
+<LDTag schema={data.websiteSchema} />
 <svelte:head>
 	<OpenGraph opengraph={data.openGraph} />
 

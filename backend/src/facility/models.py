@@ -40,6 +40,9 @@ class Organization(models.Model):
         max_length=255,
         blank=True,
     )
+    website_description = models.TextField(
+        blank=True,
+    )
     active = models.BooleanField(default=False)
     contact = models.OneToOneField(
         'addressbook.Contact',

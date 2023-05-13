@@ -11,7 +11,7 @@
 	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
 	import Fa from 'svelte-fa';
-	import { faCreditCard } from '@fortawesome/free-regular-svg-icons';
+	import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 	import { faGlobe, faCircleNodes } from '@fortawesome/free-solid-svg-icons';
 
 	export let userData: Worker;
@@ -52,7 +52,7 @@
 				{/each}
 			{/if}
 		{/each}
-		<ul>
+		<ul class="py-4 space-y-4">
 			{#if userData.appointments && userData.appointments.length}
 				<li class="list-group-item d-flex justify-content-between align-items-start">
 					<Appointment appointments={userData.appointments} />
@@ -60,9 +60,19 @@
 			{/if}
 			{#if userData.account_email}
 				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<p class="card-text">
-						<small class="text-muted">{userData.account_email}</small>
-					</p>
+					<div class="flex items-center p-1">
+						<div class="w-9"><Fa icon={faEnvelope} /></div>
+						<div>
+							<h3>Email</h3>
+						</div>
+					</div>
+					<div class="flex p-1">
+						<div class="w-9" />
+						<div>
+					{userData.account_email}
+					
+					</div>
+				</div>
 				</li>
 			{/if}
 
@@ -96,7 +106,7 @@
 				</div>
 				<div class="flex p-1">
 					<div class="w-9" />
-					<div class="py-2 my-2 space-x-2">
+					<div class="space-x-2">
 						{#each userData.websites as website}
 							<Website {website} />
 						{/each}
@@ -113,7 +123,7 @@
 					</div>
 					<div class="flex p-1">
 						<div class="w-9" />
-						<div class="py-2 my-2 space-x-2">
+						<div class="space-x-2">
 							<SoMed data={userData.socialnetworks} appBar={false} />
 						</div>
 					</div>
