@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import type { Worker } from '$lib/interfaces/workforce.interface';
 	import { variables } from '$lib/utils/constants';
 	import LL from '$i18n/i18n-svelte';
@@ -12,7 +13,7 @@
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
 	import Fa from 'svelte-fa';
 	import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-	import { faGlobe, faCircleNodes } from '@fortawesome/free-solid-svg-icons';
+	import { faGlobe, faCircleNodes, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 	export let userData: Worker;
 
@@ -69,21 +70,30 @@
 					<div class="flex p-1">
 						<div class="w-9" />
 						<div>
-					{userData.account_email}
-					
+							<a href="mailto:{userData.account_email}">{userData.account_email}</a>
+						</div>
 					</div>
-				</div>
 				</li>
 			{/if}
 
-			{#if userData.phone_numbers}
-				{#each Object.keys(userData.phone_numbers) as key}
-					{#each userData.phone_numbers[key] as phone}
-						<li class="list-group-item d-flex justify-content-between align-items-start">
-							<p class="card-text"><small class="text-muted">{key}: {phone}</small></p>
-						</li>
+			{#if userData.phone_numbers.length}
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="flex items-center p-1">
+					<div class="w-9"><Fa icon={faPhone} /></div>
+					<div>
+						<h3>{capitalizeFirstLetter($LL.PHONE())}</h3>
+					</div>
+				</div>
+				
+					{#each userData.phone_numbers as p}
+								<div class="flex p-1">
+									<div class="w-9" />
+									<div>
+										<a href="tel:{p.phone}" rel="nofollow">{p.phone}</a> ({p.type_display})
+									</div>
+								</div>
 					{/each}
-				{/each}
+				</li>
 			{/if}
 
 			<li class="list-group-item d-flex justify-content-between align-items-start">
@@ -95,9 +105,10 @@
 				</li>
 			{/if}
 			<li class="list-group-item d-flex justify-content-between align-items-start">
-				<Info data={userData}/>
+				<Info data={userData} />
 			</li>
 			{#if userData.websites.length}
+			<li class="list-group-item d-flex justify-content-between align-items-start">
 				<div class="flex items-center p-1">
 					<div class="w-9"><Fa icon={faGlobe} /></div>
 					<div>
@@ -112,6 +123,7 @@
 						{/each}
 					</div>
 				</div>
+			</li>
 			{/if}
 			{#if userData.socialnetworks.length}
 				<li class="list-group-item d-flex justify-content-between align-items-start">
@@ -135,7 +147,7 @@
 		<img
 			src={getUrl(userData)}
 			alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(userData)}"
-			class="w-auto h-auto lg:w-72 lg:h-72 rounded-lg"
+			class="w-auto h-auto md:w-72 md:h-72 rounded-lg"
 		/>
 	</div>
 </div>

@@ -13,7 +13,11 @@ from addressbook.models import (
     Appointment,
     SocialNetwork
 )
-from addressbook.api.serializers import AppSerializer, SocialNetworkSerializer
+from addressbook.api.serializers import (
+    AppSerializer,
+    SocialNetworkSerializer,
+    PhoneNumberSerializer,
+)
 from accounts.serializers import GrammaticalGenderSerializer
 
 logger = logging.getLogger(__name__)
@@ -101,7 +105,6 @@ class WorkforceUserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField()
     appointments = serializers.SerializerMethodField()
     socialnetworks = serializers.SerializerMethodField()
-    #rpps = RPPSSerializer(read_only=True)
     rpps = serializers.CharField(
         source='rpps.identifier'
     )
@@ -201,17 +204,8 @@ class WorkforceUserSerializer(serializers.ModelSerializer):
 
     def get_phone_numbers(self, obj):
         role = get_role(self.context["request"])
-        logger.debug(f'{role=}')
-        phones = {}
-        if authorize("phone_mobile", role, 1):
-            phones["mobile"]=obj.user.contact.phonenumbers.filter(type="M").values_list("phone", flat=True)
-        if authorize("phone_mobile_work", role, 1):
-            phones["mobile_work"]=obj.user.contact.phonenumbers.filter(type="MW").values_list("phone", flat=True)
-        if authorize("phone_work", role, 1):
-            phones["work"]=obj.user.contact.phonenumbers.filter(type="W").values_list("phone", flat=True)
-        if authorize("phone_fax", role, 1):
-            phones["fax"]=obj.user.contact.phonenumbers.filter(type="F").values_list("phone", flat=True)
-        return phones
+        phones = obj.user.contact.phonenumbers.filter(roles__in=[role]).distinct()
+        return PhoneNumberSerializer(phones, many=True).data
 
     def get_websites(self, obj):
         role = get_role(self.context["request"])

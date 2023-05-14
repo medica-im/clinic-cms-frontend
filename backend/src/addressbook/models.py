@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.functions import Length
 from django.db.models import CharField
@@ -108,8 +109,8 @@ class Contact(models.Model):
 class Address(models.Model):
 
     class AddressType(models.TextChoices):
-        HOME = 'Home', _('Home')
-        WORK = 'Work', _('Work')
+        HOME = 'Home', pgettext_lazy('Address', 'Home')
+        WORK = 'Work', pgettext_lazy('Address', 'Work')
 
     contact = models.ForeignKey(
         Contact,

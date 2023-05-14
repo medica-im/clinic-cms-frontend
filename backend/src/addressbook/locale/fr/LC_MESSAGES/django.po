@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-14 00:45+0000\n"
+"PO-Revision-Date: 2023-05-14 03:47+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: admin.py:23 admin.py:44
+msgid "None"
+msgstr "Aucun"
+
+#: admin.py:133
+msgid "Django User"
+msgstr "Utilisateur Django"
+
+#: admin.py:135
+msgid "Organization"
+msgstr "Organisation"
+
+#: admin.py:137
+msgid "Facility"
+msgstr "Établissement"
+
+#: models.py:61
+msgid "Natural person"
+msgstr "Personne physique"
+
+#: models.py:62
+msgid "Legal person"
+msgstr "Personne légale"
+
+#: models.py:112
+msgctxt "Address"
+msgid "Home"
+msgstr "Domicile"
+
+#: models.py:113
+msgctxt "Address"
+msgid "Work"
+msgstr "Professionnelle"
+
+#: models.py:172
+msgid "Mobile"
+msgstr "Portable"
+
+#: models.py:173
+msgid "Mobile Work"
+msgstr "Portable professionnel"
+
+#: models.py:174 models.py:210 models.py:243
+msgid "Work"
+msgstr "Professionnel"
+
+#: models.py:175
+msgid "Fax"
+msgstr "Fax"
+
+#: models.py:176
+msgid "Skype"
+msgstr "Skype"
+
+#: models.py:177
+msgid "Answering service"
+msgstr "Secrétariat à distance"
+
+#: models.py:209 models.py:244
+msgid "Personal"
+msgstr "Personnel"
+
+#: models.py:245
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: models.py:246
+msgid "Blog"
+msgstr "Blog"

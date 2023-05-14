@@ -1,5 +1,12 @@
 import logging
-from addressbook.models import Profile, App, AppLink, AppStore, SocialNetwork
+from addressbook.models import (
+    Profile,
+    App,
+    AppLink,
+    AppStore,
+    SocialNetwork,
+    PhoneNumber,
+)
 from rest_framework import serializers
 
 logger=logging.getLogger(__name__)
@@ -50,3 +57,17 @@ class AppSerializer(serializers.ModelSerializer):
         fields = [
             'name', 'label', 'links',
         ]
+        
+class PhoneNumberSerializer(serializers.ModelSerializer):
+    type_display = serializers.CharField(
+        source='get_type_display'
+    )
+    class Meta:
+        model = PhoneNumber
+        fields = [
+            'id',
+            'phone',
+            'type',
+            'type_display',
+        ]
+        depth = 2
