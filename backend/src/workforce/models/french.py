@@ -19,8 +19,11 @@ def validate_rpps_isdigit(value):
         )
 
 def validate_rpps_length(value):
-    if not len(value) == 11:    
-        raise ValidationError('%(rpps)s must be 11 digits', params={'rpps': value},)
+    if (len(value) < 10) or (len(value) > 11):
+        raise ValidationError(
+            '%(rpps)s must be 10 or 11 digits',
+            params={'rpps': value},
+        )
 
 
 class RPPS(models.Model):
