@@ -16,7 +16,7 @@
 			</h3>
 		</div>
 	</div>
-	{#if data.languages.length}
+	{#if data.languages && data.languages.length}
 		<div class="flex p-1">
 			<div class="w-9" />
 			<div>
