@@ -57,7 +57,7 @@
 		<div class="section-container"><Team
 			data={{
 				facility: $facilityStore,
-				cO: data.occupationsCardinal,
+				cO: $occupationsCardinal,
 				sO: $selectOccupations,
 				term: $term,
 				wO: data.workforceOccupation

@@ -17,7 +17,7 @@
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			<nav class="top-0 p-2 m-2 variant-soft-surface">
+			<nav class="top-0 p-2 m-2">
 				<FacilityList organizationData={$facilityStore} />
 			</nav>
 			<div>

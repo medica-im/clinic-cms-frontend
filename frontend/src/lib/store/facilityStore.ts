@@ -9,32 +9,41 @@ import { locale } from '$i18n/i18n-svelte';
 export const selectFacilities = writable([]);
 
 export const facilityStore = asyncDerived(
-	([language, locale]),
-	async ([$language, $locale]) => {
+	(locale),
+	async ($locale) => {
 		var cachelife = 600;
 		const cacheName = "facility";
 		let cachedData;
 		let expired = true;
+		let empty: boolean = true;
+		let lang = $locale;
+		if (lang == undefined) {
+			lang = variables.DEFAULT_LANGUAGE;
+		}
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${$language}`);
+			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
 			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data) {
+					empty = false;
+				}
+			}
 		}
 		//If cached data available and not expired and array not empty, return it. Else, fetch it.
-		if (cachedData && !expired && cachedData.data.length) {
+		if (cachedData && !expired && cachedData.data) {
 			return cachedData.data;
 		} else {
 			//otherwise fetch data from api then save the data in localstorage
-			var langUrl = ($language === undefined || $language === null || $language === '') ? '' : `?lang=${$language}`;
-			const apiUrl = `${variables.BASE_API_URI}/facility/${$language}/`;
+			const apiUrl = `${variables.BASE_API_URI}/facility/${lang}/`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				let data = response;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
+					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
@@ -48,11 +57,14 @@ export const facilityStore = asyncDerived(
 export const siteCount = asyncDerived(
 	(facilityStore),
 	async ($facilityStore) => {
-		let len = $facilityStore.facility.length;
-		return len;
+		try {
+		    let len = $facilityStore.facility.length;
+		    return len;
+		} catch(err) {
+			console.error(err);
+		}
 	}	
 );
-
 
 export const websiteSchema = asyncDerived(
 	(facilityStore),

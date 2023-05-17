@@ -70,7 +70,14 @@ class CarteVitale(models.Model):
         return f'{self.is_accepted} {self.organization}'
 
 
+class ConventionManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
 class Convention(models.Model):
+    objects = ConventionManager()
+
     name = models.CharField(
         max_length=255,  
         null=True,
@@ -92,6 +99,12 @@ class Convention(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def natural_key(self):
+        return (self.name,)
+
+    natural_key.dependencies = ['workforce.NetworkNode']
+
 
     class Meta:
         constraints = [

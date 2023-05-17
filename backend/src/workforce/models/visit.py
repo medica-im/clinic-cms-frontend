@@ -15,8 +15,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+class PaymentMethodManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
 
 class PaymentMethod(models.Model):
+    objects = PaymentMethodManager()
+
     name = models.CharField(
         max_length=255,  
         null=True,
@@ -34,6 +40,9 @@ class PaymentMethod(models.Model):
 
     def __str__(self):
         return f'PaymentMethod {self.name}'
+
+    def natural_key(self):
+        return (self.name,)
 
     class Meta:
         constraints = [

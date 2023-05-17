@@ -1,11 +1,15 @@
 import type { Worker } from "$lib/interfaces/workforce.interface";
 import { language } from "$lib/store/languageStore";
+import { variables } from '$lib/utils/constants';
 
-export const capitalizeFirstLetter = ([ first, ...rest ], locale=language) =>
-first.toLocaleUpperCase(locale) + rest.join('')
+const lang = variables.DEFAULT_LANGUAGE;
 
-export const lowercaseFirstLetter = ([ first, ...rest ], locale=language) =>
-first.toLocaleLowerCase(locale) + rest.join('')
+
+export const capitalizeFirstLetter = ([ first, ...rest ], l=lang) =>
+first.toLocaleUpperCase(l) + rest.join('')
+
+export const lowercaseFirstLetter = ([ first, ...rest ], l=lang) =>
+first.toLocaleLowerCase(l) + rest.join('')
 
 export const workerTitleFormattedName = (w: Worker) =>
 `${w.title}${w.title ? " " : ""}${w.formatted_name}`

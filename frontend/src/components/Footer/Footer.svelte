@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { locale } from '$i18n/i18n-svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { variables } from '$lib/utils/constants';
 	import SocialNetworks from '../SoMed/SoMed.svelte';
@@ -23,7 +24,7 @@
 						<span class="flex w-8 h-8 items-center"><OutpatientClinicLogo /></span>
 
 						<h3>
-							{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+							{capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
 						</h3>
 					</div>
 				</a>
@@ -31,7 +32,7 @@
 			<div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
 				<div>
 					<h6 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-						{capitalizeFirstLetter($LL.RESOURCES(), $language)}
+						{capitalizeFirstLetter($LL.RESOURCES(), $locale)}
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<li class="mb-4">

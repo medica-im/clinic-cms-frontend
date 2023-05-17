@@ -1,8 +1,4 @@
-import { error } from '@sveltejs/kit';
-import { variables } from '$lib/utils/constants';
-import { getWorkforceDataCached } from '$lib/store/workforceStore';
-import { facilityStore } from '$lib/store/facilityStore';
-import { language } from '$lib/store/languageStore';
+import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
 import {
     workforceDataCached,
@@ -10,27 +6,23 @@ import {
     occupationsCardinal,
     filteredOccupationsCardinal,
     selectOccupations,
-    workforceOccupation } from '$lib/store/workforceStore';
-
-function getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key] === value);
-  }
+    workforceOccupation,
+    slugAddressbook,
+    keyAddressbook } from '$lib/store/workforceStore';
 
 export const load: PageLoad = async ({ fetch, params }) => {
-    const wDC = await workforceDataCached.load();
-    const o = await occupations.load();
-    const oC = await occupationsCardinal.load();
-    const wO = await workforceOccupation.load();
-    const slugOccupation = getKeyByValue(wO, params.slug);
-    console.log(slugOccupation);
-    selectOccupations.set([slugOccupation]);
+    slugAddressbook.set(params.slug);
+    console.log(get(slugAddressbook));
+    const keyOccupation = await keyAddressbook.load();
+    console.log(keyOccupation);
+    selectOccupations.set([keyOccupation]);
+    console.log(get(selectOccupations));
     const sOC = await filteredOccupationsCardinal.load();
-
+    console.log(sOC);
     return {
-        workforceDataCached: wDC,
-        occupations: o,
-        occupationsCardinal: oC,
         selectedOccupationsCardinal: sOC,
-        slug: params.slug
+        slug: params.slug,
+        key: keyOccupation,
+        workforceDataCached: await workforceDataCached.load()
     };
 }

@@ -13,31 +13,38 @@ import type { CustomError } from '$lib/interfaces/error.interface';
 
 export const term = writable('');
 export const workerSlug = writable('');
+export const slugAddressbook = writable('');
 
 export const workforceDict = asyncDerived(
-	([language, isAuth]),
-	async ([$language, $isAuth]) => {
+	([locale, isAuth]),
+	async ([$locale, $isAuth]) => {
 		var cachelife = 3600;
 		const cacheName = "workforceDict";
 		let cachedData;
 		let expired: boolean = true;
+		let empty: boolean = true;
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${$language}`);
+			cachedData = localStorage.getItem(`${cacheName}_${$locale}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
 			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
+			}
 		}
-		if (cachedData && !expired) {
+		if (cachedData && !expired && !empty) {
 			return cachedData.data;
 		} else {
-			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${$language}`;
+			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${$locale}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				let data = response;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${$language}`, JSON.stringify(json));
+					localStorage.setItem(`${cacheName}_${$locale}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
@@ -45,23 +52,19 @@ export const workforceDict = asyncDerived(
 			}
 		}
 	},
-	true
+	{ reloadable: true }
 );
 
 export const workforceOccupation = asyncDerived(
-	([language, isAuth]),
-	async ([$language, $isAuth]) => {
-		var cachelife = 3600;
+	(locale),
+	async ($locale) => {
+		var cachelife = 600;
 		const cacheName = "wfo";
 		let cachedData;
 		let expired: boolean = true;
-		let lang = $language;
 		let empty: boolean = true;
-		if (lang == undefined) {
-			lang = variables.DEFAULT_LANGUAGE;
-		}
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
+			cachedData = localStorage.getItem(`${cacheName}_${variables.DEFAULT_LANGUAGE}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
@@ -75,7 +78,7 @@ export const workforceOccupation = asyncDerived(
 		if (cachedData && !expired && !empty) {
 			return cachedData.data;
 		} else {
-			const workforceOccupationUrl = `${variables.BASE_API_URI}/workforce/occupation/?lang=${lang}`;
+			const workforceOccupationUrl = `${variables.BASE_API_URI}/workforce/occupation/?lang=${variables.DEFAULT_LANGUAGE}`;
 			const [occupations, err]: [occupations: any, err: CustomError[]] = await handleRequestsWithPermissions(fetch, workforceOccupationUrl);
 			if (occupations) {
 				const occupationsDict = occupations.reduce((result, occupation) => {
@@ -84,7 +87,7 @@ export const workforceOccupation = asyncDerived(
 				}, {});
 				if (browser) {
 					var json = { data: occupationsDict, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
+					localStorage.setItem(`${cacheName}_${variables.DEFAULT_LANGUAGE}`, JSON.stringify(json));
 				}
 				return occupationsDict;
 			} else if (err) {
@@ -92,34 +95,47 @@ export const workforceOccupation = asyncDerived(
 			}
 		}
 	},
-	true
+	{ reloadable: true }
+);
+
+export const keyAddressbook = asyncDerived(
+	([slugAddressbook, workforceOccupation, locale]),
+	async ([$slugAddressbook, $workforceOccupation, $locale]) => {
+    return Object.keys($workforceOccupation).find(k => $workforceOccupation[k] === $slugAddressbook);
+  }
 );
 
 export const workforceDataCached = asyncDerived(
-	([locale, language, isAuth]),
-	async ([$locale, $language, $isAuth]) => {
+	([locale, isAuth]),
+	async ([$locale, $isAuth]) => {
 		var cachelife = 600;
 		const cacheName = "wfd";
 		let cachedData;
 		let expired: boolean = true;
-		let lang = $language;
+		let lang = $locale;
 		let empty: boolean = true;
 		if (lang == undefined) {
 			lang = variables.DEFAULT_LANGUAGE;
 		}
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
+			cachedData = localStorage.getItem(`${cacheName}_${$locale}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
-			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			//console.log(`elapsed:${elapsed}`);
+			expired = elapsed > cachelife;
+			//console.log(`Date.now() / 1000:${Date.now() / 1000}`);
+			//console.log(`cachedData.cachetime:${cachedData.cachetime}`);
+			//console.log(`expired:${expired}`);
 			if ('data' in cachedData) {
-				if (cachedData.data.length) {
+				if (cachedData.data?.length) {
 					empty = false;
 				}
 			}
 		}
 		if (cachedData && !expired && !empty) {
+			//console.log('return cached wfd data');
 			return cachedData.data;
 		} else {
 			const workforceUrl = `${variables.BASE_API_URI}/workforce/user/?lang=${lang}`;
@@ -139,6 +155,17 @@ export const workforceDataCached = asyncDerived(
 	true
 );
 
+export const teamCarouselStore = asyncDerived(
+	([workforceDataCached, isAuth]),
+	async ([$workforceDataCached, $isAuth]) => {
+		let carousel =  $workforceDataCached.filter(function (item) {
+			return item.profile_picture_url.lt
+	});
+	console.log(carousel);
+	return carousel
+}
+);
+
 export const workforceSlugs = asyncDerived(
 	(workforceDataCached),
 	async ($workforceDataCached) => {
@@ -155,10 +182,21 @@ function uniq(a) {
 		return seen.hasOwnProperty(item.name) ? false : (seen[item.name] = true);
 	});
 }
-
+/*
 export const occupations = asyncDerived(
 	(workforceDataCached),
 	async ($workforceDataCached) => {
+		let derivedWorkforceData = (
+			uniq($workforceDataCached.map(function (currentElement) {
+				return currentElement.occupations.flat()
+			}
+			).flat()));
+		return derivedWorkforceData
+	});
+*/
+export const occupations = derived(
+	(workforceDataCached),
+	($workforceDataCached) => {
 		let derivedWorkforceData = (
 			uniq($workforceDataCached.map(function (currentElement) {
 				return currentElement.occupations.flat()
@@ -181,8 +219,8 @@ function mapWorkforceData(workerElement: Worker) {
 }
 
 export const occupationsCardinalBak = asyncDerived(
-	([workforceDataCached, workforceDict, language, locale]),
-	async ([$workforceDataCached, $workforceDict, $language, $locale]) => {
+	([workforceDataCached, workforceDict, locale]),
+	async ([$workforceDataCached, $workforceDict, $locale]) => {
 		let occupationArray: Occupation[] = (
 			$workforceDataCached.map(function (workerElement: Worker) {
 				return workerElement.occupations.map(function (occupationElement) {
@@ -253,10 +291,10 @@ function normalize(x: string) {
 export const filteredWorkforceDataCached = asyncDerived(
 	([term, selectOccupations, selectFacilities, workforceDataCached]),
 	async ([$term, $selectOccupations, $selectFacilities, $workforceDataCached]) => {
-		if (!$selectOccupations.length && !$selectFacilities.length && $term == '') { return $workforceDataCached }
+		if (!$selectOccupations?.length && !$selectFacilities?.length && $term == '') { return $workforceDataCached }
 		else {
 			return $workforceDataCached.filter(function (x) {
-				if (!$selectOccupations.length) {
+				if (!$selectOccupations?.length) {
 					return true
 				} else {
 					return x.occupations.map(
@@ -266,7 +304,7 @@ export const filteredWorkforceDataCached = asyncDerived(
 					).some(r => $selectOccupations.includes(r))
 				}
 			}).filter(function (x) {
-				if (!$selectFacilities.length) {
+				if (!$selectFacilities?.length) {
 					return true
 				}
 				let facilities = [];
@@ -306,8 +344,8 @@ export const filteredWorkforceDataCached = asyncDerived(
 );
 
 export const occupationsCardinal = asyncDerived(
-	([workforceDataCached, workforceDict, language, locale]),
-	async ([$workforceDataCached, $workforceDict, $language, $locale]) => {
+	([workforceDataCached, workforceDict, locale]),
+	async ([$workforceDataCached, $workforceDict, $locale]) => {
 		let occupationArray: Occupation[] = ($workforceDataCached.map(mapWorkforceData).flat(2));
 		const occupationsCardinalObject = {} as OccupationCardinalObject;
 		occupationArray.forEach(function (x: Occupation) {
@@ -358,12 +396,12 @@ export const occupationsCardinal = asyncDerived(
 
 
 export const filteredOccupationsCardinal = asyncDerived(
-	([filteredWorkforceDataCached, selectOccupations, workforceDict, language, locale]),
-	async ([$filteredWorkforceDataCached, $selectOccupations, $workforceDict, $language, $locale]) => {
+	([filteredWorkforceDataCached, selectOccupations, workforceDict, locale]),
+	async ([$filteredWorkforceDataCached, $selectOccupations, $workforceDict, $locale]) => {
 		let occupationArray: Occupation[] = ($filteredWorkforceDataCached.map(mapWorkforceData).flat(2));
 		let filteredOccupationArray: Occupation[] = occupationArray.filter(
 			function (x) {
-				if ($selectOccupations.length) {
+				if ($selectOccupations?.length) {
 					return $selectOccupations.indexOf(x.name) >= 0;
 				} else {
 					return true;
@@ -426,37 +464,3 @@ export const workerData = asyncDerived(
 	},
 	true
 );
-
-export const getWorkforceDataCached = async () => {
-	var cachelife = 300;
-	let cachedData;
-	let expired: boolean = true;
-	let lang = get(language);
-	if (lang == undefined) {
-		lang = variables.DEFAULT_LANGUAGE;
-	}
-	if (browser) {
-		cachedData = localStorage.getItem(`wfd_${lang}`);
-	}
-	if (cachedData) {
-		cachedData = JSON.parse(cachedData);
-		expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
-	}
-	if (cachedData && !expired) {
-		return cachedData.data;
-	} else {
-		const workforceUrl = `${variables.BASE_API_URI}/workforce/user/?lang=${lang}`;
-		const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-		if (response) {
-			let data = response as Workforce;
-			if (browser) {
-				var json = { data: data, cachetime: Date.now() / 1000 }
-				localStorage.setItem(`wfd_${lang}`, JSON.stringify(json));
-			}
-			return data;
-		} else if (err) {
-			console.log(err);
-		}
-
-	}
-};

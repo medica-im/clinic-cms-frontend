@@ -5,17 +5,19 @@
 	import { language } from '$lib/store/languageStore';
 	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
+	import TeamCarousel from '$components/Carousel/TeamCarousel.svelte';
 
 	export let data: any;
 </script>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 items-start">
 	<div>
-		<img
+		<!--img
 			src="https://source.unsplash.com/random/500x500?healthcare"
 			class="w-full"
 			alt="healthcare"
-		/>
+		/-->
+		<TeamCarousel />
 	</div>
 	<div class="col-span-2 p-2 space-y-2">
 		<h6 class="text-primary-500">

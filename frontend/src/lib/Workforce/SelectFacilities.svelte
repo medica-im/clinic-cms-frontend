@@ -15,7 +15,7 @@
 
 	function getValue() {
 		let facilities = get(selectFacilities);
-		if (!facilities.length) {
+		if (!facilities?.length) {
 			return null;
 		} else {
 			return items(get(facilityStore)).filter((x) => get(selectFacilities).includes(x.value));

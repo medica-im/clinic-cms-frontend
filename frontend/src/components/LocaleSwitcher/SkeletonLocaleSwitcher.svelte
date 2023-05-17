@@ -15,18 +15,15 @@
     import Fa from 'svelte-fa';
     import { faCaretRight, faCaretDown, faLanguage } from '@fortawesome/free-solid-svg-icons';
 	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
+	import { invalidateAll } from '$app/navigation'
 
   
-
-  let isOpen=false;
 
 	const defaultLanguage = variables.DEFAULT_LANGUAGE as Locales;
 
 	const switchLocale = async (newLocale: Locales, updateHistoryState = false) => {
 		if (!newLocale || $locale === newLocale) return;
 
-		// set language in languageStore
-		language.set(newLocale);
 		// load new dictionary from server
 		await loadLocaleAsync(newLocale);
 
@@ -34,9 +31,8 @@
 		setLocale(newLocale);
 
 		// update `lang` attribute
-		if (browser) {
-		    document.querySelector('html').setAttribute('lang', newLocale);
-		}
+		// update `lang` attribute
+		document.querySelector('html').setAttribute('lang', newLocale)
 
 		if (updateHistoryState) {
 			// update url to reflect locale changes
@@ -46,18 +42,27 @@
 				replaceLocaleInUrl(location.pathname, newLocale)
 			);
 		}
+		// run the `load` function again
+		//invalidateAll()
 	};
 
 	// update locale when page store changes
-	$: switchLocale($page.params.lang as Locales, false);
-
-	onMount(
-		async () => {
-			await switchLocale(defaultLanguage);
-		}
-	);
+	$: if (browser) {
+		const lang = $page.params.lang as Locales
+		switchLocale(lang, false)
+		//history.replaceState({ ...history.state, locale: lang }, '',
+		//replaceLocaleInUrl($page.url, lang))
+	}
+		// update locale when navigating via browser back/forward buttons
+		const handlePopStateEvent = async ({ state }: PopStateEvent) => switchLocale(state.locale, false)
+	//onMount(
+	//	async () => {
+	//		await switchLocale(defaultLanguage);
+	//	}
+	//);
 </script>
 
+<svelte:window on:popstate={handlePopStateEvent} />
 
 	<!-- trigger -->
 	<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'language' }}>
@@ -74,7 +79,7 @@
 				{#each locales as l}
 		<button on:click={() => switchLocale(l)}>
 			{#if l==$locale}<span class="w-6 text-center"><Fa icon={faCaretRight} /></span>{/if}
-			<span>{capitalizeFirstLetter(l, $locale || $language)}</span>
+			<span>{capitalizeFirstLetter(l, $locale)}</span>
 		</button>
 		{/each}
 				</li>

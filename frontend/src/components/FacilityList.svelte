@@ -10,20 +10,12 @@
 		facility = name;
 	}
 </script>
-
+<div class="logo-cloud grid-cols-1 xl:grid-cols-2 gap-1">
 {#each organizationData.facility as f}
 	{#if f.contact}
-		<a href="#{f.name}_anchor"
-			><span
-				class="chip m-2 p-2 {facility === f.name ? 'variant-filled' : 'variant-filled'}"
-				on:click={() => {
-					section(f.name);
-				}}
-				on:keypress
-			>
-				<!--{#if facility === f.name}<span><Fa icon={faMapPin} /></span>{/if}-->
-				<span>{f.contact.formatted_name}</span>
-			</span></a
+		<a href="#{f.name}_anchor" class="logo-item text-center"
+			>{f.contact.formatted_name}</a
 		>
 	{/if}
 {/each}
+</div>

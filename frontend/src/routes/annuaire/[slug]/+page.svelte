@@ -2,10 +2,8 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import {
 		filteredWorkforceDataCached,
-		occupations,
-		occupationsCardinal,
 		filteredOccupationsCardinal
-	} from '$lib/store/workforceStore';
+} from '$lib/store/workforceStore';
 	import Worker from '$lib/Workforce/Worker.svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -17,14 +15,11 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
-	let promise;
-	$: (promise = facilityStore.load()), $language;
 </script>
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($facilityStore.formatted_name, $language)} - {$LL.ADDRESSBOOK.TITLE()}: {data.slug}
+		{capitalizeFirstLetter($filteredOccupationsCardinal[data.key]['label'])} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 
