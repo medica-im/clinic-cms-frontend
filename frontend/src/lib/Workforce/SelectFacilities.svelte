@@ -2,7 +2,9 @@
 	import { onMount } from 'svelte';
 	import Select from 'svelte-select';
 	import { get } from '@square/svelte-store';
-	import { facilityStore, selectFacilities } from '$lib/store/facilityStore';
+	import { facilityStore, facilityWithOccupationStore } from '$lib/store/facilityStore';
+	import { selectFacilities } from '$lib/store/selectionStore';
+	import { selectOccupations, workforceDataCached } from '$lib/store/workforceStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get_store_value } from 'svelte/internal';
 	const label = 'label';
@@ -16,19 +18,17 @@
 	function getValue() {
 		let facilities = get(selectFacilities);
 		if (!facilities?.length) {
-			return null;
+			return;
 		} else {
-			return items(get(facilityStore)).filter((x) => get(selectFacilities).includes(x.value));
+			try {
+			let val = get(facilityStore).facility.filter((x) => get(selectFacilities).includes(x.name))[0];
+			console.log(val);
+			return {value: val.name, label: val.contact.formatted_name}
+			} catch(err) {
+				console.error(err);
+				return;
+			}
 		}
-	}
-
-	function items(facilityStore) {
-		return facilityStore.facility.map(function (x) {
-			return {
-				value: x.name,
-				label: x.contact.formatted_name
-			};
-		});
 	}
 
 	function toArray(obj) {
@@ -41,45 +41,38 @@
 
 	function handleClear(event) {
 		if (event.detail) {
-			const cleared = event.detail;
-			const clearedF = toArray(cleared);
-			const sF = get(selectFacilities);
-			const arrayAfter = sF.filter((x) => !clearedF.includes(x));
-			selectFacilities.set(arrayAfter);
+			selectFacilities.set([]);
 		}
 	}
 
-	function handleSelect(event) {
-		if (event.detail === null) {
-			selectFacilities.set([]);
-			return;
-		} else {
-			const selected = toArray(event.detail);
-			selectFacilities.set(selected.map((x) => x));
+	function handleChange(event) {
+		if (event.detail) {
+			console.log(event.detail);
+			console.log(event.detail.value);
+			selectFacilities.set([event.detail.value]);
+			console.log(get(selectFacilities));
 		}
 	}
 </script>
-
-{#await facilityStore.load()}
+{#await facilityWithOccupationStore.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()} />
 	</div>
-{:then $facilityStore}
+{:then}
 	<div class="text-surface-700 theme">
 		<Select
 			{label}
 			{itemId}
-			items={items($facilityStore)}
+			items={$facilityWithOccupationStore}
 			bind:value
-			multiple
 			searchable={false}
-			on:change={handleSelect}
+			hideEmptyState={true}
+			on:change={handleChange}
 			on:clear={handleClear}
 			placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()}
 		/>
 	</div>
 {/await}
-
 <style>
 	/*
 			CSS variables can be used to control theming.

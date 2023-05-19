@@ -6,7 +6,7 @@ import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, Worker } from '$lib/interfaces/workforce.interface';
 import { locale } from '$i18n/i18n-svelte';
-import { selectFacilities } from '$lib/store/facilityStore';
+import { selectFacilities } from '$lib/store/selectionStore';
 import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 import { isAuth } from '$lib/store/authStore';
 import type { CustomError } from '$lib/interfaces/error.interface';
@@ -23,8 +23,9 @@ export const workforceDict = asyncDerived(
 		let cachedData;
 		let expired: boolean = true;
 		let empty: boolean = true;
+		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${$locale}`);
+			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
@@ -38,13 +39,13 @@ export const workforceDict = asyncDerived(
 		if (cachedData && !expired && !empty) {
 			return cachedData.data;
 		} else {
-			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${$locale}`;
+			const apiUrl = `${variables.BASE_API_URI}/workforce/dictionary/?lang=${lang}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				let data = response;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${$locale}`, JSON.stringify(json));
+					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
 				return data;
 			} else if (err) {
@@ -55,9 +56,9 @@ export const workforceDict = asyncDerived(
 	{ reloadable: true }
 );
 
-export const workforceOccupation = asyncDerived(
-	(locale),
-	async ($locale) => {
+export const workforceOccupation = asyncReadable(
+	{},
+	async () => {
 		var cachelife = 600;
 		const cacheName = "wfo";
 		let cachedData;
@@ -112,13 +113,10 @@ export const workforceDataCached = asyncDerived(
 		const cacheName = "wfd";
 		let cachedData;
 		let expired: boolean = true;
-		let lang = $locale;
+		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
 		let empty: boolean = true;
-		if (lang == undefined) {
-			lang = variables.DEFAULT_LANGUAGE;
-		}
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${$locale}`);
+			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
@@ -161,7 +159,6 @@ export const teamCarouselStore = asyncDerived(
 		let carousel =  $workforceDataCached.filter(function (item) {
 			return item.profile_picture_url.lt
 	});
-	console.log(carousel);
 	return carousel
 }
 );
@@ -194,9 +191,9 @@ export const occupations = asyncDerived(
 		return derivedWorkforceData
 	});
 */
-export const occupations = derived(
+export const occupations = asyncDerived(
 	(workforceDataCached),
-	($workforceDataCached) => {
+	async ($workforceDataCached) => {
 		let derivedWorkforceData = (
 			uniq($workforceDataCached.map(function (currentElement) {
 				return currentElement.occupations.flat()

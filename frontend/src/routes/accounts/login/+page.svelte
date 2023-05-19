@@ -41,8 +41,8 @@
 				password: password
 			}
 		});
-		console.log(`jsonRes: ${JSON.stringify(jsonRes)}`);
-		console.log(`err: ${JSON.stringify(err)}`);
+		//console.log(`jsonRes: ${JSON.stringify(jsonRes)}`);
+		//console.log(`err: ${JSON.stringify(err)}`);
 		response = jsonRes;
 
 		if (err.length > 0) {
@@ -84,7 +84,7 @@
 				class="space-y-4 lg:max-w-2xl"
 				on:submit={(e) => {
 					e.preventDefault();
-					console.log('submit', e);
+					//console.log('submit', e);
 					handleLogin();
 				}}
 			>

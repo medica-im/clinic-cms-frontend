@@ -12,13 +12,13 @@ import {
 
 export const load: PageLoad = async ({ fetch, params }) => {
     slugAddressbook.set(params.slug);
-    console.log(get(slugAddressbook));
+    //console.log(get(slugAddressbook));
     const keyOccupation = await keyAddressbook.load();
-    console.log(keyOccupation);
+    //console.log(keyOccupation);
     selectOccupations.set([keyOccupation]);
-    console.log(get(selectOccupations));
+    //console.log(get(selectOccupations));
     const sOC = await filteredOccupationsCardinal.load();
-    console.log(sOC);
+    //console.log(sOC);
     return {
         selectedOccupationsCardinal: sOC,
         slug: params.slug,

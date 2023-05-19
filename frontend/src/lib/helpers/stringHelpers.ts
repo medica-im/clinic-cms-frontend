@@ -1,5 +1,4 @@
 import type { Worker } from "$lib/interfaces/workforce.interface";
-import { language } from "$lib/store/languageStore";
 import { variables } from '$lib/utils/constants';
 
 const lang = variables.DEFAULT_LANGUAGE;

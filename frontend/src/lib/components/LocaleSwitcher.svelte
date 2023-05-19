@@ -6,7 +6,6 @@
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import { replaceLocaleInUrl } from '$lib/utils/utils.js';
 	import { onMount } from 'svelte';
-	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { variables } from '$lib/utils/constants';
 	import { browser } from '$app/environment';
@@ -16,8 +15,6 @@
 	const switchLocale = async (newLocale: Locales, updateHistoryState = false) => {
 		if (!newLocale || $locale === newLocale) return;
 
-		// set language in languageStore
-		language.set(newLocale);
 		// load new dictionary from server
 		await loadLocaleAsync(newLocale);
 
@@ -64,6 +61,6 @@
 		on:click={() => switchLocale(l)}
 	/>
 	<label class="btn btn-primary" for="option-{l}"
-		>{capitalizeFirstLetter(l, $locale || $language)}</label
+		>{capitalizeFirstLetter(l, $locale)}</label
 	>
 {/each}

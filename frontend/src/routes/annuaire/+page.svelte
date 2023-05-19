@@ -3,9 +3,11 @@
 	import {
 		filteredWorkforceDataCached,
 		occupations,
+		selectOccupations,
 		occupationsCardinal,
 		filteredOccupationsCardinal
 	} from '$lib/store/workforceStore';
+	import { selectFacilities } from '$lib/store/selectionStore';
 	import Worker from '$lib/Workforce/Worker.svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -70,12 +72,16 @@
 				<div class="space-y-2">
 					<div class="row">
 						<div class="col">
+							{#key $selectFacilities}
 							<SelectOccupations />
+							{/key}
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
+							{#key $selectOccupations}
 							<SelectFacilities />
+							{/key}
 						</div>
 					</div>
 					<div class="row">

@@ -15,7 +15,7 @@
 		term,
 		workforceOccupation
 	} from '$lib/store/workforceStore';
-	import { selectFacilities } from '$lib/store/facilityStore';
+	import { selectFacilities } from '$lib/store/selectionStore';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
 	import OutpatientClinicPrograms from "$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte";

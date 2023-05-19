@@ -2,6 +2,7 @@ from datetime import timedelta
 from django.db import models
 from django.contrib.sites.models import Site
 from addressbook.models import Contact
+from workforce.models import NodeSet
 import logging
 from django.conf import settings
 #import reversion
@@ -174,6 +175,25 @@ class Facility(models.Model):
     )
 
     objects = FacilityManager()
+
+    def occupation_set(self):
+        occupations: set = set() 
+        edges = self.networkedge_set.all()
+        try:
+            occupation_nodeset = NodeSet.objects.get(name="occupation")
+        except NodeSet.DoesNotExist as e:
+            logger.error(f"{e}: you must create an occupation NodeSet")
+            return
+        for edge in edges:
+            parent = edge.parent
+            if parent.node_set==occupation_nodeset:
+                occupations.add(parent)
+            else:
+                for node in parent.ancestors():
+                    if node.node_set==occupation_nodeset:
+                        occupations.add(node)
+        logger.debug(f"Facility {self.name} occupation set: {occupations}")
+        return occupations
 
     def __str__(self):
         return self.name

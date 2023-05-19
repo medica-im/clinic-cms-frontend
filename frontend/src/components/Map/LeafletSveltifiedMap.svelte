@@ -1,24 +1,9 @@
 <script lang="ts">
-	import { Icon, LeafletMap, Marker, Popup, TileLayer } from '@locationlabuo/leaflet-sveltified';
-	import MapToolbar from './MapToolbar.svelte';
-	import { onMount } from 'svelte';
-    import { beforeUpdate, afterUpdate } from 'svelte';
+	import { Icon, LeafletMap, Marker, TileLayer } from '@locationlabuo/leaflet-sveltified';
 	export let geoData;
 	const point: [number, number] = [geoData.latitude, geoData.longitude];
 	const zoom: number = geoData.zoom;
 	let container: HTMLElement;
-
-
-	/*	
-    let n = 0;
-	const points: [number, number][] = [];
-	function getRandomLatLng(): [number, number] {
-		return [-90 + 180 * Math.random(), -180 + 360 * Math.random()];
-	}
-	for (let i = 0; i < n; i = i + 1) {
-		points.push(getRandomLatLng());
-	}
-*/
 </script>
 
 <div class="container" bind:this={container}>
@@ -38,14 +23,6 @@
 			/>
 			<Marker latLng={point}>
 				<Icon />
-				<!--Popup>
-					<div>This is a svelte component</div>
-					<button
-						on:click={() => {
-							n = n + 1;
-						}}>Increment: {n}</button
-					>
-				</Popup-->
 			</Marker>
 		</LeafletMap>
 	{/if}

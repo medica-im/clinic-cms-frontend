@@ -1,19 +1,19 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { occupations, selectOccupations } from '$lib/store/workforceStore';
+	import { occupations, selectOccupations, workforceOccupation } from '$lib/store/workforceStore';
+	import { occupationOfFacilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	const label = 'label';
-	const itemId = 'name';
-	let value: [];
-	let searchable = true;
+	const itemId = 'value';
+	let value = null;
 
-	//$value: if (value && value.length) {selectOccupations.set(value.map(x => x.name))} else { selectOccupations.set([])};
+	$: console.log(value);
 
-	onMount( () => {
+	onMount(() => {
 		value = getValue();
 	});
 
@@ -22,7 +22,18 @@
 		if (!sOccupations.length) {
 			return null;
 		} else {
-			return get(occupations).filter((x) => sOccupations.includes(x.name))[0];
+			let occup = get(occupations);
+			if (occup) {
+				let val = occup
+					.filter((x) => sOccupations.includes(x.name))
+					.map(function (x) {
+						let dct = { value: x.name, label: x.label };
+						console.log(dct);
+						return dct;
+					})[0];
+				console.log(val);
+				return val;
+			}
 		}
 	}
 
@@ -37,11 +48,7 @@
 
 	function handleClear(event) {
 		if (event.detail) {
-			const cleared = event.detail;
-			const clearedNames = toArray(cleared);
-			let sOccupations = get(selectOccupations);
-			const arrayAfter = sOccupations.filter((x) => !clearedNames.includes(x));
-			selectOccupations.set(arrayAfter);
+			selectOccupations.set([]);
 		}
 		const pageStore = get(page);
 		if (pageStore.params) {
@@ -51,27 +58,24 @@
 
 	function handleChange(event) {
 		if (event.detail) {
-			selectOccupations.set([event.detail.name]);
-		}
-		const pageStore = get(page);
-		if (pageStore.params) {
-			goto('/annuaire');
+			selectOccupations.set([event.detail.value]);
+			if ($page.url.pathname != '/annuaire') {
+				goto('/annuaire');
+			}
 		}
 	}
 </script>
+
 {#await occupations.load()}
-<div class="text-surface-700 theme">
-	<Select
-	    loading={true}
-		placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}
-	/>
-</div>
+	<div class="text-surface-700 theme">
+		<Select loading={true} placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()} />
+	</div>
 {:then}
 	<div class="text-surface-700 theme">
 		<Select
 			{label}
 			{itemId}
-			items={$occupations}
+			items={$occupationOfFacilityStore}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
@@ -86,14 +90,14 @@
 			CSS variables can be used to control theming.
 			https://github.com/rob-balfre/svelte-select/blob/master/docs/theming_variables.md
 	*/
-    .theme {
-        --border-radius: var(--theme-rounded-container);
-        --border-color: rgb(var(--color-secondary-500));
-        --border-focused: 1px solid rgb(var(--color-secondary-500));
-        --border-hover: 1px solid rgb(var(--color-secondary-500));
-        --item-active-outline: 1px solid rgb(var(--color-secondary-500));
-        --item-outline: 1px solid rgb(var(--color-secondary-500));
-        --clear-select-focus-outline: 1px solid rgb(var(--color-secondary-500));
+	.theme {
+		--border-radius: var(--theme-rounded-container);
+		--border-color: rgb(var(--color-secondary-500));
+		--border-focused: 1px solid rgb(var(--color-secondary-500));
+		--border-hover: 1px solid rgb(var(--color-secondary-500));
+		--item-active-outline: 1px solid rgb(var(--color-secondary-500));
+		--item-outline: 1px solid rgb(var(--color-secondary-500));
+		--clear-select-focus-outline: 1px solid rgb(var(--color-secondary-500));
 		--height: 3rem;
-    }
+	}
 </style>

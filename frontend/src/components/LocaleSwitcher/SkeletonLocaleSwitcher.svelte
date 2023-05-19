@@ -7,7 +7,6 @@
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import { replaceLocaleInUrl } from '$lib/utils/utils.js';
 	import { onMount } from 'svelte';
-	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { variables } from '$lib/utils/constants';
 	import { browser } from '$app/environment';

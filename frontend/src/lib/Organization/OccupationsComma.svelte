@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { occupationsCardinal, selectOccupations, term } from '$lib/store/workforceStore';
-	import { selectFacilities } from '$lib/store/facilityStore';
+	import { selectFacilities } from '$lib/store/selectionStore';
 	import { afterUpdate, onMount, beforeUpdate } from 'svelte';
 
 	export let oC;

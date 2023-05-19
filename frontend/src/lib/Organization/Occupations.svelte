@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { occupationsCardinal, selectOccupations, term, workforceOccupation } from '$lib/store/workforceStore';
-	import { selectFacilities } from '$lib/store/facilityStore';
+	import { selectFacilities } from '$lib/store/selectionStore';
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';
 	import { onMount } from 'svelte';
@@ -8,7 +8,7 @@
 
 	onMount(() => {
 	selectOccupations.set([]);
-	selectFacilities.set([]);
+	//selectFacilities.set([]);
 	term.set('');
 });
 

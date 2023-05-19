@@ -2,12 +2,14 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import {
 		filteredWorkforceDataCached,
-		filteredOccupationsCardinal
+		filteredOccupationsCardinal,
+		occupationsCardinal,
+		selectOccupations
 } from '$lib/store/workforceStore';
 	import Worker from '$lib/Workforce/Worker.svelte';
 	import LL from '$i18n/i18n-svelte';
+	import { locale } from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { language } from '$lib/store/languageStore';
 	import Search from '$lib/Search.svelte';
 	import SelectOccupations from '$lib/Workforce/SelectOccupations.svelte';
 	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
@@ -19,7 +21,7 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($filteredOccupationsCardinal[data.key]['label'])} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{capitalizeFirstLetter(data.selectedOccupationsCardinal[data.key]['label'])} - {capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
 	</title>
 </svelte:head>
 
@@ -73,7 +75,9 @@
 					</div>
 					<div class="row">
 						<div class="col">
+							{#key $selectOccupations}
 							<SelectFacilities />
+							{/key}
 						</div>
 					</div>
 					<div class="row">
