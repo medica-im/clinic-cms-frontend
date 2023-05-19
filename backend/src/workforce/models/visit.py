@@ -80,7 +80,14 @@ class Payment(models.Model):
         ]
 
 
+class ThirdPartyPayerManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
 class ThirdPartyPayer(models.Model):
+    objects = ThirdPartyPayerManager()
+
     name = models.CharField(
         max_length=255,  
         null=True,
@@ -98,6 +105,9 @@ class ThirdPartyPayer(models.Model):
 
     def __str__(self):
         return f'ThirdPartyPayer {self.name}'
+
+    def natural_key(self):
+        return (self.name,)
 
     class Meta:
         constraints = [
