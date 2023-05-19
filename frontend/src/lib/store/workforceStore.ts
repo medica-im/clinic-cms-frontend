@@ -10,6 +10,7 @@ import { selectFacilities } from '$lib/store/selectionStore';
 import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 import { isAuth } from '$lib/store/authStore';
 import type { CustomError } from '$lib/interfaces/error.interface';
+import { shuffle} from '$lib/helpers/random';
 
 export const term = writable('');
 export const workerSlug = writable('');
@@ -159,6 +160,7 @@ export const teamCarouselStore = asyncDerived(
 		let carousel =  $workforceDataCached.filter(function (item) {
 			return item.profile_picture_url.lt
 	});
+	shuffle(carousel);
 	return carousel
 }
 );

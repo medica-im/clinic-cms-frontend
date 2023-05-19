@@ -60,7 +60,8 @@
 				cO: $occupationsCardinal,
 				sO: $selectOccupations,
 				term: $term,
-				wO: data.workforceOccupation
+				wO: data.workforceOccupation,
+				teamCarousel: data.teamCarousel
 			}}
 		/></div>
 	</section>
@@ -80,7 +81,7 @@
 
 <style lang="postcss">
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
+		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-10;
 	}
 	/* Hero Gradient */
 	/* prettier-ignore */

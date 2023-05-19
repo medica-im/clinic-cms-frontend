@@ -17,7 +17,7 @@
 			class="w-full"
 			alt="healthcare"
 		/-->
-		<TeamCarousel />
+		<TeamCarousel data={data.teamCarousel} />
 	</div>
 	<div class="col-span-2 p-2 space-y-2">
 		<h6 class="text-primary-500">

@@ -1,5 +1,5 @@
 import { facilityStore, websiteSchema } from '$lib/store/facilityStore';
-import { occupationsCardinal, workforceOccupation } from '$lib/store/workforceStore';
+import { occupationsCardinal, workforceOccupation, teamCarouselStore } from '$lib/store/workforceStore';
 import { openGraphStore } from '$lib/store/openGraphStore';
 import { variables } from '$lib/utils/constants';
 import type { PageLoad } from './$types';
@@ -16,12 +16,14 @@ export const load: PageLoad = async ({ fetch, params }) => {
     const openGraphData = await openGraphStore.load();
     const posts = await fetch(apiUrl);
     const wO = await workforceOccupation.load();
+    const tCS = await teamCarouselStore.load();
     return {
         facility: fData,
         websiteSchema: websiteSchemaData,
         occupationsCardinal: oData,
         openGraph: openGraphData,
         posts: posts.json(),
-        workforceOccupation: wO
+        workforceOccupation: wO,
+        teamCarousel: tCS 
     };
 }
