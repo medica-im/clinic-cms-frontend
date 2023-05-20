@@ -17,12 +17,12 @@
 
 <div class="flex justify-center place-content-center content-center">
 	{#if browser}
-		<Carousel autoplay autoplayDuration={7000} duration={1000} dots={false}>
+		<Carousel autoplay autoplayDuration={5000} duration={1000} dots={false}>
 			{#each data as worker}
 				<a href="/{worker.slug}">
-					<figure class="content-center flex-shrink-0 mx-auto">
+					<figure class="content-center flex-shrink-0 mx-auto ">
 						<img
-							class="object-scale-up flex-shrink-0 mx-auto w-80"
+							class="object-scale-up flex-shrink-0 mx-auto w-80 px-4"
 							src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 							alt={worker.formatted_name}
 						/>
@@ -34,9 +34,9 @@
 	{:else}
 	{@const worker = data[0]}
 		<a href="/{worker.slug}">
-			<figure class="content-center">
+			<figure class="content-center flex-shrink-0 mx-auto w-64 md:w-80">
 				<img
-					class="object-scale-up w-80 h-80 mx-auto"
+					class="object-scale-up w-64 md:w-80 mx-auto"
 					src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 					alt={worker.formated_name}
 				/>

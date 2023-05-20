@@ -11,7 +11,7 @@
 </script>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 items-center">
-	<div class="p-2 space-y-2 place-items-center items-center justify-center content-center">
+	<div class="place-items-center items-center justify-center content-center">
 		<!--img
 			src="https://source.unsplash.com/random/500x500?healthcare"
 			class="w-full"
