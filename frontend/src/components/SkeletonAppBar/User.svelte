@@ -4,6 +4,7 @@
 	import { logOutUser } from '$lib/utils/requestUtils';
 	import { userData } from '$lib/store/userStore';
 	import { drawerStore } from '@skeletonlabs/skeleton';
+	import { isObjectEmpty } from '$lib/utils/utils';
 
 	import Fa from 'svelte-fa';
 	import {
@@ -23,22 +24,17 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	export let embedded = false;
 
-// ListItem Click Handler
-function onListItemClick(): void {
-	// On Drawer embed Only:
-	if (!embedded) return;
-	drawerStore.close();
-}
+	// ListItem Click Handler
+	function onListItemClick(): void {
+		// On Drawer embed Only:
+		if (!embedded) return;
+		drawerStore.close();
+	}
 	export let facility;
 	export let sideBar = false;
 	export let appBar = false;
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
-
-	function isObjectEmpty(obj) {
-		for (var i in obj) return false;
-		return true;
-	}
 </script>
 
 {#if sideBar}
@@ -81,25 +77,35 @@ function onListItemClick(): void {
 	</ul>
 {:else}
 	{#if isObjectEmpty($userData)}
-		<a class="{classesActive('/accounts/login')} btn hover:variant-soft-primary lg:inline-block" href="/accounts/login" title={$LL.NAVBAR.LOGIN()}
-			><span class="lg:inline-block align-text-bottom"><Fa icon={faRightToBracket} size="lg" /></span>
-			<span class="hidden 2xl:inline-block">{$LL.NAVBAR.LOGIN()}</span></a
+		<a
+			class="{classesActive('/accounts/login')} btn hover:variant-soft-primary lg:inline-block"
+			href="/accounts/login"
+			title={$LL.NAVBAR.LOGIN()}
+			><span class="lg:inline-block align-text-bottom"
+				><Fa icon={faRightToBracket} size="lg" /></span
+			>
+			<span class="hidden xl:inline-block">{$LL.NAVBAR.LOGIN()}</span></a
 		>
 	{/if}
 	{#if $userData.username && $userData.username.length}
 		<a
 			href="/accounts/user/{$userData.username}-{$userData.id}"
 			title={$userData.username}
-			class="{classesActive(`/accounts/user/${$userData.username}-${$userData.id}`)} btn hover:variant-soft-primary lg:inline-block"
+			class="{classesActive(
+				`/accounts/user/${$userData.username}-${$userData.id}`
+			)} btn hover:variant-soft-primary lg:inline-block"
 			><span class="lg:inline-block align-text-bottom"><Fa icon={faUser} size="lg" /></span>
-			<span class="hidden xl:inline-block">{$userData.username}</span></a
+			<span class="hidden lg:inline-block">{$userData.username}</span></a
 		>
-		<button type="button" class="btn hover:variant-soft-primary" title={$LL.NAVBAR.LOGOUT()} on:click={async () => await logOutUser()}
-			><span class="lg:inline-block align-text-bottom"><Fa icon={faRightFromBracket} size="lg" /></span>
-			<span class="hidden xl:inline-block">{$LL.NAVBAR.LOGOUT()}</span></button
+		<button
+			type="button"
+			class="btn hover:variant-soft-primary lg:inline-block"
+			title={$LL.NAVBAR.LOGOUT()}
+			on:click={async () => await logOutUser()}
+			><span class="lg:inline-block align-text-bottom"
+				><Fa icon={faRightFromBracket} size="lg" /></span
+			>
+			<span class="hidden lg:inline-block">{$LL.NAVBAR.LOGOUT()}</span></button
 		>
-		<!--a class="nav-link" href="#" on:click={async () => await logOutUser()}
-				>{$LL.NAVBAR.LOGOUT()}</a
-            -->
 	{/if}
 {/if}

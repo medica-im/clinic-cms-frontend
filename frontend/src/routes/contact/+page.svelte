@@ -1,9 +1,12 @@
 <script lang="ts">
+	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import Fa from 'svelte-fa';
+	import Address from '$lib/Address/Address.svelte';
+
 	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 	import {
 		faBuilding,
@@ -18,6 +21,21 @@
 		faEnvelope,
 		faBlog
 	} from '@fortawesome/free-solid-svg-icons';
+
+	export let data;
+
+	const createFacilityGeoData = (fData) => {
+		console.log(fData.contact.addresses[0]);
+		let address = fData.contact.addresses[0];
+		let facilityGeoData = {
+			name: 'contact',
+			latitude: Number(address?.latitude ?? 0),
+			longitude: Number(address?.longitude ?? 0),
+			zoom: address?.zoom ?? 0
+		};
+		console.log(facilityGeoData);
+		return facilityGeoData;
+	};
 </script>
 
 <svelte:head>
@@ -25,7 +43,6 @@
 		{$LL.CONTACT.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
-
 <div>
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
@@ -34,14 +51,7 @@
 				<div class="flex flex-wrap">
 					<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
 						<div class="map-container-2 w-full">
-							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2871.0282014982663!2d4.90483021385626!3d43.9794663392923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b5f2ba51a6c6e7%3A0xeefbcecdde5cdee0!2zcMO0bGUgbcOpZGljYWw!5e0!3m2!1sfr!2str!4v1677725135937!5m2!1sfr!2str"
-								class="left-0 top-0 h-full w-full rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg"
-								loading="lazy"
-								frameborder="0"
-								allowfullscreen
-								title="map"
-							/>
+							<LeafletMap geoData={createFacilityGeoData(data.facility)} />
 						</div>
 					</div>
 					<div class="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
@@ -59,15 +69,13 @@
 									</div>
 									<div class="grow ml-6">
 										<p class="font-bold mb-1">Siège social</p>
-										<address>
-											209 Place du Petit Pont<br />
-											84270 Vedène<br />
-											France<br />
-										</address>
+										<Address data={$facilityStore.contact} formattedName={true}
+										
+										/>
 									</div>
 								</div>
 							</div>
-							<div
+							<!--div
 								class="mb-12 grow-0 shrink-0 basis-auto w-full md:w-6/12 lg:w-full xl:w-6/12 px-3 md:px-6 xl:px-12"
 							>
 								<div class="flex align-start">
@@ -84,7 +92,7 @@
 										<a href="tel:+33490163675">0490163675</a>
 									</div>
 								</div>
-							</div>
+							</div-->
 						</div>
 					</div>
 				</div>

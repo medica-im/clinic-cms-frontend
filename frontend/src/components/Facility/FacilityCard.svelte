@@ -46,7 +46,7 @@
 				<div class="p-2 space-y-2 space-x-2">
 					<h4>{facility.contact.formatted_name}</h4>
 					<p class="space-x-2">
-						<Address contactData={facility.contact} />
+						<Address data={facility.contact} />
 					</p>
 					<p>
 						

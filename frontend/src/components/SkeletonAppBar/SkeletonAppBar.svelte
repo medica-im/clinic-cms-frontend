@@ -47,6 +47,8 @@
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
+	import { userData } from '$lib/store/userStore';
+	import { isObjectEmpty } from '$lib/utils/utils';
 
 	export let facility;
 
@@ -122,10 +124,12 @@
 			</button>
 			<!-- Logo -->
 			<a class="flex xl:inline-block space-x-2" href="/" title={$LL.NAVBAR.GO_HOME()}>
-				
 				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
-				<span class="hidden 2xl:inline-block"><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span>
-			
+				{#if isObjectEmpty($userData)}
+					<span class="hidden 2xl:inline-block"
+						><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span
+					>
+				{/if}
 			</a>
 		</div>
 	</svelte:fragment>
@@ -218,7 +222,7 @@
 			</div>
 		</div>
 		<div class="relative hidden xl:block">
-        <MenuNavLinks />
+			<MenuNavLinks />
 		</div>
 
 		<div class="relative">
@@ -227,20 +231,23 @@
 
 		<div>
 			<!-- trigger-->
-			<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme' }}>
-					<span class="text-lg 2xl:hidden">
+			<button
+				class="btn hover:variant-soft-primary"
+				use:popup={{ event: 'click', target: 'theme' }}
+			>
+				<span class="text-lg 2xl:hidden">
 					<Fa icon={faPalette} />
-			</span>
-					<span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span>
-					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
-				</button>
+				</span>
+				<span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span>
+				<span class="opacity-50"><Fa icon={faCaretDown} /></span>
+			</button>
 			<!-- popup -->
 			<div class="card p-4 w-60 shadow-xl" data-popup="theme">
-					<section class="flex justify-between items-center">
-						<h6>Mode</h6>
-						<LightSwitch />
-					</section>
-					<!--hr class="my-4" />
+				<section class="flex justify-between items-center">
+					<h6>Mode</h6>
+					<LightSwitch />
+				</section>
+				<!--hr class="my-4" />
 					<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
 						<form action="/?/setTheme" method="POST" use:enhance={setTheme}>
 							<ul>
@@ -280,11 +287,10 @@
 			</a>
 			</section>
 </div>
-<div>
-		<section class="space-x-1">
-			<User {facility} appBar={true} />
-		</section>
+		<div>
+			<section class="space-x-1">
+				<User {facility} appBar={true} />
+			</section>
 		</div>
-		
 	</svelte:fragment>
 </AppBar>

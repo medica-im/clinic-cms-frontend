@@ -15,3 +15,8 @@ export const replaceLocaleInUrl = (url: URL, locale: string, full = false): stri
 	newUrl.pathname = new_pathname
 	return newUrl.toString()
 }
+
+export const isObjectEmpty = (obj) => {
+	for (var i in obj) return false;
+	return true;
+}
