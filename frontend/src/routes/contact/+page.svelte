@@ -49,11 +49,6 @@
 		<div class="section-container">
 			<div class="p-4">
 				<div class="flex flex-wrap">
-					<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
-						<div class="map-container-2 w-full">
-							<LeafletMap geoData={createFacilityGeoData(data.facility)} />
-						</div>
-					</div>
 					<div class="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
 						<div class="flex flex-wrap pt-12 lg:pt-0">
 							<div
@@ -69,9 +64,7 @@
 									</div>
 									<div class="grow ml-6">
 										<p class="font-bold mb-1">Siège social</p>
-										<Address data={$facilityStore.contact} formattedName={true}
-										
-										/>
+										<Address data={$facilityStore.contact} formattedName={true} />
 									</div>
 								</div>
 							</div>
@@ -93,6 +86,12 @@
 									</div>
 								</div>
 							</div-->
+						</div>
+					</div>
+
+					<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
+						<div class="map-container-2 w-full">
+							<LeafletMap geoData={createFacilityGeoData(data.facility)} />
 						</div>
 					</div>
 				</div>
