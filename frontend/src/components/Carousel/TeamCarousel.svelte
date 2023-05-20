@@ -1,35 +1,32 @@
 <script lang="ts">
+	import LL from '$i18n/i18n-svelte';
 	import useAssets from '$lib/composables/useAssets.js';
 	import Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 	import { variables } from '$lib/utils/constants';
 	export let data;
+
+	function getLabels(worker) {
+        let labels = [];
+		for (let occupation of worker.occupations) {
+			labels.push(occupation.label)
+		}
+		return [labels.slice(0, -1).join(', '), labels.slice(-1)[0]].join(labels.length < 2 ? '' : ` ${$LL.AND()} `);
+	}
 </script>
 
-<div class="max-h-fit p-0">
-	<!--
-	{#await teamCarouselStore.load()}
-		<figure>
-			<img
-				class="object-scale-down h-96 w-96"
-				src="{variables.BASE_URI}{$teamCarouselStore[0].profile_picture_url.lt}"
-				alt={$teamCarouselStore[0].formated_name}
-			/>
-			<figcaption class="text-center">{$teamCarouselStore[0].formatted_name}</figcaption>
-		</figure>
-	{:then}
-	-->
+<div class="flex justify-center place-content-center content-center">
 	{#if browser}
-		<Carousel autoplay autoplayDuration={7000} duration={2000} dots={false}>
+		<Carousel autoplay autoplayDuration={7000} duration={1000} dots={false}>
 			{#each data as worker}
 				<a href="/{worker.slug}">
-					<figure>
+					<figure class="content-center flex-shrink-0 mx-auto">
 						<img
-							class="object-contain h-96 w-96"
+							class="object-scale-up flex-shrink-0 mx-auto w-80"
 							src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 							alt={worker.formatted_name}
 						/>
-						<figcaption class="text-center">{worker.formatted_name}</figcaption>
+						<figcaption class="text-center">{worker.formatted_name}, {getLabels(worker)}</figcaption>
 					</figure>
 				</a>
 			{/each}
@@ -37,14 +34,14 @@
 	{:else}
 	{@const worker = data[0]}
 		<a href="/{worker.slug}">
-			<figure>
+			<figure class="content-center">
 				<img
-					class="object-scale-down h-96 w-96"
+					class="object-scale-up w-80 h-80 mx-auto"
 					src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 					alt={worker.formated_name}
 				/>
-				<figcaption class="text-center">{worker.formatted_name}</figcaption>
+				<figcaption class="text-center">{worker.formatted_name}, {getLabels(worker)}</figcaption>
 			</figure>
 		</a>
 	{/if}
-</div>
+	</div>
