@@ -15,18 +15,18 @@
 	}
 </script>
 
-<div class="flex justify-center place-content-center content-center">
+<div class="flex justify-center shrink place-content-center content-center mx-auto w-80">
 	{#if browser}
 		<Carousel autoplay autoplayDuration={5000} duration={1000} dots={false}>
 			{#each data as worker}
-				<a href="/{worker.slug}">
-					<figure class="content-center flex-shrink-0 mx-auto ">
+				<a href="/{worker.slug}" class="flex shrink">
+					<figure class="content-center shrink mx-auto w-64 md:80">
 						<img
-							class="object-scale-up flex-shrink-0 mx-auto w-80 px-4"
+							class="object-scale-up flex-shrink-0 mx-auto w-64 md:80 p-3"
 							src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 							alt={worker.formatted_name}
 						/>
-						<figcaption class="text-center">{worker.formatted_name}, {getLabels(worker)}</figcaption>
+						<figcaption class="text-center w-64">{worker.formatted_name}, {getLabels(worker)}</figcaption>
 					</figure>
 				</a>
 			{/each}
@@ -34,13 +34,13 @@
 	{:else}
 	{@const worker = data[0]}
 		<a href="/{worker.slug}">
-			<figure class="content-center flex-shrink-0 mx-auto w-64 md:w-80">
+			<figure class="content-center flex-shrink-0 mx-auto w-64 md:80">
 				<img
-					class="object-scale-up w-64 md:w-80 mx-auto"
+					class="object-scale-up w-64 md:80 mx-auto"
 					src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 					alt={worker.formated_name}
 				/>
-				<figcaption class="text-center">{worker.formatted_name}, {getLabels(worker)}</figcaption>
+				<figcaption class="text-center w-64">{worker.formatted_name}, {getLabels(worker)}</figcaption>
 			</figure>
 		</a>
 	{/if}

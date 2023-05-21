@@ -36,6 +36,9 @@ export const facilityStore = asyncDerived(
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
 			if (response) {
 				let data = response;
+				data.facility.sort(function (a, b) {
+					return a.contact.formatted_name.localeCompare(b.contact.formatted_name);
+				})
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
@@ -71,7 +74,9 @@ export const facilityWithOccupationStore = asyncDerived(
 		);
 		let facilities = $facilityStore.facility.filter(
 			(x) => okFacilities.has(x.name)
-		).map(function (x) { return { 'value': x.name, 'label': x.contact.formatted_name } });
+		).map(function (x) { return { 'value': x.name, 'label': x.contact.formatted_name } }).sort(function (a, b) {
+			return a.label.localeCompare(b.label);
+		});
 		return facilities;
 	}
 );
@@ -157,7 +162,9 @@ export const occupationOfFacilityStore = asyncDerived(
 				res[fName].push(_dct);
 			}
 		}
-		return res[get(selectFacilities)];
+		return res[get(selectFacilities)].sort(function (a, b) {
+			return a.label.localeCompare(b.label);
+		});
 	}
 );
 

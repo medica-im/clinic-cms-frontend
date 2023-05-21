@@ -10,7 +10,7 @@ import { selectFacilities } from '$lib/store/selectionStore';
 import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 import { isAuth } from '$lib/store/authStore';
 import type { CustomError } from '$lib/interfaces/error.interface';
-import { shuffle} from '$lib/helpers/random';
+import { shuffle } from '$lib/helpers/random';
 
 export const term = writable('');
 export const workerSlug = writable('');
@@ -103,8 +103,8 @@ export const workforceOccupation = asyncReadable(
 export const keyAddressbook = asyncDerived(
 	([slugAddressbook, workforceOccupation, locale]),
 	async ([$slugAddressbook, $workforceOccupation, $locale]) => {
-    return Object.keys($workforceOccupation).find(k => $workforceOccupation[k] === $slugAddressbook);
-  }
+		return Object.keys($workforceOccupation).find(k => $workforceOccupation[k] === $slugAddressbook);
+	}
 );
 
 export const workforceDataCached = asyncDerived(
@@ -157,12 +157,12 @@ export const workforceDataCached = asyncDerived(
 export const teamCarouselStore = asyncDerived(
 	([workforceDataCached, isAuth]),
 	async ([$workforceDataCached, $isAuth]) => {
-		let carousel =  $workforceDataCached.filter(function (item) {
+		let carousel = $workforceDataCached.filter(function (item) {
 			return item.profile_picture_url.lt
-	});
-	shuffle(carousel);
-	return carousel
-}
+		});
+		shuffle(carousel);
+		return carousel
+	}
 );
 
 export const workforceSlugs = asyncDerived(
@@ -200,7 +200,10 @@ export const occupations = asyncDerived(
 			uniq($workforceDataCached.map(function (currentElement) {
 				return currentElement.occupations.flat()
 			}
-			).flat()));
+			).flat()).sort(function (a, b) {
+				return a.label.localeCompare(b.label);
+			})
+		);
 		return derivedWorkforceData
 	});
 
@@ -345,7 +348,10 @@ export const filteredWorkforceDataCached = asyncDerived(
 export const occupationsCardinal = asyncDerived(
 	([workforceDataCached, workforceDict, locale]),
 	async ([$workforceDataCached, $workforceDict, $locale]) => {
-		let occupationArray: Occupation[] = ($workforceDataCached.map(mapWorkforceData).flat(2));
+		let occupationArray: Occupation[] = $workforceDataCached.map(mapWorkforceData).flat(2).sort(function (a, b) {
+			return a.label.localeCompare(b.label);
+		});
+		console.log(occupationArray);
 		const occupationsCardinalObject = {} as OccupationCardinalObject;
 		occupationArray.forEach(function (x: Occupation) {
 			if (!(x.name in Object.keys(occupationsCardinalObject))) {
@@ -388,6 +394,7 @@ export const occupationsCardinal = asyncDerived(
 				}
 			}
 		});
+		console.log(occupationsCardinalObject);
 		return occupationsCardinalObject
 	},
 	true
