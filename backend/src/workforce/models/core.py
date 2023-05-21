@@ -169,6 +169,11 @@ class NetworkNode(node_factory(NetworkEdge)):
         return (self.name,)
 
 
+class LabelManager(models.Manager):
+    def get_by_natural_key(self, label, language):
+        return self.get(label=label, language=language)
+
+
 class Label(models.Model):
 
 
@@ -205,7 +210,10 @@ class Label(models.Model):
 
     def __str__(self):
         return self.label
-    
+
+    def natural_key(self):
+        return (self.label, self.language)
+
     @staticmethod
     def get_label(node: str, gender: str, number: str, language: str) -> str:
         try:
