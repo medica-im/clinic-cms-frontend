@@ -20,6 +20,10 @@ const TIMELINE = import.meta.env.VITE_TIMELINE;
 
 const BLOG_URI: string = import.meta.env.VITE_BLOG_URI
 
+const NOINDEX: boolean = (import.meta.env.VITE_NOINDEX == "true")
+	? true
+	: false;
+
 export const variables: Variables = {
 	BASE_API_URI: BASE_API_URI,
 	BASE_CMS_API_URI: BASE_CMS_API_URI,
@@ -27,5 +31,6 @@ export const variables: Variables = {
 	GHOST_API_KEY: GHOST_API_KEY,
 	DEFAULT_LANGUAGE: DEFAULT_LANGUAGE,
 	TIMELINE: TIMELINE,
-	BLOG_URI: BLOG_URI
+	BLOG_URI: BLOG_URI,
+	NOINDEX: NOINDEX
 };

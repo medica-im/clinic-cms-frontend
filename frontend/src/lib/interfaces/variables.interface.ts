@@ -7,4 +7,5 @@ export interface Variables {
 	readonly DEFAULT_LANGUAGE: string;
 	readonly TIMELINE: boolean;
 	readonly BLOG_URI: string;
+	readonly NOINDEX: boolean;
 }

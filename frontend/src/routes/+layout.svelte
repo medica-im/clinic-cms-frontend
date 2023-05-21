@@ -120,6 +120,11 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	
+	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
+	{#if variables.NOINDEX==true}
+	<meta name="robots" content="noindex">
+	{/if}
 </svelte:head>
 <!-- Overlays -->
 <Modal components={modalComponentRegistry} />
