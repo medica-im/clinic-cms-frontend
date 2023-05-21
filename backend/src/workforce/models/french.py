@@ -11,7 +11,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def validate_rpps_isdigit(value):
+def validate_isdigit(value):
     if not value.isdigit():
         raise ValidationError(
             _('%(value)s is not a number'),
@@ -35,7 +35,7 @@ class RPPS(models.Model):
     identifier = models.CharField(
         verbose_name=_("RPPS number"),
         max_length=11,  
-        validators=[validate_rpps_isdigit, validate_rpps_length],
+        validators=[validate_isdigit, validate_rpps_length],
         null=True,
         blank=True,
     )
@@ -48,6 +48,37 @@ class RPPS(models.Model):
         models.UniqueConstraint(
             fields=['identifier'],
             name='unique_rpps_identifier'
+        )
+
+def validate_adeli_length(value):
+    if (len(value) != 9):
+        raise ValidationError(
+            '%(adeli)s must be 9 digits',
+            params={'adeli': value},
+        )
+
+class ADELI(models.Model):
+    node = models.OneToOneField(
+        "workforce.NetworkNode",
+        on_delete=models.CASCADE,
+        related_name="adeli",
+    )
+    identifier = models.CharField(
+        verbose_name=_("ADELI number"),
+        max_length=9,
+        validators=[validate_isdigit, validate_adeli_length],
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.identifier
+
+
+    class Meta:
+        models.UniqueConstraint(
+            fields=['identifier'],
+            name='unique_adeli_identifier'
         )
 
 

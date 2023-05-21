@@ -56,6 +56,16 @@ class RPPSSerializer(serializers.ModelSerializer):
         depth=1
 
 
+class ADELISerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ADELI
+        fields = (
+            'identifier',
+        )
+        depth=1
+
+
 class ConventionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -108,6 +118,9 @@ class WorkforceUserSerializer(serializers.ModelSerializer):
     rpps = serializers.CharField(
         source='rpps.identifier'
     )
+    adeli = serializers.CharField(
+        source='adeli.identifier'
+    )
     carte_vitale = serializers.SerializerMethodField()
     conventionnement = serializers.SerializerMethodField()
     payment = serializers.SerializerMethodField()
@@ -123,6 +136,7 @@ class WorkforceUserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'rpps',
+            'adeli',
             'node_set',
             'organization',
             'occupations',

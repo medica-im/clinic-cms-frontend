@@ -14,6 +14,7 @@ from workforce.models import (
     WorkforceNetworkedgeFacilities,
     WorkforceSlug,
     RPPS,
+    ADELI,
     CarteVitale,
     Convention,
     Conventionnement,
@@ -38,6 +39,9 @@ class RPPSInline(admin.TabularInline):
     model = RPPS
     extra = 0
 
+class ADELIInline(admin.TabularInline):
+    model = ADELI
+    extra = 0
 
 class CarteVitaleInline(admin.TabularInline):
     model = CarteVitale
@@ -454,6 +458,7 @@ class NetworkNodeAdmin(TranslationAdmin):
     )
     inlines=[
         RPPSInline,
+        ADELIInline,
         CarteVitaleInline,
         ConventionnementInline,
         PaymentInline,
@@ -535,7 +540,10 @@ class LabelAdmin(admin.ModelAdmin):
 @admin.register(RPPS)
 class RPPSAdmin(admin.ModelAdmin):
     autocomplete_fields = ['node',]
-    
+
+@admin.register(ADELI)
+class ADELIAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['node',]
 
 @admin.register(CarteVitale)
 class CarteVitaleAdmin(admin.ModelAdmin):

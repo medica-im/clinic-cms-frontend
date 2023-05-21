@@ -3,6 +3,8 @@ from django_postgresql_dag.models import node_factory, edge_factory
 from django.utils.translation import gettext_lazy as _
 from accounts.models import GrammaticalGender
 
+
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -214,6 +216,16 @@ class Label(models.Model):
     def natural_key(self):
         return (self.label, self.language)
 
+    class Meta:
+        models.UniqueConstraint(
+            "label",
+            "node",
+            "gender",
+            "grammatical_number",
+            "language",
+            name="unique_label_node_language"
+        )
+
     @staticmethod
     def get_label(node: str, gender: str, number: str, language: str) -> str:
         try:
@@ -235,6 +247,8 @@ class Label(models.Model):
         except Label.DoesNotExist as e:
             logger.debug(f'{e} for {node=}, {gender=}, {number=}, {language=}')
             return
+
+
 
 
 class WorkforceSlugManager(models.Manager):

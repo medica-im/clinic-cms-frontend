@@ -10,9 +10,11 @@ from workforce.models.core import Label
 from workforce.models.core import WorkforceSlug
 
 from workforce.models.french import RPPS
+from workforce.models.french import ADELI
 from workforce.models.french import CarteVitale
-from workforce.models.french import validate_rpps_isdigit
+from workforce.models.french import validate_isdigit
 from workforce.models.french import validate_rpps_length
+from workforce.models.french import validate_adeli_length
 from workforce.models.french import Convention
 from workforce.models.french import Conventionnement
 

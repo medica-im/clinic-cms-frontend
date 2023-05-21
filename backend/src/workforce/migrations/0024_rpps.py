@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='RPPS',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('identifier', models.CharField(blank=True, max_length=11, null=True, validators=[workforce.models.validate_rpps_isdigit, workforce.models.validate_rpps_length], verbose_name='RPPS number')),
+                ('identifier', models.CharField(blank=True, max_length=11, null=True, validators=[workforce.models.validate_isdigit, workforce.models.validate_rpps_length], verbose_name='RPPS number')),
                 ('node', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rpps', to='workforce.networknode')),
             ],
         ),
