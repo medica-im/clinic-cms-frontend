@@ -66,7 +66,7 @@ class WorkforceNetworkedgeOrganizations(models.Model):
     id = models.BigAutoField(primary_key=True)
     networkedge = models.ForeignKey(
         "workforce.NetworkEdge",
-        models.DO_NOTHING,
+        on_delete=models.CASCADE,
         related_name="networkedge_organizations",
     )
     organization = models.ForeignKey(
@@ -94,7 +94,7 @@ class WorkforceNetworkedgeFacilities(models.Model):
     id = models.BigAutoField(primary_key=True)
     networkedge = models.ForeignKey(
         "workforce.NetworkEdge",
-        models.DO_NOTHING
+        on_delete=models.CASCADE,
     )
     facility = models.ForeignKey(
         "facility.Facility",
