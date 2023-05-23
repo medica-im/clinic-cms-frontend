@@ -19,16 +19,17 @@
 	{#if browser}
 		<Carousel autoplay autoplayDuration={5000} duration={1000} dots={false}>
 			{#each data as worker}
-				<a href="/{worker.slug}" class="flex shrink">
 					<figure class="content-center shrink mx-auto w-64 md:80">
+						<a href="/{worker.slug}" class="flex shrink">
 						<img
 							class="object-scale-up flex-shrink-0 mx-auto w-64 md:80 p-3"
 							src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 							alt={worker.formatted_name}
 						/>
-						<figcaption class="text-center w-64">{worker.formatted_name}, {getLabels(worker)}</figcaption>
+						</a>
+						
+						<figcaption class="text-center w-64"><a href="/{worker.slug}" class="flex shrink unstyled"><div class="mx-auto text-primary underline">{worker.formatted_name}, {getLabels(worker)}</div></a></figcaption>
 					</figure>
-				</a>
 			{/each}
 		</Carousel>
 	{:else}

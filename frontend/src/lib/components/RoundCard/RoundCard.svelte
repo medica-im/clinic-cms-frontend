@@ -23,7 +23,7 @@
             <p>{excerpt}</p>
         </article>
     <!-- Footer -->
-        <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
+        <a href={url} class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
             <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
         </a>
     </div>

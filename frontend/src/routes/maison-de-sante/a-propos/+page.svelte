@@ -124,21 +124,26 @@
 	<div class="section-container">
 		<h2>Communication</h2>
 		<p>Les professionnels de santé se transmettent les informations de manière organisée.</p>
-
-		<ul class="list">
+		<div class="w-fit">
+		<nav class="list-nav">
+		<ul>
 			<li>
-				<span><Fa icon={faPeopleGroup} /></span><span class="whitespace-normal"
-					><a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
-						>Réunions de concertation pluriprofessionnelles</a
-					></span
+				<a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
+						>
+				<span><Fa icon={faPeopleGroup} /></span><span class="whitespace-normal underline"
+					>Réunions de concertation pluriprofessionnelles</span
+				></a
 				>
 			</li>
 			<li>
-				<span><Fa icon={faNetworkWired} /></span><span class="whitespace-normal"
-					><a href="/maison-de-sante/dossier-patient">Logiciel métier partagé</a>.</span
-				>
+				<a href="/maison-de-sante/dossier-patient">
+				<span><Fa icon={faNetworkWired} /></span><span class="whitespace-normal underline"
+					>Logiciel métier partagé</span
+				></a>
 			</li>
 		</ul>
+		</nav>
+	</div>
 	</div>
 </section>
 
@@ -152,21 +157,21 @@
 				<ul>
 					<li>
 						<a href="/annuaire"
-							><span class="badge bg-primary-500"><Fa icon={faArrowRight} /></span>
+							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Soins</span></a
 						>
 					</li>
 					<li>
 						<a href="/prevention"
-							><span class="badge bg-primary-500"><Fa icon={faArrowRight} /></span>
+							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Prévention</span></a
 						>
 					</li>
 					<li>
 						<a href="/education-sante"
-							><span class="badge bg-primary-500"><Fa icon={faArrowRight} /></span>
+							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Éducation pour la santé</span
 							></a
@@ -174,7 +179,7 @@
 					</li>
 					<li>
 						<a href="/education-therapeutique"
-							><span class="badge bg-primary-500"><Fa icon={faArrowRight} /></span>
+							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left"
 								>Éducation thérapeutique du patient</span

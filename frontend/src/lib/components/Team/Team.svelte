@@ -20,24 +20,19 @@
 		<TeamCarousel data={data.teamCarousel} />
 	</div>
 	<div class="col-span-2 p-2 space-y-2">
-		<h6 class="text-primary-500">
-			{capitalizeFirstLetter(data.facility.formatted_name, $language)}
-		</h6>
 		<h2>{$LL.HOME.TEAM.TITLE()}</h2>
-		<article>
-			<p>
-				{$LL.HOME.TEAM.TEXT()}
-			</p>
-			<div class="py-2">
-				<Occupations
-					data={{
-						cO: data.cO,
-						wO: data.wO
-					}}
-				/>
-				</div>
-		</article>
-		<a href="/annuaire" class="btn bg-primary-500" data-sveltekit-preload-data="hover">
+		<p>
+			{$LL.HOME.TEAM.TEXT()}
+		</p>
+		<div class="py-2">
+			<Occupations
+				data={{
+					cO: data.cO,
+					wO: data.wO
+				}}
+			/>
+		</div>
+		<a href="/annuaire" class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
 			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 		</a>
 	</div>

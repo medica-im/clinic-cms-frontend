@@ -8,24 +8,6 @@
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import { programsNavLinks } from '../../links';
 	import { getProgram } from '../../links';
-
-	const features = [
-		{
-			title: 'Amazing DX',
-			body: 'Offers a best in class developer experience providing thorough documentation and ample examples to help you ship faster.',
-			icon: 'fa-laptop-code'
-		},
-		{
-			title: 'Accessibility',
-			body: 'Components follow WAI-ARIA guidelines to implement required semantics, attributes, and keyboard interactions.',
-			icon: 'fa-universal-access'
-		},
-		{
-			title: 'Extensible',
-			body: `Bring elements from other UI libraries such as <a href="/blog/skeleton-plus-flowbite">Flowbite</a> or <a href="/blog/skeleton-plus-tailwind-ui">Tailwind UI</a> to expand your toolkit arsenal even further.`,
-			icon: 'fa-square-arrow-up-right'
-		}
-	];
 </script>
 
 <div class="space-y-4 md:space-y-10">
@@ -54,7 +36,7 @@
 					{#each program.list as prog}
 						<li>
 							<a href={prog.href} class="btn bg-initial hover:variant-soft-primary">
-                                <span class="badge bg-primary-500"><Fa icon={faArrowRight} /></span>
+                                <span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 								
 								<span class="flex flex-wrap whitespace-normal text-left">{prog.label}</span>
 							</a>
