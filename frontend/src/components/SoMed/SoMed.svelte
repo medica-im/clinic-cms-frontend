@@ -74,7 +74,7 @@
 			title={somed.get_type_display}
 			class="btn-icon btn-icon-sm hover:variant-soft-secondary"
 			target="_blank"
-			rel="noreferrer"
+			rel="external"
 		>
 			<span><Fa icon={getIcon(somed)} size="lg" /></span>
 		</a>
@@ -82,7 +82,7 @@
 {:else if sideBar}
 	{#each data as somed}
 		<li>
-			<a href={somed.url} class="hover:variant-soft-secondary" target="_blank" rel="noreferrer">
+			<a href={somed.url} class="hover:variant-soft-secondary" target="_blank" rel="external">
 				<span><Fa icon={getIcon(somed)} size="lg" /></span><span>{somed.get_type_display}</span>
 			</a>
 		</li>
@@ -91,7 +91,7 @@
 	{#each data as somed}
 	<AppRailAnchor
 	href={somed.url}
-	rel="noreferrer"
+	rel="external"
 	class="lg:hidden"
 	on:click={() => {
 		onClickAnchor();

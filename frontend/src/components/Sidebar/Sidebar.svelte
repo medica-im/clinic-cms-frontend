@@ -161,7 +161,7 @@
 
 		<AppRailAnchor
 			href="{variables.BLOG_URI}"
-			rel="noreferrer"
+			rel="external"
 			class="lg:hidden"
 			on:click={() => {
 				onClickAnchor();
