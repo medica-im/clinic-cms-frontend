@@ -28,7 +28,7 @@
 		drawerStore.close();
 	}
 
-	const storeCategory: Writable<string> = writable('guides'); // guides | docs | tailwind | svelte | utilities
+	const storeCategory: Writable<string> = writable(menuNavCats[0].id);
 	let filteredMenuNavLinks: any[] = menuNavLinks;
 
 	// ListItem Click Handler
