@@ -7,11 +7,13 @@
 	export let data;
 
 	function getLabels(worker) {
-        let labels = [];
+		let labels = [];
 		for (let occupation of worker.occupations) {
-			labels.push(occupation.label)
+			labels.push(occupation.label);
 		}
-		return [labels.slice(0, -1).join(', '), labels.slice(-1)[0]].join(labels.length < 2 ? '' : ` ${$LL.AND()} `);
+		return [labels.slice(0, -1).join(', '), labels.slice(-1)[0]].join(
+			labels.length < 2 ? '' : ` ${$LL.AND()} `
+		);
 	}
 </script>
 
@@ -19,30 +21,44 @@
 	{#if browser}
 		<Carousel autoplay autoplayDuration={5000} duration={1000} dots={false}>
 			{#each data as worker}
-					<figure class="content-center shrink mx-auto w-64 md:80">
-						<a href="/{worker.slug}" class="flex shrink">
+			<div class="mx-auto">
+				<figure class="content-center mx-auto">
+					<a href="/{worker.slug}" class="flex m-2">
 						<img
-							class="object-scale-up flex-shrink-0 mx-auto w-64 md:80 p-3"
+							class="object-scale-up flex-shrink-0 mx-auto w-80"
 							src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
 							alt={worker.formatted_name}
 						/>
-						</a>
-						
-						<figcaption class="text-center w-64"><a href="/{worker.slug}" class="flex shrink unstyled"><div class="mx-auto text-primary underline">{worker.formatted_name}, {getLabels(worker)}</div></a></figcaption>
-					</figure>
+					</a>
+
+					<figcaption class="text-center w-64">
+						<a href="/{worker.slug}" class="flex shrink unstyled"
+							><div class="mx-auto text-primary underline">
+								{worker.formatted_name}, {getLabels(worker)}
+							</div></a
+						>
+					</figcaption>
+				</figure>
+				</div>
 			{/each}
 		</Carousel>
 	{:else}
-	{@const worker = data[0]}
-		<a href="/{worker.slug}">
-			<figure class="content-center flex-shrink-0 mx-auto w-64 md:80">
-				<img
-					class="object-scale-up w-64 md:80 mx-auto"
-					src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
-					alt={worker.formated_name}
-				/>
-				<figcaption class="text-center w-64">{worker.formatted_name}, {getLabels(worker)}</figcaption>
+		{@const worker = data[0]}
+			<figure class="content-center shrink mx-auto w-64">
+				<a href="/{worker.slug}" class="flex m-2">
+					<img
+						class="object-scale-up w-80 mx-auto"
+						src="{variables.BASE_URI}{worker.profile_picture_url.lt}"
+						alt={worker.formated_name}
+					/>
+				</a>
+				<figcaption class="text-center w-64">
+					<a href="/{worker.slug}" class="flex shrink unstyled"
+						><div class="mx-auto text-primary underline">
+							{worker.formatted_name}, {getLabels(worker)}
+						</div></a
+					>
+				</figcaption>
 			</figure>
-		</a>
 	{/if}
-	</div>
+</div>
