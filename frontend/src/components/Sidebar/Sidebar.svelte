@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { language} from '$lib/store/languageStore';
+	import { language } from '$lib/store/languageStore';
 	import LL from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
 	import { writable, type Writable } from 'svelte/store';
 	import { variables } from '$lib/utils/constants';
 
 	import DocsIcon from '$components/Icon/Icon.svelte';
-	import { menuNavLinks } from '../../links';
-	import { AppRail } from '@skeletonlabs/skeleton';
-
-	import { AppRailTile } from '@skeletonlabs/skeleton';
+	import { menuNavLinks, menuNavCats } from '../../links';
+	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 
 	// Stores
@@ -17,28 +15,19 @@
 	import { drawerStore } from '@skeletonlabs/skeleton';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import Fa from 'svelte-fa';
-	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
-	import {
-		faBars,
-		faInfo,
-		faTimeline,
-		faBookMedical,
-		faHouse,
-		faMapLocationDot,
-		faAddressBook,
-		faEnvelope,
-		faBlog,
-		faRightToBracket,
-		faRightFromBracket,
-		faUserPlus,
-		faUser,
-		faPersonChalkboard
-	} from '@fortawesome/free-solid-svg-icons';
+	import {faBlog} from '@fortawesome/free-solid-svg-icons';
 	// Props
 	export let embedded = false;
 	export let data;
 
 	// Local
+	let currentRailCategory: keyof typeof menuNavLinks | undefined = undefined;
+
+	function onClickAnchor(): void {
+		currentRailCategory = undefined;
+		drawerStore.close();
+	}
+
 	const storeCategory: Writable<string> = writable('guides'); // guides | docs | tailwind | svelte | utilities
 	let filteredMenuNavLinks: any[] = menuNavLinks;
 
@@ -50,14 +39,13 @@
 	}
 
 	function setNavCategory(c: string): void {
-		if (c === 'blog') return;
 		storeCategory.set(c);
 		// prettier-ignore
 		switch($storeCategory) {
 			case('education'):
 			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => ['education-therapeutique', 'education-sante'].includes(linkSet.id));
 				break;
-			case('maison-de-sante'):
+			case('msp'):
 			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet.id === 'maison-de-sante');
 				break;
 			case('prevention'):
@@ -67,56 +55,132 @@
 	}
 
 	// Lifecycle
-	page.subscribe((p) => {
-		let pathMatch: string = p.url.pathname.split('/')[1];
-		if (!pathMatch) return;
-		if (['education-sante', 'education-therapeutique'].includes(pathMatch)) pathMatch = 'education';
-		setNavCategory(pathMatch);
+	page.subscribe((page) => {
+		let path: string = page.url.pathname;
+		console.log(path);
+		if (!path) return;
+		// Translate path to menuNavCats id
+		filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => {
+			return linkSet.list.some((e: any) => e.href==path)
+		});
+		console.log(filteredMenuNavLinks);
+		if (filteredMenuNavLinks.length) {
+			let menuNavLinkId = filteredMenuNavLinks[0].id;
+			let selectNavCats = menuNavCats.filter((navCat: any) => {
+				return navCat.list.some((e: any) => e==menuNavLinkId)
+			});
+			console.log(selectNavCats);
+			if (selectNavCats.length) {
+				let menuNavCatId: string = selectNavCats[0].id;
+				console.log(menuNavCatId);
+				storeCategory.set(menuNavCatId);
+			}
+		}
+
 	});
 	storeCategory.subscribe((c: string) => setNavCategory(c));
 
 	// Reactive
 	$: classesActive = (href: string) => {
-		return $storeCurrentUrl==href ? 'variant-ringed-primary' : '';
-	}
+		return $storeCurrentUrl == href ? 'variant-ringed-primary' : '';
+	};
 </script>
 
-<div class="grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ?? ''} p-1">
+<div
+	class="grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ??
+		''}"
+>
 	<!-- App Rail -->
-	<AppRail selected={storeCategory} background="bg-transparent" border="border-r border-surface-500/30">
-		<AppRailTile label="Maison de santé" value={'maison-de-sante'}>
-			<DocsIcon name="outpatientClinic" width="w-6" height="h-6" />
+	<AppRail
+		background="bg-transparent"
+		border="border-r border-surface-500/30"
+	>
+		<AppRailTile
+			bind:group={$storeCategory}
+			name={'maison-de-sante'}
+			value={'msp'}
+		>
+			<svelte:fragment slot="lead"
+				><DocsIcon name="outpatientClinic" width="w-6" height="h-6" /></svelte:fragment
+			>
+			<span>Maison de santé</span>
 		</AppRailTile>
-		<AppRailTile label="Éducation" value={'education'}>
-			<DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" />
+		<AppRailTile bind:group={$storeCategory} name={'education'} value={'education'}>
+			<svelte:fragment slot="lead"
+				><DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" /></svelte:fragment
+			>
+			<span>Éducation</span>
 		</AppRailTile>
-		<AppRailTile label="Prévention" value={'prevention'}>
-			<DocsIcon name="faShieldHeart" width="w-6" height="h-6" />
-		</AppRailTile>
-		<hr class="opacity-30" />
-		<AppRailTile label="Sites" value={'sites'} tag="a" href="/sites" on:click={onListItemClick} class="lg:hidden">
-			<DocsIcon name="mapLocationDot" width="w-6" height="h-6" />
-		</AppRailTile>
-		<AppRailTile label={$LL.NAVBAR.ADDRESSBOOK()} value={'annuaire'} tag="a" href="/annuaire" on:click={onListItemClick} class="lg:hidden">
-			<DocsIcon name="addressBook" width="w-6" height="h-6" />
-		</AppRailTile>
-		<AppRailTile label="Contact" value={'contact'} tag="a" href="/contact" on:click={onListItemClick} class="lg:hidden">
-			<DocsIcon name="envelope" width="w-6" height="h-6" />
+		<AppRailTile bind:group={$storeCategory} name="Prévention" value={'prevention'}>
+			<svelte:fragment slot="lead"
+				><DocsIcon name="faShieldHeart" width="w-6" height="h-6" /></svelte:fragment
+			>
+			<span>Prévention</span>
 		</AppRailTile>
 
-		<svelte:fragment slot="trail">
-			<AppRailTile label="Blog" tag="a" href="{variables.BLOG_URI}" rel="noreferrer" value={'blog'} on:click={onListItemClick} class="lg:hidden">
-				<span><Fa icon={faBlog} size="lg" /></span>
-			</AppRailTile>
-			<SoMed data={data.contact.socialnetworks} appRail={true} />
-		</svelte:fragment>
+		<hr class="opacity-30" />
+
+		<AppRailAnchor
+			href="/sites"
+			class="lg:hidden"
+			on:click={() => {
+				onClickAnchor();
+			}}
+		>
+			<svelte:fragment slot="lead"
+				><DocsIcon name="mapLocationDot" width="w-6" height="h-6" /></svelte:fragment
+			>
+			<span>Sites</span>
+		</AppRailAnchor>
+
+		<AppRailAnchor
+			href="/annuaire"
+			class="lg:hidden"
+			on:click={() => {
+				onClickAnchor();
+			}}
+		>
+			<svelte:fragment slot="lead"
+				><DocsIcon name="addressBook" width="w-6" height="h-6" /></svelte:fragment
+			>
+			<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
+		</AppRailAnchor>
+
+		<AppRailAnchor
+			href="/contact"
+			class="lg:hidden"
+			on:click={() => {
+				onClickAnchor();
+			}}
+		>
+			<svelte:fragment slot="lead"
+				><DocsIcon name="envelope" width="w-6" height="h-6" /></svelte:fragment
+			>
+			<span>Contact</span>
+		</AppRailAnchor>
+
+		<AppRailAnchor
+			href={variables.BLOG_URI}
+			rel="noreferrer"
+			class="lg:hidden"
+			on:click={() => {
+				onClickAnchor();
+			}}
+		>
+			<svelte:fragment slot="lead"><Fa icon={faBlog} size="lg" class="inline-block outline-none" /></svelte:fragment>
+			<span>Blog</span>
+		</AppRailAnchor>
+
+		<SoMed data={data.contact.socialnetworks} appRail={true} />
 	</AppRail>
 	<!-- Nav Links -->
 	<section class="p-4 pb-20 space-y-4 overflow-y-auto">
 		{#each filteredMenuNavLinks as { id, title, href, list }, i}
 			{#if list.length > 0}
 				<!-- Title -->
-				<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">{title[$language]}</div>
+				<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">
+					{title[$language]}
+				</div>
 				<!-- Navigation List -->
 				<nav class="list-nav">
 					<ul>

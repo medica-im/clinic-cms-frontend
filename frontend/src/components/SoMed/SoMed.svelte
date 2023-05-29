@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AppRailTile } from '@skeletonlabs/skeleton';
+	import { AppRailAnchor } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import {
 		faTwitter,
@@ -20,6 +20,11 @@
 	function onListItemClick(): void {
 		// On Drawer embed Only:
 		if (!embedded) return;
+		drawerStore.close();
+	}
+
+	function onClickAnchor(): void {
+		//currentRailCategory = undefined;
 		drawerStore.close();
 	}
 
@@ -84,16 +89,17 @@
 	{/each}
 {:else if appRail}
 	{#each data as somed}
-		<AppRailTile
-			label={somed.get_type_display}
-			tag="a"
-			href={somed.url}
-			value={'blog'}
-			on:click={onListItemClick}
-			class="lg:hidden"
-		>
-			<span><Fa icon={getIcon(somed)} size="lg" /></span>
-		</AppRailTile>
+	<AppRailAnchor
+	href={somed.url}
+	rel="noreferrer"
+	class="lg:hidden"
+	on:click={() => {
+		onClickAnchor();
+	}}
+>
+	<svelte:fragment slot="lead"><Fa icon={getIcon(somed)} size="lg" class="inline-block outline-none" /></svelte:fragment>
+	<span>{somed.get_type_display}</span>
+</AppRailAnchor>
 	{/each}
 {:else}
 <span class="align-middle space-x-2">
