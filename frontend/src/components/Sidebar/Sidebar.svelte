@@ -160,7 +160,7 @@
 		</AppRailAnchor>
 
 		<AppRailAnchor
-			href={variables.BLOG_URI}
+			href="{variables.BLOG_URI}"
 			rel="noreferrer"
 			class="lg:hidden"
 			on:click={() => {
