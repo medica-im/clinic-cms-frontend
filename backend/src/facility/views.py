@@ -1,7 +1,5 @@
 import logging
-from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from rest_framework import permissions
 from rest_framework.generics import RetrieveAPIView
 from facility.models import Organization, Category
 from addressbook.models import Contact
@@ -10,8 +8,8 @@ from facility.serializers import (
     CategorySerializer,
     ContactSerializer,
 )
-from django.contrib.sites.shortcuts import get_current_site
 from backend.i18n import activate_locale
+from rest_framework.exceptions import NotFound
 
 logger=logging.getLogger(__name__)
 
@@ -19,15 +17,14 @@ logger=logging.getLogger(__name__)
 class OrganizationView(RetrieveAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
-    
+
     def get_object(self):
         language = self.kwargs.get('language', None)
-        logger.debug(f'kwargs {language=}')
-        activate_locale(language,self.request)
+        activate_locale(language, self.request)
         try:
-            return Organization.objects.get(site=get_current_site(self.request))
+            return Organization.objects.get(site=self.request.site)
         except Organization.DoesNotExist:
-            return
+            raise NotFound(detail="Organization not found.", code="not_found")
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -37,6 +34,4 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
 class ContactViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
-
-        
+    serializer_class = ContactSerializer  
