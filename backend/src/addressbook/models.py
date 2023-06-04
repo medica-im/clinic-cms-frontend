@@ -72,7 +72,7 @@ class Contact(models.Model):
         null=True,
         blank=True,
     )
-    groups = models.ManyToManyField(ContactGroup)
+    groups = models.ManyToManyField(ContactGroup, blank=True)
     formatted_name = models.CharField(max_length=255, blank=True)
     formatted_name_definite_article = models.CharField(
         max_length=255,
