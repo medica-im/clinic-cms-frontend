@@ -22,7 +22,6 @@
 		} else {
 			try {
 			let val = get(facilityStore).facility.filter((x) => get(selectFacilities).includes(x.name))[0];
-			console.log(val);
 			return {value: val.name, label: val.contact.formatted_name}
 			} catch(err) {
 				console.error(err);
@@ -47,10 +46,7 @@
 
 	function handleChange(event) {
 		if (event.detail) {
-			console.log(event.detail);
-			console.log(event.detail.value);
 			selectFacilities.set([event.detail.value]);
-			console.log(get(selectFacilities));
 		}
 	}
 </script>

@@ -45,7 +45,7 @@ export const facilityStore = asyncDerived(
 				}
 				return data;
 			} else if (err) {
-				console.log(err);
+				console.error(err);
 			}
 		}
 	}

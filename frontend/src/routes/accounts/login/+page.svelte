@@ -41,17 +41,15 @@
 				password: password
 			}
 		});
-		//console.log(`jsonRes: ${JSON.stringify(jsonRes)}`);
-		//console.log(`err: ${JSON.stringify(err)}`);
 		response = jsonRes;
 
 		if (err.length > 0) {
 			errors = err;
-			console.log(`errors: ${errors}`);
+			console.error(`errors: ${errors}`);
 			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
 		} else if (response.user && response.user.error) {
 			errors = response.user.error[0];
-			console.log(`errors: ${errors}`);
+			console.error(`errors: ${errors}`);
 			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
 		} else if (response.user && response.user.tokens) {
 			emptyLocaleStorage();
@@ -84,7 +82,6 @@
 				class="space-y-4 lg:max-w-2xl"
 				on:submit={(e) => {
 					e.preventDefault();
-					//console.log('submit', e);
 					handleLogin();
 				}}
 			>

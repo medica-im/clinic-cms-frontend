@@ -13,12 +13,11 @@ export const openGraphStore= asyncReadable(
 				let data: OpenGraph = response;
 				return data;
 			} else if (err) {
-				console.log(err);
+				console.error(JSON.stringify(err));
 			}
 		} catch(err) {
-            console.error(err);
+            console.error(JSON.stringify(err));
             return {};
         }
-    },
-	true
+    }
 );

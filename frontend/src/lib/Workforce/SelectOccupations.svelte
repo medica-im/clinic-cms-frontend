@@ -11,8 +11,6 @@
 	const itemId = 'value';
 	let value = null;
 
-	$: console.log(value);
-
 	onMount(() => {
 		value = getValue();
 	});
@@ -28,10 +26,8 @@
 					.filter((x) => sOccupations.includes(x.name))
 					.map(function (x) {
 						let dct = { value: x.name, label: x.label };
-						console.log(dct);
 						return dct;
 					})[0];
-				console.log(val);
 				return val;
 			}
 		}

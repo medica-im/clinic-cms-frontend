@@ -43,8 +43,6 @@
 	}
 
 	function hasOccupationFacilities(occupation) {
-		console.log(Boolean(occupation.facilities));
-		console.log(Boolean(occupation.facilities.length > 0));
 		if (occupation && occupation.facilities && occupation.facilities.length > 0) {
 			return true;
 		} else {

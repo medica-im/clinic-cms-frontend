@@ -35,7 +35,9 @@
 
 <LDTag schema={data.websiteSchema} />
 <svelte:head>
+	{#if data.openGraph}
 	<OpenGraph opengraph={data.openGraph} />
+	{/if}
 
 	<title>
 		{$LL.HOME.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}

@@ -57,22 +57,18 @@
 	// Lifecycle
 	page.subscribe((page) => {
 		let path: string = page.url.pathname;
-		console.log(path);
 		if (!path) return;
 		// Translate path to menuNavCats id
 		filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => {
 			return linkSet.list.some((e: any) => e.href==path)
 		});
-		console.log(filteredMenuNavLinks);
 		if (filteredMenuNavLinks.length) {
 			let menuNavLinkId = filteredMenuNavLinks[0].id;
 			let selectNavCats = menuNavCats.filter((navCat: any) => {
 				return navCat.list.some((e: any) => e==menuNavLinkId)
 			});
-			console.log(selectNavCats);
 			if (selectNavCats.length) {
 				let menuNavCatId: string = selectNavCats[0].id;
-				console.log(menuNavCatId);
 				storeCategory.set(menuNavCatId);
 			}
 		}

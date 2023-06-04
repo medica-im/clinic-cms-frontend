@@ -55,12 +55,12 @@
 		{/each}
 		<ul class="py-4 space-y-4">
 			{#if userData.appointments && userData.appointments.length}
-				<li class="list-group-item d-flex justify-content-between align-items-start">
+				<li class="d-flex justify-content-between align-items-start">
 					<Appointment appointments={userData.appointments} />
 				</li>
 			{/if}
 			{#if userData.account_email}
-				<li class="list-group-item d-flex justify-content-between align-items-start">
+				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faEnvelope} /></div>
 						<div>
@@ -77,56 +77,56 @@
 			{/if}
 
 			{#if userData.phone_numbers.length}
-			<li class="list-group-item d-flex justify-content-between align-items-start">
-				<div class="flex items-center p-1">
-					<div class="w-9"><Fa icon={faPhone} /></div>
-					<div>
-						<h3>{capitalizeFirstLetter($LL.PHONE())}</h3>
+				<li class="d-flex justify-content-between align-items-start">
+					<div class="flex items-center p-1">
+						<div class="w-9"><Fa icon={faPhone} /></div>
+						<div>
+							<h3>{capitalizeFirstLetter($LL.PHONE())}</h3>
+						</div>
 					</div>
-				</div>
-				
+
 					{#each userData.phone_numbers as p}
-								<div class="flex p-1">
-									<div class="w-9" />
-									<div>
-										<a href="tel:{p.phone}" rel="nofollow">{p.phone}</a> ({p.type_display})
-									</div>
-								</div>
+						<div class="flex p-1">
+							<div class="w-9" />
+							<div>
+								<a href="tel:{p.phone}" rel="nofollow">{p.phone}</a> ({p.type_display})
+							</div>
+						</div>
 					{/each}
 				</li>
 			{/if}
 
-			<li class="list-group-item d-flex justify-content-between align-items-start">
+			<li class="d-flex justify-content-between align-items-start">
 				<Cost data={userData} />
 			</li>
 			{#if userData.payment != null}
-				<li class="list-group-item d-flex justify-content-between align-items-start">
+				<li class="d-flex justify-content-between align-items-start">
 					<Payment data={userData.payment} />
 				</li>
 			{/if}
-			<li class="list-group-item d-flex justify-content-between align-items-start">
+			<li class="d-flex justify-content-between align-items-start">
 				<Info data={userData} />
 			</li>
 			{#if userData.websites.length}
-			<li class="list-group-item d-flex justify-content-between align-items-start">
-				<div class="flex items-center p-1">
-					<div class="w-9"><Fa icon={faGlobe} /></div>
-					<div>
-						<h3>Web</h3>
+				<li class="d-flex justify-content-between align-items-start">
+					<div class="flex items-center p-1">
+						<div class="w-9"><Fa icon={faGlobe} /></div>
+						<div>
+							<h3>Web</h3>
+						</div>
 					</div>
-				</div>
-				<div class="flex p-1">
-					<div class="w-9" />
-					<div class="space-x-2">
-						{#each userData.websites as website}
-							<Website {website} />
-						{/each}
+					<div class="flex p-1">
+						<div class="w-9" />
+						<div class="space-x-2">
+							{#each userData.websites as website}
+								<Website {website} />
+							{/each}
+						</div>
 					</div>
-				</div>
-			</li>
+				</li>
 			{/if}
 			{#if userData.socialnetworks.length}
-				<li class="list-group-item d-flex justify-content-between align-items-start">
+				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faCircleNodes} /></div>
 						<div>

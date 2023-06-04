@@ -50,7 +50,7 @@ export const workforceDict = asyncDerived(
 				}
 				return data;
 			} else if (err) {
-				console.log(err);
+				console.error(err);
 			}
 		}
 	},
@@ -93,7 +93,7 @@ export const workforceOccupation = asyncReadable(
 				}
 				return occupationsDict;
 			} else if (err) {
-				console.log(err);
+				console.error(err);
 			}
 		}
 	},
@@ -122,11 +122,7 @@ export const workforceDataCached = asyncDerived(
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
 			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
-			//console.log(`elapsed:${elapsed}`);
 			expired = elapsed > cachelife;
-			//console.log(`Date.now() / 1000:${Date.now() / 1000}`);
-			//console.log(`cachedData.cachetime:${cachedData.cachetime}`);
-			//console.log(`expired:${expired}`);
 			if ('data' in cachedData) {
 				if (cachedData.data?.length) {
 					empty = false;
@@ -134,7 +130,6 @@ export const workforceDataCached = asyncDerived(
 			}
 		}
 		if (cachedData && !expired && !empty) {
-			//console.log('return cached wfd data');
 			return cachedData.data;
 		} else {
 			const workforceUrl = `${variables.BASE_API_URI}/workforce/user/?lang=${lang}`;
@@ -147,7 +142,7 @@ export const workforceDataCached = asyncDerived(
 				}
 				return data;
 			} else if (err) {
-				console.log(err);
+				console.error(err);
 			}
 		}
 	},
@@ -351,7 +346,6 @@ export const occupationsCardinal = asyncDerived(
 		let occupationArray: Occupation[] = $workforceDataCached.map(mapWorkforceData).flat(2).sort(function (a, b) {
 			return a.label.localeCompare(b.label);
 		});
-		console.log(occupationArray);
 		const occupationsCardinalObject = {} as OccupationCardinalObject;
 		occupationArray.forEach(function (x: Occupation) {
 			if (!(x.name in Object.keys(occupationsCardinalObject))) {
@@ -394,7 +388,6 @@ export const occupationsCardinal = asyncDerived(
 				}
 			}
 		});
-		console.log(occupationsCardinalObject);
 		return occupationsCardinalObject
 	},
 	true

@@ -107,15 +107,15 @@ function removeRefreshToken() {
 
 export const emptyLocaleStorage = () => {
 	const itemsToDelete: string[] = [];
-	let storedItemsRoot = ["facility_", "wfd_", "workforceDict_"];
-    locales.forEach(
+	let storedItemsRoot = ["facility_", "wfd_", "wfo_", "workforceDict_"];
+	locales.forEach(
 		(locale) => {
-			let items = storedItemsRoot.map((value)=> value+locale)
+			let items = storedItemsRoot.map((value) => value + locale)
 			itemsToDelete.push(...items);
 		}
 	);
 	itemsToDelete.forEach(
-		(value)=>localStorage.removeItem(value)
+		(value) => localStorage.removeItem(value)
 	);
 };
 
@@ -228,43 +228,44 @@ export const handlePostRequestsWithPermissions = async (
 export const handleRequestsWithPermissions = async (
 	fetch,
 	targetUrl: string
-): Promise<[{}, Array<CustomError>]> => {
+): Promise<[{}, CustomError]> => {
 	let refreshToken;
 	if (browser) {
 		refreshToken = browserGet('refreshToken')
 	}
 	let accessRefresh;
 	if (refreshToken) {
-	accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
-		method: 'POST',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			refresh: `${browserGet('refreshToken')}`
-		})
-	}).then(function (response) {
-		if (response.ok) {
-			return response.json();
-		} else {
-			return Promise.reject(response);
+		accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				refresh: `${browserGet('refreshToken')}`
+			})
+		}).then(function (response: Promise<any>) {
+			if (response.ok) {
+				return response.json();
+			} else {
+				return Promise.reject(response);
+			}
+		}).catch(function (err: Error) {
+			console.warn(`Could not get new token. error: ${err}`);
 		}
-	}).catch(function (err) {
-		console.warn(`Could not get new token. error: ${err}`);
+		)
 	}
-	)}
 	let fetchDict;
-    if (accessRefresh) {
-	fetchDict = {
-		method: 'GET',
-		mode: 'cors',
-		headers: {
-			Authorization: `Bearer ${accessRefresh.access}`,
-			'Content-Type': 'application/json'
-		},
-	};
-    } else {
+	if (accessRefresh) {
+		fetchDict = {
+			method: 'GET',
+			mode: 'cors',
+			headers: {
+				Authorization: `Bearer ${accessRefresh.access}`,
+				'Content-Type': 'application/json'
+			},
+		};
+	} else {
 		fetchDict = {
 			method: 'GET',
 			mode: 'cors',
@@ -274,20 +275,17 @@ export const handleRequestsWithPermissions = async (
 		};
 	}
 	try {
-	const jres = await fetch(targetUrl, fetchDict);
-	if (jres.status !== 200) {
-		const data = await jres.json();
-		console.error(`Data: ${data}`);
-		const errs = data.errors;
-		console.error(errs);
-		return [[], errs];
+		const jres = await fetch(targetUrl, fetchDict);
+		if (jres.status !== 200) {
+			const data = await jres.json();
+			console.error(`Error ${jres.status} data: ${JSON.stringify(data)}`);
+			return [{}, data];
+		}
+		return [await jres.json(), {} as CustomError];
+	} catch (error) {
+		console.error(error);
+		return [{}, error as CustomError]
 	}
-	return [await jres.json(), []];
-} catch (error) {
-	console.log(error);
-	let errs = ["error"] as CustomError[];
-	return [[], errs];
-}
 };
 
 export const UpdateField = async (
@@ -306,7 +304,7 @@ export const UpdateField = async (
 
 	const [response, err] = await handlePostRequestsWithPermissions(fetch, url, formData, 'PATCH');
 	if (err.length > 0) {
-		console.log(err);
+		console.error(err);
 		return [{}, err];
 	}
 	notificationData.update(() => `${formatText(fieldName)} has been updated successfully.`);

@@ -1,6 +1,5 @@
 export function isMobile(win: Window) {
     var result = false;
-    console.log(win);
     if (win.PointerEvent && ('maxTouchPoints' in win.navigator)) {
       // if Pointer Events are supported, just check maxTouchPoints
       if (window.navigator.maxTouchPoints > 0) {

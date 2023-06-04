@@ -25,7 +25,6 @@
 	export let data;
 
 	const createFacilityGeoData = (fData) => {
-		console.log(fData.contact.addresses[0]);
 		let address = fData.contact.addresses[0];
 		let facilityGeoData = {
 			name: 'contact',
@@ -33,7 +32,6 @@
 			longitude: Number(address?.longitude ?? 0),
 			zoom: address?.zoom ?? 0
 		};
-		console.log(facilityGeoData);
 		return facilityGeoData;
 	};
 </script>
