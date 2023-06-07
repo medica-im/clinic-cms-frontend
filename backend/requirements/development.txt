@@ -1,7 +1,0 @@
--r common.txt
-django-cors-headers
-django-extensions
-jupyter
-notebook
-Werkzeug
-matplotlib
