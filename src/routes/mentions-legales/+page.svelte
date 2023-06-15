@@ -4,21 +4,12 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import LegalEntity from '../../lib/components/LegalEntity/LegalEntity.svelte';
-	import { faCheck } from '@fortawesome/free-solid-svg-icons';
+	import Address from '$lib/Address/Address.svelte';
 	import Fa from 'svelte-fa';
-	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 	import {
 		faBuilding,
 		faLocationDot,
-		faPhone,
 		faServer,
-		faTimeline,
-		faBookMedical,
-		faHouse,
-		faMapLocationDot,
-		faAddressBook,
-		faEnvelope,
-		faBlog
 	} from '@fortawesome/free-solid-svg-icons';
 </script>
 
@@ -71,11 +62,7 @@
 								</div>
 								<div class="grow ml-6">
 									<p class="font-bold mb-1">Siège social</p>
-									<address>
-										209 Place du Petit Pont<br />
-										84270 Vedène<br />
-										France<br />
-									</address>
+									<Address data={$facilityStore.contact} />
 								</div>
 							</div>
 						</div>
