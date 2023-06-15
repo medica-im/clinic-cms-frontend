@@ -11,44 +11,44 @@
 	<dl>
 		{#if LE.type}
 		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-				<dl class="text-sm">Forme juridique</dl>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{LE?.get_type_display ?? 'type'}</dd>
+				<dl class="text-sm leading-6">Forme juridique</dl>
+				<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.get_type_display ?? 'type'}</dd>
 		</div>
 		{/if}
 		{#if LE.RNA}
 		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-			<dt class="text-sm">RNA</dt>
-			<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{LE?.RNA ?? 'RNA'}</dd>
+			<dt class="text-sm leading-6">RNA</dt>
+			<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.RNA ?? 'RNA'}</dd>
 		</div>
 		{/if}
 		{#if LE.SIREN}
 		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-					<dt class="text-sm">SIREN</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{LE?.SIREN ?? 'SIREN'}</dd>
+					<dt class="text-sm leading-6">SIREN</dt>
+					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.SIREN ?? 'SIREN'}</dd>
 			</div>
 		{/if}
 		{#if LE.SIRET}
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-					<dt class="text-sm">SIRET</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{LE?.SIRET ?? 'SIRET'}</dd>
+					<dt class="text-sm leading-6">SIRET</dt>
+					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.SIRET ?? 'SIRET'}</dd>
 			</div>
 		{/if}
 		{#if LE.RCS}
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">				
-					<dt class="text-sm">RCS</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">RCS {LE?.RCS ?? 'RCS'}</dd>
+					<dt class="text-sm leading-6">RCS</dt>
+					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">RCS {LE?.RCS ?? 'RCS'}</dd>
 			</div>
 			{/if}
 			{#if LE.VAT}
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">				
-					<dt class="text-sm">Numéro TVA intracommunautaire</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{LE?.VAT ?? 'VAT'}</dd>
+					<dt class="text-sm leading-6">Numéro TVA intracommunautaire</dt>
+					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.VAT ?? 'VAT'}</dd>
 			</div>
 			{/if}
 			{#if LE.CAPITAL}
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">				
-					<dt class="text-sm">Capital</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{LE?.SHARE_CAPITAL ?? 'SHARE_CAPITAL'}€</dd>
+					<dt class="text-sm leading-6">Capital</dt>
+					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.SHARE_CAPITAL ?? 'SHARE_CAPITAL'}€</dd>
 			
 			</div>
 			{/if}
