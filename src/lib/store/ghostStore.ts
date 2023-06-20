@@ -3,7 +3,7 @@ import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
 
 const key = variables.GHOST_API_KEY;
-const apiUrl = `https://msp-vedene.fr/blog/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
+const apiUrl = `${variables.BLOG_URI}/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
 
 export const ghost = asyncReadable(
 	{},
