@@ -5,7 +5,7 @@
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
 	import LL from '$i18n/i18n-svelte';
-	import Ghost from '$lib/Ghost/Ghost2.svelte';
+	import Ghost from '$lib/Ghost/Ghost.svelte';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -30,7 +30,6 @@
 		term.set('');
 	});
 
-	const queryClient = new QueryClient();
 </script>
 
 <LDTag schema={data.websiteSchema} />
@@ -66,10 +65,12 @@
 			/>
 		</div>
 	</section>
-	<!-- tailwind -->
-	<section id="tailwind" class="bg-surface-100-800-token tailwind-gradient">
-		<div class="section-container"><Ghost data={data.posts} /></div>
+	{#if data.ghost}
+	<!-- blog -->
+	<section id="blog" class="bg-surface-100-800-token blog-gradient">
+		<div class="section-container"><Ghost data={data.ghost} /></div>
 	</section>
+	{/if}
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container"><OutpatientClinicPrograms /></div>
@@ -93,9 +94,9 @@
 		background-image:
 			radial-gradient(at 0% 100%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%);
 	}
-	/* Tailwind Gradient */
+	/* Blog Gradient */
 	/* prettier-ignore */
-	.tailwind-gradient {
+	.blog-gradient {
 		background-image:
 			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%),
 			radial-gradient(at 100% 100%,  rgba(var(--color-primary-500) / 0.24) 0px, transparent 50%);

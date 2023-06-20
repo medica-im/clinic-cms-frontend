@@ -129,9 +129,7 @@
 <!-- Overlays -->
 <Modal components={modalComponentRegistry} />
 <Toast />
-<!--
-{#await facilityStore.load()}
--->
+
 <Drawer data={$facilityStore} />
 
 <AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4">
@@ -157,31 +155,3 @@
 			<slot />
 		<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 	</AppShell>
-
-	<!--
-{:then}
-	<Drawer data={$facilityStore} />
-	<AppShell {slotSidebarLeft}>
-		<svelte:fragment slot="header">
-			<SkeletonAppBar facility={$facilityStore} />
-		</svelte:fragment>
-		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data={$facilityStore} class="hidden lg:grid w-[360px] overflow-hidden" />
-		</svelte:fragment>
-		{#if $notificationData}
-			<p
-				class="notification"
-				id="notification"
-				in:fly={{ x: 200, duration: 500, delay: 500 }}
-				out:fly={{ x: 200, duration: 500 }}
-			>
-				{$notificationData}
-			</p>
-		{/if}
-		<div class="container mx-auto p-6 space-y-6">
-			<slot />
-		</div>
-		<svelte:fragment slot="pageFooter"><Footer data={$facilityStore} /></svelte:fragment>
-	</AppShell>
-{/await}
--->
