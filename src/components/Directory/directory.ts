@@ -6,7 +6,7 @@ export const getEffectors = async (fetch: any) => {
         const response = await fetch(apiUrl);
         if (response?.ok) {
             const data = await response.json();
-            return data.effectors;
+            return data?.effectors;
         } else {
             const error = `HTTP Response Code: ${response?.status}`;
             console.error(error)
