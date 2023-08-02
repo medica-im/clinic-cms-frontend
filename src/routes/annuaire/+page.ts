@@ -17,7 +17,7 @@ export async function load({ fetch, params }) {
         };
     } else if ( variables.ORGANIZATION_CATEGORY == "cpts" ) {
         return {
-            effectors: getEffectors(fetch)
+            effectors: await getEffectors(fetch)
         }
     }
 }
