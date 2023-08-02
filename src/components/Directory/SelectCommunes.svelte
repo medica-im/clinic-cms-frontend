@@ -4,8 +4,6 @@
 	import { communes, selectCommunes } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	const label = 'label';
 	const itemId = 'value';
 	let value = null;
@@ -23,7 +21,7 @@
 
 	function getValue() {
 		let sCommunes = get(selectCommunes);
-		if (!sCommunes.length) {
+		if (!sCommunes?.length) {
 			return null;
 		} else {
 			let c = get(communes);
@@ -52,18 +50,11 @@
 		if (event.detail) {
 			selectCommunes.set([]);
 		}
-		const pageStore = get(page);
-		if (pageStore.params) {
-			goto('/annuaire');
-		}
 	}
 
 	function handleChange(event) {
 		if (event.detail) {
 			selectCommunes.set([event.detail.value]);
-			if ($page.url.pathname != '/annuaire') {
-				goto('/annuaire');
-			}
 		}
 	}
 </script>

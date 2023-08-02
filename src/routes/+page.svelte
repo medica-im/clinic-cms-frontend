@@ -51,7 +51,7 @@
 		</div>
 	</header>
 	<!-- team -->
-	{#if data.teamCarousel.length}
+	{#if data?.teamCarousel?.length}
 	<section id="team" class="bg-surface-100-800-token team-gradient">
 		<div class="section-container">
 			<Team
