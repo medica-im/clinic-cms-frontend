@@ -16,7 +16,6 @@
 	import Search from '$lib/Search.svelte';
 	import SelectOccupations from '$lib/Workforce/SelectOccupations.svelte';
 	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
-	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	import Directory from '$components/Directory/Directory.svelte'
 
