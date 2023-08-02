@@ -98,6 +98,12 @@ type RootTranslation = {
 			 */
 			PLACEHOLDER: string
 		}
+		CATEGORIES: {
+			/**
+			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​c​a​t​é​g​o​r​i​e​.​.​.​.
+			 */
+			PLACEHOLDER: string
+		}
 		SEARCH: {
 			/**
 			 * N​o​m​ ​o​u​ ​p​r​é​n​o​m
@@ -501,6 +507,12 @@ export type TranslationFunctions = {
 		FACILITIES: {
 			/**
 			 * Sélectionner par établissement...
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
+		CATEGORIES: {
+			/**
+			 * Sélectionner par catégorie....
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}

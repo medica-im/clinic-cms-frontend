@@ -30,7 +30,7 @@
 </svelte:head>
 
 {#if variables.ORGANIZATION_CATEGORY=="cpts"}
-    <Directory effectors={data.effectors.effectors}/>
+    <Directory effectorsLoad={data.effectors} />
 {/if}
 
 {#if variables.ORGANIZATION_CATEGORY=="msp"}

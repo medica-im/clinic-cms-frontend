@@ -1,23 +1,17 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import {
-		filteredWorkforceDataCached,
-		occupations,
-		selectOccupations,
-		occupationsCardinal,
-		filteredOccupationsCardinal
-	} from '$lib/store/workforceStore';
+	import { filteredEffectors, effectors } from '$lib/store/directoryStore';
 	import { selectFacilities } from '$lib/store/selectionStore';
 	import Worker from '$lib/Workforce/Worker.svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import SearchDirectory from '$lib/Search.svelte';
-    import Effector from './Effector.svelte';
+	import SearchDirectory from '$components/Directory/SearchDirectory.svelte';
+	import Effector from './Effector.svelte';
 	import SelectCommunes from './SelectCommunes.svelte';
-
-	export let effectors: any;
+	import SelectCategories from './SelectCategories.svelte';
+	export let effectorsLoad: any;
 </script>
 
 <svelte:head>
@@ -29,32 +23,61 @@
 <div>
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			<div class="space-y-2">
-				<div class="row">
-					<div class="col">
-						<!--SelectOccupations /-->
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<SelectCommunes />
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<SearchDirectory />
-					</div>
-				</div>
-			</div>
-			<div class="my-4">
-				{#each effectors as effector}
-					<section class="space-y-4 my-4">
-						<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-							<Effector {effector} />
+			{#await filteredEffectors.load()}
+				<div class="space-y-2">
+					<div class="row">
+						<div class="col">
+							<SelectCategories />
 						</div>
-					</section>
-				{/each}
-			</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectCommunes />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SearchDirectory />
+						</div>
+					</div>
+				</div>
+				<div class="my-4">
+					{#each effectorsLoad as effector}
+						<section class="space-y-4 my-4">
+							<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+								<Effector {effector} />
+							</div>
+						</section>
+					{/each}
+				</div>
+			{:then}
+				<div class="space-y-2">
+					<div class="row">
+						<div class="col">
+							<SelectCategories />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectCommunes />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SearchDirectory />
+						</div>
+					</div>
+				</div>
+				<div class="my-4">
+					{#each $filteredEffectors as effector}
+						<section class="space-y-4 my-4">
+							<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+								<Effector {effector} />
+							</div>
+						</section>
+					{/each}
+				</div>
+			{/await}
 		</div>
 	</section>
 </div>

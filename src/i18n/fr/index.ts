@@ -37,6 +37,9 @@ const fr: Translation = {
     FACILITIES: {
       PLACEHOLDER: "Sélectionner par établissement..."
     },
+    CATEGORIES: {
+      PLACEHOLDER: "Sélectionner par catégorie...."
+    },
     SEARCH: {
       LABEL: "Nom ou prénom",
       PLACEHOLDER: "Nom ou prénom...",

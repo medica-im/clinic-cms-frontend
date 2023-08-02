@@ -37,6 +37,9 @@ const en: BaseTranslation = {
 		FACILITIES: {
             PLACEHOLDER: "Select by facility..."
 		},
+		CATEGORIES: {
+            PLACEHOLDER: "Select by category..."
+		},
 		SEARCH: {
 			LABEL: "Name",
 			PLACEHOLDER: "Name...",
