@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
+	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { fly } from 'svelte/transition';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
@@ -51,6 +51,7 @@
 		</div>
 	</header>
 	<!-- team -->
+	{#if data.teamCarousel.length}
 	<section id="team" class="bg-surface-100-800-token team-gradient">
 		<div class="section-container">
 			<Team
@@ -65,6 +66,7 @@
 			/>
 		</div>
 	</section>
+	{/if}
 	{#if data.ghost}
 	<!-- blog -->
 	<section id="blog" class="bg-surface-100-800-token blog-gradient">
@@ -72,9 +74,11 @@
 	</section>
 	{/if}
 	<!-- programs -->
+	{#if variables.ORGANIZATION_CATEGORY == "msp"}
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container"><OutpatientClinicPrograms /></div>
 	</section>
+	{/if}
 </div>
 
 <style lang="postcss">

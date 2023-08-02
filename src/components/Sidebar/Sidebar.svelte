@@ -15,7 +15,7 @@
 	import { drawerStore } from '@skeletonlabs/skeleton';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import Fa from 'svelte-fa';
-	import {faBlog} from '@fortawesome/free-solid-svg-icons';
+	import { faBlog } from '@fortawesome/free-solid-svg-icons';
 	// Props
 	export let embedded = false;
 	export let data;
@@ -28,7 +28,7 @@
 		drawerStore.close();
 	}
 
-	const storeCategory: Writable<string> = writable(menuNavCats[0].id);
+	const storeCategory: Writable<string> = writable(menuNavCats?.[0]?.id);
 	let filteredMenuNavLinks: any[] = menuNavLinks;
 
 	// ListItem Click Handler
@@ -43,13 +43,13 @@
 		// prettier-ignore
 		switch($storeCategory) {
 			case('education'):
-			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => ['education-therapeutique', 'education-sante'].includes(linkSet.id));
+			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => ['education-therapeutique', 'education-sante'].includes(linkSet?.id));
 				break;
 			case('msp'):
-			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet.id === 'maison-de-sante');
+			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet?.id === 'maison-de-sante');
 				break;
 			case('prevention'):
-			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet.id === 'prevention');
+			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet?.id === 'prevention');
 				break;
 		}
 	}
@@ -60,19 +60,18 @@
 		if (!path) return;
 		// Translate path to menuNavCats id
 		filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => {
-			return linkSet.list.some((e: any) => e.href==path)
+			return linkSet.list.some((e: any) => e.href == path);
 		});
 		if (filteredMenuNavLinks.length) {
 			let menuNavLinkId = filteredMenuNavLinks[0].id;
 			let selectNavCats = menuNavCats.filter((navCat: any) => {
-				return navCat.list.some((e: any) => e==menuNavLinkId)
+				return navCat.list.some((e: any) => e == menuNavLinkId);
 			});
 			if (selectNavCats.length) {
 				let menuNavCatId: string = selectNavCats[0].id;
 				storeCategory.set(menuNavCatId);
 			}
 		}
-
 	});
 	storeCategory.subscribe((c: string) => setNavCategory(c));
 
@@ -87,35 +86,29 @@
 		''}"
 >
 	<!-- App Rail -->
-	<AppRail
-		background="bg-transparent"
-		border="border-r border-surface-500/30"
-	>
-		<AppRailTile
-			bind:group={$storeCategory}
-			name={'maison-de-sante'}
-			value={'msp'}
-		>
-			<svelte:fragment slot="lead"
-				><DocsIcon name="outpatientClinic" width="w-6" height="h-6" /></svelte:fragment
-			>
-			<span>Maison de santé</span>
-		</AppRailTile>
-		<AppRailTile bind:group={$storeCategory} name={'education'} value={'education'}>
-			<svelte:fragment slot="lead"
-				><DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" /></svelte:fragment
-			>
-			<span>Éducation</span>
-		</AppRailTile>
-		<AppRailTile bind:group={$storeCategory} name="Prévention" value={'prevention'}>
-			<svelte:fragment slot="lead"
-				><DocsIcon name="faShieldHeart" width="w-6" height="h-6" /></svelte:fragment
-			>
-			<span>Prévention</span>
-		</AppRailTile>
+	<AppRail background="bg-transparent" border="border-r border-surface-500/30">
+		{#if variables.ORGANIZATION_CATEGORY == 'msp'}
+			<AppRailTile bind:group={$storeCategory} name={'maison-de-sante'} value={'msp'}>
+				<svelte:fragment slot="lead"
+					><DocsIcon name="outpatientClinic" width="w-6" height="h-6" /></svelte:fragment
+				>
+				<span>Maison de santé</span>
+			</AppRailTile>
+			<AppRailTile bind:group={$storeCategory} name={'education'} value={'education'}>
+				<svelte:fragment slot="lead"
+					><DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" /></svelte:fragment
+				>
+				<span>Éducation</span>
+			</AppRailTile>
+			<AppRailTile bind:group={$storeCategory} name="Prévention" value={'prevention'}>
+				<svelte:fragment slot="lead"
+					><DocsIcon name="faShieldHeart" width="w-6" height="h-6" /></svelte:fragment
+				>
+				<span>Prévention</span>
+			</AppRailTile>
 
-		<hr class="opacity-30" />
-
+			<hr class="opacity-30" />
+		{/if}
 		<AppRailAnchor
 			href="/sites"
 			class="lg:hidden"
@@ -154,21 +147,25 @@
 			>
 			<span>Contact</span>
 		</AppRailAnchor>
-
-		<AppRailAnchor
-			href="{variables.BLOG_URI}"
-			rel="external"
-			class="lg:hidden"
-			on:click={() => {
-				onClickAnchor();
-			}}
-		>
-			<svelte:fragment slot="lead"><Fa icon={faBlog} size="lg" class="inline-block outline-none" /></svelte:fragment>
-			<span>Blog</span>
-		</AppRailAnchor>
+		{#if variables.BLOG_URI}
+			<AppRailAnchor
+				href={variables.BLOG_URI}
+				rel="external"
+				class="lg:hidden"
+				on:click={() => {
+					onClickAnchor();
+				}}
+			>
+				<svelte:fragment slot="lead"
+					><Fa icon={faBlog} size="lg" class="inline-block outline-none" /></svelte:fragment
+				>
+				<span>Blog</span>
+			</AppRailAnchor>
+		{/if}
 
 		<SoMed data={data.contact.socialnetworks} appRail={true} />
 	</AppRail>
+	{#if filteredMenuNavLinks.length}
 	<!-- Nav Links -->
 	<section class="p-4 pb-20 space-y-4 overflow-y-auto">
 		{#each filteredMenuNavLinks as { id, title, href, list }, i}
@@ -195,4 +192,5 @@
 			{/if}
 		{/each}
 	</section>
+	{/if}
 </div>

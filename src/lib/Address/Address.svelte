@@ -7,10 +7,10 @@
 
 	let addressData = {
 		formattedName: data.formatted_name,
-		street: data.addresses[0].street,
-		zip: data.addresses[0].zip,
-		city: data.addresses[0].city,
-		state: data.addresses[0].state,
+		street: data.address.street,
+		zip: data.address.zip,
+		city: data.address.city,
+		state: data.address.state,
 		phones: data.phonenumbers
 	};
 </script>

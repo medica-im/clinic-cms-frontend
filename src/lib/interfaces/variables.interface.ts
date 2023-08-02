@@ -8,4 +8,5 @@ export interface Variables {
 	readonly TIMELINE: boolean;
 	readonly BLOG_URI: string;
 	readonly NOINDEX: boolean;
+	readonly ORGANIZATION_CATEGORY: string;
 }

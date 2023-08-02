@@ -1,4 +1,9 @@
 // Navigation Links & Sitemap
+import { variables } from '$lib/utils/constants';
+
+const isMSP: boolean = variables.ORGANIZATION_CATEGORY == "msp"
+console.log(isMSP)
+
 import {
 	faBars,
 	faCaretDown,
@@ -146,7 +151,7 @@ export const getAllPrograms = () => {
 	return programArray
 }
 
-export const menuNavLinks: any = [
+export const menuNavLinks: any = isMSP ? [
 	// outpatient clinic
 	{
 		id: 'maison-de-sante',
@@ -194,9 +199,9 @@ export const menuNavLinks: any = [
 				icon: null
 			}
 		]
-	}].concat(programsNavLinks)
+	}].concat(programsNavLinks) : []
 
-export const menuNavCats: any = [
+export const menuNavCats: any = isMSP ? [
 	// outpatient clinic
 	{
 		id: 'msp',
@@ -222,4 +227,4 @@ export const menuNavCats: any = [
 		},
 		list: ['prevention']
 	}
-]
+] : []

@@ -22,8 +22,8 @@
 			longitude: 0,
 			zoom: 0
 		};
-		if (contact.addresses.length > 0) {
-			address = contact.addresses[0];
+		if (contact.address) {
+			address = contact.address;
 		}
 		let facilityGeoData = {
 			name: fData?.name ?? 'default',

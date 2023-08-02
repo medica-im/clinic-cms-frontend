@@ -49,12 +49,14 @@
 				<span>Contact</span>
 			</a>
 		</li>
+		{#if variables.BLOG_URI}
 		<li>
 			<a href={variables.BLOG_URI}>
 				<span><Fa icon={faBlog} size="lg" /></span>
 				<span>Blog</span>
 			</a>
 		</li>
+		{/if}
 		<SoMed data={data.contact.socialnetworks} sideBar={true} />
 		<User facility={data.facility} sideBar={true} />
 	</ul>

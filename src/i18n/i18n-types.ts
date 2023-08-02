@@ -86,6 +86,12 @@ type RootTranslation = {
 			 */
 			PLACEHOLDER: string
 		}
+		COMMUNES: {
+			/**
+			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​c​o​m​m​u​n​e​.​.​.
+			 */
+			PLACEHOLDER: string
+		}
 		FACILITIES: {
 			/**
 			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​é​t​a​b​l​i​s​s​e​m​e​n​t​.​.​.
@@ -483,6 +489,12 @@ export type TranslationFunctions = {
 		OCCUPATIONS: {
 			/**
 			 * Sélectionner par profession...
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
+		COMMUNES: {
+			/**
+			 * Sélectionner par commune...
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}

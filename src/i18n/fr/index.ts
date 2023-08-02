@@ -31,6 +31,9 @@ const fr: Translation = {
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."
     },
+    COMMUNES: {
+			PLACEHOLDER: "Sélectionner par commune..."
+		},
     FACILITIES: {
       PLACEHOLDER: "Sélectionner par établissement..."
     },

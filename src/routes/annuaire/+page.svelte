@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import {
 		filteredWorkforceDataCached,
@@ -17,6 +18,7 @@
 	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
+	import Directory from '$components/Directory/Directory.svelte'
 
 	export let data: PageData;
 </script>
@@ -27,6 +29,11 @@
 		</title>
 </svelte:head>
 
+{#if variables.ORGANIZATION_CATEGORY=="cpts"}
+    <Directory effectors={data.effectors.effectors}/>
+{/if}
+
+{#if variables.ORGANIZATION_CATEGORY=="msp"}
 <div>
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
@@ -121,7 +128,7 @@
 		</div>
 	</section>
 </div>
-
+{/if}
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;

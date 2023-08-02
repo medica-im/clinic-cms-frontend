@@ -28,6 +28,9 @@ const en: BaseTranslation = {
 			PROFILE_PIC_OF: "Profile picture of"
 		},
 		TITLE: "Address book",
+		COMMUNES: {
+			PLACEHOLDER: "Select by municipality..."
+		},
 		OCCUPATIONS: {
 			PLACEHOLDER: "Select by profession..."
 		},

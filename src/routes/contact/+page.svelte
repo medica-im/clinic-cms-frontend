@@ -25,7 +25,7 @@
 	export let data;
 
 	const createFacilityGeoData = (fData) => {
-		let address = fData.contact.addresses[0];
+		let address = fData.contact.address;
 		let facilityGeoData = {
 			name: 'contact',
 			latitude: Number(address?.latitude ?? 0),

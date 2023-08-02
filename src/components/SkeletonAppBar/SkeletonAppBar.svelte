@@ -281,10 +281,14 @@
 		<div class="relative hidden xl:block">
 
 		<section>
+			{#if facility.contact.socialnetworks}
             <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
+			{/if}
+			{#if variables.BLOG_URI}
 			<a href={variables.BLOG_URI} title={'blog'} class="btn-icon btn-icon-sm hover:variant-soft-secondary" target="_blank" rel="noreferrer">
 				<span><Fa icon={faBlog} size="lg" /></span>
 			</a>
+			{/if}
 			</section>
 </div>
 		<div>

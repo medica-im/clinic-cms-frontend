@@ -53,6 +53,7 @@
 						</li>
 					</ul>
 				</div>
+				{#if variables.ORGANIZATION_CATEGORY=="msp"}
 				<div>
 					<h6 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
 						{$LL.OUTPATIENT_CLINIC.PROGRAMS()}
@@ -65,6 +66,7 @@
 						{/each}
 					</ul>
 				</div>
+				{/if}
 				<div>
 					<h6 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
 						{capitalizeFirstLetter($LL.LEGAL(), $language)}
@@ -92,7 +94,9 @@
 			</span>
 			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />
+				{#if variables.BLOG_URI}
 				<BlogIconLink />
+				{/if}
 			</div>
 		</div>
 		<hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
