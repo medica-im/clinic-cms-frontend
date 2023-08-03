@@ -1,21 +1,8 @@
 <script lang="ts">
-	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import {
-		filteredWorkforceDataCached,
-		occupations,
-		selectOccupations,
-		occupationsCardinal,
-		filteredOccupationsCardinal
-	} from '$lib/store/workforceStore';
-	import { selectFacilities } from '$lib/store/selectionStore';
-	import Worker from '$lib/Workforce/Worker.svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import Search from '$lib/Search.svelte';
-	import SelectOccupations from '$lib/Workforce/SelectOccupations.svelte';
-	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
 	import type { PageData } from './$types';
 	import Directory from '$components/Directory/Directory.svelte'
 

@@ -200,6 +200,8 @@
 			<div class="card p-4 w-60 shadow-xl" data-popup="facility">
 				<nav class="list-nav">
 					<ul>
+						{#if variables.ORGANIZATION_CATEGORY == "msp"}
+
 						<li>
 							<a href="/{ facility.category.slug }/a-propos">
 								<span class="w-6 text-center"><Fa icon={faInfo} /></span>
@@ -217,6 +219,7 @@
 								<span>{$LL.NAVBAR.HEALTH_PROJECT()}</span>
 							</a>
 						</li>
+					{/if}
 					</ul>
 				</nav>
 			</div>

@@ -9,7 +9,7 @@
 	import Effector from './Effector.svelte';
 	import SelectCommunes from './SelectCommunes.svelte';
 	import SelectCategories from './SelectCategories.svelte';
-	export let effectorsLoad: any;
+	export let effectorsLoad;
 </script>
 
 <svelte:head>
@@ -40,6 +40,7 @@
 					</div>
 				</div>
 				<div class="my-4">
+					{#if effectorsLoad?.length}
 					{#each effectorsLoad as effector}
 						<section class="space-y-4 my-4">
 							<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -47,6 +48,7 @@
 							</div>
 						</section>
 					{/each}
+					{/if}
 				</div>
 			{:then}
 				<div class="space-y-2">
