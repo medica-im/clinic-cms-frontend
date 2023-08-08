@@ -7,14 +7,27 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 export const term = writable('');
 export const selectCommunes = writable([]);
 export const selectCategories = writable([]);
+export const effectors = writable([]);
+
+const next = writable(null);
 
 function normalize(x: string) {
 	return x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
-export const effectors = asyncDerived(
-	([locale]),
-	async ([$locale]) => {
+async function fetchEffectors(next) {
+	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${next || ""}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	if (response) {
+		let data: any = response;
+		next = data.meta.next;
+		return [data.effectors, next]
+	}
+};
+
+export const getEffectors = asyncDerived(
+	([locale, next, effectors]),
+	async ([$locale, $next, $effectors]) => {
 		var cachelife = 600;
 		const cacheName = "effectors";
 		let cachedData;
@@ -22,7 +35,7 @@ export const effectors = asyncDerived(
 		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
 		let empty: boolean = true;
 		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
+			cachedData = localStorage.getItem(`${cacheName}`);
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
@@ -37,19 +50,21 @@ export const effectors = asyncDerived(
 		if (cachedData && !expired && !empty) {
 			return cachedData.data;
 		} else {
-			const workforceUrl = `${variables.BASE_API_URI}/effectors`;
-			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-			if (response) {
-				let data: any = response;
-				let effectors = data.effectors;
-				if (browser) {
-					var json = { data: effectors, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
+			let hasMore = true
+			while (hasMore) {
+				const [_effectors, _next] = await fetchEffectors($next);
+				$effectors = [...$effectors, ..._effectors];
+				if (_next === null) {
+					hasMore = false;
+				} else {
+					$next = _next
 				}
-				return effectors;
-			} else if (err) {
-				console.error(err);
 			}
+			if (browser) {
+				var json = { data: $effectors, cachetime: Date.now() / 1000 }
+				localStorage.setItem(`${cacheName}`, JSON.stringify(json))
+			}
+			return $effectors;
 		}
 	}
 );
@@ -62,10 +77,10 @@ function uniq(a) {
 }
 
 export const communes = asyncDerived(
-	(effectors),
-	async ($effectors) => {
+	(getEffectors),
+	async ($getEffectors) => {
 		let communes = (
-			uniq($effectors.map(function (currentElement) {
+			uniq($getEffectors.map(function (currentElement) {
 				return currentElement.communes.flat()
 			}
 			).flat()).sort(function (a, b) {
@@ -75,31 +90,31 @@ export const communes = asyncDerived(
 		return communes
 	});
 
-	export const categories = asyncDerived(
-		(effectors),
-		async ($effectors) => {
-			let categories = (
-				uniq($effectors.map(function (currentElement) {
-					return currentElement.types.flat()
-				}
-				).flat()).sort(function (a, b) {
-					return a.uid.localeCompare(b.uid);
-				})
-			);
-			return categories
-		});
+export const categories = asyncDerived(
+	(getEffectors),
+	async ($getEffectors) => {
+		let categories = (
+			uniq($getEffectors.map(function (currentElement) {
+				return currentElement.types.flat()
+			}
+			).flat()).sort(function (a, b) {
+				return a.uid.localeCompare(b.uid);
+			})
+		);
+		return categories
+	});
 
 export const filteredEffectors = asyncDerived(
-	([term, selectCommunes, selectCategories, effectors]),
-	async ([$term, $selectCommunes, $selectCategories, $effectors]) => {
+	([getEffectors, term, selectCommunes, selectCategories, effectors]),
+	async ([$getEffectors, $term, $selectCommunes, $selectCategories, $effectors]) => {
 		if (
 			!$selectCommunes?.length
 			&& !$selectCategories?.length
 			&& $term == ''
 		) {
-			return $effectors
+			return $getEffectors
 		} else {
-			return $effectors.filter(function (x) {
+			return $getEffectors.filter(function (x) {
 				if (!$selectCommunes?.length) {
 					return true
 				} else {

@@ -10,6 +10,11 @@
 	import SelectCommunes from './SelectCommunes.svelte';
 	import SelectCategories from './SelectCategories.svelte';
 	export let effectorsLoad;
+
+	function contactCount(_array: []) {
+		const count=_array.length;
+			return `${count} contact${count>1 ? "s" : ""}`
+	}
 </script>
 
 <svelte:head>
@@ -41,6 +46,11 @@
 				</div>
 				<div class="my-4">
 					{#if effectorsLoad?.length}
+					<p>{contactCount(effectorsLoad)}</p>
+					{/if}
+				</div>
+				<div class="my-4">
+					{#if effectorsLoad?.length}
 					{#each effectorsLoad as effector}
 						<section class="space-y-4 my-4">
 							<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -67,6 +77,9 @@
 							<SearchDirectory />
 						</div>
 					</div>
+				</div>
+				<div class="my-4">
+					<p>{contactCount($filteredEffectors)}</p>
 				</div>
 				<div class="my-4">
 					{#each $filteredEffectors as effector}
