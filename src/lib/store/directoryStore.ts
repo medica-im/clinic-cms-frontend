@@ -3,6 +3,7 @@ import { locale } from '$i18n/i18n-svelte';
 import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+import { env } from '$env/dynamic/public';
 
 export const term = writable('');
 export const selectCommunes = writable([]);
@@ -28,7 +29,7 @@ async function fetchEffectors(next) {
 export const getEffectors = asyncDerived(
 	([locale, next, effectors]),
 	async ([$locale, $next, $effectors]) => {
-		var cachelife = 600;
+		var cachelife = env.PUBLIC_EFFECTORS_TTL;
 		const cacheName = "effectors";
 		let cachedData;
 		let expired: boolean = true;
@@ -72,7 +73,7 @@ export const getEffectors = asyncDerived(
 function uniq(a) {
 	var seen = {};
 	return a.filter(function (item) {
-		return seen.hasOwnProperty(item.name) ? false : (seen[item.name] = true);
+		return seen.hasOwnProperty(item.uid) ? false : (seen[item.uid] = true);
 	});
 }
 
@@ -141,6 +142,55 @@ export const filteredEffectors = asyncDerived(
 					return normalize(x.name_fr).includes(normalize($term))
 				}
 			})
+		}
+	}
+)
+
+export const categoryOfCommune = asyncDerived(
+	([selectCommunes, categories, filteredEffectors]),
+	async ([$selectCommunes, $categories, $filteredEffectors]) => {
+		if ($selectCommunes.length == 0) {
+			return uniq(
+				$filteredEffectors.map(
+					function (x) {
+						let dct = { value: x.name, label: x.label };
+						return x.types
+					}
+				).flat()
+			)/*.map(
+				function (x) {
+					let dct = { value: x.uid, label: x.name };
+					return dct
+				}
+			)*/
+		} else {
+			return uniq(
+				$filteredEffectors.filter(
+					function (x) {
+						if (
+							x.communes.map(
+								function (e) {
+									return e.uid
+								}
+							).some(r => $selectCommunes.includes(r))
+							) {
+							return true
+						} else {
+							return false
+						}
+					}
+				).map(
+					function (x) {
+						let dct = { value: x.name, label: x.label };
+						return x.types
+					}
+				).flat()
+			)/*.map(
+				function (x) {
+					let dct = { value: x.uid, label: x.name };
+					return dct
+				}
+			)*/
 		}
 	}
 )
