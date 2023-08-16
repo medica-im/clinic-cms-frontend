@@ -8,6 +8,7 @@ import { env } from '$env/dynamic/public';
 export const term = writable('');
 export const selectCommunes = writable([]);
 export const selectCategories = writable([]);
+export const selectSituation = writable("");
 export const effectors = writable([]);
 
 const next = writable(null);
@@ -29,7 +30,7 @@ async function fetchEffectors(next) {
 export const getEffectors = asyncDerived(
 	([locale, next, effectors]),
 	async ([$locale, $next, $effectors]) => {
-		var cachelife = env.PUBLIC_EFFECTORS_TTL;
+		var cachelife = parseInt(env.PUBLIC_EFFECTORS_TTL);
 		const cacheName = "effectors";
 		let cachedData;
 		let expired: boolean = true;
@@ -105,12 +106,69 @@ export const categories = asyncDerived(
 		return categories
 	});
 
+export const getSituations = asyncReadable(
+	{},
+	async () => {
+		var cachelife = parseInt(env.PUBLIC_SITUATIONS_TTL);
+		const cacheName = "situations";
+		let cachedData;
+		let expired: boolean = true;
+		let empty: boolean = true;
+		if (browser) {
+			cachedData = localStorage.getItem(`${cacheName}`);
+		}
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			expired = elapsed > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
+			}
+		}
+		if (cachedData && !expired && !empty) {
+			return cachedData.data;
+		} else {
+			const url = `${variables.BASE_API_URI}/situations`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, url);
+			if (response) {
+				let data = response?.situations;
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+				}
+				return data;
+			} else if (err) {
+				console.error(err);
+			}
+		}
+	}
+);
+
+export const situations = asyncDerived(
+	([getSituations]),
+	async ([$getSituations]) => {
+		let situations = (
+			$getSituations.map(function (e) {
+				const situation = {
+					value: e.uid,
+					label: e.name
+				}
+				return situation
+			}
+			)
+		);
+		return situations;
+	});
+
 export const filteredEffectors = asyncDerived(
-	([getEffectors, term, selectCommunes, selectCategories, effectors]),
-	async ([$getEffectors, $term, $selectCommunes, $selectCategories, $effectors]) => {
+	([getEffectors, term, selectCommunes, selectCategories, selectSituation, getSituations, effectors]),
+	async ([$getEffectors, $term, $selectCommunes, $selectCategories, $selectSituation, $getSituations, $effectors]) => {
 		if (
 			!$selectCommunes?.length
 			&& !$selectCategories?.length
+			&& $selectSituation == ''
 			&& $term == ''
 		) {
 			return $getEffectors
@@ -140,6 +198,17 @@ export const filteredEffectors = asyncDerived(
 					return true
 				} else {
 					return normalize(x.name_fr).includes(normalize($term))
+				}
+			}).filter(function (x) {
+				if ($selectSituation == '') {
+					return true
+				} else {
+					let situation = $getSituations.find(obj => { return obj.uid == $selectSituation });
+					let effectors = $getSituations.find(obj => { return obj.uid == $selectSituation })?.effectors;
+					console.log(effectors)
+					let condition = effectors.includes(x.uid);
+					console.log(condition);
+					return condition;
 				}
 			})
 		}
@@ -173,7 +242,7 @@ export const categoryOfCommune = asyncDerived(
 									return e.uid
 								}
 							).some(r => $selectCommunes.includes(r))
-							) {
+						) {
 							return true
 						} else {
 							return false

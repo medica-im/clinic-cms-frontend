@@ -40,6 +40,9 @@ const fr: Translation = {
     CATEGORIES: {
       PLACEHOLDER: "Sélectionner par catégorie...."
     },
+    SITUATIONS: {
+      PLACEHOLDER: "Selectionner par situation..."
+    },
     SEARCH: {
       LABEL: "Nom ou prénom",
       PLACEHOLDER: "Nom ou prénom...",

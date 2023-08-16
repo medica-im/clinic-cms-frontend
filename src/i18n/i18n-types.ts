@@ -104,6 +104,12 @@ type RootTranslation = {
 			 */
 			PLACEHOLDER: string
 		}
+		SITUATIONS: {
+			/**
+			 * S​e​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​s​i​t​u​a​t​i​o​n​.​.​.
+			 */
+			PLACEHOLDER: string
+		}
 		SEARCH: {
 			/**
 			 * N​o​m​ ​o​u​ ​p​r​é​n​o​m
@@ -513,6 +519,12 @@ export type TranslationFunctions = {
 		CATEGORIES: {
 			/**
 			 * Sélectionner par catégorie....
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
+		SITUATIONS: {
+			/**
+			 * Selectionner par situation...
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}

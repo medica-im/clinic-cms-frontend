@@ -9,6 +9,7 @@
 	import Effector from './Effector.svelte';
 	import SelectCommunes from './SelectCommunes.svelte';
 	import SelectCategories from './SelectCategories.svelte';
+	import SelectSituations from './SelectSituations.svelte';
 	export let effectorsLoad;
 
 	function contactCount(_array: []) {
@@ -30,12 +31,17 @@
 				<div class="space-y-2">
 					<div class="row">
 						<div class="col">
-							<SelectCategories />
+							<SelectSituations />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<SelectCommunes />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectCategories />
 						</div>
 					</div>
 					<div class="row">
@@ -64,12 +70,17 @@
 				<div class="space-y-2">
 					<div class="row">
 						<div class="col">
-							<SelectCategories />
+							<SelectSituations />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<SelectCommunes />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectCategories />
 						</div>
 					</div>
 					<div class="row">

@@ -40,6 +40,9 @@ const en: BaseTranslation = {
 		CATEGORIES: {
             PLACEHOLDER: "Select by category..."
 		},
+		SITUATIONS: {
+            PLACEHOLDER: "Select by situation..."
+		},
 		SEARCH: {
 			LABEL: "Name",
 			PLACEHOLDER: "Name...",
