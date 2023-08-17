@@ -56,8 +56,6 @@
 	</div>
 {:then}
 	<div class="text-surface-700 theme">
-		"{$selectSituation}"<br>
-		"{JSON.stringify($situations)}"<br>
 		<Select
 			{label}
 			{itemId}
