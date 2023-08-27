@@ -28,6 +28,9 @@ const en: BaseTranslation = {
 			PROFILE_PIC_OF: "Profile picture of"
 		},
 		TITLE: "Address book",
+		GEOCODER: {
+			PLACEHOLDER: "Enter the person's address..."
+		},
 		COMMUNES: {
 			PLACEHOLDER: "Select by municipality..."
 		},
@@ -139,7 +142,12 @@ const en: BaseTranslation = {
 	DIRECTION: 'direction',
 	YES: 'yes',
 	NO: 'no',
-	AND: 'and'
+	AND: 'and',
+	SKELETON: {
+		AUTOCOMPLETE: {
+			EMPTY_STATE: 'No results found'
+		}
+	}
 }
 
 export default en

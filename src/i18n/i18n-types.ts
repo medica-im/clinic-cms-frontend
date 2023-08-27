@@ -80,6 +80,12 @@ type RootTranslation = {
 		 * A​n​n​u​a​i​r​e
 		 */
 		TITLE: string
+		GEOCODER: {
+			/**
+			 * E​n​t​r​e​r​ ​l​'​a​d​r​e​s​s​e​ ​d​e​ ​l​a​ ​p​e​r​s​o​n​n​e​.​.​.
+			 */
+			PLACEHOLDER: string
+		}
 		OCCUPATIONS: {
 			/**
 			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​p​r​o​f​e​s​s​i​o​n​.​.​.
@@ -430,6 +436,14 @@ type RootTranslation = {
 	 * e​t
 	 */
 	AND: string
+	SKELETON: {
+		AUTOCOMPLETE: {
+			/**
+			 * A​u​c​u​n​ ​r​é​s​u​l​t​a​t​ ​t​r​o​u​v​é
+			 */
+			EMPTY_STATE: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -498,6 +512,12 @@ export type TranslationFunctions = {
 		 * Annuaire
 		 */
 		TITLE: () => LocalizedString
+		GEOCODER: {
+			/**
+			 * Entrer l'adresse de la personne...
+			 */
+			PLACEHOLDER: () => LocalizedString
+		}
 		OCCUPATIONS: {
 			/**
 			 * Sélectionner par profession...
@@ -847,6 +867,14 @@ export type TranslationFunctions = {
 	 * et
 	 */
 	AND: () => LocalizedString
+	SKELETON: {
+		AUTOCOMPLETE: {
+			/**
+			 * Aucun résultat trouvé
+			 */
+			EMPTY_STATE: () => LocalizedString
+		}
+	}
 }
 
 export type Formatters = {}

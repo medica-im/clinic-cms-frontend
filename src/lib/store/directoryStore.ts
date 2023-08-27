@@ -10,6 +10,7 @@ export const selectCommunes = writable([]);
 export const selectCategories = writable([]);
 export const selectSituation = writable("");
 export const effectors = writable([]);
+export const addressFeature = writable({});
 
 const next = writable(null);
 

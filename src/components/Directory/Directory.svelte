@@ -10,6 +10,7 @@
 	import SelectCommunes from './SelectCommunes.svelte';
 	import SelectCategories from './SelectCategories.svelte';
 	import SelectSituations from './SelectSituations.svelte';
+	import Geocoder from '$components/Geocoder/Geocoder.svelte';
 	export let effectorsLoad;
 
 	function contactCount(_array: []) {
@@ -29,6 +30,11 @@
 		<div class="section-container">
 			{#await filteredEffectors.load()}
 				<div class="space-y-2">
+					<div class="row">
+						<div class="col">
+							<Geocoder />
+						</div>
+					</div>
 					<div class="row">
 						<div class="col">
 							<SelectSituations />
@@ -68,6 +74,11 @@
 				</div>
 			{:then}
 				<div class="space-y-2">
+					<div class="row">
+						<div class="col">
+							<Geocoder />
+						</div>
+					</div>
 					<div class="row">
 						<div class="col">
 							<SelectSituations />

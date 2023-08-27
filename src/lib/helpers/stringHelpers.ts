@@ -14,3 +14,5 @@ export const workerTitleFormattedName = (w: Worker) =>
 `${w.title}${w.title ? " " : ""}${w.formatted_name}`
 
 export const removeSpaces = (s: string) => s.replace(/\s+/g, '-').normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+export const normalize = (x: string) => x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");

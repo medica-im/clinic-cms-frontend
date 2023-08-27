@@ -28,6 +28,9 @@ const fr: Translation = {
 			PROFILE_PIC_OF: "Photo de profil de"
 		},
     TITLE: "Annuaire",
+    GEOCODER: {
+			PLACEHOLDER: "Entrer l'adresse de la personne..."
+		},
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."
     },
@@ -139,7 +142,12 @@ const fr: Translation = {
 	DIRECTION: 'itinéraire',
 	YES: 'oui',
 	NO: 'non',
-  AND: 'et'
+  AND: 'et',
+  SKELETON: {
+		AUTOCOMPLETE: {
+			EMPTY_STATE: 'Aucun résultat trouvé'
+		}
+	}
 }
 
 export default fr
