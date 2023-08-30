@@ -4,8 +4,15 @@
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption } from '@skeletonlabs/skeleton';
 	import { normalize } from '$lib/helpers/stringHelpers';
-	import { addressFeature } from '$lib/store/directoryStore';
+	import { addressFeature, distanceEffectors } from '$lib/store/directoryStore';
+	import { get } from '@square/svelte-store';
+	import {
+		faAddressCard,
+	} from '@fortawesome/free-regular-svg-icons';
+	import Fa from 'svelte-fa';
+	import DocsIcon from '$components/Icon/Icon.svelte';
 	let visible = false;
+
 
 	let response;
 
@@ -113,9 +120,34 @@
 		visible = false;
 	}
 	const onInput =()=>visible=true;
+
+	function handleClear() {
+		inputAddress = '';
+		addressFeature.set(null);
+		visible=false;
+	}
 </script>
 
-<input class="input" type="search" name="geocoder" on:input={onInput} bind:value={inputAddress} placeholder="{$LL.ADDRESSBOOK.GEOCODER.PLACEHOLDER()}" />
+<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+	<div class="input-group-shim"><Fa icon={faAddressCard} /></div>
+	<input
+	type="search"
+	name="geocoder"
+	autocomplete="off"
+	on:input={onInput}
+	placeholder={$LL.ADDRESSBOOK.GEOCODER.PLACEHOLDER()}
+	bind:value={inputAddress}
+	aria-label={$LL.ADDRESSBOOK.GEOCODER.ARIA_LABEL()}
+	/>
+	<button
+		class="variant-filled-secondary"
+		on:click={handleClear}
+		aria-label={$LL.ADDRESSBOOK.CLEAR()}
+		disabled={!inputAddress}
+	>
+	<DocsIcon name="clear" width="w-5" height="h-5" />
+	</button>
+</div>
 {#if visible}
 <div class="card w-full max-w-md max-h-48 p-4 overflow-y-auto" tabindex="-1">
 	<Autocomplete

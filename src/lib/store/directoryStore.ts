@@ -4,6 +4,7 @@ import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { env } from '$env/dynamic/public';
+import haversine from 'haversine-distance';
 
 export const term = writable('');
 export const selectCommunes = writable([]);
@@ -69,6 +70,32 @@ export const getEffectors = asyncDerived(
 			}
 			return $effectors;
 		}
+	}
+);
+
+export const distanceEffectors = asyncDerived(
+	([addressFeature, getEffectors]),
+	async ([$addressFeature, $getEffectors]) => {
+		const targetGeoJSON = $addressFeature?.geometry?.coordinates;
+		if (!targetGeoJSON) {
+			return;
+		}
+		console.log(`targetGeoJSON: ${targetGeoJSON}`);
+		const distanceOfEffector = {};
+		for (const effector of $getEffectors ) {
+				let longitude = effector.addresses[0]?.longitude;
+				let latitude = effector.addresses[0]?.latitude;
+				console.log(longitude, latitude);
+				if (!longitude || !latitude) {
+					console.log("no gps");
+					continue;
+				}
+				const effectorGeoJSON = [parseFloat(longitude), parseFloat(latitude)] as any;
+				const dist = haversine(targetGeoJSON, effectorGeoJSON);
+				distanceOfEffector[effector.addresses[0]?.facility_uid] = dist;
+			}
+		console.log(distanceOfEffector);
+		return distanceOfEffector;
 	}
 );
 
@@ -163,14 +190,39 @@ export const situations = asyncDerived(
 		return situations;
 	});
 
+function distanceOfEffector(e, distEffectors) {
+    let uid = e.addresses[0]?.facility_uid;
+	console.log(uid);
+	if ( uid ) {
+		return distEffectors[uid];
+	} else {
+		return undefined;
+	}
+}
+
+function compareEffectorDistance(a, b, distEffectors) {
+    let dist_a = distanceOfEffector(a, distEffectors);
+	let dist_b = distanceOfEffector(b, distEffectors);
+	if (!dist_a && !dist_b) {
+		return 0;
+	} else if (!dist_a) {
+		return 1;
+	} else if (!dist_b) {
+		return -1;
+	} else {
+		return (dist_a - dist_b);
+	}
+}
+
 export const filteredEffectors = asyncDerived(
-	([getEffectors, term, selectCommunes, selectCategories, selectSituation, getSituations, effectors]),
-	async ([$getEffectors, $term, $selectCommunes, $selectCategories, $selectSituation, $getSituations, $effectors]) => {
+	([getEffectors, term, selectCommunes, selectCategories, selectSituation, getSituations, effectors, distanceEffectors]),
+	async ([$getEffectors, $term, $selectCommunes, $selectCategories, $selectSituation, $getSituations, $effectors, $distanceEffectors]) => {
 		if (
 			!$selectCommunes?.length
 			&& !$selectCategories?.length
 			&& $selectSituation == ''
 			&& $term == ''
+			&& $distanceEffectors == null
 		) {
 			return $getEffectors
 		} else {
@@ -210,6 +262,13 @@ export const filteredEffectors = asyncDerived(
 					let condition = effectors.includes(x.uid);
 					console.log(condition);
 					return condition;
+				}
+			}).sort((a, b) => {
+				console.log($distanceEffectors);
+				if ($distanceEffectors == null) {
+                    return 0;
+				} else {
+				    return compareEffectorDistance(a, b, $distanceEffectors)
 				}
 			})
 		}

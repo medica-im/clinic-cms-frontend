@@ -29,7 +29,8 @@ const fr: Translation = {
 		},
     TITLE: "Annuaire",
     GEOCODER: {
-			PLACEHOLDER: "Entrer l'adresse de la personne..."
+			PLACEHOLDER: "Entrer l'adresse de la personne...",
+      ARIA_LABEL: "Recherche de l'adresse de la personne"
 		},
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."

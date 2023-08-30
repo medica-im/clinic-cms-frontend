@@ -85,6 +85,10 @@ type RootTranslation = {
 			 * E​n​t​r​e​r​ ​l​'​a​d​r​e​s​s​e​ ​d​e​ ​l​a​ ​p​e​r​s​o​n​n​e​.​.​.
 			 */
 			PLACEHOLDER: string
+			/**
+			 * R​e​c​h​e​r​c​h​e​ ​d​e​ ​l​'​a​d​r​e​s​s​e​ ​d​e​ ​l​a​ ​p​e​r​s​o​n​n​e
+			 */
+			ARIA_LABEL: string
 		}
 		OCCUPATIONS: {
 			/**
@@ -517,6 +521,10 @@ export type TranslationFunctions = {
 			 * Entrer l'adresse de la personne...
 			 */
 			PLACEHOLDER: () => LocalizedString
+			/**
+			 * Recherche de l'adresse de la personne
+			 */
+			ARIA_LABEL: () => LocalizedString
 		}
 		OCCUPATIONS: {
 			/**
