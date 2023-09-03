@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
 	import LL from '$i18n/i18n-svelte';
+	import Fa from 'svelte-fa';
+	import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 	import { changeText } from '$lib/helpers/buttonText';
-
 	import { fly } from 'svelte/transition';
-
 	import type { CustomError } from '$lib/interfaces/error.interface';
 
 	export let data: PageData;
@@ -69,6 +69,7 @@
 					name="new_password1"
                     autocomplete="new-password"
 					aria-label="password"
+                    disabled={form?.success}
 					placeholder={$LL.LOGIN.ENTER_PASSWORD()}
 					required
 				/>
@@ -79,13 +80,14 @@
 					name="new_password2"
                     autocomplete="new-password"
 					aria-label="$LL.CONFIRL"
+                    disabled={form?.success}
 					placeholder={$LL.LOGIN.CONFIRM_PASSWORD()}
 					required
 				/>
 					<button
 						class="btn bg-primary-500"
 						type="submit"
-                        disabled={password!=confirmPassword || password?.length<8}
+                        disabled={password!=confirmPassword || password?.length<8 || form?.success}
 						on:click={(e) => changeText(e, 'Registering...')}
 					>
 						{$LL.LOGIN.SET_NEW_PASSWORD()}
@@ -98,6 +100,10 @@
 				<!-- this message is ephemeral; it exists because the page was rendered in
        response to a form submission. it will vanish if the user reloads -->
 				<p>{$LL.LOGIN.CHANGE_PASSWORD_SUCCESS()}</p>
+                <a href="/accounts/login"
+					><div class="flex flex-nowrap space-x-2"><span><Fa icon={faRightToBracket} size="lg" /></span>
+					<span>{$LL.NAVBAR.LOGIN()}</span></div></a
+				>
 			{/if}
 		</div>
 	</section>

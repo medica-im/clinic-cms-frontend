@@ -35,8 +35,7 @@ export const actions = {
 			throw new Error("Network response was not OK");
 		  }
 		const res_json = await res.json();
-        console.log(`${JSON.stringify(res_json)}`);
-		if (res_json.detail == "Password has been reset with the new password.") {
+		if (res_json.detail) {
 			return { success: true };
 		}
 	} catch (error) {
