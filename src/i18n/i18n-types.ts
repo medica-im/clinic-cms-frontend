@@ -240,6 +240,42 @@ type RootTranslation = {
 		 * D​é​c​o​n​n​e​x​i​o​n​ ​r​é​u​s​s​i​e​.​.​.
 		 */
 		LOGOUT: string
+		/**
+		 * R​é​i​n​i​t​i​a​l​i​s​e​r​ ​v​o​t​r​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e
+		 */
+		RESET_PASSWORD: string
+		/**
+		 * R​é​i​n​i​t​i​a​l​i​s​e​r
+		 */
+		RESET: string
+		/**
+		 * L​’​e​m​a​i​l​ ​d​e​ ​r​é​i​n​i​t​i​a​l​i​s​a​t​i​o​n​ ​d​u​ ​m​o​t​ ​d​e​ ​p​a​s​s​e​ ​a​ ​é​t​é​ ​e​n​v​o​y​é​.
+		 */
+		RESET_SUCCESSFUL: string
+		/**
+		 * C​h​a​n​g​e​r​ ​l​a​ ​p​h​r​a​s​e​ ​d​e​ ​p​a​s​s​e
+		 */
+		CHANGE_PASSWORD: string
+		/**
+		 * C​o​n​f​i​r​m​e​r​ ​l​a​ ​p​h​r​a​s​e​ ​d​e​ ​p​a​s​s​e
+		 */
+		CONFIRM_PASSWORD: string
+		/**
+		 * E​n​t​r​e​r​ ​l​a​ ​p​h​r​a​s​e​ ​d​e​ ​p​a​s​s​e
+		 */
+		ENTER_PASSWORD: string
+		/**
+		 * D​é​f​i​n​i​r​ ​l​a​ ​n​o​u​v​e​l​l​e​ ​p​h​r​a​s​e​ ​d​e​ ​p​a​s​s​e
+		 */
+		SET_NEW_PASSWORD: string
+		/**
+		 * M​o​t​ ​d​e​ ​p​a​s​s​e​ ​c​h​a​n​g​é​ ​a​v​e​c​ ​s​u​c​c​è​s​!
+		 */
+		CHANGE_PASSWORD_SUCCESS: string
+		/**
+		 * M​o​t​ ​d​e​ ​p​a​s​s​e​ ​o​u​b​l​i​é​?
+		 */
+		PASSWORD_FORGOTTEN: string
 	}
 	ERROR404: {
 		/**
@@ -412,6 +448,16 @@ type RootTranslation = {
 	 * e​t
 	 */
 	AND: string
+	CHARACTER: {
+		/**
+		 * c​a​r​a​c​t​è​r​e
+		 */
+		SINGULAR: string
+		/**
+		 * c​a​r​a​c​t​è​r​e​s
+		 */
+		PLURAL: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -640,6 +686,42 @@ export type TranslationFunctions = {
 		 * Déconnexion réussie...
 		 */
 		LOGOUT: () => LocalizedString
+		/**
+		 * Réinitialiser votre mot de passe
+		 */
+		RESET_PASSWORD: () => LocalizedString
+		/**
+		 * Réinitialiser
+		 */
+		RESET: () => LocalizedString
+		/**
+		 * L’email de réinitialisation du mot de passe a été envoyé.
+		 */
+		RESET_SUCCESSFUL: () => LocalizedString
+		/**
+		 * Changer la phrase de passe
+		 */
+		CHANGE_PASSWORD: () => LocalizedString
+		/**
+		 * Confirmer la phrase de passe
+		 */
+		CONFIRM_PASSWORD: () => LocalizedString
+		/**
+		 * Entrer la phrase de passe
+		 */
+		ENTER_PASSWORD: () => LocalizedString
+		/**
+		 * Définir la nouvelle phrase de passe
+		 */
+		SET_NEW_PASSWORD: () => LocalizedString
+		/**
+		 * Mot de passe changé avec succès!
+		 */
+		CHANGE_PASSWORD_SUCCESS: () => LocalizedString
+		/**
+		 * Mot de passe oublié?
+		 */
+		PASSWORD_FORGOTTEN: () => LocalizedString
 	}
 	ERROR404: {
 		/**
@@ -811,6 +893,16 @@ export type TranslationFunctions = {
 	 * et
 	 */
 	AND: () => LocalizedString
+	CHARACTER: {
+		/**
+		 * caractère
+		 */
+		SINGULAR: () => LocalizedString
+		/**
+		 * caractères
+		 */
+		PLURAL: () => LocalizedString
+	}
 }
 
 export type Formatters = {}

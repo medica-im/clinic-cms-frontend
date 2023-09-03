@@ -32,7 +32,7 @@ const en: BaseTranslation = {
 			PLACEHOLDER: "Select by profession..."
 		},
 		FACILITIES: {
-            PLACEHOLDER: "Select by facility..."
+			PLACEHOLDER: "Select by facility..."
 		},
 		SEARCH: {
 			LABEL: "Name",
@@ -76,7 +76,16 @@ const en: BaseTranslation = {
 		SIGNINGIN: "Signing in...",
 		CREATEACCOUNT: "Create an account",
 		SUCCESSFUL: "Login successful...",
-		LOGOUT: "You have successfully logged out..."
+		LOGOUT: "You have successfully logged out...",
+		RESET_PASSWORD: "Reset your password",
+		RESET: "Reset",
+		RESET_SUCCESSFUL: "Password reset e-mail has been sent.",
+		CHANGE_PASSWORD: "Change password",
+		CONFIRM_PASSWORD: "Confirm password",
+		ENTER_PASSWORD: "Enter password",
+		SET_NEW_PASSWORD: "Set new password",
+		CHANGE_PASSWORD_SUCCESS: "Password successfully changed!",
+		PASSWORD_FORGOTTEN: "Forgot your password?",
 	},
 	ERROR404: {
 		OOPS: "Oops!",
@@ -88,7 +97,7 @@ const en: BaseTranslation = {
 	EMAILADDRESS: "Email address",
 	PASSWORD: "Password",
 	TIMELINE: {
-        TITLE: "Timeline"
+		TITLE: "Timeline"
 	},
 	USER: {
 		PROFILE: "{userName:string} profile",
@@ -130,7 +139,11 @@ const en: BaseTranslation = {
 	DIRECTION: 'direction',
 	YES: 'yes',
 	NO: 'no',
-	AND: 'and'
+	AND: 'and',
+	CHARACTER: {
+		SINGULAR: "character",
+		PLURAL: "characters"
+	}
 }
 
 export default en

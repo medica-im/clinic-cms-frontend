@@ -21,8 +21,6 @@
 				email: email,
 				username: username,
 				password: password,
-				bio: bio,
-				full_name: fullName
 			}
 		});
 		const response: UserResponse = jsonRes;
@@ -69,20 +67,6 @@
 			required
 		/>
 		<input
-			bind:value={fullName}
-			type="text"
-			aria-label="Full name"
-			placeholder="Full name"
-			required
-		/>
-		<input
-			bind:value={bio}
-			type="text"
-			aria-label="Brief bio"
-			placeholder="Tell us about yourself..."
-			required
-		/>
-		<input
 			bind:value={password}
 			type="password"
 			name="password"
@@ -98,7 +82,7 @@
 			placeholder="Confirm password"
 			required
 		/>
-		{#if confirmPassword}
+		{#if passwordConfirm()}
 			<button class="btn" type="submit" on:click={(e) => changeText(e, 'Registering...')}>
 				Register
 			</button>

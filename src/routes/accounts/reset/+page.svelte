@@ -13,62 +13,46 @@
 	import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount } from 'svelte';
 	let submitButton;
-	let submitButtonInnerHTML: string = $LL.LOGIN.TOLOGIN();
+	let submitButtonInnerHTML: string = $LL.LOGIN.RESET();
 	let response: UserResponse;
 	let emailWarn = false;
-	let passwordWarn = false;
+	let success = false;
 	let email = '',
-		password = '',
 		errors: Array<CustomError>;
 
-	onMount(() => {
-		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
-	});
-
-	$: if (response && response.user && response.user.error) {
-		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
-		emailWarn = true;
-		passwordWarn = true;
-	}
-
-	const handleLogin = async () => {
-		if (browserGet('refreshToken')) {
-			localStorage.removeItem('refreshToken');
+	const handleReset = async () => {
+		const res = await fetch(
+			`${variables.BASE_URI}/dj-rest-auth/password/reset/`,
+			{
+			method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				  },
+				body: JSON.stringify({
+			    email: email,
+			})
 		}
-		const [jsonRes, err] = await post(fetch, `${variables.BASE_API_URI}/accounts/login/`, {
-			user: {
-				email: email,
-				password: password
-			}
-		});
-		response = jsonRes;
-
-		if (err.length > 0) {
-			errors = err;
-			console.error(`errors: ${errors}`);
-			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
-		} else if (response.user && response.user.error) {
-			errors = response.user.error[0];
-			console.error(`errors: ${errors}`);
-			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
-		} else if (response.user && response.user.tokens) {
-			emptyLocaleStorage();
-			browserSet('refreshToken', response.user.tokens.refresh);
-			toggleAuth();
-			notificationData.update(() => `${$LL.LOGIN.SUCCESSFUL()}`);
-			await goto('/');
+		);
+		if (!res.ok) {
+			console.error(`error: ${res.status}`);
+			submitButtonInnerHTML = $LL.LOGIN.RESET();
+		} else {
+			success=true
+			//notificationData.update(() => `${$LL.LOGIN.RESET_SUCCESSFUL()}`);
 		}
+		const jsn = await res.json();
+		console.log(jsn);
 	};
 </script>
 
 <svelte:head>
-	<title>{$LL.LOGIN.LOGIN()}</title>
+	<title>{$LL.LOGIN.RESET_PASSWORD()}</title>
 </svelte:head>
 
 <div>
 	<header>
 		<div class="section-container">
-			<h1>{$LL.LOGIN.LOGIN()}</h1>
+			<h1>{$LL.LOGIN.RESET_PASSWORD()}</h1>
 		</div>
 	</header>
 
@@ -82,40 +66,35 @@
 				class="space-y-4 lg:max-w-2xl"
 				on:submit={(e) => {
 					e.preventDefault();
-					handleLogin();
+					handleReset();
 				}}
 			>
 				{#if errors}
-					<p>{errors}</p>
+					<p>{JSON.stringify(errors)}</p>
 				{/if}
 				<input
 					class="input"
 					type="email"
 					bind:value={email}
+					disabled='{success}'
 					hideLabel
 					labelText={$LL.EMAILADDRESS()}
 					placeholder="{$LL.EMAILADDRESS()}..."
 					required
 					warn={emailWarn}
 				/>
-				<input
-					class="input"
-					bind:value={password}
-					required
-					type="password"
-					labelText={$LL.PASSWORD()}
-					placeholder="{$LL.PASSWORD()}..."
-					warn={passwordWarn}
-				/>
 				<button
 					class="btn bg-primary-500"
 					bind:this={submitButton}
 					type="submit"
+					disabled='{success}'
 					on:click={() => {
-						submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
+						submitButtonInnerHTML = $LL.LOGIN.RESET();
 					}}>{submitButtonInnerHTML}</button
 				>
-				<p><a href="/accounts/reset">{$LL.LOGIN.PASSWORD_FORGOTTEN()}</a></p>
+				{#if success}
+				<p>{$LL.LOGIN.RESET_SUCCESSFUL()}</p>
+				{/if}
 			</form>
 		</div>
 	</section>

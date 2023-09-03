@@ -76,7 +76,16 @@ const fr: Translation = {
     SIGNINGIN: "Connexion en cours...",
     CREATEACCOUNT: "Créer un compte",
     SUCCESSFUL: "Connexion réussie...",
-    LOGOUT: "Déconnexion réussie..."
+    LOGOUT: "Déconnexion réussie...",
+    RESET_PASSWORD: "Réinitialiser votre mot de passe",
+    RESET: "Réinitialiser",
+    RESET_SUCCESSFUL: "L’email de réinitialisation du mot de passe a été envoyé.",
+    CHANGE_PASSWORD: "Changer la phrase de passe",
+    CONFIRM_PASSWORD: "Confirmer la phrase de passe",
+		ENTER_PASSWORD: "Entrer la phrase de passe",
+		SET_NEW_PASSWORD: "Définir la nouvelle phrase de passe",
+    CHANGE_PASSWORD_SUCCESS: "Mot de passe changé avec succès!",
+    PASSWORD_FORGOTTEN: "Mot de passe oublié?",
   },
   ERROR404: {
     OOPS: "Oups!",
@@ -130,7 +139,11 @@ const fr: Translation = {
 	DIRECTION: 'itinéraire',
 	YES: 'oui',
 	NO: 'non',
-  AND: 'et'
+  AND: 'et',
+  CHARACTER: {
+    SINGULAR: "caractère",
+    PLURAL: "caractères"
+  } 
 }
 
 export default fr
