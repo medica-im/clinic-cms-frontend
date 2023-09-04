@@ -9,29 +9,35 @@
 	import { goto } from '$app/navigation';
 	const label = 'label';
 	const itemId = 'value';
+	export let data = null;
 	let value = null;
+	let oOFS;
 
-	onMount(() => {
-		value = getValue();
+
+	onMount(async () => {
+		oOFS = await occupationOfFacilityStore.load();
+		if (data) {
+		    value = getValue();
+		}
 	});
 
 	function getValue() {
-		let sOccupations = get(selectOccupations);
-		if (!sOccupations.length) {
-			return null;
-		} else {
-			let occup = get(occupations);
-			if (occup) {
-				let val = occup
-					.filter((x) => sOccupations.includes(x.name))
-					.map(function (x) {
-						let dct = { value: x.name, label: x.label };
-						return dct;
-					})[0];
-				return val;
+			let _occupations = get(occupations);
+			let store = get(selectOccupations);
+			let select;
+			if (data) {
+				select = data;
+			} else if (store.length) {
+                select = store[0]
+			} else {
+				return;
+			}
+			if (_occupations.length) {
+				let occupation = _occupations.find((x) => x.name == select);
+				let dct = { value: occupation.name, label: occupation.label };
+				return dct;
 			}
 		}
-	}
 
 	function toArray(obj) {
 		if (Array.isArray(obj)) {
@@ -62,7 +68,7 @@
 	}
 </script>
 
-{#await occupations.load()}
+{#await occupationOfFacilityStore.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()} />
 	</div>

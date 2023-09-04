@@ -20,33 +20,36 @@
 </script>
 
 <svelte:head>
-	<title>
-		{capitalizeFirstLetter(data.selectedOccupationsCardinal[data.key]['label'])} - {capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
+	{#await $filteredOccupationsCardinal}{:then}
+		<title>
+		{capitalizeFirstLetter($filteredOccupationsCardinal[data.key]['label'])} - {capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
 	</title>
+	{/await}
 </svelte:head>
 
 <div>
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			{#await filteredOccupationsCardinal.load()}
-				<div class="space-y-2">
-					<div class="row">
-						<div class="col">
-							<SelectOccupations />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<SelectFacilities />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<Search />
-						</div>
+			<div class="space-y-2">
+				<div class="row">
+					<div class="col">
+						<SelectOccupations data={data.key} />
 					</div>
 				</div>
+				<div class="row">
+					<div class="col">
+						<SelectFacilities />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<Search />
+					</div>
+				</div>
+			</div>
+			{#await filteredOccupationsCardinal.load()}
+				
 				<div class="my-4">
 					{#each Object.keys(data.selectedOccupationsCardinal) as name}
 						<section class="space-y-4 my-4">
@@ -67,25 +70,6 @@
 					{/each}
 				</div>
 			{:then}
-				<div class="space-y-2">
-					<div class="row">
-						<div class="col">
-							<SelectOccupations />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							{#key $selectOccupations}
-							<SelectFacilities />
-							{/key}
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<Search />
-						</div>
-					</div>
-				</div>
 				<div class="my-4">
 					{#each Object.keys($filteredOccupationsCardinal) as name}
 						{#if $filteredWorkforceDataCached

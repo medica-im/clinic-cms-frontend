@@ -3,7 +3,6 @@
 	import {
 		filteredWorkforceDataCached,
 		occupations,
-		selectOccupations,
 		occupationsCardinal,
 		filteredOccupationsCardinal
 	} from '$lib/store/workforceStore';
@@ -17,8 +16,14 @@
 	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
+	import {onMount} from "svelte";
+	import { selectOccupations } from '$lib/store/workforceStore';
 
 	export let data: PageData;
+
+	onMount(
+		() => {selectOccupations.set([]);}
+	);
 </script>
 
 <svelte:head>
@@ -60,7 +65,7 @@
 								{#each data.workforceDataCached as worker}
 									{#each worker.occupations as occupation}
 										{#if occupation.name == name}
-											<Worker workerData={worker} currentOccupationName={name} />
+											<Worker workerData={worker} currentOccupationName={name}/>
 										{/if}
 									{/each}
 								{/each}

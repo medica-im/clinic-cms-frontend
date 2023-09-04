@@ -96,8 +96,8 @@ function workerCount(obj) {
 }
 
 export const occupationOfFacilityStore = asyncDerived(
-	([occupations, workforceDataCached, selectFacilities, workforceDict, locale]),
-	async ([$occupations, $workforceDataCached, $selectFacilities, $workforceDict, $locale]) => {
+	([occupations, workforceDataCached, selectFacilities, workforceDict, locale, selectOccupations]),
+	async ([$occupations, $workforceDataCached, $selectFacilities, $workforceDict, $locale, $selectOccupations]) => {
 		if (get(selectFacilities).length == 0) {
 			return get(occupations).map(
 				function (x) {

@@ -107,7 +107,7 @@ function removeRefreshToken() {
 
 export const emptyLocaleStorage = () => {
 	const itemsToDelete: string[] = [];
-	let storedItemsRoot = ["facility_", "wfd_", "wfo_", "workforceDict_"];
+	let storedItemsRoot = ["facility_", "wfd_", "wfo_", "workforceLabelDict_"];
 	locales.forEach(
 		(locale) => {
 			let items = storedItemsRoot.map((value) => value + locale)

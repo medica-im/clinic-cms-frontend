@@ -20,7 +20,7 @@ export const workforceDict = asyncDerived(
 	([locale, isAuth]),
 	async ([$locale, $isAuth]) => {
 		var cachelife = 3600;
-		const cacheName = "workforceDict";
+		const cacheName = "workforceLabelDict";
 		let cachedData;
 		let expired: boolean = true;
 		let empty: boolean = true;
@@ -130,6 +130,7 @@ export const workforceDataCached = asyncDerived(
 			}
 		}
 		if (cachedData && !expired && !empty) {
+			console.log(`cachedData.data.length: ${cachedData.data.length}`);
 			return cachedData.data;
 		} else {
 			const workforceUrl = `${variables.BASE_API_URI}/workforce/user/?lang=${lang}`;
@@ -140,13 +141,13 @@ export const workforceDataCached = asyncDerived(
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
+				console.log(`data.length: ${data.length}`);
 				return data;
 			} else if (err) {
 				console.error(err);
 			}
 		}
-	},
-	true
+	}
 );
 
 export const teamCarouselStore = asyncDerived(
@@ -176,18 +177,7 @@ function uniq(a) {
 		return seen.hasOwnProperty(item.name) ? false : (seen[item.name] = true);
 	});
 }
-/*
-export const occupations = asyncDerived(
-	(workforceDataCached),
-	async ($workforceDataCached) => {
-		let derivedWorkforceData = (
-			uniq($workforceDataCached.map(function (currentElement) {
-				return currentElement.occupations.flat()
-			}
-			).flat()));
-		return derivedWorkforceData
-	});
-*/
+
 export const occupations = asyncDerived(
 	(workforceDataCached),
 	async ($workforceDataCached) => {
@@ -215,70 +205,6 @@ function mapWorkforceData(workerElement: Worker) {
 	)
 }
 
-export const occupationsCardinalBak = asyncDerived(
-	([workforceDataCached, workforceDict, locale]),
-	async ([$workforceDataCached, $workforceDict, $locale]) => {
-		let occupationArray: Occupation[] = (
-			$workforceDataCached.map(function (workerElement: Worker) {
-				return workerElement.occupations.map(function (occupationElement) {
-					if (workerElement.grammatical_gender !== null) {
-						let code = workerElement.grammatical_gender.code;
-						occupationElement["gender"] = code;
-					} else {
-						occupationElement["gender"] = null;
-					}
-					return occupationElement
-				}
-				)
-			}
-			).flat(2));
-		const occupationsCardinalObject = {} as OccupationCardinalObject;
-		occupationArray.forEach(function (x: Occupation) {
-			if (!(x.name in Object.keys(occupationsCardinalObject))) {
-				occupationsCardinalObject[x.name] = {
-					"count": {
-						"total": 0,
-						"F": 0,
-						"M": 0,
-						"N": 0
-					}
-				}
-			}
-		});
-		occupationArray.forEach(function (x: Occupation) {
-			let name = x["name"];
-			let gender = x["gender"];
-			occupationsCardinalObject[name]['count']['total'] = occupationsCardinalObject[name]['count']['total'] + 1;
-			if (gender == 'F') {
-				occupationsCardinalObject[x.name]['count']['F'] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
-			}
-			if (gender == 'M') {
-				occupationsCardinalObject[x.name]["count"]["M"] = occupationsCardinalObject[x.name]["count"]["M"] + 1;
-			}
-			if (gender == 'N') {
-				occupationsCardinalObject[x.name]["count"]["N"] = occupationsCardinalObject[x.name]["count"]["N"] + 1;
-			}
-		});
-		Object.keys(occupationsCardinalObject).forEach(function (key) {
-			if (occupationsCardinalObject[key]["count"]["total"] > 1) {
-				if (occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"]) {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["F"]
-				} else {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["M"]
-				}
-			} else {
-				if (occupationsCardinalObject[key]["count"]["F"] > occupationsCardinalObject[key]["count"]["M"]) {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["S"]["F"]
-				} else {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["S"]["M"]
-				}
-			}
-		});
-		return occupationsCardinalObject
-	},
-	true
-);
-
 export const selectOccupations = writable([]);
 
 function normalize(x: string) {
@@ -288,6 +214,8 @@ function normalize(x: string) {
 export const filteredWorkforceDataCached = asyncDerived(
 	([term, selectOccupations, selectFacilities, workforceDataCached]),
 	async ([$term, $selectOccupations, $selectFacilities, $workforceDataCached]) => {
+		console.log(`selectOccupations: ${JSON.stringify($selectOccupations)}`);
+		console.log(`workforceDataCached: ${JSON.stringify($workforceDataCached.map(x => x.formatted_name))} count: ${$workforceDataCached.length}`);
 		if (!$selectOccupations?.length && !$selectFacilities?.length && $term == '') { return $workforceDataCached }
 		else {
 			return $workforceDataCached.filter(function (x) {
@@ -321,6 +249,8 @@ export const filteredWorkforceDataCached = asyncDerived(
 					} catch (err) {
 					}
 				}
+				console.log(`facilities: ${JSON.stringify(facilities)}`);
+
 				let names = facilities.map(x => x.facility__name);
 				if (names) {
 					let filterBool = names.some(r => $selectFacilities.includes(r));
@@ -397,7 +327,9 @@ export const occupationsCardinal = asyncDerived(
 export const filteredOccupationsCardinal = asyncDerived(
 	([filteredWorkforceDataCached, selectOccupations, workforceDict, locale]),
 	async ([$filteredWorkforceDataCached, $selectOccupations, $workforceDict, $locale]) => {
+		console.log(`filteredWorkforceDataCached; ${JSON.stringify($filteredWorkforceDataCached)}`);
 		let occupationArray: Occupation[] = ($filteredWorkforceDataCached.map(mapWorkforceData).flat(2));
+		console.log(`occupationArray; ${JSON.stringify(occupationArray)}`);
 		let filteredOccupationArray: Occupation[] = occupationArray.filter(
 			function (x) {
 				if ($selectOccupations?.length) {
@@ -449,9 +381,9 @@ export const filteredOccupationsCardinal = asyncDerived(
 				}
 			}
 		});
+		console.log(occupationsCardinalObject);
 		return occupationsCardinalObject
-	},
-	true
+	}
 );
 
 export const workerData = asyncDerived(
@@ -460,6 +392,5 @@ export const workerData = asyncDerived(
 		if ($workerSlug && $workforceDataCached && $workforceDataCached.length) {
 			return workerTitleFormattedName($workforceDataCached.find((element) => element.slug == $workerSlug))
 		} else { return '' }
-	},
-	true
+	}
 );

@@ -14,6 +14,7 @@
 		}
 		return variables.BASE_URI + url;
 	}
+	console.log(workerData);
 </script>
 
 <div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
@@ -34,7 +35,7 @@
 					{#if occupation.specialty}
 						<div class="my-2">
 							<h5>
-								{occupation.specialty.label}
+								{occupation.specialty?.label}
 							</h5>
 						</div>
 						{#each occupation.specialty.facilities as facility}
@@ -45,7 +46,7 @@
 					{:else}
 						<div class="my-2">
 							<h5>
-								{occupation.label}
+								{occupation?.label}
 							</h5>
 						</div>
 						{#each occupation.facilities as facility}

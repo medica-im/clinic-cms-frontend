@@ -39,14 +39,14 @@
 		{#each userData.occupations as occupation}
 			{#if occupation.specialty}
 				<h3>
-					{occupation.specialty.label}
+					{occupation.specialty?.label}
 				</h3>
 				{#each occupation.specialty.facilities as facility}
 					<WorkerFacility {facility} />
 				{/each}
 			{:else}
 				<h3>
-					{occupation.label}
+					{occupation?.label}
 				</h3>
 				{#each occupation.facilities as facility}
 					<WorkerFacility {facility} />
