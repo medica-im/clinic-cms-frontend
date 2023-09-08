@@ -2,6 +2,19 @@ import type { BaseTranslation } from '../i18n-types'
 
 const en: BaseTranslation = {
 	// TODO: your translations go here
+	ACCESS: {
+		SUMMARY: {
+		    PUBLIC: "Website visitors, team members and administrators.",
+		    TEAM: "Team members & administrators.",
+		    ADMIN: "Administrators only."
+		},
+		CHOICES: {
+		    PUBLIC: "Public",
+		    TEAM: "Team",
+		    ADMIN: "Administrator"
+		},
+		ACCESS_CONTROL: "Access control"
+	},
 	HI: "Hi {name:string}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n",
 	LOADING: "Loading...",
 	HOME: {
@@ -101,7 +114,11 @@ const en: BaseTranslation = {
 	},
 	USER: {
 		PROFILE: "{userName:string} profile",
-		ROLE: "Role"
+		ROLE: "Role",
+		PAGE: "Personal page",
+		ACCOUNT_SETTINGS: "Account settings",
+		FULL_NAME: "full name",
+		USERNAME: "username"
 	},
 	FACILITY: {
 		OUTPATIENT_CLINIC: 'Outpatient clinic'
@@ -143,7 +160,19 @@ const en: BaseTranslation = {
 	CHARACTER: {
 		SINGULAR: "character",
 		PLURAL: "characters"
-	}
+	},
+	BIOGRAPHY: "biography",
+	PREVIEW: "preview",
+	CLOSE: "close",
+	CLOSE_NO_SAVE: "close without saving",
+	SAVE: "save",
+	DESTROY: "destroy",
+	DELETE: "delete",
+	CREATE: "create",
+	EDIT: "edit",
+	PROFILE: "profile",
+	UPDATE: "update",
+	DOB: "date of birth"
 }
 
 export default en

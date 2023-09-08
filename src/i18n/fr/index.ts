@@ -2,6 +2,19 @@ import type { Translation } from '../i18n-types';
 
 
 const fr: Translation = {
+  ACCESS: {
+		SUMMARY: {
+		    PUBLIC: "Visiteurs, équipe et administrateurs.",
+		    TEAM: "Équipe et administrateurs.",
+		    ADMIN: "Administrateurs uniquement."
+		},
+		CHOICES: {
+		    PUBLIC: "Public",
+		    TEAM: "Équipe",
+		    ADMIN: "Administrateur"
+		},
+		ACCESS_CONTROL: "Contrôle de l'accès"
+	},
   HI: "Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n",
   LOADING: "Chargement...",
   HOME: {
@@ -101,7 +114,11 @@ const fr: Translation = {
   PASSWORD: "Mot de passe",
   USER: {
     PROFILE: "Profil de {userName:string}",
-    ROLE: 'Rôle'
+    ROLE: "Rôle",
+    PAGE: "Page personnelle",
+    ACCOUNT_SETTINGS: "Paramètres du compte",
+    FULL_NAME: "nom complet",
+    USERNAME: "nom d'utilisateur"
   },
   FACILITY: {
 		OUTPATIENT_CLINIC: 'Maison de santé'
@@ -143,7 +160,19 @@ const fr: Translation = {
   CHARACTER: {
     SINGULAR: "caractère",
     PLURAL: "caractères"
-  } 
+  },
+	BIOGRAPHY: "biographie",
+  PREVIEW: "aperçu",
+	CLOSE: "fermer",
+	CLOSE_NO_SAVE: "fermer sans enregistrer",
+	SAVE: "enregistrer",
+  DESTROY: "détruire",
+  DELETE: "effacer",
+  CREATE: "créer",
+  EDIT: "modifier",
+  PROFILE: "profil",
+  UPDATE: "changer",
+  DOB: "date de naissance"
 }
 
 export default fr

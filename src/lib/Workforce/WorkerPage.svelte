@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { capitalizeFirstLetter as cFL } from '$lib/helpers/stringHelpers';
 	import type { Worker } from '$lib/interfaces/workforce.interface';
 	import { variables } from '$lib/utils/constants';
 	import LL from '$i18n/i18n-svelte';
@@ -13,7 +13,10 @@
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
 	import Fa from 'svelte-fa';
 	import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-	import { faGlobe, faCircleNodes, faPhone } from '@fortawesome/free-solid-svg-icons';
+	import { faGlobe, faCircleNodes, faPhone, faBook } from '@fortawesome/free-solid-svg-icons';
+	import WorkerProfile from './WorkerProfile.svelte';
+    import { displayEditor } from '$lib/utils/permissions';
+    import { isAuth } from '$lib/store/authStore';
 
 	export let userData: Worker;
 
@@ -28,6 +31,8 @@
 			return `${variables.BASE_URI}/media/profile_images/default_profile_picture.png`;
 		}
 	}
+
+	
 </script>
 
 <div class="lg:flex m-auto font-serif m-4 p-4 gap-8">
@@ -81,7 +86,7 @@
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faPhone} /></div>
 						<div>
-							<h3>{capitalizeFirstLetter($LL.PHONE())}</h3>
+							<h3>{cFL($LL.PHONE())}</h3>
 						</div>
 					</div>
 
@@ -141,6 +146,37 @@
 					</div>
 				</li>
 			{/if}
+			{#if (userData?.profile?.text != null) && (userData?.profile?.text != "")}
+			<li class="d-flex justify-content-between align-items-start">
+				<div class="flex items-center p-1">
+					<div class="w-9"><Fa icon={faBook} /></div>
+					<div>
+						<h3>{cFL($LL.PROFILE())}</h3>
+					</div>
+				</div>
+				<div class="flex p-1">
+					<div class="w-9" />
+					<div class="space-x-2">
+						{@html userData.profile.text}<WorkerProfile userData={userData} name={$LL.PROFILE()}/>
+					</div>
+				</div>
+			</li>
+		   {:else if displayEditor(userData.profile.permissions)}
+		   <li class="d-flex justify-content-between align-items-start">
+			<div class="flex items-center p-1">
+				<div class="w-9"><Fa icon={faBook} /></div>
+				<div>
+					<h3>{cFL($LL.PROFILE())}</h3>
+				</div>
+			</div>
+			<div class="flex p-1">
+				<div class="w-9" />
+				<div class="space-x-2">
+					<WorkerProfile userData={userData} name={$LL.PROFILE()}/>
+				</div>
+			</div>
+		</li>
+		   {/if}
 		</ul>
 	</div>
 	<div class="p-4 space-y-2">

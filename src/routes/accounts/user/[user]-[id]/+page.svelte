@@ -6,7 +6,8 @@
 	import type { User, UserResponse } from '$lib/interfaces/user.interface';
 	import LL from '$i18n/i18n-svelte';
 	import type { PageData } from './$types';
-
+	import { capitalizeFirstLetter as cFL } from '$lib/helpers/stringHelpers';
+	import { workforceDataCached as workforce} from '$lib/store/workforceStore';
 
 	export let data: PageData;
 
@@ -26,92 +27,121 @@
 			currentUserData = data.response;
 			if (updateResponse) currentUserData = updateResponse.user; // if updated data is available, update the currentUserData too...
 		})();
+	
+	function getUrl(w) {
+		let slug = w.find(e => e.user_id == data.response.id).slug;
+		return `${data.url.origin}/${slug}`;
+	}
 </script>
 
-{#if currentUserData && currentUserData.id}
+<svelte:head>
+		<title>
+			{$LL.USER.ACCOUNT_SETTINGS()}
+		</title>
+</svelte:head>
 
-		<h1>{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
-		</h1>
+<div class="container mx-auto p-4 m-4 space-y-4">
+	{#if currentUserData && currentUserData.id}
+	<h1 class="h1">{$LL.USER.ACCOUNT_SETTINGS()}</h1>
+		<h2 class="h2">
+			{currentUserData.full_name || currentUserData.username}
+		</h2>
 
-		<div class="card">
-			<header class="card-header">{$LL.USER.ROLE()}</header>
+		<div class="card w-96">
+			<header class="card-header"><h3 class="h3">{$LL.USER.PAGE()}</h3></header>
+			<section class="p-4">{#await $workforce}
+				...loading
+				{:then}
+				<a class="btn variant-filled" data-sveltekit-preload-data="hover" href={getUrl($workforce)}>{getUrl($workforce)}</a>
+			    {/await}</section>
+			<footer class="card-footer">
+				Sur cette page, vous pouvez créer et modifier votre profil.
+			</footer>
+		</div>
+
+		<div class="card w-96">
+			<header class="card-header"><h3 class="h3">{$LL.USER.ROLE()}</h3></header>
 			<section class="p-4">{currentUserData.role.label}</section>
 			<footer class="card-footer">{currentUserData.role.description}</footer>
 		</div>
 
-	<div class="user" transition:scale|local={{ start: 0.2 }}>
-		<div class="text">
-			<input
-				aria-label="User's full name"
-				type="text"
-				placeholder="User's full name"
-				name="full_name"
-				value={currentUserData.full_name}
-			/>
-			<button class="btn btn-outline-secondary" type="button" aria-label="Save user's full name" on:click={(e) => triggerUpdate(e)}>Update</button>
+		<div class="card variant-ghost w-96 p-4 space-y-4">
+				<label class="label">
+					<span>{cFL($LL.USER.FULL_NAME())}</span>
+					<div class="flex space-x-2">
+				<input
+				class="input"
+					aria-label="User's full name"
+					type="text"
+					placeholder="User's full name"
+					name="full_name"
+					value={currentUserData.full_name}
+				/>
+				<button
+					class="btn variant-filled"
+					type="button"
+					aria-label="Save user's full name"
+					on:click={(e) => triggerUpdate(e)}>{cFL($LL.UPDATE())}</button
+				>
+			</div>
+			</label>
+			<label class="label">
+				<span>{cFL($LL.USER.USERNAME())}</span>
+			<div class="flex space-x-2">
+				<input
+					class="input"
+					aria-label="User's username"
+					type="text"
+					placeholder="User's username"
+					name="username"
+					value={currentUserData.username}
+				/>
+				<button
+					class="btn variant-filled"
+					type="button"
+					aria-label="Save user's username"
+					on:click={(e) => triggerUpdate(e)}>{cFL($LL.UPDATE())}</button
+				>
+			</div>
+			</label>
+			<label class="label">
+				<span>{cFL($LL.EMAILADDRESS())}</span>
+			<div class="flex space-x-2">
+				<input
+				class="input"
+					aria-label="User's email"
+					placeholder="User's email"
+					type="email"
+					name="email"
+					value={currentUserData.email}
+				/>
+				<button
+					class="btn variant-filled"
+					type="button"
+					aria-label="Save user's email"
+					on:click={(e) => triggerUpdate(e)}>{cFL($LL.UPDATE())}</button
+				>
+			</div>
+			</label>
+			<label class="label">
+				<span>{cFL($LL.DOB())}</span>
+			<div class="flex space-x-2">
+				<input
+				class="input"
+					aria-label="User's date of birth"
+					type="date"
+					name="birth_date"
+					placeholder="User's date of birth"
+					value={currentUserData.birth_date}
+				/>
+				<button
+					class="btn variant-filled"
+					type="button"
+					aria-label="Save user's date of birth"
+					on:click={(e) => triggerUpdate(e)}>{cFL($LL.UPDATE())}</button
+				>
+			</div>
+			</label>
 		</div>
-	</div>
-
-	<div class="user" transition:scale|local={{ start: 0.3 }}>
-		<div class="text">
-			<input
-				aria-label="User's username"
-				type="text"
-				placeholder="User's username"
-				name="username"
-				value={currentUserData.username}
-			/>
-			<button class="btn btn-outline-secondary" type="button" aria-label="Save user's username" on:click={(e) => triggerUpdate(e)}>Update</button>
-		</div>
-	</div>
-	<div class="user" transition:scale|local={{ start: 0.4 }}>
-		<div class="text">
-			<input
-				aria-label="User's email"
-				placeholder="User's email"
-				type="email"
-				name="email"
-				value={currentUserData.email}
-			/>
-			<button class="btn btn-outline-secondary" type="button" aria-label="Save user's email" on:click={(e) => triggerUpdate(e)}>Update</button>
-		</div>
-	</div>
-	<div class="user" transition:scale|local={{ start: 0.5 }}>
-		<div class="text">
-			<input
-				aria-label="User's bio"
-				placeholder="User's bio"
-				type="text"
-				name="bio"
-				value={currentUserData.bio}
-			/>
-			<button class="btn btn-outline-secondary" type="button" aria-label="Save user's bio" on:click={(e) => triggerUpdate(e)}>Update</button>
-		</div>
-	</div>
-	<div class="user" transition:scale|local={{ start: 0.6 }}>
-		<div class="text">
-			<input
-				aria-label="User's date of birth"
-				type="date"
-				name="birth_date"
-				placeholder="User's date of birth"
-				value={currentUserData.birth_date}
-			/>
-			<button
-				class="btn btn-outline-secondary" type="button"
-				aria-label="Save user's date of birth"
-				on:click={(e) => triggerUpdate(e)}
-				>Update</button>
-		</div>
-	</div>
-	
-    <div class="card" style="width: 18rem;">
-		<div class="card-header">
-			{$LL.USER.ROLE()}
-		  </div>
-		<div class="card-body">
-		  <h5 class="card-title">{currentUserData.role.label}</h5>
-		  <p class="card-text">{currentUserData.role.description}</p>
-		</div>
-	</div>
-{/if}
+	{/if}
+</div>

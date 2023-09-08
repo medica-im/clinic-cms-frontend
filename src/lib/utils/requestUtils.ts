@@ -174,7 +174,7 @@ export const handlePostRequestsWithPermissions = async (
 	});
 	const accessRefresh = await res.json();
 	let fetchDict;
-	if (method == 'GET') {
+	if (method == 'GET' || method == 'DELETE') {
 		fetchDict = {
 			method: method,
 			mode: 'cors',
@@ -195,7 +195,14 @@ export const handlePostRequestsWithPermissions = async (
 		}
 	}
 	const jres = await fetch(targetUrl, fetchDict);
-	if (method === 'PATCH') {
+	if (method === 'DELETE') {
+		if (jres.status !== 204) {
+			const errs = {error: jres.status} as CustomError;
+			return [null, [errs]];
+		}
+		return [null, []];
+	}
+	if (method === 'PATCH' || method === 'PUT') {
 		if (jres.status !== 200) {
 			const data = await jres.json();
 			console.error(`Data: ${data}`);
@@ -221,7 +228,7 @@ export const handlePostRequestsWithPermissions = async (
 			console.error(errs);
 			return [{}, errs];
 		}
-		return [jres.json(), []];
+		return [await jres.json(), []];
 	}
 };
 

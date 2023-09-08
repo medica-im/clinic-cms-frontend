@@ -14,6 +14,40 @@ export type Translation = RootTranslation
 export type Translations = RootTranslation
 
 type RootTranslation = {
+	ACCESS: {
+		SUMMARY: {
+			/**
+			 * V​i​s​i​t​e​u​r​s​,​ ​é​q​u​i​p​e​ ​e​t​ ​a​d​m​i​n​i​s​t​r​a​t​e​u​r​s​.
+			 */
+			PUBLIC: string
+			/**
+			 * É​q​u​i​p​e​ ​e​t​ ​a​d​m​i​n​i​s​t​r​a​t​e​u​r​s​.
+			 */
+			TEAM: string
+			/**
+			 * A​d​m​i​n​i​s​t​r​a​t​e​u​r​s​ ​u​n​i​q​u​e​m​e​n​t​.
+			 */
+			ADMIN: string
+		}
+		CHOICES: {
+			/**
+			 * P​u​b​l​i​c
+			 */
+			PUBLIC: string
+			/**
+			 * É​q​u​i​p​e
+			 */
+			TEAM: string
+			/**
+			 * A​d​m​i​n​i​s​t​r​a​t​e​u​r
+			 */
+			ADMIN: string
+		}
+		/**
+		 * C​o​n​t​r​ô​l​e​ ​d​e​ ​l​'​a​c​c​è​s
+		 */
+		ACCESS_CONTROL: string
+	}
 	/**
 	 * S​a​l​u​t​ ​{​n​a​m​e​}​!​ ​M​e​r​c​i​ ​d​e​ ​l​a​i​s​s​e​r​ ​u​n​e​ ​é​t​o​i​l​e​ ​s​i​ ​v​o​u​s​ ​a​i​m​e​z​ ​c​e​ ​p​r​o​j​e​c​t​:​ ​h​t​t​p​s​:​/​/​g​i​t​h​u​b​.​c​o​m​/​i​v​a​n​h​o​f​e​r​/​t​y​p​e​s​a​f​e​-​i​1​8​n
 	 * @param {unknown} name
@@ -323,6 +357,22 @@ type RootTranslation = {
 		 * R​ô​l​e
 		 */
 		ROLE: string
+		/**
+		 * P​a​g​e​ ​p​e​r​s​o​n​n​e​l​l​e
+		 */
+		PAGE: string
+		/**
+		 * P​a​r​a​m​è​t​r​e​s​ ​d​u​ ​c​o​m​p​t​e
+		 */
+		ACCOUNT_SETTINGS: string
+		/**
+		 * n​o​m​ ​c​o​m​p​l​e​t
+		 */
+		FULL_NAME: string
+		/**
+		 * n​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r
+		 */
+		USERNAME: string
 	}
 	FACILITY: {
 		/**
@@ -458,9 +508,91 @@ type RootTranslation = {
 		 */
 		PLURAL: string
 	}
+	/**
+	 * b​i​o​g​r​a​p​h​i​e
+	 */
+	BIOGRAPHY: string
+	/**
+	 * a​p​e​r​ç​u
+	 */
+	PREVIEW: string
+	/**
+	 * f​e​r​m​e​r
+	 */
+	CLOSE: string
+	/**
+	 * f​e​r​m​e​r​ ​s​a​n​s​ ​e​n​r​e​g​i​s​t​r​e​r
+	 */
+	CLOSE_NO_SAVE: string
+	/**
+	 * e​n​r​e​g​i​s​t​r​e​r
+	 */
+	SAVE: string
+	/**
+	 * d​é​t​r​u​i​r​e
+	 */
+	DESTROY: string
+	/**
+	 * e​f​f​a​c​e​r
+	 */
+	DELETE: string
+	/**
+	 * c​r​é​e​r
+	 */
+	CREATE: string
+	/**
+	 * m​o​d​i​f​i​e​r
+	 */
+	EDIT: string
+	/**
+	 * p​r​o​f​i​l
+	 */
+	PROFILE: string
+	/**
+	 * c​h​a​n​g​e​r
+	 */
+	UPDATE: string
+	/**
+	 * d​a​t​e​ ​d​e​ ​n​a​i​s​s​a​n​c​e
+	 */
+	DOB: string
 }
 
 export type TranslationFunctions = {
+	ACCESS: {
+		SUMMARY: {
+			/**
+			 * Visiteurs, équipe et administrateurs.
+			 */
+			PUBLIC: () => LocalizedString
+			/**
+			 * Équipe et administrateurs.
+			 */
+			TEAM: () => LocalizedString
+			/**
+			 * Administrateurs uniquement.
+			 */
+			ADMIN: () => LocalizedString
+		}
+		CHOICES: {
+			/**
+			 * Public
+			 */
+			PUBLIC: () => LocalizedString
+			/**
+			 * Équipe
+			 */
+			TEAM: () => LocalizedString
+			/**
+			 * Administrateur
+			 */
+			ADMIN: () => LocalizedString
+		}
+		/**
+		 * Contrôle de l'accès
+		 */
+		ACCESS_CONTROL: () => LocalizedString
+	}
 	/**
 	 * Salut {name}! Merci de laisser une étoile si vous aimez ce project: https://github.com/ivanhofer/typesafe-i18n
 	 */
@@ -768,6 +900,22 @@ export type TranslationFunctions = {
 		 * Rôle
 		 */
 		ROLE: () => LocalizedString
+		/**
+		 * Page personnelle
+		 */
+		PAGE: () => LocalizedString
+		/**
+		 * Paramètres du compte
+		 */
+		ACCOUNT_SETTINGS: () => LocalizedString
+		/**
+		 * nom complet
+		 */
+		FULL_NAME: () => LocalizedString
+		/**
+		 * nom d'utilisateur
+		 */
+		USERNAME: () => LocalizedString
 	}
 	FACILITY: {
 		/**
@@ -903,6 +1051,54 @@ export type TranslationFunctions = {
 		 */
 		PLURAL: () => LocalizedString
 	}
+	/**
+	 * biographie
+	 */
+	BIOGRAPHY: () => LocalizedString
+	/**
+	 * aperçu
+	 */
+	PREVIEW: () => LocalizedString
+	/**
+	 * fermer
+	 */
+	CLOSE: () => LocalizedString
+	/**
+	 * fermer sans enregistrer
+	 */
+	CLOSE_NO_SAVE: () => LocalizedString
+	/**
+	 * enregistrer
+	 */
+	SAVE: () => LocalizedString
+	/**
+	 * détruire
+	 */
+	DESTROY: () => LocalizedString
+	/**
+	 * effacer
+	 */
+	DELETE: () => LocalizedString
+	/**
+	 * créer
+	 */
+	CREATE: () => LocalizedString
+	/**
+	 * modifier
+	 */
+	EDIT: () => LocalizedString
+	/**
+	 * profil
+	 */
+	PROFILE: () => LocalizedString
+	/**
+	 * changer
+	 */
+	UPDATE: () => LocalizedString
+	/**
+	 * date de naissance
+	 */
+	DOB: () => LocalizedString
 }
 
 export type Formatters = {}

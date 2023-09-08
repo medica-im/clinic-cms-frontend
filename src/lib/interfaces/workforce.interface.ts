@@ -52,6 +52,14 @@ export interface Worker {
     websites: Websites;
     phone_numbers: PhoneNumbers;
     account_email: string;
+    contact_id: number;
+    profile: Profile;
+}
+
+interface Profile {
+    contact: number;
+    text: string;
+    roles: number[];
 }
 
 interface ProfilePictureUrl {

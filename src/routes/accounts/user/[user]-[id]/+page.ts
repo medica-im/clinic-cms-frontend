@@ -4,7 +4,7 @@ import { getCurrentUser } from '$lib/utils/requestUtils';
 import type { User, UserResponse } from '$lib/interfaces/user.interface';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch, params }) => {
+export const load: PageLoad = async ({ fetch, params, url }) => {
     const [userRes, errs] = await getCurrentUser(
         fetch,
         `${variables.BASE_API_URI}/accounts/token/refresh/`,
@@ -18,6 +18,8 @@ export const load: PageLoad = async ({ fetch, params }) => {
         };
     }
     return {
-        response: userResponse
+        response: userResponse,
+        uuid: params.id,
+        url: url
     };
   }
