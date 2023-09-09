@@ -55,13 +55,13 @@
 				</li>
 			{/if}
 		{/if}
-		{#if $userData.username && $userData.username.length}
+		{#if $userData.email && $userData.email.length}
 			<li class="nav-item">
 				<a
-					href="/accounts/user/{$userData.username}-{$userData.id}"
-					class={classesActive(`/accounts/user/${$userData.username}-${$userData.id}`)}
+					href="/accounts/user/{$userData.id}"
+					class={classesActive(`/accounts/user/${$userData.id}`)}
 					><span><Fa icon={faUser} size="lg" /></span>
-					<span>{$LL.NAVBAR.HI()} {$userData.username}</span></a
+					<span>{$LL.NAVBAR.HI()} {$userData.email}</span></a
 				>
 			</li>
 			<li class="nav-item">
@@ -87,15 +87,15 @@
 			<span class="hidden xl:inline-block">{$LL.NAVBAR.LOGIN()}</span></a
 		>
 	{/if}
-	{#if $userData.username && $userData.username.length}
+	{#if $userData.email && $userData.email.length}
 		<a
-			href="/accounts/user/{$userData.username}-{$userData.id}"
-			title={$userData.username}
+			href="/accounts/user/{$userData.id}"
+			title={$userData.email}
 			class="{classesActive(
-				`/accounts/user/${$userData.username}-${$userData.id}`
+				`/accounts/user/${$userData.id}`
 			)} btn hover:variant-soft-primary lg:inline-block"
 			><span class="lg:inline-block align-text-bottom"><Fa icon={faUser} size="lg" /></span>
-			<span class="hidden lg:inline-block">{$userData.username}</span></a
+			<span class="hidden lg:inline-block">{$userData.email}</span></a
 		>
 		<button
 			type="button"
