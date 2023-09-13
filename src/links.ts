@@ -1,4 +1,3 @@
-// Navigation Links & Sitemap
 import {
 	faBars,
 	faCaretDown,

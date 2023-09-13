@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { Svg } from '@smui/common';
-	import { Icon } from '@smui/icon-button';
-	import { mdiMapMarkerOutline } from '@mdi/js';
+	import Fa from 'svelte-fa';
+	import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 	export let facility;
 </script>
 
 <a href="/sites#{facility.facility__name}_anchor" class="flex gap-2">
-		<span class="badge-icon"><Icon component={Svg} width="24" height="24" viewBox="0 0 24 24">
-			<path fill="currentColor" d={mdiMapMarkerOutline} />
-		</Icon>
+		<span class="badge-icon"><Fa icon={faLocationDot}/>
 		</span>
 		<span>
 		{facility.facility__contact__formatted_name}

@@ -36,7 +36,7 @@
 		<li class="nav-item">
 			<a
 				href="/accounts/user/{user.username}-{user.id}"
-				class="nav-link {$page.url.pathname === `/accounts/user/${user.username}-${user.id}` ? 'active aria-crruent="page"' : ''}"
+				class="nav-link {$page.url.pathname === `/accounts/user` ? 'active aria-crruent="page"' : ''}"
 				>{$LL.NAVBAR.HI()} {user.username}</a
 			>
 		</li>

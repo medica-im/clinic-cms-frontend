@@ -27,6 +27,7 @@
 	$: loading.setLoading(!!$navigating, 'Loading, please wait...');
 
 	onMount(async () => {
+		/*
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
 				fetch,
@@ -39,6 +40,7 @@
 				userData.set({});
 			}
 		}
+		*/
 	});
 
 	afterUpdate(async () => {
@@ -50,6 +52,7 @@
 				notificationData.set('');
 			}, 3000);
 		}
+		/*
 		if (browserGet('refreshToken')) {
 			const [response, _] = await getCurrentUser(
 				fetch,
@@ -58,6 +61,7 @@
 			);
 			userData.update(() => response);
 		}
+		*/
 	});
 </script>
 

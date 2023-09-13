@@ -1,11 +1,10 @@
 import { facilityStore } from '$lib/store/facilityStore';
-import type { LayoutLoad } from './$types'
 import type { Locales } from '$i18n/i18n-types'
 import { loadLocaleAsync } from '$i18n/i18n-util.async'
 import LL, { setLocale } from '$i18n/i18n-svelte'
 import { get } from 'svelte/store'
-
-/** @type {import('./$types').LayoutLoad} */
+import type { User } from '$lib/interfaces/user.interface';
+import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }) => { 
 // load dictionary into memory

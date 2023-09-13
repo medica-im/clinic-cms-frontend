@@ -30,7 +30,7 @@
 	<span data-nosnippet><Fa icon={faCircleArrowLeft} /></span>
 	<span data-nosnippet><Fa icon={faAddressBook} /></span><span>{$LL.ADDRESSBOOK.GOTOADDRESSBOOK()}</span>
 </a>
-<WorkerPage userData={data.userData} />
+<WorkerPage workerData={data.workerData} />
 
 </div>
 </section>

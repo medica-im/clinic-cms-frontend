@@ -1,5 +1,3 @@
-
-
 interface GrammaticalGender {
     name: string;
     lable: string;
@@ -38,9 +36,9 @@ export interface OccupationCardinalObject {
     [index: string]: OccupationCardinal;
   };
 
-
 export interface Worker {
     id?: bigint;
+    user_id: string;
 	node_set?: NodeSet;
     facility?: string;
     occupations: Array<Occupation>;
@@ -50,13 +48,15 @@ export interface Worker {
     profile_picture_url?: ProfilePictureUrl;
     grammatical_gender: GrammaticalGender;
     websites: Websites;
-    phone_numbers: PhoneNumbers;
+    phone_numbers: PhoneNumber[];
     account_email: string;
     contact_id: number;
     profile: Profile;
+    appointments: any[];
 }
 
 interface Profile {
+    id: number;
     contact: number;
     text: string;
     roles: number[];
@@ -74,14 +74,12 @@ interface Website {
     website: string
 }
 
-interface PhoneNumbers {
-    mobile: Array<string>;
-    mobile_work: Array<string>;
-    work: Array<string>;
-    fax: Array<string>;
+interface PhoneNumber {
+    id: number;
+    phone: string;
+    type: string;
+    type_display: string;
 }
-
-
 
 export interface NodeSet {
     id?: bigint;

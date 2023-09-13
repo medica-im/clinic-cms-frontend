@@ -6,7 +6,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { userData } from '$lib/store/userStore';
 	import User from './User.svelte';
-	import SocialNetworks from '$lib/components/SoMed/SocialNetworks.svelte';
+	import { SocialNetworks } from '$lib/components/SoMed/SocialNetworks.svelte';
 	import { variables } from '$lib/utils/constants';
 
 	export let facility;

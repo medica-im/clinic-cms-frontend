@@ -49,7 +49,7 @@
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	onMount(async () => {
+	/*onMount(async () => {
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
 				fetch,
@@ -62,7 +62,7 @@
 				userData.set({});
 			}
 		}
-	});
+	});*/
 
 	afterUpdate(async () => {
 		const notifyEl = document.getElementById('notification') as HTMLElement;
@@ -73,6 +73,7 @@
 				notificationData.set('');
 			}, 3000);
 		}
+		/*
 		if (browserGet('refreshToken')) {
 			const [response, _] = await getCurrentUser(
 				fetch,
@@ -80,7 +81,7 @@
 				`${variables.BASE_API_URI}/accounts/user/`
 			);
 			userData.update(() => response);
-		}
+		}*/
 	});
 
 	afterNavigate((params: any) => {

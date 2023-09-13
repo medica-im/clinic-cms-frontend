@@ -8,6 +8,7 @@
 	export let roles: number[];
 	export let url: string;
 	export let noRecord: boolean;
+	export let contact_id: number;
 	let selected: string;
 
 	$: roles = selected ? selected.split(',').map(Number) : [];
@@ -15,7 +16,7 @@
 
 	onMount(async () => {
 		if (noRecord) {
-			selected = '1,2,3,4,5';
+			//selected = '1,2,3,4,5';
 			return;
 		}
 		let profile = await refresh();
@@ -44,10 +45,12 @@
 		}
 		let roles = selected.split(',').map(Number);
 		console.log(roles);
-		const [data, error] = await handlePostRequestsWithPermissions(
+		console.log(url);
+const [data, error] = await handlePostRequestsWithPermissions(
 			fetch,
-			url,
+					url,
 			{
+				contact: contact_id,
 				roles: roles
 			},
 			'PATCH'

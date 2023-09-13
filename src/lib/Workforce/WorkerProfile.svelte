@@ -19,19 +19,20 @@
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import Access from '$lib/components/Access/Access.svelte';
 	import { displayEditor, displayDestroy } from '$lib/utils/permissions';
+	import { userData } from '$lib/store/userStore';
 
-	export let userData: Worker;
+	export let data: Worker;
 	export let name: string;
 
 	if (import.meta.env.VITE_DEV == 'true') {
-		console.log(JSON.stringify(userData));
+		console.log(JSON.stringify(data));
 	}
 
 	let roles: number[];
 	let errorObject: {};
 	let errorVisible: boolean = false;
-	let databaseHtml: string = userData?.profile?.text || '';
-	let html: string = userData?.profile?.text || '';
+	let databaseHtml: string = data?.profile?.text || '';
+	let html: string = data?.profile?.text || '';
 	let editorSwitch: boolean = false;
 	let dirty: boolean = false;
 	let closeButton: string = 'Close';
@@ -40,18 +41,16 @@
 		menubar: 'edit insert view format table tools link'
 	};
 	let noRecord: boolean;
-	$: noRecord = userData.profile.text == null;
+	$: noRecord = data?.profile?.text == null;
 	$: dirty = databaseHtml != html;
 	$: closeButton = dirty ? 'Close without saving' : 'Close';
 	$: toggleEditor(editorSwitch);
 
 	onMount(() => {
-		roles = userData.profile.roles;
-		databaseHtml = userData.profile.text || '';
-		html = userData.profile.text || '';
+		roles = data?.profile?.roles;
+		databaseHtml = data?.profile?.text || '';
+		html = data?.profile?.text || '';
 	});
-
-	//$: roles = userData.profile.roles;
 
 	function toggleEditor(editorSwitch: boolean) {
 		if (editorSwitch == true) {
@@ -65,38 +64,8 @@
 		placement: 'top'
 	};
 
-	function getUrl(userData: Worker) {
-		if (userData.profile_picture_url && userData.profile_picture_url.lt) {
-			return variables.BASE_URI + userData.profile_picture_url.lt;
-		} else {
-			return `${variables.BASE_URI}/media/profile_images/default_profile_picture.png`;
-		}
-	}
-
-	/*function displayEditor(userData: Worker) {
-		let permissions;
-		try {
-			permissions = userData.profile.permissions;
-		} catch {
-			return false;
-		}
-		if (permissions & 2 || permissions & 4) {
-			return true;
-		} else {
-			return false;
-		}
-	}*/
-
-	function hasOccupationFacilities(occupation) {
-		if (occupation && occupation.facilities && occupation.facilities.length > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	async function post() {
-		if (userData.profile.id) {
+		if (data.profile?.id) {
 			await restUpdate();
 		} else {
 			await restCreate();
@@ -104,47 +73,51 @@
 	}
 
 	async function restCreate() {
-		const url = `${variables.BASE_API_URI}/addressbook/profile/`;
-		const [data, error] = await handlePostRequestsWithPermissions(fetch, url, {
+		let body = {
 			text: html,
-			contact: userData.contact_id,
-			roles: roles
-		});
-		console.log(data, error);
+			contact: data.contact_id,
+		}
+		if (roles?.length) {
+			Object.assign(body, {roles: roles});
+		}
+		console.log(body);
+		const url = `${variables.BASE_API_URI}/addressbook/profile/`;
+		const [res, error] = await handlePostRequestsWithPermissions(fetch, url, body);
+		console.log(res, error);
 		if (error.length) {
 			console.error(JSON.stringify(error));
 			errorObject = error;
 			errorVisible = true;
 		} else {
-			console.log(JSON.stringify(data));
+			console.log(JSON.stringify(res));
 			databaseHtml = html;
 		}
 	}
 
 	async function restUpdate() {
-		const url = `${variables.BASE_API_URI}/addressbook/profile/${userData.profile.id}`;
-		const [data, error] = await handlePostRequestsWithPermissions(
+		const url = `${variables.BASE_API_URI}/addressbook/profile/${data.profile.id}`;
+		const [res, error] = await handlePostRequestsWithPermissions(
 			fetch,
 			url,
 			{
 				text: html,
-				contact: userData.contact_id
+				contact: data.contact_id
 			},
 			'PATCH'
 		);
-		console.log(data, error);
+		console.log(res, error);
 		if (error.length) {
 			console.error(JSON.stringify(error));
 			errorObject = error;
 			errorVisible = true;
 		} else {
-			databaseHtml = html = data.text;
+			databaseHtml = html = res.text;
 		}
 	}
 
 	async function restDelete() {
-		const url = `${variables.BASE_API_URI}/addressbook/profile/${userData.profile.id}`;
-		const [data, error] = await handlePostRequestsWithPermissions(fetch, url, null, 'DELETE');
+		const url = `${variables.BASE_API_URI}/addressbook/profile/${data.profile.id}`;
+		const [res, error] = await handlePostRequestsWithPermissions(fetch, url, null, 'DELETE');
 		if (error.length) {
 			console.error(JSON.stringify(error));
 			errorObject = error;
@@ -154,11 +127,12 @@
 			invalidateAll();
 		}
 	}
+
 	async function refresh() {
-		const slug = userData.slug;
-		console.log(slug);
-		userData = await workerData({ fetch, slug });
+		const slug = data.slug;
+		res = await workerData({ fetch, slug });
 	}
+
 	function handleClose() {
 		if (databaseHtml == null || databaseHtml == '') {
 			html = '';
@@ -182,7 +156,7 @@
 	<li>closeButton: {closeButton}</li>
 	<li>roles: {roles}</li>
 </ul-->
-{#if displayEditor(userData.profile.permissions)}
+{#if data && $userData && displayEditor($userData, data.user_id)}
 	{#if !editorSwitch}
 		{#if databaseHtml}
 			<div class="card p-2 variant-filled-secondary" data-popup="popupHover">
@@ -194,7 +168,6 @@
 				class="btn-icon btn-icon-sm variant-filled [&>*]:pointer-events-none"
 				use:popup={popupHover}
 				on:click={() => (editorSwitch = true)}
-				variant="outlined"
 			>
 				<Fa icon={faEdit} />
 			</button>
@@ -206,11 +179,14 @@
 		{/if}
 	{:else}
 		<div class="card variant-ghost p-2 m-2 space-y-2">
+			{#if data.profile?.id}
 			<Access
 				bind:noRecord
 				bind:roles
-				url={`${variables.BASE_API_URI}/addressbook/profile/${userData.profile.id}`}
+				contact_id={data.contact_id}
+				url={`${variables.BASE_API_URI}/addressbook/profile/${data.profile.id}`}
 			/>
+			{/if}
 			<div class="card p-2 space-y-2 ">
 				<h4 class="h4">{cFL($LL.PREVIEW())}</h4>
 				<div class="p-2 variant-ghost-secondary">
@@ -248,7 +224,7 @@
 							{cFL($LL.DELETE())}
 						</button>
 					{/if}
-					{#if displayDestroy(userData.profile.permissions) && databaseHtml}
+					{#if $userData?.is_superuser && databaseHtml}
 						<button
 							type="button"
 							class="btn variant-filled-error"

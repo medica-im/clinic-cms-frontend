@@ -55,11 +55,11 @@
 				</li>
 			{/if}
 		{/if}
-		{#if $userData.email && $userData.email.length}
+		{#if $userData?.email && $userData?.email?.length}
 			<li class="nav-item">
 				<a
 					href="/accounts/user/{$userData.id}"
-					class={classesActive(`/accounts/user/${$userData.id}`)}
+					class={classesActive(`/accounts/user`)}
 					><span><Fa icon={faUser} size="lg" /></span>
 					<span>{$LL.NAVBAR.HI()} {$userData.email}</span></a
 				>
@@ -87,12 +87,12 @@
 			<span class="hidden xl:inline-block">{$LL.NAVBAR.LOGIN()}</span></a
 		>
 	{/if}
-	{#if $userData.email && $userData.email.length}
+	{#if $userData?.email && $userData?.email?.length}
 		<a
-			href="/accounts/user/{$userData.id}"
+			href="/accounts/user"
 			title={$userData.email}
 			class="{classesActive(
-				`/accounts/user/${$userData.id}`
+				`/accounts/user`
 			)} btn hover:variant-soft-primary lg:inline-block"
 			><span class="lg:inline-block align-text-bottom"><Fa icon={faUser} size="lg" /></span>
 			<span class="hidden lg:inline-block">{$userData.email}</span></a

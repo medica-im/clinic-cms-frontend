@@ -9,11 +9,11 @@ import { workerData } from '$lib/Workforce/rest';
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const slug = params.slug;
-	const userData = await workerData({ fetch, slug });
+	const wD = await workerData({ fetch, slug });
 	const fData = await facilityStore.load();
 	return {
 		slug: params.slug,
-		userData: userData,
+		workerData: wD,
 		facility: fData,
 	};
 };

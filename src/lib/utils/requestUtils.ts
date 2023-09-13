@@ -14,6 +14,7 @@ import { setLocale } from '$i18n/i18n-svelte';
 import type { Locales } from '$i18n/i18n-types'
 import LL from '$i18n/i18n-svelte';
 import { toggleAuth } from '$lib/store/authStore';
+import type { User } from '$lib/interfaces/user.interface';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -35,7 +36,7 @@ export const post = async (
 	fetch,
 	url: string,
 	body: unknown
-): Promise<[object, Array<CustomError>]> => {
+): Promise<[User, Array<CustomError>]> => {
 	try {
 		const headers = {};
 		if (!(body instanceof FormData)) {
@@ -71,7 +72,7 @@ export const getCurrentUser = async (
 	fetch,
 	refreshUrl: string,
 	userUrl: string
-): Promise<[object, Array<CustomError>]> => {
+): Promise<[User, Array<CustomError>]> => {
 	const jsonRes = await fetch(refreshUrl, {
 		method: 'POST',
 		mode: 'cors',

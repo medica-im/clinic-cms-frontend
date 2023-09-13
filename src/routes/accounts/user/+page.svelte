@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { facilityStore } from '$lib/store/facilityStore';
+	import { userData } from '$lib/store/userStore';
 	import { locale } from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { scale } from 'svelte/transition';
@@ -13,6 +14,9 @@
 	import { workforceDataCached as workforce } from '$lib/store/workforceStore';
 	import Fa from 'svelte-fa';
 	import { faLink } from '@fortawesome/free-solid-svg-icons';
+	import { page } from '$app/stores';
+	import type { Worker, Workforce } from '$lib/interfaces/workforce.interface';
+
 
 	export let data: PageData;
 
@@ -30,12 +34,14 @@
 	$: data,
 		(() => {
 			currentUserData = data.response;
-			if (updateResponse) currentUserData = updateResponse.user; // if updated data is available, update the currentUserData too...
+			if (updateResponse) {
+				currentUserData = updateResponse.user; // if updated data is available, update the currentUserData too...
+			}
 		})();
 
 	function getUrl(w) {
 		let slug = w.find((e) => e.user_id == data.response.id).slug;
-		return `${data.url.origin}/${slug}`;
+		return `${$page.url.origin}/${slug}`;
 	}
 </script>
 
@@ -46,16 +52,16 @@
 </svelte:head>
 
 <div class="container mx-auto p-4 m-4 space-y-4 max-w-screen-sm">
-	{#if currentUserData && currentUserData.id}
+	{#if currentUserData && currentUserData.id && $workforce}
 		<h1 class="h1">{$LL.USER.ACCOUNT_SETTINGS()}</h1>
 		<h2 class="h2">
-			{currentUserData.full_name || currentUserData.username}
+			{$workforce.find((e) => e.user_id == $userData.id)?.formatted_name || currentUserData.email}
 		</h2>
 
 		<div class="card max-w-screen-sm">
 			<header class="card-header"><h3 class="h3">{$LL.USER.PAGE()}</h3></header>
 			<section class="p-4">
-				{#await $workforce}
+				{#await workforce.load()}
 					...loading
 				{:then}
 					<a class="flex space-x-2" data-sveltekit-preload-data="hover" href={getUrl($workforce)}>
@@ -75,7 +81,7 @@
 		</div>
 
 		<div class="card variant-ghost p-4 space-y-4 max-w-screen-sm">
-			<label class="label">
+			<!--label class="label">
 				<span>{cFL($LL.USER.FULL_NAME())}</span>
 				<div class="flex space-x-2">
 					<input
@@ -93,7 +99,7 @@
 						on:click={(e) => triggerUpdate(e)}>{cFL($LL.UPDATE())}</button
 					>
 				</div>
-			</label>
+			</label-->
 			<!--label class="label">
 				<span>{cFL($LL.USER.USERNAME())}</span>
 			<div class="flex space-x-2">

@@ -1,17 +1,28 @@
 <script lang="ts">
 	import { notificationData } from '$lib/store/notificationStore';
-	import { post, browserSet, browserGet } from '$lib/utils/requestUtils';
+	import {
+		post,
+		browserSet,
+		browserGet,
+		getCurrentUser,
+		emptyLocaleStorage
+	} from '$lib/utils/requestUtils';
 	import { goto } from '$app/navigation';
 	import { variables } from '$lib/utils/constants';
 	import { fly } from 'svelte/transition';
-	import { emptyLocaleStorage } from '$lib/utils/requestUtils';
 	import { toggleAuth } from '$lib/store/authStore';
-
+	import { invalidate } from '$app/navigation';
+	import { userData } from '$lib/store/userStore';
+	import type { Access, User } from '$lib/interfaces/user.interface';
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { changeText } from '$lib/helpers/buttonText';
 	import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount } from 'svelte';
+	import { get } from 'svelte/store'
+	import { getPermissions } from '$lib/utils/permissions';
+
+
 	let submitButton;
 	let submitButtonInnerHTML: string = $LL.LOGIN.TOLOGIN();
 	let response: UserResponse;
@@ -30,6 +41,8 @@
 		emailWarn = true;
 		passwordWarn = true;
 	}
+
+
 
 	const handleLogin = async () => {
 		if (browserGet('refreshToken')) {
@@ -52,11 +65,29 @@
 			console.error(`errors: ${errors}`);
 			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
 		} else if (response.user && response.user.tokens) {
+			console.log(response);
+			notificationData.update(() => `${$LL.LOGIN.SUCCESSFUL()}`);
 			emptyLocaleStorage();
 			browserSet('refreshToken', response.user.tokens.refresh);
+			if (browserGet('refreshToken')) {
+				const res = await fetch(`${variables.BASE_API_URI}/access/control/`);
+				const access = await res.json();
+				const [user, errs] = await getCurrentUser(
+					fetch,
+					`${variables.BASE_API_URI}/accounts/token/refresh/`,
+					`${variables.BASE_API_URI}/accounts/user/`
+				);
+				if (errs.length <= 0) {
+					user.access = getPermissions(user, access);
+					console.log(user);
+					userData.set(user);
+					console.log(get(userData));
+				} else {
+					userData.set(null);
+				}
+			}
 			toggleAuth();
-			notificationData.update(() => `${$LL.LOGIN.SUCCESSFUL()}`);
-			await goto('/');
+			await goto(`/accounts/user`);
 		}
 	};
 </script>
@@ -103,6 +134,7 @@
 					bind:value={password}
 					required
 					type="password"
+					autocomplete="on"
 					labelText={$LL.PASSWORD()}
 					placeholder="{$LL.PASSWORD()}..."
 					warn={passwordWarn}

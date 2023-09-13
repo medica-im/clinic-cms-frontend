@@ -17,31 +17,28 @@
 	import WorkerProfile from './WorkerProfile.svelte';
     import { displayEditor } from '$lib/utils/permissions';
     import { isAuth } from '$lib/store/authStore';
+	import { page } from '$app/stores';
+	import { userData } from '$lib/store/userStore';
 
-	export let userData: Worker;
+	export let workerData: Worker;
 
 	if (import.meta.env.VITE_DEV == 'true') {
-		console.log(JSON.stringify(userData));
+		console.log(JSON.stringify(workerData));
 	}
 
-	function getUrl(userData: Worker) {
-		if (userData.profile_picture_url && userData.profile_picture_url.lt) {
-			return variables.BASE_URI + userData.profile_picture_url.lt;
-		} else {
-			return `${variables.BASE_URI}/media/profile_images/default_profile_picture.png`;
+	function getUrl(wD: Worker) {
+		const path = wD.profile_picture_url?.lt || '/media/profile_images/default_profile_picture.png'
+			return `${variables.BASE_URI}${path}`;
 		}
-	}
-
-	
 </script>
 
 <div class="lg:flex m-auto font-serif m-4 p-4 gap-8">
 	<div class="space-y-2">
 		<h2 class="w-full text-2xl">
-			{workerTitleFormattedName(userData)}
+			{workerTitleFormattedName(workerData)}
 		</h2>
 
-		{#each userData.occupations as occupation}
+		{#each workerData.occupations as occupation}
 			{#if occupation.specialty}
 				<h3>
 					{occupation.specialty.label}
@@ -59,12 +56,12 @@
 			{/if}
 		{/each}
 		<ul class="py-4 space-y-4">
-			{#if userData.appointments && userData.appointments.length}
+			{#if workerData?.appointments?.length}
 				<li class="d-flex justify-content-between align-items-start">
-					<Appointment appointments={userData.appointments} />
+					<Appointment appointments={workerData.appointments} />
 				</li>
 			{/if}
-			{#if userData.account_email}
+			{#if workerData.account_email}
 				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faEnvelope} /></div>
@@ -75,13 +72,13 @@
 					<div class="flex p-1">
 						<div class="w-9" />
 						<div>
-							<a href="mailto:{userData.account_email}">{userData.account_email}</a>
+							<a href="mailto:{workerData.account_email}">{workerData.account_email}</a>
 						</div>
 					</div>
 				</li>
 			{/if}
 
-			{#if userData.phone_numbers.length}
+			{#if workerData.phone_numbers.length}
 				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faPhone} /></div>
@@ -90,7 +87,7 @@
 						</div>
 					</div>
 
-					{#each userData.phone_numbers as p}
+					{#each workerData.phone_numbers as p}
 						<div class="flex p-1">
 							<div class="w-9" />
 							<div>
@@ -102,17 +99,17 @@
 			{/if}
 
 			<li class="d-flex justify-content-between align-items-start">
-				<Cost data={userData} />
+				<Cost data={workerData} />
 			</li>
-			{#if userData.payment != null}
+			{#if workerData.payment != null}
 				<li class="d-flex justify-content-between align-items-start">
-					<Payment data={userData.payment} />
+					<Payment data={workerData.payment} />
 				</li>
 			{/if}
 			<li class="d-flex justify-content-between align-items-start">
-				<Info data={userData} />
+				<Info data={workerData} />
 			</li>
-			{#if userData.websites.length}
+			{#if workerData.websites.length}
 				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faGlobe} /></div>
@@ -123,14 +120,14 @@
 					<div class="flex p-1">
 						<div class="w-9" />
 						<div class="space-x-2">
-							{#each userData.websites as website}
+							{#each workerData.websites as website}
 								<Website {website} />
 							{/each}
 						</div>
 					</div>
 				</li>
 			{/if}
-			{#if userData.socialnetworks.length}
+			{#if workerData.socialnetworks.length}
 				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faCircleNodes} /></div>
@@ -141,12 +138,12 @@
 					<div class="flex p-1">
 						<div class="w-9" />
 						<div class="space-x-2">
-							<SoMed data={userData.socialnetworks} appBar={false} />
+							<SoMed data={workerData.socialnetworks} appBar={false} />
 						</div>
 					</div>
 				</li>
 			{/if}
-			{#if (userData?.profile?.text != null) && (userData?.profile?.text != "")}
+			{#if (workerData?.profile?.text != null) && (workerData?.profile?.text != "")}
 			<li class="d-flex justify-content-between align-items-start">
 				<div class="flex items-center p-1">
 					<div class="w-9"><Fa icon={faBook} /></div>
@@ -157,11 +154,11 @@
 				<div class="flex p-1">
 					<div class="w-9" />
 					<div class="space-x-2">
-						{@html userData.profile.text}<WorkerProfile userData={userData} name={$LL.PROFILE()}/>
+						{@html workerData.profile.text}<WorkerProfile data={workerData} name={$LL.PROFILE()}/>
 					</div>
 				</div>
 			</li>
-		   {:else if displayEditor(userData.profile.permissions)}
+		   {:else if $userData && displayEditor($userData, workerData.user_id)}
 		   <li class="d-flex justify-content-between align-items-start">
 			<div class="flex items-center p-1">
 				<div class="w-9"><Fa icon={faBook} /></div>
@@ -172,7 +169,7 @@
 			<div class="flex p-1">
 				<div class="w-9" />
 				<div class="space-x-2">
-					<WorkerProfile userData={userData} name={$LL.PROFILE()}/>
+					<WorkerProfile data={workerData} name={$LL.PROFILE()}/>
 				</div>
 			</div>
 		</li>
@@ -181,8 +178,8 @@
 	</div>
 	<div class="p-4 space-y-2">
 		<img
-			src={getUrl(userData)}
-			alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(userData)}"
+			src={getUrl(workerData)}
+			alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(workerData)}"
 			class="w-auto h-auto md:w-72 md:h-72 rounded-lg"
 		/>
 	</div>

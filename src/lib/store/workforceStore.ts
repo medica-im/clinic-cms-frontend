@@ -140,7 +140,7 @@ export const workforceDataCached = asyncDerived(
 					var json = { data: data, cachetime: Date.now() / 1000 }
 					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
-				return data;
+				return data as Workforce;
 			} else if (err) {
 				console.error(err);
 			}
