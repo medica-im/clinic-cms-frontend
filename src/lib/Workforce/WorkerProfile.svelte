@@ -12,7 +12,7 @@
 	import { update_await_block_branch } from 'svelte/internal';
 	import Fa from 'svelte-fa';
 	import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons';
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll, invalidate } from '$app/navigation';
 	import { workerData } from '$lib/Workforce/rest';
 	import { capitalizeFirstLetter as cFL } from '$lib/helpers/stringHelpers';
 	import { popup } from '@skeletonlabs/skeleton';
@@ -112,6 +112,7 @@
 			errorVisible = true;
 		} else {
 			databaseHtml = html = res.text;
+			invalidate(`/${data.slug}`);
 		}
 	}
 

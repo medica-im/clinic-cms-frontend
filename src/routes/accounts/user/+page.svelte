@@ -62,11 +62,12 @@
 			<header class="card-header"><h3 class="h3">{$LL.USER.PAGE()}</h3></header>
 			<section class="p-4">
 				{#await workforce.load()}
-					...loading
+					<div class="placeholder animate-pulse"/>
+					<div id="link" aria-live="polite"></div>
 				{:then}
-					<a class="flex space-x-2" data-sveltekit-preload-data="hover" href={getUrl($workforce)}>
+				<div id="link" aria-live="polite"><a data-sveltekit-preload-data="hover" href={getUrl($workforce)}>
 						{getUrl($workforce)}</a
-					>
+					></div>
 				{/await}
 			</section>
 			<footer class="card-footer">
