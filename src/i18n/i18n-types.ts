@@ -113,6 +113,10 @@ type RootTranslation = {
 			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​c​a​t​é​g​o​r​i​e​.​.​.​.
 			 */
 			PLACEHOLDER: string
+			/**
+			 * T​o​u​t​e​s​ ​c​a​t​é​g​o​r​i​e​s
+			 */
+			ALL: string
 		}
 		SITUATIONS: {
 			/**
@@ -549,6 +553,10 @@ export type TranslationFunctions = {
 			 * Sélectionner par catégorie....
 			 */
 			PLACEHOLDER: () => LocalizedString
+			/**
+			 * Toutes catégories
+			 */
+			ALL: () => LocalizedString
 		}
 		SITUATIONS: {
 			/**

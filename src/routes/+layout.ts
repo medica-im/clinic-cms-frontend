@@ -1,7 +1,9 @@
-import { facilityStore } from '$lib/store/facilityStore';
+import { facilityStore } from '$lib/store/facilityStore'
 import type { LayoutLoad } from './$types'
 import type { Locales } from '$i18n/i18n-types'
 import { loadLocaleAsync } from '$i18n/i18n-util.async'
+import { browser } from '$app/environment'
+import { QueryClient } from '@tanstack/svelte-query'
 import LL, { setLocale } from '$i18n/i18n-svelte'
 import { get } from 'svelte/store'
 
@@ -19,7 +21,16 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }
 	//console.info($LL.log({ fileName: '+layout.ts' }))
 
   const fData = await facilityStore.load();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        enabled: browser,
+      },
+    },
+  })
+
   return {
+      queryClient: queryClient,
       locale: locale,
       facility: fData,
       sections: [

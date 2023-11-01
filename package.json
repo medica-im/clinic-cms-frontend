@@ -62,6 +62,7 @@
 		"@smui/icon-button": "^7.0.0-beta.0",
 		"@sveltestack/svelte-query": "^1.6.0",
 		"@tailwindcss/typography": "^0.5.9",
+		"@tanstack/svelte-query": "^5.4.3",
 		"@zerodevx/svelte-json-view": "^1.0.5",
 		"cl-editor": "^2.3.0",
 		"esm-seedrandom": "^3.0.5",

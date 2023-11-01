@@ -42,7 +42,8 @@ const fr: Translation = {
       PLACEHOLDER: "Sélectionner par établissement..."
     },
     CATEGORIES: {
-      PLACEHOLDER: "Sélectionner par catégorie...."
+      PLACEHOLDER: "Sélectionner par catégorie....",
+			ALL: "Toutes catégories"
     },
     SITUATIONS: {
       PLACEHOLDER: "Selectionner par situation..."

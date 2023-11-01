@@ -5,6 +5,7 @@ import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { env } from '$env/dynamic/public';
 import haversine from 'haversine-distance';
+import { replacer, reviver } from '$lib/utils/utils';
 
 export const term = writable('');
 export const selectCommunes = writable([]);
@@ -12,6 +13,7 @@ export const selectCategories = writable([]);
 export const selectSituation = writable("");
 export const effectors = writable([]);
 export const addressFeature = writable({});
+
 
 const next = writable(null);
 
@@ -83,8 +85,8 @@ export const distanceEffectors = asyncDerived(
 		console.log(`targetGeoJSON: ${targetGeoJSON}`);
 		const distanceOfEffector = {};
 		for (const effector of $getEffectors ) {
-				let longitude = effector.addresses[0]?.longitude;
-				let latitude = effector.addresses[0]?.latitude;
+				let longitude = effector.address.longitude;
+				let latitude = effector.address.latitude;
 				console.log(longitude, latitude);
 				if (!longitude || !latitude) {
 					console.log("no gps");
@@ -92,7 +94,7 @@ export const distanceEffectors = asyncDerived(
 				}
 				const effectorGeoJSON = [parseFloat(longitude), parseFloat(latitude)] as any;
 				const dist = haversine(targetGeoJSON, effectorGeoJSON);
-				distanceOfEffector[effector.addresses[0]?.facility_uid] = dist;
+				distanceOfEffector[effector.address.facility_uid] = dist;
 			}
 		console.log(distanceOfEffector);
 		return distanceOfEffector;
@@ -191,7 +193,8 @@ export const situations = asyncDerived(
 	});
 
 function distanceOfEffector(e, distEffectors) {
-    let uid = e.addresses[0]?.facility_uid;
+	console.log(`distanceOfEffector e: ${JSON.stringify(e)}`)
+    let uid = e.address?.facility_uid;
 	console.log(uid);
 	if ( uid ) {
 		return distEffectors[uid];
@@ -214,12 +217,11 @@ function compareEffectorDistance(a, b, distEffectors) {
 	}
 }
 
-export const filteredEffectors = asyncDerived(
-	([getEffectors, term, selectCommunes, selectCategories, selectSituation, getSituations, effectors, distanceEffectors]),
-	async ([$getEffectors, $term, $selectCommunes, $selectCategories, $selectSituation, $getSituations, $effectors, $distanceEffectors]) => {
+export const fullFilteredEffectors = asyncDerived(
+	([getEffectors, term, selectCommunes, selectSituation, getSituations, distanceEffectors]),
+	async ([$getEffectors, $term, $selectCommunes, $selectSituation, $getSituations, $distanceEffectors]) => {
 		if (
 			!$selectCommunes?.length
-			&& !$selectCategories?.length
 			&& $selectSituation == ''
 			&& $term == ''
 			&& $distanceEffectors == null
@@ -235,16 +237,6 @@ export const filteredEffectors = asyncDerived(
 							return currentElement.uid
 						}
 					).some(r => $selectCommunes.includes(r))
-				}
-			}).filter(function (x) {
-				if (!$selectCategories?.length) {
-					return true
-				} else {
-					return x.types.map(
-						function (currentElement) {
-							return currentElement.uid
-						}
-					).some(r => $selectCategories.includes(r))
 				}
 			}).filter(function (x) {
 				if ($term == '') {
@@ -263,17 +255,90 @@ export const filteredEffectors = asyncDerived(
 					console.log(condition);
 					return condition;
 				}
-			}).sort((a, b) => {
-				console.log($distanceEffectors);
-				if ($distanceEffectors == null) {
-                    return 0;
+			})
+		}
+	}
+)
+
+export const filteredEffectors = asyncDerived(
+	([fullFilteredEffectors, selectCategories]),
+	async ([$fullFilteredEffectors, $selectCategories]) => {
+		if (!$selectCategories?.length) {
+			return $fullFilteredEffectors
+		} else {
+			return $fullFilteredEffectors.filter(function (x) {
+				if (!$selectCategories?.length) {
+					return true
 				} else {
-				    return compareEffectorDistance(a, b, $distanceEffectors)
+					return x.types.map(
+						function (currentElement) {
+							return currentElement.uid
+						}
+					).some(r => $selectCategories.includes(r))
 				}
 			})
 		}
 	}
 )
+  
+export const categorizedFilteredEffectors = asyncDerived(
+	([filteredEffectors, distanceEffectors]),
+	async ([$filteredEffectors, $distanceEffectors]) => {
+		let categorySet = new Set();
+		for (let effector of $filteredEffectors) {
+			effector.types.forEach(x=>categorySet.add(x.name))
+		}
+		let catArray = [];
+		console.log(categorySet);
+		let categoryArr = Array.from(categorySet);
+		categoryArr.sort();
+		console.log(categoryArr);
+		const effectorsObj = categoryArr.reduce((acc, current) => {
+			acc[current] = [];
+			return acc;
+		  }, {});
+		console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		for (let effector of $filteredEffectors) {
+			effector.types.forEach(x=>effectorsObj[x.name].push(effector))
+		}
+		console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+
+		console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
+		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
+		if ( $distanceEffectors ) {
+		effectorsMap.forEach((value: any) => value.sort((a,b) => compareEffectorDistance(a, b, $distanceEffectors)))
+		}
+		console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
+		return effectorsMap;
+	}
+)
+
+export const categorizedFullFilteredEffectors = asyncDerived(
+	(fullFilteredEffectors),
+	async ($fullFilteredEffectors) => {
+		let categorySet = new Set();
+		for (let effector of $fullFilteredEffectors) {
+			effector.types.forEach(x=>categorySet.add(x.name))
+		}
+		let catArray = [];
+		console.log(categorySet);
+		let categoryArr = Array.from(categorySet);
+		categoryArr.sort();
+		console.log(categoryArr);
+		const effectorsObj = categoryArr.reduce((acc, current) => {
+			acc[current] = [];
+			return acc;
+		  }, {});
+		console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		for (let effector of $fullFilteredEffectors) {
+			effector.types.forEach(x=>effectorsObj[x.name].push(effector))
+		}
+		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
+		console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
+		return effectorsMap;
+	}
+)
+
 
 export const categoryOfCommune = asyncDerived(
 	([selectCommunes, categories, filteredEffectors]),

@@ -1,0 +1,201 @@
+<script lang="ts">
+	import { variables } from '$lib/utils/constants';
+	import { facilityStore } from '$lib/store/facilityStore';
+	import {
+		categorizedFilteredEffectors,
+		filteredEffectors,
+		effectors,
+		categoryOfCommune,
+		selectSituation
+	} from '$lib/store/directoryStore';
+	import LL from '$i18n/i18n-svelte';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { language } from '$lib/store/languageStore';
+	import SearchDirectory from '$components/Directory/SearchDirectory.svelte';
+	import Effector from './Effector.svelte';
+	import SelectCommunes from './SelectCommunes.svelte';
+	import SelectCategories from './SelectCategories.svelte';
+	import SelectCategoriesChips from './SelectCategoriesChips.svelte';
+	import SelectSituations from './SelectSituations.svelte';
+	import Geocoder from '$components/Geocoder/Geocoder.svelte';
+	import Fa from 'svelte-fa';
+	import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
+
+	export let effectorsLoad;
+
+
+	let category = '';
+
+	function section(c: string): void {
+		category = c;
+	}
+
+	function contactCount(_array: []) {
+		const count = _array.length;
+		return `${count} contact${count > 1 ? 's' : ''}`;
+	}
+</script>
+
+<svelte:head>
+	<title>
+		{$LL.ADDRESSBOOK.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+	</title>
+</svelte:head>
+
+<div>
+	<section id="programs" class="bg-surface-100-800-token programs-gradient">
+		<div class="section-container">
+			{#await categorizedFilteredEffectors.load()}
+				<div class="space-y-2">
+					<div class="row">
+						<div class="col">
+							<Geocoder />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectSituations />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectCommunes />
+						</div>
+					</div>
+					{#if $selectSituation}
+					<div class="row">
+						<div class="col">
+							<SelectCategoriesChips />
+						</div>
+					</div>
+					{:else}
+					<div class="row">
+						<div class="col">
+							<SelectCategories />
+						</div>
+					</div>
+                    {/if}
+					<div class="row">
+						<div class="col">
+							<SearchDirectory />
+						</div>
+					</div>
+				</div>
+				<div class="my-4">
+					{#if effectorsLoad?.length}
+						<p>{contactCount(effectorsLoad)}</p>
+					{/if}
+				</div>
+				<div class="my-4">
+					{#if effectorsLoad?.length}
+						{#each effectorsLoad.keys() as cat}
+							{cat}
+							{#each effectorsLoad[cat] as effector}
+								<section class="space-y-4 my-4">
+									<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+										<Effector {effector} />
+									</div>
+								</section>
+							{/each}
+						{/each}
+					{/if}
+				</div>
+			{:then}
+				<div class="space-y-2">
+					<div class="row">
+						<div class="col">
+							<Geocoder />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectSituations />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<SelectCommunes />
+						</div>
+					</div>
+					{#if $selectSituation}
+					<div class="row">
+						<div class="col">
+							<SelectCategoriesChips />
+						</div>
+					</div>
+					{:else}
+					<div class="row">
+						<div class="col">
+							<SelectCategories />
+						</div>
+					</div>
+                    {/if}
+					<div class="row">
+						<div class="col">
+							<SearchDirectory />
+						</div>
+					</div>
+				</div>
+
+				<div class="my-4">
+					<p>{contactCount($filteredEffectors)}</p>
+				</div>
+
+					
+						<div class="my-4 space-y-4">
+							{#each [...$categorizedFilteredEffectors] as [key, value]}
+								<div class="space-y-4 my-4 anchordiv" id={key}>
+								{key}
+								{value.length}
+								</div>
+								{#each value as effector}
+									<div class="space-y-4 my-4">
+										<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+											<Effector {effector} />
+										</div>
+									</div>
+								{/each}
+							{/each}
+						</div>
+			{/await}
+		</div>
+	</section>
+</div>
+
+<style lang="postcss">
+	.anchordiv {
+  scroll-margin-top: 1rem;
+}
+	.section-container {
+		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
+		scroll-padding-top: 4rem;
+	}
+	/* Hero Gradient */
+	/* prettier-ignore */
+	.hero-gradient {
+		background-image:
+			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
+			radial-gradient(at 98% 1%, rgba(var(--color-error-500) / 0.33) 0px, transparent 50%);
+	}
+	/* Team Gradient */
+	/* prettier-ignore */
+	.team-gradient {
+		background-image:
+			radial-gradient(at 0% 100%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%);
+	}
+	/* Tailwind Gradient */
+	/* prettier-ignore */
+	.tailwind-gradient {
+		background-image:
+			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%),
+			radial-gradient(at 100% 100%,  rgba(var(--color-primary-500) / 0.24) 0px, transparent 50%);
+	}
+	/* Programs Gradient */
+	/* prettier-ignore */
+	.programs-gradient {
+		background-image:
+			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
+			radial-gradient(at 100% 0%,  rgba(var(--color-primary-500) / 0.33) 0px, transparent 50%);
+	}
+</style>

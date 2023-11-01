@@ -4,10 +4,11 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import type { PageData } from './$types';
-	import Directory from '$components/Directory/Directory.svelte';
+	import Directory2 from '$components/Directory/Directory2.svelte';
 	import { categorizedFilteredEffectors } from '$lib/store/directoryStore';
 
 	export let data: PageData;
+
 </script>
 
 <svelte:head>
@@ -16,7 +17,9 @@
 		</title>
 </svelte:head>
 
-<Directory effectorsLoad={data.effectors} />
+<div>
+<Directory2 effectorsLoad={data.effectors} />
+</div>
 
 <style lang="postcss">
 	.section-container {

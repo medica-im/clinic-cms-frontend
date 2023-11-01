@@ -21,6 +21,7 @@
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
+	import Directory2 from '$components/Directory/Directory2.svelte';
 
 	export let data: PageData;
 
@@ -50,6 +51,9 @@
 			<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
 		</div>
 	</header>
+	<div>
+		<Directory2 effectorsLoad={data.effectors} />
+	</div>
 	<!-- team -->
 	{#if data?.teamCarousel?.length}
 	<section id="team" class="bg-surface-100-800-token team-gradient">

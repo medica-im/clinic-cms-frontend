@@ -216,70 +216,6 @@ function mapWorkforceData(workerElement: Worker) {
 	)
 }
 
-export const occupationsCardinalBak = asyncDerived(
-	([workforceDataCached, workforceDict, locale]),
-	async ([$workforceDataCached, $workforceDict, $locale]) => {
-		let occupationArray: Occupation[] = (
-			$workforceDataCached.map(function (workerElement: Worker) {
-				return workerElement.occupations.map(function (occupationElement) {
-					if (workerElement.grammatical_gender !== null) {
-						let code = workerElement.grammatical_gender.code;
-						occupationElement["gender"] = code;
-					} else {
-						occupationElement["gender"] = null;
-					}
-					return occupationElement
-				}
-				)
-			}
-			).flat(2));
-		const occupationsCardinalObject = {} as OccupationCardinalObject;
-		occupationArray.forEach(function (x: Occupation) {
-			if (!(x.name in Object.keys(occupationsCardinalObject))) {
-				occupationsCardinalObject[x.name] = {
-					"count": {
-						"total": 0,
-						"F": 0,
-						"M": 0,
-						"N": 0
-					}
-				}
-			}
-		});
-		occupationArray.forEach(function (x: Occupation) {
-			let name = x["name"];
-			let gender = x["gender"];
-			occupationsCardinalObject[name]['count']['total'] = occupationsCardinalObject[name]['count']['total'] + 1;
-			if (gender == 'F') {
-				occupationsCardinalObject[x.name]['count']['F'] = occupationsCardinalObject[x.name]["count"]["F"] + 1;
-			}
-			if (gender == 'M') {
-				occupationsCardinalObject[x.name]["count"]["M"] = occupationsCardinalObject[x.name]["count"]["M"] + 1;
-			}
-			if (gender == 'N') {
-				occupationsCardinalObject[x.name]["count"]["N"] = occupationsCardinalObject[x.name]["count"]["N"] + 1;
-			}
-		});
-		Object.keys(occupationsCardinalObject).forEach(function (key) {
-			if (occupationsCardinalObject[key]["count"]["total"] > 1) {
-				if (occupationsCardinalObject[key]['count']['F'] > occupationsCardinalObject[key]["count"]["M"]) {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["F"]
-				} else {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["P"]["M"]
-				}
-			} else {
-				if (occupationsCardinalObject[key]["count"]["F"] > occupationsCardinalObject[key]["count"]["M"]) {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["S"]["F"]
-				} else {
-					occupationsCardinalObject[key]["label"] = $workforceDict[key]["S"]["M"]
-				}
-			}
-		});
-		return occupationsCardinalObject
-	},
-	true
-);
-
 export const selectOccupations = writable([]);
 
 function normalize(x: string) {
@@ -393,7 +329,6 @@ export const occupationsCardinal = asyncDerived(
 	},
 	true
 );
-
 
 export const filteredOccupationsCardinal = asyncDerived(
 	([filteredWorkforceDataCached, selectOccupations, workforceDict, locale]),

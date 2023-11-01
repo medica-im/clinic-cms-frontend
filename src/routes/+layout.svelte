@@ -42,6 +42,8 @@
 
 	// Theme stylesheet is loaded from LayoutServerData
 	import type { LayoutServerData } from './$types';
+	import { QueryClientProvider } from '@tanstack/svelte-query'
+    import type { LayoutData } from './$types'
 	export let data: LayoutServerData;
 
 	$: loading.setNavigate(!!$navigating);
@@ -152,6 +154,8 @@
 			{/if}
 		</svelte:fragment>
 		<!-- Page Content -->
+		<QueryClientProvider client={data.queryClient}>
 			<slot />
+		</QueryClientProvider>
 		<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 	</AppShell>

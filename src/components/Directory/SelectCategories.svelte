@@ -4,6 +4,7 @@
 	import { categories, selectCategories, categoryOfCommune } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
+
 	const label = 'label';
 	const itemId = 'value';
 	let value = null;
@@ -11,6 +12,9 @@
 	onMount(() => {
 		value = getValue();
 	});
+
+	
+
 
     function getItems(elements) {
         return elements.map(function (x) {
