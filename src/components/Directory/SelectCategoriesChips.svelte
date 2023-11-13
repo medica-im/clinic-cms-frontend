@@ -124,6 +124,7 @@
 					<span>{$query.data.find(x=>x.name==c).label}</span>
 				</span>
 				{/each}
+				{#if $categorizedFullFilteredEffectors.size>1}
 				<span
 					class="chip {category === '' ? 'variant-filled' : 'variant-soft'}"
 					on:click={() => {
@@ -134,6 +135,7 @@
 					{#if category === ''}<span><Fa icon={faCheck} /></span>{/if}
 					<span>{$LL.ADDRESSBOOK.CATEGORIES.ALL()}</span>
 				</span>
+				{/if}
 			{/key}
 		{/if}
 	{/await}

@@ -25,7 +25,9 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 	import { language } from '$lib/store/languageStore';
-	import favicon from '$lib/assets/favicon.png';
+	import favicon from '$lib/assets/favicon.svg';
+	import maskicon from '$lib/assets/mask-icon.svg';
+	import addressbookregular from '$lib/assets/address-book-regular.png';
 	import { AppShell } from '@skeletonlabs/skeleton';
 	import { Modal } from '@skeletonlabs/skeleton';
 	import { Toast } from '@skeletonlabs/skeleton';
@@ -122,6 +124,8 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<link rel="mask-icon" href={maskicon} color="#000000">
+	<link rel="apple-touch-icon" href={addressbookregular}>
 	
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}

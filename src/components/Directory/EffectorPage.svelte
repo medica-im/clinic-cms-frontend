@@ -4,7 +4,20 @@
 	import Distance from './Distance.svelte';
 	import { distanceEffectors } from '$lib/store/directoryStore';
 	import Address from './Address.svelte';
+	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
+
 	export let effector: any;
+
+	const createFacilityGeoData = (data) => {
+		let facilityGeoData = {
+			name: data?.name ?? 'default',
+			latitude: Number(data?.latitude ?? 0),
+			longitude: Number(data?.longitude ?? 0),
+			zoom: data?.zoom ?? 0
+		};
+		console.log(facilityGeoData);
+		return facilityGeoData;
+	};
 
 	function effectorPageUrl(effector) {
 		let typeSlug = effector.types[0].slug;
@@ -34,6 +47,9 @@
 		{#if effector.address}
 			<li><Address data={effector.address} /></li>
 		{/if}
+		<div class="m-1 p-1 h-56 max-w-screen-sm">
+			<LeafletMap geoData={createFacilityGeoData(effector.address)} />
+		</div>
 		{#if effector.other_addresses?.length}
 			<li><Addresses data={effector.other_addresses} /></li>
 		{/if}

@@ -120,7 +120,7 @@ type RootTranslation = {
 		}
 		SITUATIONS: {
 			/**
-			 * S​e​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​s​i​t​u​a​t​i​o​n​.​.​.
+			 * S​é​l​e​c​t​i​o​n​n​e​r​ ​p​a​r​ ​s​i​t​u​a​t​i​o​n​.​.​.
 			 */
 			PLACEHOLDER: string
 		}
@@ -560,7 +560,7 @@ export type TranslationFunctions = {
 		}
 		SITUATIONS: {
 			/**
-			 * Selectionner par situation...
+			 * Sélectionner par situation...
 			 */
 			PLACEHOLDER: () => LocalizedString
 		}

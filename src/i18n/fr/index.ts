@@ -46,7 +46,7 @@ const fr: Translation = {
 			ALL: "Toutes catégories"
     },
     SITUATIONS: {
-      PLACEHOLDER: "Selectionner par situation..."
+      PLACEHOLDER: "Sélectionner par situation..."
     },
     SEARCH: {
       LABEL: "Nom ou prénom",

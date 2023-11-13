@@ -113,7 +113,7 @@ export const communes = asyncDerived(
 	async ($getEffectors) => {
 		let communes = (
 			uniq($getEffectors.map(function (currentElement) {
-				return currentElement.communes.flat()
+				return currentElement.commune
 			}
 			).flat()).sort(function (a, b) {
 				return a.name.localeCompare(b.name);
@@ -232,11 +232,7 @@ export const fullFilteredEffectors = asyncDerived(
 				if (!$selectCommunes?.length) {
 					return true
 				} else {
-					return x.communes.map(
-						function (currentElement) {
-							return currentElement.uid
-						}
-					).some(r => $selectCommunes.includes(r))
+					return $selectCommunes.includes(x.commune.uid)
 				}
 			}).filter(function (x) {
 				if ($term == '') {
@@ -359,20 +355,7 @@ export const categoryOfCommune = asyncDerived(
 			)*/
 		} else {
 			return uniq(
-				$filteredEffectors.filter(
-					function (x) {
-						if (
-							x.communes.map(
-								function (e) {
-									return e.uid
-								}
-							).some(r => $selectCommunes.includes(r))
-						) {
-							return true
-						} else {
-							return false
-						}
-					}
+				$filteredEffectors.filter(e => $selectCommunes.includes(e.commune.uid)
 				).map(
 					function (x) {
 						let dct = { value: x.name, label: x.label };
@@ -385,6 +368,23 @@ export const categoryOfCommune = asyncDerived(
 					return dct
 				}
 			)*/
+		}
+	}
+)
+
+export const communeOfCategory = asyncDerived(
+	([selectCategories, communes, filteredEffectors]),
+	async ([$selectCategories, $communes, $filteredEffectors]) => {
+		if ($selectCategories.length == 0) {
+			return $communes
+		} else {
+			return uniq(
+				$filteredEffectors.filter(
+					x => x.types.map(t => t.uid).some(
+						r => $selectCategories.includes(r)
+					)
+				).map(x => x.commune)
+			)
 		}
 	}
 )

@@ -59,6 +59,11 @@
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
 	</div>
 {:then}
+<!--
+selectCategories: {$selectCategories}<br>
+categories: {$categories} ({$categories.length})<br>
+categoryOfCommune: {$categoryOfCommune} ({$categoryOfCommune.length})
+-->
 	<div class="text-surface-700 theme">
 		<Select
 			{label}
