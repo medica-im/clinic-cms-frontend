@@ -160,22 +160,23 @@
 					<ul>
 						<li>
 							<a href="/">
+								<span class="w-6 text-center"><Fa icon={faAddressBook} /></span>
+								<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
+							</a>
+						</li>
+						<!--li>
+							<a href="/">
 								<span class="w-6 text-center"><Fa icon={faHouse} /></span>
 								<span>{$LL.HOME.TITLE()}</span>
 							</a>
-						</li>
+						</li-->
 						<li>
 							<a href="/sites">
 								<span class="w-6 text-center"><Fa icon={faMapLocationDot} /></span>
 								<span>Sites</span>
 							</a>
 						</li>
-						<li>
-							<a href="/annuaire">
-								<span class="w-6 text-center"><Fa icon={faAddressBook} /></span>
-								<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
-							</a>
-						</li>
+
 						<li>
 							<a href="/contact">
 								<span class="w-6 text-center"><Fa icon={faEnvelope} /></span>

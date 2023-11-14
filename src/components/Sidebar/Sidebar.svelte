@@ -110,6 +110,18 @@
 			<hr class="opacity-30" />
 		{/if}
 		<AppRailAnchor
+		href="/"
+		class="lg:hidden"
+		on:click={() => {
+			onClickAnchor();
+		}}
+	>
+		<svelte:fragment slot="lead"
+			><DocsIcon name="addressBook" width="w-6" height="h-6" /></svelte:fragment
+		>
+		<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
+	</AppRailAnchor>
+		<AppRailAnchor
 			href="/sites"
 			class="lg:hidden"
 			on:click={() => {
@@ -122,18 +134,7 @@
 			<span>Sites</span>
 		</AppRailAnchor>
 
-		<AppRailAnchor
-			href="/annuaire"
-			class="lg:hidden"
-			on:click={() => {
-				onClickAnchor();
-			}}
-		>
-			<svelte:fragment slot="lead"
-				><DocsIcon name="addressBook" width="w-6" height="h-6" /></svelte:fragment
-			>
-			<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
-		</AppRailAnchor>
+
 
 		<AppRailAnchor
 			href="/contact"
