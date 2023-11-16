@@ -36,7 +36,7 @@
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<li class="mb-4">
-							<a href="/annuaire">
+							<a href="/">
 								{$LL.NAVBAR.ADDRESSBOOK()}
 							</a>
 						</li>
