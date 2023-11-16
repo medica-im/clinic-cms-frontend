@@ -238,7 +238,7 @@ export const fullFilteredEffectors = asyncDerived(
 				if ($term == '') {
 					return true
 				} else {
-					return normalize(x.name_fr).includes(normalize($term))
+					return normalize(x.name).includes(normalize($term))
 				}
 			}).filter(function (x) {
 				if ($selectSituation == '') {
