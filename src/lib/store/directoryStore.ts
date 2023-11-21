@@ -246,9 +246,9 @@ export const fullFilteredEffectors = asyncDerived(
 				} else {
 					let situation = $getSituations.find(obj => { return obj.uid == $selectSituation });
 					let effectors = $getSituations.find(obj => { return obj.uid == $selectSituation })?.effectors;
-					console.log(effectors)
+					//console.log(effectors);
 					let condition = effectors.includes(x.uid);
-					console.log(condition);
+					//console.log(condition);
 					return condition;
 				}
 			})
@@ -285,26 +285,26 @@ export const categorizedFilteredEffectors = asyncDerived(
 			effector.types.forEach(x=>categorySet.add(x.name))
 		}
 		let catArray = [];
-		console.log(categorySet);
+		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
-		console.log(categoryArr);
+		//console.log(categoryArr);
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
 		  }, {});
-		console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $filteredEffectors) {
 			effector.types.forEach(x=>effectorsObj[x.name].push(effector))
 		}
-		console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 
-		console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
+		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
 		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
 		if ( $distanceEffectors ) {
 		effectorsMap.forEach((value: any) => value.sort((a,b) => compareEffectorDistance(a, b, $distanceEffectors)))
 		}
-		console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
+		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
 	}
 )
@@ -317,20 +317,20 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 			effector.types.forEach(x=>categorySet.add(x.name))
 		}
 		let catArray = [];
-		console.log(categorySet);
+		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
-		console.log(categoryArr);
+		//console.log(categoryArr);
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
 		  }, {});
-		console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $fullFilteredEffectors) {
 			effector.types.forEach(x=>effectorsObj[x.name].push(effector))
 		}
 		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
-		console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
+		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
 	}
 )

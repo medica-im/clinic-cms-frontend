@@ -38,7 +38,7 @@
 			next = data.meta.next;
 			console.log(next);
 		} while (next);
-		console.log(`effector_types: ${JSON.stringify(records)}`);
+		//console.log(`effector_types: ${JSON.stringify(records)}`);
 		return records;
 	}
 

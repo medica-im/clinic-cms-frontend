@@ -10,7 +10,7 @@
 		let typeSlug = effector.types[0].slug;
 		let communeSlug = effector.commune.slug;
 		let nameSlug = effector.slug;
-		console.log(`${typeSlug}, ${communeSlug}, ${nameSlug}`)
+		//console.log(`${typeSlug}, ${communeSlug}, ${nameSlug}`)
 
 		if (!typeSlug || !communeSlug || !nameSlug) {
 			return;

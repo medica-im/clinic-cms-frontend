@@ -10,25 +10,21 @@
 
 	onMount(() => {
 		value = getValue();
-		console.log(value);
 	});
 
-    /*function getItems(communes) {
-        return communes.map(function (x) {
-			let dct = { value: x.uid, label: x.name };
-			return dct;
-		})
-	}*/
 
 	function getValue() {
 		let sSituation = get(selectSituation);
+		//console.log(`sSituation:${sSituation}`);
 		if (sSituation == '') {
 			return '';
 		} else {
 			let s = get(situations);
-			console.log(`s: ${s}`);
+			//console.log(`s: ${JSON.stringify(s)}`);
+			//console.log(`typeof s: ${typeof(s)}`);
 			if (s) {
-				let val = s.filter((x) => {sSituation == x.value})[0];
+				let val = s.find((x) => sSituation == x.value);
+				//console.log(`getValue(): ${JSON.stringify(val)}`);
 				return val;
 			}
 		}
@@ -41,15 +37,18 @@
 	}
 
 	function handleChange(event) {
-		console.log(event);
+		//console.log(event);
 		if (event.detail) {
-			console.log(event.detail);
-			console.log(event.detail.value);
+			//console.log(event.detail);
+			//console.log(event.detail.value);
 			selectSituation.set(event.detail.value);
 		}
 	}
 </script>
-
+<!--
+$selectSituation: {$selectSituation}<br>
+value: {JSON.stringify(value)}
+-->
 {#await situations.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.SITUATIONS.PLACEHOLDER()} />

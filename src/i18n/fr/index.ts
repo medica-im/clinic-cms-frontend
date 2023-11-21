@@ -54,6 +54,7 @@ const fr: Translation = {
       ARIA_LABEL: "Recherche par nom ou prénom"
     },
     GOTOADDRESSBOOK: "Retourner vers l'annuaire",
+		GOTOSEARCH: "Retourner aux résultats de recherche",
     APPOINTMENT: {
       LABEL: "Prendre rendez-vous"
     },

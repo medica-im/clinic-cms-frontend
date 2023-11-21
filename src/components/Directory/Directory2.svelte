@@ -21,9 +21,7 @@
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-
 	export let effectorsLoad;
-
 
 	let category = '';
 
@@ -64,18 +62,18 @@
 						</div>
 					</div>
 					{#if $selectSituation}
-					<div class="row">
-						<div class="col">
-							<SelectCategoriesChips />
+						<div class="row">
+							<div class="col">
+								<SelectCategoriesChips />
+							</div>
 						</div>
-					</div>
 					{:else}
-					<div class="row">
-						<div class="col">
-							<SelectCategories />
+						<div class="row">
+							<div class="col">
+								<SelectCategories />
+							</div>
 						</div>
-					</div>
-                    {/if}
+					{/if}
 					<div class="row">
 						<div class="col">
 							<SearchDirectory />
@@ -119,18 +117,18 @@
 						</div>
 					</div>
 					{#if $selectSituation}
-					<div class="row">
-						<div class="col">
-							<SelectCategoriesChips />
+						<div class="row">
+							<div class="col">
+								<SelectCategoriesChips />
+							</div>
 						</div>
-					</div>
 					{:else}
-					<div class="row">
-						<div class="col">
-							<SelectCategories />
+						<div class="row">
+							<div class="col">
+								<SelectCategories />
+							</div>
 						</div>
-					</div>
-                    {/if}
+					{/if}
 					<div class="row">
 						<div class="col">
 							<SearchDirectory />
@@ -142,22 +140,26 @@
 					<p>{contactCount($filteredEffectors)}</p>
 				</div>
 
-					
-						<div class="my-4 space-y-4">
-							{#each [...$categorizedFilteredEffectors] as [key, value]}
-								<div class="space-y-4 my-4 anchordiv" id={key}>
-								{key}
-								{value.length}
-								</div>
-								{#each value as effector}
-									<div class="space-y-4 my-4">
-										<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-											<Effector {effector} />
-										</div>
-									</div>
-								{/each}
-							{/each}
+				<div class="my-4 space-y-4">
+					{#each [...$categorizedFilteredEffectors] as [key, value]}
+							<div class="space-y-4 my-4 anchordiv" id={key}>
+								<div class="relative inline-block">
+								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-10">
+									{value.length}
+								</span>
+
+								<span class="badge variant-filled"><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span>
+							</div>
 						</div>
+						{#each value as effector}
+							<div class="space-y-4 my-4">
+								<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+									<Effector {effector} />
+								</div>
+							</div>
+						{/each}
+					{/each}
+				</div>
 			{/await}
 		</div>
 	</section>
@@ -165,8 +167,8 @@
 
 <style lang="postcss">
 	.anchordiv {
-  scroll-margin-top: 1rem;
-}
+		scroll-margin-top: 1rem;
+	}
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
 		scroll-padding-top: 4rem;

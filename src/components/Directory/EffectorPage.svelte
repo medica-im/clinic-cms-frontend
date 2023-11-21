@@ -5,7 +5,7 @@
 	import { distanceEffectors } from '$lib/store/directoryStore';
 	import Address from './Address.svelte';
 	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
-
+    import Back from './Back.svelte';
 	export let effector: any;
 
 	const createFacilityGeoData = (data) => {
@@ -57,3 +57,4 @@
 </a>
 
 </div>
+<Back />

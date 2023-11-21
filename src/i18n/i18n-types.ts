@@ -142,6 +142,10 @@ type RootTranslation = {
 		 * R​e​t​o​u​r​n​e​r​ ​v​e​r​s​ ​l​'​a​n​n​u​a​i​r​e
 		 */
 		GOTOADDRESSBOOK: string
+		/**
+		 * R​e​t​o​u​r​n​e​r​ ​a​u​x​ ​r​é​s​u​l​t​a​t​s​ ​d​e​ ​r​e​c​h​e​r​c​h​e
+		 */
+		GOTOSEARCH: string
 		APPOINTMENT: {
 			/**
 			 * P​r​e​n​d​r​e​ ​r​e​n​d​e​z​-​v​o​u​s
@@ -582,6 +586,10 @@ export type TranslationFunctions = {
 		 * Retourner vers l'annuaire
 		 */
 		GOTOADDRESSBOOK: () => LocalizedString
+		/**
+		 * Retourner aux résultats de recherche
+		 */
+		GOTOSEARCH: () => LocalizedString
 		APPOINTMENT: {
 			/**
 			 * Prendre rendez-vous

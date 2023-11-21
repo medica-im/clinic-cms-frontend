@@ -53,6 +53,7 @@ const en: BaseTranslation = {
 			ARIA_LABEL: "Search by name"
 		},
 		GOTOADDRESSBOOK: "Go back to addressbook",
+		GOTOSEARCH: "Go back to search results",
 		APPOINTMENT: {
 			LABEL: "Book an appointment"
 		},
