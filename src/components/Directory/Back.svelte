@@ -13,7 +13,7 @@
 	} from '$lib/store/directoryStore';
 </script>
 
-<a href="/" class="btn bg-initial hover:variant-soft-primary">
+<a href="/" class="btn variant-filled">
 	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $addressFeature?.geometry?.coordinates}
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="flex flex-wrap whitespace-normal text-left">

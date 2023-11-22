@@ -144,7 +144,7 @@
 					{#each [...$categorizedFilteredEffectors] as [key, value]}
 							<div class="space-y-4 my-4 anchordiv" id={key}>
 								<div class="relative inline-block">
-								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-10">
+								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
 									{value.length}
 								</span>
 

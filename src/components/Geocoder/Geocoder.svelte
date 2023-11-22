@@ -1,4 +1,6 @@
 <script lang="ts">
+	import isEmpty from 'lodash.isempty';
+	import { onMount } from 'svelte';
 	import LL from '$i18n/i18n-svelte';
 	//import type { Integer } from 'schema-dts';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
@@ -11,11 +13,9 @@
 	} from '@fortawesome/free-regular-svg-icons';
 	import Fa from 'svelte-fa';
 	import DocsIcon from '$components/Icon/Icon.svelte';
+
 	let visible = false;
-
-
 	let response;
-
 	let normalizedInputAddress: string = '';
 
 	//let addressOptions: AutocompleteOption[] = [];
@@ -23,7 +23,7 @@
 	const options = {
 		url: 'https://api-adresse.data.gouv.fr/search/?',
 		minChar: 3,
-		limit: 7,
+		limit: 10,
 		submitDelay: 300,
 		includePosition: false,
 		feedbackEmail: null // Set to null to remove feedback box
@@ -32,6 +32,14 @@
 	let inputAddress: string = '';
 	//let CACHE = '';
 	//let RESULTS: Array<Object> = [];
+
+		onMount(() => {
+			let _addressFeature = get(addressFeature);
+			console.log(JSON.stringify(_addressFeature));
+			if (!isEmpty(_addressFeature)) {
+                inputAddress = normalize(_addressFeature?.properties?.label);
+			}
+	});
 
 	$: normalizedInputAddress=normalize(inputAddress);
 	$: if (inputAddress.length > options.minChar) {
@@ -127,7 +135,7 @@
 		visible=false;
 	}
 </script>
-
+<!--{JSON.stringify($addressFeature)}-->
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 	<div class="input-group-shim"><Fa icon={faAddressCard} /></div>
 	<input
@@ -158,3 +166,14 @@
 	/>
 </div>
 {/if}
+
+<style>
+	/* clears the ‘X’ from Internet Explorer */
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+/* clears the ‘X’ from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+</style>

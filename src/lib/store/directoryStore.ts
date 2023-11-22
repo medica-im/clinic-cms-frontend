@@ -193,9 +193,9 @@ export const situations = asyncDerived(
 	});
 
 function distanceOfEffector(e, distEffectors) {
-	console.log(`distanceOfEffector e: ${JSON.stringify(e)}`)
+	//console.log(`distanceOfEffector e: ${JSON.stringify(e)}`)
     let uid = e.address?.facility_uid;
-	console.log(uid);
+	//console.log(uid);
 	if ( uid ) {
 		return distEffectors[uid];
 	} else {
