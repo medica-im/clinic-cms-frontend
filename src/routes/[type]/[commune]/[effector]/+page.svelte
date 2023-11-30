@@ -1,17 +1,18 @@
 <script lang="ts">
 import type PageData from '$types';
 import EffectorPage from '$components/Directory/EffectorPage.svelte';
-import { getEffectors } from '$lib/store/directoryStore';
-
+import CareHomePage from '$components/Directory/CareHomePage.svelte';
+import Back from '$components/Directory/Back.svelte';
 export let data: PageData;
 
-function findEffector(effectors) {
-    return effectors.find(e => e.commune.slug==data.commune && e.types.some(t => t.slug==data.type) && e.slug==data.effector)
+const componentSelect = {
+	"default": EffectorPage,
+	"careHome": CareHomePage
 }
+let component=componentSelect[data.component];
 </script>
 
-<!--{data.type}/{data.commune}/{data.effector}-->
-{#await getEffectors.load()}
-{:then}
-<EffectorPage effector={findEffector($getEffectors)}/>
-{/await}
+<svelte:component this={component} effector={data.effector} />
+<div class="m-4 flex flex-row-reverse">
+	<Back />
+</div>
