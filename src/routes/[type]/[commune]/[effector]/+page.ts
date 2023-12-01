@@ -33,7 +33,11 @@ export const load: PageLoad = async ({ fetch, params }) => {
     if (effector.types.some(t => careHomeSlugArray.includes(t.slug))) {
         let careHomeData = await fetchCareHome(fetch, effector.effector_uid);
         effector.careHome=careHomeData;
-        component="careHome"
+        if (params.type == "ehpad") {
+            component="careHome"
+        } else if (params.type == "usld") {
+            component="usld"
+        }
     } else {
         component="default"
     }
