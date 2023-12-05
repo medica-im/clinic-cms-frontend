@@ -26,7 +26,7 @@
 		},
 		uvpha_permanent_bed: {
 			S: `${count} lit UVPHA permanent`,
-			P: `${count} lits UVPHA permanent`
+			P: `${count} lits UVPHA permanents`
 		},
 		day_care: {
 			S: `${count} place d'accueil de jour`,
