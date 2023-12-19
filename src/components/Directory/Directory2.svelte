@@ -25,14 +25,20 @@
 
 	let category = '';
 
+	let countString = "";
+
 	function section(c: string): void {
 		category = c;
 	}
 
-	function contactCount(_array: []) {
-		const count = _array.length;
+	function contactCount(categorizedFilteredEffectors) {
+		let count = 0;
+		if (categorizedFilteredEffectors) {
+		    count=[...categorizedFilteredEffectors.values()].flat().length;
+		}
 		return `${count} contact${count > 1 ? 's' : ''}`;
 	}
+	$: countString=contactCount($categorizedFilteredEffectors);
 </script>
 
 <svelte:head>
@@ -82,7 +88,7 @@
 				</div>
 				<div class="my-4">
 					{#if effectorsLoad?.length}
-						<p>{contactCount(effectorsLoad)}</p>
+						<p>{countString}</p>
 					{/if}
 				</div>
 				<div class="my-4">
@@ -137,7 +143,7 @@
 				</div>
 
 				<div class="my-4">
-					<p>{contactCount($filteredEffectors)}</p>
+					<p>{countString}</p>
 				</div>
 
 				<div class="my-4 space-y-4">
@@ -173,28 +179,6 @@
 		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
 		scroll-padding-top: 4rem;
 	}
-	/* Hero Gradient */
-	/* prettier-ignore */
-	.hero-gradient {
-		background-image:
-			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
-			radial-gradient(at 98% 1%, rgba(var(--color-error-500) / 0.33) 0px, transparent 50%);
-	}
-	/* Team Gradient */
-	/* prettier-ignore */
-	.team-gradient {
-		background-image:
-			radial-gradient(at 0% 100%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%);
-	}
-	/* Tailwind Gradient */
-	/* prettier-ignore */
-	.tailwind-gradient {
-		background-image:
-			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.50) 0px, transparent 50%),
-			radial-gradient(at 100% 100%,  rgba(var(--color-primary-500) / 0.24) 0px, transparent 50%);
-	}
-	/* Programs Gradient */
-	/* prettier-ignore */
 	.programs-gradient {
 		background-image:
 			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),

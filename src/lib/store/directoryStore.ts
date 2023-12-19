@@ -21,6 +21,32 @@ function normalize(x: string) {
 	return x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
+async function fetchContacts(next) {
+	const url = `${variables.BASE_API_URI}/contacts/${next || ""}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, url);
+	if (response) {
+		let data: any = response;
+		next = data.meta.next;
+		return [data.contacts, next]
+	}
+};
+
+async function downloadContacts() {
+	let hasMore = true;
+	let contacts = [];
+	let next = "";
+	while (hasMore) {
+		const [_contacts, _next] = await fetchContacts(next);
+		contacts = [...contacts, ..._contacts];
+		if (_next === null) {
+			hasMore = false;
+		} else {
+			next = _next
+		}
+	}
+	return contacts
+}
+
 async function fetchEffectors(next) {
 	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${next || ""}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
@@ -29,48 +55,188 @@ async function fetchEffectors(next) {
 		next = data.meta.next;
 		return [data.effectors, next]
 	}
+}
+
+async function fetchEffector(uid) {
+	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${uid}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	if (response) {
+		let data: any = response;
+		return data;
+	}
+}
+
+type ChangedObj = {
+	toAdd: string[];
+	toDelete: string[];
+	toUpdate: string[];
 };
 
+function isUnchanged(changedObj: ChangedObj) {
+	return (changedObj.toAdd?.length == 0
+		&& changedObj.toDelete?.length == 0
+		&& changedObj.toUpdate?.length == 0)
+}
+
+function changedContacts(contacts, effectors): ChangedObj {
+	const changedObj: ChangedObj = {
+		toAdd: [],
+		toDelete: [],
+		toUpdate: [],
+	};
+	contacts.forEach(
+		(contact, index, array) => {
+			let effectorIndex = effectors.findIndex(
+				(e) => e.uid == contact.uid);
+			if (effectorIndex == -1) {
+				changedObj.toAdd.push(contact.uid)
+			} else if ((effectors[effectorIndex]?.updatedAt ?? 0) < contact.timestamp) {
+				changedObj.toUpdate.push(contact.uid)
+			}
+		}
+	)
+	effectors.forEach(
+		(effector, index, array) => {
+			let contact = contacts.find(
+				(e) => e.uid == effector.uid);
+			if (contact === undefined) {
+				changedObj.toDelete.push(effector.uid)
+			}
+		}
+	)
+	//console.log(JSON.stringify(changedObj));
+	return changedObj
+}
+
+async function downloadAllEffectors() {
+	let hasMore = true
+	let next = "";
+	let effectors = [];
+	while (hasMore) {
+		const [_effectors, _next] = await fetchEffectors(next);
+		effectors = [...effectors, ..._effectors];
+		if (_next === null) {
+			hasMore = false;
+		} else {
+			next = _next
+		}
+	}
+	setLocalStorage('effectors', effectors);
+	return effectors;
+}
+
+function createID_4_4_4_4(s) {
+	return (1e16 + s).slice(-16).match(/..../g).join('-')
+}
+
+function setLocalStorage(key: string, data: Array<Object>): void {
+	if (browser) {
+		var json = { data: data, cachetime: Date.now() / 1000 }
+		localStorage.setItem(key, JSON.stringify(json))
+	}
+}
+
+function getLocalStorage(key: string): any | null | undefined {
+	if (browser) {
+		const localStorageString = localStorage.getItem(key);
+		if (localStorageString === null) {
+			return null
+		}
+		let data = JSON.parse(localStorageString);
+		return data;
+	}
+}
+
+async function processCachedEffectors(changedObj: ChangedObj) {
+	let effectors = getLocalStorage('effectors').data;
+	if (changedObj.toDelete.length) {
+		effectors.filter(
+			(e, index, arr) => {
+				let idx = changedObj.toDelete.indexOf(e.uid);
+				if (idx > -1) {
+					//console.log(`delete ${JSON.stringify(JSON.stringify(arr[index]))}`)
+					arr.splice(index, 1);
+					return true;
+				}
+				return false;
+			}
+		)
+		setLocalStorage('effectors', effectors);
+	}
+	if (changedObj.toAdd.length) {
+		changedObj.toAdd.forEach(
+			async (uid, idx, arr) => {
+				const newEffector = await fetchEffector(uid);
+				//console.log(`add ${JSON.stringify(newEffector)}`);
+				let count = effectors.push(newEffector);
+				//console.log(`add effectors count: ${count}`);
+				setLocalStorage('effectors', effectors);
+			}
+		)
+	}
+	if (changedObj.toUpdate.length) {
+		changedObj.toUpdate.forEach(
+			async (uid, idx, arr) => {
+				effectors.filter(
+					(element, index, array) => {
+						if (element.uid == uid) {
+							//console.log(`update: splice ${JSON.stringify(arr[index])}`);
+							array.splice(index, 1);
+							return true;
+						}
+						return false;
+					}
+				)
+				const updatedEffector = await fetchEffector(uid);
+				let count = effectors.push(updatedEffector);
+				//console.log(`effectors count: ${count}`);
+				setLocalStorage('effectors', effectors);
+			}
+		)
+	}
+	return effectors;
+}
+
 export const getEffectors = asyncDerived(
-	([locale, next, effectors]),
-	async ([$locale, $next, $effectors]) => {
+	([locale, effectors]),
+	async ([$locale, $effectors]) => {
+		let contacts = await downloadContacts();
+		let localContacts;
+		let localContactsObj = getLocalStorage('contacts');
+		localContacts = localContactsObj?.data;
+		//console.log(localContacts?.slice(0, 5))
+		setLocalStorage('contacts', contacts)
+		if (localContacts === null || localContacts === undefined) {
+			let effectors = await downloadAllEffectors();
+			setLocalStorage('effectors', effectors);
+			return effectors;
+		}
+
 		var cachelife = parseInt(env.PUBLIC_EFFECTORS_TTL);
-		const cacheName = "effectors";
-		let cachedData;
 		let expired: boolean = true;
 		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
 		let empty: boolean = true;
-		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}`);
-		}
-		if (cachedData) {
-			cachedData = JSON.parse(cachedData);
-			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+		const cachedEffectorsObj = getLocalStorage('effectors');
+		let changedObj;
+		if (cachedEffectorsObj) {
+			let elapsed = (Date.now() / 1000) - cachedEffectorsObj.cachetime;
 			expired = elapsed > cachelife;
-			if ('data' in cachedData) {
-				if (cachedData.data?.length) {
+			if ('data' in cachedEffectorsObj) {
+				if (cachedEffectorsObj.data?.length) {
 					empty = false;
 				}
 			}
+			changedObj = changedContacts(contacts, cachedEffectorsObj.data);
+			//console.log(`isUnchanged: ${isUnchanged(changedObj)}`)
 		}
-		if (cachedData && !expired && !empty) {
-			return cachedData.data;
+		if (!expired && !empty && changedObj && isUnchanged(changedObj)) {
+			return cachedEffectorsObj.data;
+		} else if (expired || empty) {
+			const allEffectors = await downloadAllEffectors();
+			return allEffectors;
 		} else {
-			let hasMore = true
-			while (hasMore) {
-				const [_effectors, _next] = await fetchEffectors($next);
-				$effectors = [...$effectors, ..._effectors];
-				if (_next === null) {
-					hasMore = false;
-				} else {
-					$next = _next
-				}
-			}
-			if (browser) {
-				var json = { data: $effectors, cachetime: Date.now() / 1000 }
-				localStorage.setItem(`${cacheName}`, JSON.stringify(json))
-			}
-			return $effectors;
+			const effectors = await processCachedEffectors(changedObj);
+			return effectors;
 		}
 	}
 );
@@ -82,21 +248,20 @@ export const distanceEffectors = asyncDerived(
 		if (!targetGeoJSON) {
 			return;
 		}
-		console.log(`targetGeoJSON: ${targetGeoJSON}`);
+		//console.log(`targetGeoJSON: ${targetGeoJSON}`);
 		const distanceOfEffector = {};
-		for (const effector of $getEffectors ) {
-				let longitude = effector.address.longitude;
-				let latitude = effector.address.latitude;
-				console.log(longitude, latitude);
-				if (!longitude || !latitude) {
-					console.log("no gps");
-					continue;
-				}
-				const effectorGeoJSON = [parseFloat(longitude), parseFloat(latitude)] as any;
-				const dist = haversine(targetGeoJSON, effectorGeoJSON);
-				distanceOfEffector[effector.address.facility_uid] = dist;
+		for (const effector of $getEffectors) {
+			let longitude = effector.address.longitude;
+			let latitude = effector.address.latitude;
+			//console.log(longitude, latitude);
+			if (!longitude || !latitude) {
+				continue;
 			}
-		console.log(distanceOfEffector);
+			const effectorGeoJSON = [parseFloat(longitude), parseFloat(latitude)] as any;
+			const dist = haversine(targetGeoJSON, effectorGeoJSON);
+			distanceOfEffector[effector.address.facility_uid] = dist;
+		}
+		//console.log(distanceOfEffector);
 		return distanceOfEffector;
 	}
 );
@@ -194,9 +359,9 @@ export const situations = asyncDerived(
 
 function distanceOfEffector(e, distEffectors) {
 	//console.log(`distanceOfEffector e: ${JSON.stringify(e)}`)
-    let uid = e.address?.facility_uid;
+	let uid = e.address?.facility_uid;
 	//console.log(uid);
-	if ( uid ) {
+	if (uid) {
 		return distEffectors[uid];
 	} else {
 		return undefined;
@@ -204,7 +369,7 @@ function distanceOfEffector(e, distEffectors) {
 }
 
 function compareEffectorDistance(a, b, distEffectors) {
-    let dist_a = distanceOfEffector(a, distEffectors);
+	let dist_a = distanceOfEffector(a, distEffectors);
 	let dist_b = distanceOfEffector(b, distEffectors);
 	if (!dist_a && !dist_b) {
 		return 0;
@@ -276,13 +441,13 @@ export const filteredEffectors = asyncDerived(
 		}
 	}
 )
-  
+
 export const categorizedFilteredEffectors = asyncDerived(
 	([filteredEffectors, distanceEffectors]),
 	async ([$filteredEffectors, $distanceEffectors]) => {
 		let categorySet = new Set();
 		for (let effector of $filteredEffectors) {
-			effector.types.forEach(x=>categorySet.add(x.name))
+			effector.types.forEach(x => categorySet.add(x.name))
 		}
 		let catArray = [];
 		//console.log(categorySet);
@@ -292,17 +457,17 @@ export const categorizedFilteredEffectors = asyncDerived(
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
-		  }, {});
+		}, {});
 		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $filteredEffectors) {
-			effector.types.forEach(x=>effectorsObj[x.name].push(effector))
+			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}
 		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 
 		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
 		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
-		if ( $distanceEffectors ) {
-		effectorsMap.forEach((value: any) => value.sort((a,b) => compareEffectorDistance(a, b, $distanceEffectors)))
+		if ($distanceEffectors) {
+			effectorsMap.forEach((value: any) => value.sort((a, b) => compareEffectorDistance(a, b, $distanceEffectors)))
 		}
 		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
@@ -314,7 +479,7 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 	async ($fullFilteredEffectors) => {
 		let categorySet = new Set();
 		for (let effector of $fullFilteredEffectors) {
-			effector.types.forEach(x=>categorySet.add(x.name))
+			effector.types.forEach(x => categorySet.add(x.name))
 		}
 		let catArray = [];
 		//console.log(categorySet);
@@ -324,10 +489,10 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
-		  }, {});
+		}, {});
 		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $fullFilteredEffectors) {
-			effector.types.forEach(x=>effectorsObj[x.name].push(effector))
+			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}
 		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
 		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);

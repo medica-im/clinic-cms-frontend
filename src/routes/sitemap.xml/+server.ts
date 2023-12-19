@@ -1,4 +1,4 @@
-import { variables } from '$lib/utils/constants';
+/*import { variables } from '$lib/utils/constants';
 import { workforceSlugs } from '$lib/store/workforceStore';
 import { get } from '@square/svelte-store';
 
@@ -6,7 +6,7 @@ const base_uri = variables.BASE_URI;
 
 
 export async function GET() {
-    const slugs = get(workforceSlugs);
+    //const slugs = get(workforceSlugs);
     const pages = [
         `contact`,
         `annuaire`,
@@ -63,3 +63,4 @@ ${paths
   )
   .join('')}
   </urlset>`
+  */
