@@ -5,12 +5,10 @@ import type { PageLoad } from './$types';
 import { categorizedFilteredEffectors } from '$lib/store/directoryStore.js';
 
 
-export const prerender = true;
-
 export const load: PageLoad = async ({ data }) => {
     return {
         //facility: await facilityStore.load(),
-        websiteSchema: await websiteSchema.load(),
+        //websiteSchema: await websiteSchema.load(),
         //occupationsCardinal: await occupationsCardinal.load(),
         //openGraph: await openGraphStore.load(),
         //workforceOccupation: await workforceOccupation.load(),

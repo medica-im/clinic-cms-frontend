@@ -87,23 +87,29 @@
 					</div>
 				</div>
 				<div class="my-4">
-					{#if effectorsLoad?.length}
-						<p>{countString}</p>
+					{#if [...effectorsLoad]?.length}
+						<p>{contactCount(effectorsLoad)}</p>
 					{/if}
 				</div>
-				<div class="my-4">
-					{#if effectorsLoad?.length}
-						{#each effectorsLoad.keys() as cat}
-							{cat}
-							{#each effectorsLoad[cat] as effector}
-								<section class="space-y-4 my-4">
-									<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-										<Effector {effector} />
-									</div>
-								</section>
-							{/each}
+				<div class="my-4 space-y-4">
+					{#each [...effectorsLoad] as [key, value]}
+							<div class="space-y-4 my-4 anchordiv" id={key}>
+								<div class="relative inline-block">
+								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
+									{value.length}
+								</span>
+
+								<span class="badge variant-filled"><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span>
+							</div>
+						</div>
+						{#each value as effector}
+							<div class="space-y-4 my-4">
+								<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+									<Effector {effector} />
+								</div>
+							</div>
 						{/each}
-					{/if}
+					{/each}
 				</div>
 			{:then}
 				<div class="space-y-2">
