@@ -58,7 +58,7 @@
 		</div>
 	</header>
 	<div>
-		<Directory2 effectorsLoad={data.effectors} />
+		<Directory2 />
 	</div>
 	<!-- team -->
 

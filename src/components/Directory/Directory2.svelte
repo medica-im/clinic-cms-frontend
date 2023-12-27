@@ -1,13 +1,7 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import {
-		categorizedFilteredEffectors,
-		filteredEffectors,
-		effectors,
-		categoryOfCommune,
-		selectSituation
-	} from '$lib/store/directoryStore';
+	import { categorizedFilteredEffectors, selectSituation } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
@@ -20,13 +14,17 @@
 	import Geocoder from '$components/Geocoder/Geocoder.svelte';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
+	import { categorizedCachedEffectors } from '$lib/store/directoryStore.js';
+	import { ConicGradient } from '@skeletonlabs/skeleton';
+    import type { ConicStop } from '@skeletonlabs/skeleton';
 
-	export let effectorsLoad;
-
+	const effectors = categorizedCachedEffectors();
+	const conicStops: ConicStop[] = [
+	{ color: 'transparent', start: 0, end: 25 },
+	{ color: 'rgb(var(--color-primary-500))', start: 75, end: 100 }
+];
 	let category = '';
-
-	let countString = "";
-
+	let countString = '';
 	function section(c: string): void {
 		category = c;
 	}
@@ -34,11 +32,11 @@
 	function contactCount(categorizedFilteredEffectors) {
 		let count = 0;
 		if (categorizedFilteredEffectors) {
-		    count=[...categorizedFilteredEffectors.values()].flat().length;
+			count = [...categorizedFilteredEffectors.values()].flat().length;
 		}
 		return `${count} contact${count > 1 ? 's' : ''}`;
 	}
-	$: countString=contactCount($categorizedFilteredEffectors);
+	$: countString = contactCount($categorizedFilteredEffectors);
 </script>
 
 <svelte:head>
@@ -86,31 +84,40 @@
 						</div>
 					</div>
 				</div>
+				{#if effectors && [...effectors]?.length}
 				<div class="my-4">
-					{#if [...effectorsLoad]?.length}
-						<p>{contactCount(effectorsLoad)}</p>
-					{/if}
-				</div>
-				<div class="my-4 space-y-4">
-					{#each [...effectorsLoad] as [key, value]}
+				<ConicGradient stops={conicStops} spin>Mise à jour de l'annuaire...</ConicGradient>
+			</div>
+					<div class="my-4">
+						<p>{contactCount(effectors)}</p>
+					</div>
+					<div class="my-4 space-y-4">
+						{#each [...effectors] as [key, value]}
 							<div class="space-y-4 my-4 anchordiv" id={key}>
 								<div class="relative inline-block">
-								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
-									{value.length}
-								</span>
+									<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
+										{value.length}
+									</span>
 
-								<span class="badge variant-filled"><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span>
-							</div>
-						</div>
-						{#each value as effector}
-							<div class="space-y-4 my-4">
-								<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-									<Effector {effector} />
+									<span class="badge variant-filled"
+										><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
+									>
 								</div>
 							</div>
+							{#each value as effector}
+								<div class="space-y-4 my-4">
+									<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+										<Effector {effector} />
+									</div>
+								</div>
+							{/each}
 						{/each}
-					{/each}
-				</div>
+					</div>
+				{:else}
+					<div class="my-4">
+						<ConicGradient stops={conicStops} spin>Chargement de l'annuaire...</ConicGradient>
+					</div>
+				{/if}
 			{:then}
 				<div class="space-y-2">
 					<div class="row">
@@ -154,13 +161,15 @@
 
 				<div class="my-4 space-y-4">
 					{#each [...$categorizedFilteredEffectors] as [key, value]}
-							<div class="space-y-4 my-4 anchordiv" id={key}>
-								<div class="relative inline-block">
+						<div class="space-y-4 my-4 anchordiv" id={key}>
+							<div class="relative inline-block">
 								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
 									{value.length}
 								</span>
 
-								<span class="badge variant-filled"><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span>
+								<span class="badge variant-filled"
+									><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
+								>
 							</div>
 						</div>
 						{#each value as effector}
@@ -186,8 +195,11 @@
 		scroll-padding-top: 4rem;
 	}
 	.programs-gradient {
-		background-image:
-			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
-			radial-gradient(at 100% 0%,  rgba(var(--color-primary-500) / 0.33) 0px, transparent 50%);
+		background-image: radial-gradient(
+				at 0% 0%,
+				rgba(var(--color-secondary-500) / 0.33) 0px,
+				transparent 50%
+			),
+			radial-gradient(at 100% 0%, rgba(var(--color-primary-500) / 0.33) 0px, transparent 50%);
 	}
 </style>
