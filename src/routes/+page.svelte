@@ -51,8 +51,6 @@
 		Annuaire - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
-<svelte:window bind:scrollY={yScroll} />
-
 <div>
 	<!-- hero -->
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
