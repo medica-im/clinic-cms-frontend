@@ -5,7 +5,7 @@
 	export let formattedNameDefiniteArticle;
 </script>
 
-<h1>
-	{$LL.HOME.WELCOME()}
+<h2 class="h2">
+	Bienvenue sur l'annuaire de
 	{formattedNameDefiniteArticle}{#if $userData && $userData.username}&ensp;<span style="text-transform: capitalize; display:inline-block;">{$userData.username}</span>{/if}!
-</h1>
+</h2>

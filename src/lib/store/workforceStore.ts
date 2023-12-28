@@ -156,7 +156,6 @@ export const teamCarouselStore = asyncDerived(
 			return item.profile_picture_url.lt
 		});
 		shuffle(carousel);
-		console.log(carousel);
 		return carousel
 	}
 );

@@ -445,9 +445,7 @@ export const filteredEffectors = asyncDerived(
 export const categorizedCachedEffectors =
 	() => {
 		const cachedEffectorsObj = getLocalStorage('effectors');
-		console.log(cachedEffectorsObj);
 		const cachedEffectors = cachedEffectorsObj?.data;
-		console.log(cachedEffectors);
 		if (!cachedEffectors) {
 			return null;
 		}
@@ -455,15 +453,12 @@ export const categorizedCachedEffectors =
 		for (let effector of cachedEffectors) {
 			effector.types.forEach(x => categorySet.add(x.name))
 		}
-		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
-		//console.log(categoryArr);
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
 		}, {});
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of cachedEffectors) {
 			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}

@@ -25,6 +25,8 @@
 
 	export let data: PageData;
 
+  let yScroll = 0
+
 	onMount(() => {
 		const interval = setInterval(() => {
 			invalidateAll();
@@ -46,9 +48,10 @@
 	{/if}
 
 	<title>
-		{$LL.HOME.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		Annuaire - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
+<svelte:window bind:scrollY={yScroll} />
 
 <div>
 	<!-- hero -->

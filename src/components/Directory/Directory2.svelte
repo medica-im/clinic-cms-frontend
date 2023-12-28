@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { categorizedFilteredEffectors, selectSituation } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
@@ -13,22 +12,20 @@
 	import SelectSituations from './SelectSituations.svelte';
 	import Geocoder from '$components/Geocoder/Geocoder.svelte';
 	import Fa from 'svelte-fa';
-	import { faCheck } from '@fortawesome/free-solid-svg-icons';
+	import { faArrowsUpToLine } from '@fortawesome/free-solid-svg-icons';
 	import { categorizedCachedEffectors } from '$lib/store/directoryStore.js';
-	import { ConicGradient } from '@skeletonlabs/skeleton';
-    import type { ConicStop } from '@skeletonlabs/skeleton';
+	import type { ConicStop } from '@skeletonlabs/skeleton';
+	import Spinner from '$components/Spinner.svelte';
+	import { scrollY } from '$lib/store/scrollStore';
 
 	const effectors = categorizedCachedEffectors();
-	const conicStops: ConicStop[] = [
-	{ color: 'transparent', start: 0, end: 25 },
-	{ color: 'rgb(var(--color-primary-500))', start: 75, end: 100 }
-];
+	let top;
 	let category = '';
 	let countString = '';
 	function section(c: string): void {
 		category = c;
 	}
-
+	let showOnPx = 500;
 	function contactCount(categorizedFilteredEffectors) {
 		let count = 0;
 		if (categorizedFilteredEffectors) {
@@ -37,6 +34,9 @@
 		return `${count} contact${count > 1 ? 's' : ''}`;
 	}
 	$: countString = contactCount($categorizedFilteredEffectors);
+	const scrollToTop = () => {
+		top.scrollIntoView();
+	};
 </script>
 
 <svelte:head>
@@ -47,7 +47,7 @@
 
 <div>
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
-		<div class="section-container">
+		<div class="section-container" bind:this={top}>
 			{#await categorizedFilteredEffectors.load()}
 				<div class="space-y-2">
 					<div class="row">
@@ -85,9 +85,10 @@
 					</div>
 				</div>
 				{#if effectors && [...effectors]?.length}
-				<div class="my-4">
-				<ConicGradient stops={conicStops} spin>Mise à jour de l'annuaire...</ConicGradient>
-			</div>
+					<div class="flex justify-center m-4 space-x-2 items-center">
+						<Spinner w="4" h="4" />
+						<p>Mise à jour...</p>
+					</div>
 					<div class="my-4">
 						<p>{contactCount(effectors)}</p>
 					</div>
@@ -114,8 +115,9 @@
 						{/each}
 					</div>
 				{:else}
-					<div class="my-4">
-						<ConicGradient stops={conicStops} spin>Chargement de l'annuaire...</ConicGradient>
+					<div class="flex justify-center m-4 space-x-2 items-center">
+						<Spinner w="4" h="4" />
+						<p>Chargement...</p>
 					</div>
 				{/if}
 			{:then}
@@ -185,6 +187,11 @@
 		</div>
 	</section>
 </div>
+{#if $scrollY > showOnPx}
+	<button type="button" class="back-to-top btn-icon btn-lg variant-filled" on:click={scrollToTop}>
+		<Fa icon={faArrowsUpToLine} size="lg" /></button
+	>
+{/if}
 
 <style lang="postcss">
 	.anchordiv {
@@ -201,5 +208,12 @@
 				transparent 50%
 			),
 			radial-gradient(at 100% 0%, rgba(var(--color-primary-500) / 0.33) 0px, transparent 50%);
+	}
+	.back-to-top {
+		position: fixed;
+		z-index: 99;
+		right: 15px;
+		user-select: none;
+		bottom: 15px;
 	}
 </style>

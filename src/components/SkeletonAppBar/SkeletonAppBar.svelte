@@ -28,6 +28,7 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	// Docs
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
+	import AddressBookLogo from '$components/Logos/AddressBookLogo.svelte';
 	import SkeletonIcon from '$components/Icon/Icon.svelte';
 	import SocialNetworks from '../SoMed/SoMed.svelte';
 
@@ -124,7 +125,7 @@
 			</button>
 			<!-- Logo -->
 			<a class="flex xl:inline-block space-x-2" href="/" title={$LL.NAVBAR.GO_HOME()}>
-				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
+				<span class="xl:inline-block w-9 h-9 align-text-bottom"><AddressBookLogo /></span>
 				{#if isObjectEmpty($userData)}
 					<span class="hidden 2xl:inline-block"
 						><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span
@@ -227,10 +228,6 @@
 		</div>
 		<div class="relative hidden xl:block">
 			<MenuNavLinks />
-		</div>
-
-		<div class="relative">
-			<SkeletonLocaleSwitcher />
 		</div>
 
 		<div>

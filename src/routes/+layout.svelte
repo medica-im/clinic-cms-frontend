@@ -46,10 +46,19 @@
 	import type { LayoutServerData } from './$types';
 	import { QueryClientProvider } from '@tanstack/svelte-query'
     import type { LayoutData } from './$types'
+	import type { ComponentEvents } from 'svelte';
+    import { scrollY } from '$lib/store/scrollStore';
+
 	export let data: LayoutServerData;
+
+
 
 	$: loading.setNavigate(!!$navigating);
 	$: loading.setLoading(!!$navigating, 'Loading, please wait...');
+
+	function scrollHandler(event: ComponentEvents<AppShell>['scroll']) {
+	scrollY.set(event.currentTarget.scrollTop);
+}
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
@@ -138,7 +147,7 @@
 
 <Drawer data={$facilityStore} />
 
-<AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4">
+<AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4" on:scroll={scrollHandler}>
 		<svelte:fragment slot="header">
 			<SkeletonAppBar facility={$facilityStore} />
 		</svelte:fragment>
