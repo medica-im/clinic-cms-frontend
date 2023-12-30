@@ -21,6 +21,34 @@ function normalize(x: string) {
 	return x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
+export const directories = writable([]);
+
+export async function fetchElements(path: string, next: string) {
+	const effectorsUrl = `${variables.BASE_API_URI}/${path}/${next || ""}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	if (response) {
+		let data: any = response;
+		next = data.meta.next;
+		return [data.effectors, next]
+	}
+}
+
+export async function downloadElements(path: string) {
+	let hasMore = true;
+	let data = [];
+	let next = "";
+	while (hasMore) {
+		const [_elements, _next] = await fetchElements(path, next);
+		data = [...data, ..._elements];
+		if (_next === null) {
+			hasMore = false;
+		} else {
+			next = _next
+		}
+	}
+	return data
+}
+
 async function fetchContacts(next) {
 	const url = `${variables.BASE_API_URI}/contacts/${next || ""}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, url);
