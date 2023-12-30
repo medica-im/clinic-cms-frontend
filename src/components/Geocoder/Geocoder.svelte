@@ -2,28 +2,30 @@
 	import isEmpty from 'lodash.isempty';
 	import { onMount } from 'svelte';
 	import LL from '$i18n/i18n-svelte';
-	//import type { Integer } from 'schema-dts';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption } from '@skeletonlabs/skeleton';
 	import { normalize } from '$lib/helpers/stringHelpers';
-	import { addressFeature, distanceEffectors } from '$lib/store/directoryStore';
+	import { addressFeature } from '$lib/store/directoryStore';
 	import { get } from '@square/svelte-store';
-	import {
-		faAddressCard,
-	} from '@fortawesome/free-regular-svg-icons';
+	import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 	import Fa from 'svelte-fa';
 	import DocsIcon from '$components/Icon/Icon.svelte';
+	import { variables } from '$lib/utils/constants';
+	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+	import { env } from '$env/dynamic/public';
 
 	let visible = false;
 	let response;
 	let normalizedInputAddress: string = '';
+	let cityCodes: string[] = [];
+	const cachelife: number = parseInt(env.PUBLIC_DIRECTORY_TTL || '0');
 
 	//let addressOptions: AutocompleteOption[] = [];
 
 	const options = {
 		url: 'https://api-adresse.data.gouv.fr/search/?',
 		minChar: 3,
-		limit: 10,
+		limit: 20,
 		submitDelay: 300,
 		includePosition: false,
 		feedbackEmail: null // Set to null to remove feedback box
@@ -33,15 +35,18 @@
 	//let CACHE = '';
 	//let RESULTS: Array<Object> = [];
 
-		onMount(() => {
-			let _addressFeature = get(addressFeature);
-			//console.log(JSON.stringify(_addressFeature));
-			if (!isEmpty(_addressFeature)) {
-                inputAddress = normalize(_addressFeature?.properties?.label);
-			}
+	onMount(async () => {
+		let _addressFeature = get(addressFeature);
+		//console.log(JSON.stringify(_addressFeature));
+		if (!isEmpty(_addressFeature)) {
+			inputAddress = normalize(_addressFeature?.properties?.label);
+		}
+		const directoryJsn = await getDirectory();
+		cityCodes = directoryJsn.postal_codes;
+		//console.log(`cityCodes: ${cityCodes}`);
 	});
 
-	$: normalizedInputAddress=normalize(inputAddress);
+	$: normalizedInputAddress = normalize(inputAddress);
 	$: if (inputAddress.length > options.minChar) {
 		response = search();
 	}
@@ -49,13 +54,39 @@
 		addressOptions = getAddressOptions(response);
 	}*/
 
+	const getDirectory = async () => {
+		let expired;
+		var cacheddata = localStorage.getItem('directory');
+		if (cacheddata) {
+			cacheddata = JSON.parse(cacheddata);
+			expired = Math.trunc(Date.now() / 1000) - cacheddata.cachetime > cachelife;
+		}
+		if (cacheddata && !expired) {
+			return cacheddata.data;
+		} else {
+			const url = `${variables.BASE_API_URI}/directory/`;
+			const [directory, err] = await handleRequestsWithPermissions(fetch, url);
+			let json = { data: directory, cachetime: Math.trunc(Date.now() / 1000) };
+			localStorage.setItem('directory', JSON.stringify(json));
+			return directory;
+		}
+	};
+
 	function getAddressOptions(res) {
 		if (!res || !res?.features?.length) {
 			return [];
 		}
-		let _addressOptions: AutocompleteOption[] = res.features.map((e) => {
-			return { label: normalize(e.properties.label), value: e.properties.id };
-		});
+		let _addressOptions: AutocompleteOption[] = res.features
+			.filter((e) =>
+				cityCodes.some((cityCode) => {
+					let apiCityCode = e.properties.citycode;
+					//console.log(`apiCityCode:${apiCityCode}, cityCode:${cityCode}`);
+					return apiCityCode.startsWith(cityCode);
+				})
+			)
+			.map((e) => {
+				return { label: normalize(e.properties.label), value: e.properties.id };
+			});
 		return _addressOptions as AutocompleteOption[];
 	}
 
@@ -69,6 +100,7 @@
 				);
 			}
 		}
+		//console.log(query_string.join('&'));
 		return query_string.join('&');
 	}
 
@@ -90,8 +122,8 @@
 
 	function search() {
 		if (inputAddress === '') {
-			return
-		} 
+			return;
+		}
 		if (inputAddress.length < options.minChar) {
 			return;
 		}
@@ -127,25 +159,25 @@
 		recordAddressFeature(event.detail.value);
 		visible = false;
 	}
-	const onInput =()=>visible=true;
+	const onInput = () => (visible = true);
 
 	function handleClear() {
+		visible = false;
 		inputAddress = '';
-		addressFeature.set(null);
-		visible=false;
+		addressFeature.set({});
 	}
 </script>
-<!--{JSON.stringify($addressFeature)}-->
+
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 	<div class="input-group-shim"><Fa icon={faAddressCard} /></div>
 	<input
-	type="search"
-	name="geocoder"
-	autocomplete="off"
-	on:input={onInput}
-	placeholder={$LL.ADDRESSBOOK.GEOCODER.PLACEHOLDER()}
-	bind:value={inputAddress}
-	aria-label={$LL.ADDRESSBOOK.GEOCODER.ARIA_LABEL()}
+		type="search"
+		name="geocoder"
+		autocomplete="off"
+		on:input={onInput}
+		placeholder={$LL.ADDRESSBOOK.GEOCODER.PLACEHOLDER()}
+		bind:value={inputAddress}
+		aria-label={$LL.ADDRESSBOOK.GEOCODER.ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
@@ -153,27 +185,37 @@
 		aria-label={$LL.ADDRESSBOOK.CLEAR()}
 		disabled={!inputAddress}
 	>
-	<DocsIcon name="clear" width="w-5" height="h-5" />
+		<DocsIcon name="clear" width="w-5" height="h-5" />
 	</button>
 </div>
 {#if visible}
-<div class="card w-full max-w-md max-h-48 p-4 overflow-y-auto" tabindex="-1">
-	<Autocomplete
-		bind:input={normalizedInputAddress}
-		options={getAddressOptions(response)}
-		on:selection={onAddressSelection}
-		emptyState="{$LL.SKELETON.AUTOCOMPLETE.EMPTY_STATE()}"
-	/>
-</div>
+	<div class="card w-full max-w-md max-h-48 p-4 overflow-y-auto" tabindex="-1">
+		<Autocomplete
+			bind:input={normalizedInputAddress}
+			options={getAddressOptions(response)}
+			on:selection={onAddressSelection}
+			emptyState={$LL.SKELETON.AUTOCOMPLETE.EMPTY_STATE()}
+		/>
+	</div>
 {/if}
 
 <style>
 	/* clears the ‘X’ from Internet Explorer */
-input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
-input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
-/* clears the ‘X’ from Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration { display: none; }
+	input[type='search']::-ms-clear {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+	input[type='search']::-ms-reveal {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+	/* clears the ‘X’ from Chrome */
+	input[type='search']::-webkit-search-decoration,
+	input[type='search']::-webkit-search-cancel-button,
+	input[type='search']::-webkit-search-results-button,
+	input[type='search']::-webkit-search-results-decoration {
+		display: none;
+	}
 </style>
