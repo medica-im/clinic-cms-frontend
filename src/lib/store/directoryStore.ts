@@ -7,7 +7,7 @@ import { env } from '$env/dynamic/public';
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
 
-export const term = writable('');
+export const term = writable("");
 export const selectCommunes = writable([]);
 export const selectCategories = writable([]);
 export const selectSituation = writable("");
@@ -414,20 +414,21 @@ export const fullFilteredEffectors = asyncDerived(
 	([getEffectors, term, selectCommunes, selectSituation, getSituations, distanceEffectors]),
 	async ([$getEffectors, $term, $selectCommunes, $selectSituation, $getSituations, $distanceEffectors]) => {
 		if (
-			!$selectCommunes?.length
-			&& $selectSituation == ''
+			//!$selectCommunes?.length
+			$selectSituation == ''
 			&& $term == ''
 			&& $distanceEffectors == null
 		) {
 			return $getEffectors
 		} else {
-			return $getEffectors.filter(function (x) {
+			/*return $getEffectors.filter(function (x) {
 				if (!$selectCommunes?.length) {
 					return true
 				} else {
 					return $selectCommunes.includes(x.commune.uid)
 				}
-			}).filter(function (x) {
+			})*/
+			return $getEffectors.filter(function (x) {
 				if ($term == '') {
 					return true
 				} else {
@@ -450,9 +451,9 @@ export const fullFilteredEffectors = asyncDerived(
 )
 
 export const filteredEffectors = asyncDerived(
-	([fullFilteredEffectors, selectCategories]),
-	async ([$fullFilteredEffectors, $selectCategories]) => {
-		if (!$selectCategories?.length) {
+	([fullFilteredEffectors, selectCategories, selectCommunes]),
+	async ([$fullFilteredEffectors, $selectCategories, $selectCommunes]) => {
+		if (!$selectCategories?.length && !$selectCommunes?.length) {
 			return $fullFilteredEffectors
 		} else {
 			return $fullFilteredEffectors.filter(function (x) {
@@ -464,6 +465,12 @@ export const filteredEffectors = asyncDerived(
 							return currentElement.uid
 						}
 					).some(r => $selectCategories.includes(r))
+				}
+			}).filter(function (x) {
+				if (!$selectCommunes?.length) {
+					return true
+				} else {
+					return $selectCommunes.includes(x.commune.uid)
 				}
 			})
 		}
@@ -557,11 +564,11 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 
 
 export const categoryOfCommune = asyncDerived(
-	([selectCommunes, categories, filteredEffectors]),
-	async ([$selectCommunes, $categories, $filteredEffectors]) => {
+	([selectCommunes, categories, fullFilteredEffectors]),
+	async ([$selectCommunes, $categories, $fullFilteredEffectors]) => {
 		if ($selectCommunes.length == 0) {
 			return uniq(
-				$filteredEffectors.map(
+				$fullFilteredEffectors.map(
 					function (x) {
 						let dct = { value: x.name, label: x.label };
 						return x.types
@@ -575,7 +582,7 @@ export const categoryOfCommune = asyncDerived(
 			)*/
 		} else {
 			return uniq(
-				$filteredEffectors.filter(e => $selectCommunes.includes(e.commune.uid)
+				$fullFilteredEffectors.filter(e => $selectCommunes.includes(e.commune.uid)
 				).map(
 					function (x) {
 						let dct = { value: x.name, label: x.label };
@@ -593,13 +600,13 @@ export const categoryOfCommune = asyncDerived(
 )
 
 export const communeOfCategory = asyncDerived(
-	([selectCategories, communes, filteredEffectors]),
-	async ([$selectCategories, $communes, $filteredEffectors]) => {
+	([selectCategories, communes, fullFilteredEffectors]),
+	async ([$selectCategories, $communes, $fullFilteredEffectors]) => {
 		if ($selectCategories.length == 0) {
 			return $communes
 		} else {
 			return uniq(
-				$filteredEffectors.filter(
+				$fullFilteredEffectors.filter(
 					x => x.types.map(t => t.uid).some(
 						r => $selectCategories.includes(r)
 					)

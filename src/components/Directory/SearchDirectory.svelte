@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { get } from '@square/svelte-store';
     import { term } from '$lib/store/directoryStore'  
     import {
 		faMagnifyingGlass,
@@ -7,9 +9,16 @@
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	import LL from '$i18n/i18n-svelte';
 	
-    let value: string = '';
+    let value;
 
-	$: term.set(value);
+	$: if (typeof value !== 'undefined') {term.set(value)};
+
+	onMount(() => {
+		let _term = get(term);
+		if (_term) {
+			value = _term;
+		}
+	});
 </script>
 
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
