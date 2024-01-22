@@ -18,3 +18,4 @@ static
 .vscode
 src/routes/test
 src/lib/assets
+vite.config.ts.timestamp-*

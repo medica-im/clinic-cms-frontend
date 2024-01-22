@@ -11,14 +11,17 @@
 	
     let value;
 
-	$: if (typeof value !== 'undefined') {term.set(value)};
+	//$: if (typeof value !== 'undefined') {term.set(value)};
+	//$: value = get(term);
 
+	/*
 	onMount(() => {
 		let _term = get(term);
 		if (_term) {
 			value = _term;
 		}
 	});
+	*/
 </script>
 
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
@@ -27,17 +30,28 @@
 	type="search"
 	autocomplete="off"
 	placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()}
-	bind:value={value}
+	bind:value={$term}
 	aria-label={$LL.ADDRESSBOOK.SEARCH.ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
 		on:click={() => {
-			value = '';
+			$term = '';
 		}}
 		aria-label={$LL.ADDRESSBOOK.CLEAR()}
-		disabled={!value}
+		disabled={!$term}
 	>
 	<DocsIcon name="clear" width="w-5" height="h-5" />
 	</button>
 </div>
+
+<style lang="postcss">
+/* clears the ‘X’ from Internet Explorer */
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+/* clears the ‘X’ from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+</style>

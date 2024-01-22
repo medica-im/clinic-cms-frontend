@@ -17,6 +17,7 @@
 	import type { ConicStop } from '@skeletonlabs/skeleton';
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore';
+	import Clear from '$components/Directory/Clear.svelte';
 
 	const effectors = categorizedCachedEffectors();
 	let top;
@@ -89,8 +90,8 @@
 						<Spinner w="4" h="4" />
 						<p>Mise à jour...</p>
 					</div>
-					<div class="my-4">
-						<p>{contactCount(effectors)}</p>
+					<div class="my-2 flex justify-between w-full">
+						<p>{contactCount(effectors)}</p><Clear/>
 					</div>
 					<div class="my-4 space-y-4">
 						{#each [...effectors] as [key, value]}
@@ -157,8 +158,9 @@
 					</div>
 				</div>
 
-				<div class="my-4">
-					<p>{countString}</p>
+				<div class="my-2 flex justify-between w-full">
+					<span class="badge variant-ghost-surface">{countString}</span>
+					<Clear/>
 				</div>
 
 				<div class="my-4 space-y-4">
@@ -198,7 +200,7 @@
 		scroll-margin-top: 1rem;
 	}
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
+		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8;
 		scroll-padding-top: 4rem;
 	}
 	.programs-gradient {

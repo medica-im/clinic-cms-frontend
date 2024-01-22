@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { communes, selectCommunes, communeOfCategory } from '$lib/store/directoryStore';
+	import { communes, selectCommunes, selectCommunesValue, communeOfCategory } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	const label = 'label';
 	const itemId = 'value';
-	let value = null;
+	//let value = null;
 
 	onMount(() => {
-		value = getValue();
+		selectCommunesValue.set(getValue());
 	});
 
     function getItems(communes) {
@@ -78,7 +78,7 @@ communeOfCategory: {$communeOfCategory} ({$communeOfCategory.length})
 			on:change={handleChange}
 			on:clear={handleClear}
 			placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()}
-			bind:value
+			bind:value={$selectCommunesValue}
 		/>
 	</div>
 {/await}

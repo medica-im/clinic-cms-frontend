@@ -5,7 +5,7 @@
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption } from '@skeletonlabs/skeleton';
 	import { normalize } from '$lib/helpers/stringHelpers';
-	import { addressFeature } from '$lib/store/directoryStore';
+	import { addressFeature, inputAddress } from '$lib/store/directoryStore';
 	import { get } from '@square/svelte-store';
 	import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 	import Fa from 'svelte-fa';
@@ -31,7 +31,7 @@
 		feedbackEmail: null // Set to null to remove feedback box
 	};
 	//let CURRENT: Integer | null = null;
-	let inputAddress: string = '';
+	//let inputAddress: string = '';
 	//let CACHE = '';
 	//let RESULTS: Array<Object> = [];
 
@@ -39,20 +39,16 @@
 		let _addressFeature = get(addressFeature);
 		//console.log(JSON.stringify(_addressFeature));
 		if (!isEmpty(_addressFeature)) {
-			inputAddress = normalize(_addressFeature?.properties?.label);
+			inputAddress.set(normalize(_addressFeature?.properties?.label));
 		}
 		const directoryJsn = await getDirectory();
 		cityCodes = directoryJsn.postal_codes;
-		//console.log(`cityCodes: ${cityCodes}`);
 	});
 
-	$: normalizedInputAddress = normalize(inputAddress);
-	$: if (inputAddress.length > options.minChar) {
+	$: normalizedInputAddress = normalize($inputAddress);
+	$: if ($inputAddress.length > options.minChar) {
 		response = search();
 	}
-	/*$: if (inputAddress.length > options.minChar) {
-		addressOptions = getAddressOptions(response);
-	}*/
 
 	const getDirectory = async () => {
 		let expired;
@@ -80,7 +76,6 @@
 			.filter((e) =>
 				cityCodes.some((cityCode) => {
 					let apiCityCode = e.properties.citycode;
-					//console.log(`apiCityCode:${apiCityCode}, cityCode:${cityCode}`);
 					return apiCityCode.startsWith(cityCode);
 				})
 			)
@@ -100,7 +95,6 @@
 				);
 			}
 		}
-		//console.log(query_string.join('&'));
 		return query_string.join('&');
 	}
 
@@ -113,7 +107,7 @@
 		//  x = y = null;
 		//}
 		return {
-			q: inputAddress,
+			q: get(inputAddress),
 			limit: options.limit,
 			lat: null,
 			lon: null
@@ -121,10 +115,11 @@
 	}
 
 	function search() {
-		if (inputAddress === '') {
+		const _inputAddress = get(inputAddress);
+		if ( _inputAddress === '' ) {
 			return;
 		}
-		if (inputAddress.length < options.minChar) {
+		if ( _inputAddress.length < options.minChar ) {
 			return;
 		}
 		//if (value + '' === CACHE + '') {
@@ -155,7 +150,7 @@
 	}
 
 	function onAddressSelection(event: any): void {
-		inputAddress = event.detail.label;
+		inputAddress.set(event.detail.label);
 		recordAddressFeature(event.detail.value);
 		visible = false;
 	}
@@ -163,7 +158,7 @@
 
 	function handleClear() {
 		visible = false;
-		inputAddress = '';
+		inputAddress.set("");
 		addressFeature.set({});
 	}
 </script>
@@ -176,14 +171,14 @@
 		autocomplete="off"
 		on:input={onInput}
 		placeholder={$LL.ADDRESSBOOK.GEOCODER.PLACEHOLDER()}
-		bind:value={inputAddress}
+		bind:value={$inputAddress}
 		aria-label={$LL.ADDRESSBOOK.GEOCODER.ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
 		on:click={handleClear}
 		aria-label={$LL.ADDRESSBOOK.CLEAR()}
-		disabled={!inputAddress}
+		disabled={!$inputAddress}
 	>
 		<DocsIcon name="clear" width="w-5" height="h-5" />
 	</button>

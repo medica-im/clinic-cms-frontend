@@ -1,20 +1,16 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { categories, selectCategories, categoryOfCommune } from '$lib/store/directoryStore';
+	import { categories, selectCategories, selCatVal, categoryOfCommune } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 
 	const label = 'label';
 	const itemId = 'value';
-	let value = null;
 
 	onMount(() => {
-		value = getValue();
+		selCatVal.set(getValue());
 	});
-
-	
-
 
     function getItems(elements) {
         return elements.map(function (x) {
@@ -60,9 +56,10 @@
 	</div>
 {:then}
 <!--
-selectCategories: {$selectCategories}<br>
 categories: {$categories} ({$categories.length})<br>
 categoryOfCommune: {$categoryOfCommune} ({$categoryOfCommune.length})
+$selCatVal: {$selCatVal}<br>
+$selectCategories: {JSON.stringify($selectCategories)}
 -->
 	<div class="text-surface-700 theme">
 		<Select
@@ -73,7 +70,7 @@ categoryOfCommune: {$categoryOfCommune} ({$categoryOfCommune.length})
 			on:change={handleChange}
 			on:clear={handleClear}
 			placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()}
-			bind:value
+			bind:value={$selCatVal}
 		/>
 	</div>
 {/await}

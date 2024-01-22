@@ -9,11 +9,14 @@ import { replacer, reviver } from '$lib/utils/utils';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
+export const selectCommunesValue = writable(null);
+export const selCatVal = writable(null);
 export const selectCategories = writable([]);
 export const selectSituation = writable("");
+export const selectSituationValue = writable(null);
 export const effectors = writable([]);
 export const addressFeature = writable({});
-
+export const inputAddress = writable("");
 
 const next = writable(null);
 
@@ -602,7 +605,7 @@ export const categoryOfCommune = asyncDerived(
 export const communeOfCategory = asyncDerived(
 	([selectCategories, communes, fullFilteredEffectors]),
 	async ([$selectCategories, $communes, $fullFilteredEffectors]) => {
-		if ($selectCategories.length == 0) {
+		if (!$selectCategories?.length) {
 			return $communes
 		} else {
 			return uniq(

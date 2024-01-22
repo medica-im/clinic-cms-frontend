@@ -1,17 +1,15 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { getSituations, situations, selectSituation } from '$lib/store/directoryStore';
+	import { getSituations, situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	const label = 'label';
 	const itemId = 'value';
-	let value: string = "";
 
 	onMount(() => {
-		value = getValue();
+		selectSituationValue.set(getValue());
 	});
-
 
 	function getValue() {
 		let sSituation = get(selectSituation);
@@ -63,7 +61,7 @@ value: {JSON.stringify(value)}
 			on:change={handleChange}
 			on:clear={handleClear}
 			placeholder={$LL.ADDRESSBOOK.SITUATIONS.PLACEHOLDER()}
-			bind:value
+			bind:value={$selectSituationValue}
 		/>
 	</div>
 {/await}
