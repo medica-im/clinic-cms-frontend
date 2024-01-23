@@ -49,6 +49,7 @@
 	$: if ($inputAddress.length > options.minChar) {
 		response = search();
 	}
+	$: visible = Boolean($inputAddress) && Object.keys($addressFeature).length === 0 && $addressFeature.constructor === Object;
 
 	const getDirectory = async () => {
 		let expired;
