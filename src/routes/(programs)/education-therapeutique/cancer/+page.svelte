@@ -5,6 +5,7 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { page } from '$app/stores';
 	import ProgramNav from '$components/ProgramNav.svelte';
+	import Carousel from '$components/Carousel/Carousel.svelte';
 </script>
 
 <svelte:head>
@@ -98,6 +99,18 @@
 			Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
 			gratuite.
 		</p>
+	</div>
+</section>
+
+<section>
+	<div class="section-container">
+		<div class="max-w-2xl">
+		<Carousel
+			count={6}
+			path={'education-therapeutique-cancer-atelier-0.jpg'}
+			alt="Atelier HOPE, accompagnement pendant un cancer."
+		/>
+	</div>
 	</div>
 </section>
 

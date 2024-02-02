@@ -38,11 +38,13 @@
 
 	<section>
 		<div class="section-container">
+			<div class="max-w-2xl">
 			<Carousel
 				count={6}
 				path={'reunion-concertation-pluriprofessionnelle-0.jpg'}
 				alt={capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.MDT_MEETING(), $language)}
 			/>
+			</div>
 		</div>
 	</section>
 </div>
