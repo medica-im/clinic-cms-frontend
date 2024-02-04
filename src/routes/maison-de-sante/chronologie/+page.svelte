@@ -6,9 +6,6 @@
 	import LL from '$i18n/i18n-svelte';
 
 	export let data;
-
-	let promise;
-	$: (promise = facilityStore.load()), $language;
 </script>
 
 <svelte:head>
@@ -16,5 +13,5 @@
 		{$LL.TIMELINE.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
-
 <TimeLine data={data.timeline} />
+
