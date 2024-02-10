@@ -19,3 +19,5 @@ static
 src/routes/test
 src/lib/assets
 vite.config.ts.timestamp-*
+.env_dev.annuaire.medica.im
+.env_dev.saint-esprit-sante.fr

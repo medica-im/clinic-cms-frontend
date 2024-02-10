@@ -17,6 +17,7 @@ export const selectSituationValue = writable(null);
 export const effectors = writable([]);
 export const addressFeature = writable({});
 export const inputAddress = writable("");
+import type situation from './directoryStoreInterface';
 
 const next = writable(null);
 
@@ -375,16 +376,21 @@ export const getSituations = asyncReadable(
 export const situations = asyncDerived(
 	([getSituations]),
 	async ([$getSituations]) => {
-		let situations = (
-			$getSituations.map(function (e) {
-				const situation = {
-					value: e.uid,
-					label: e.name
+		let situations: [] | situation[] = [];
+		try {
+			situations = (
+				$getSituations.map(function (e) {
+					const situation = {
+						value: e.uid,
+						label: e.name
+					}
+					return situation
 				}
-				return situation
-			}
-			)
-		);
+				)
+			);
+		} catch (e) {
+			console.log(e);
+		}
 		return situations;
 	});
 
