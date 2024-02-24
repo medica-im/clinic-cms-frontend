@@ -270,7 +270,7 @@ var Search = function (options) {
       this.ajax(this.handleResults, this);
     },
     _onSelected: function (feature) {
-      console.log(feature);
+      //console.log(feature);
     },
     onSelected: function (choice) {
       return (this.options.onSelected || this._onSelected).call(this, choice);

@@ -282,7 +282,7 @@
 		<div class="relative hidden xl:block">
 
 		<section>
-			{#if facility.contact.socialnetworks}
+			{#if facility?.contact?.socialnetworks}
             <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
 			{/if}
 			{#if variables.BLOG_URI}

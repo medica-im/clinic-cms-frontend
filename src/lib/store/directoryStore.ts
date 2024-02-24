@@ -1,11 +1,11 @@
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
-import { locale } from '$i18n/i18n-svelte';
 import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { env } from '$env/dynamic/public';
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
+import type { Situation } from './directoryStoreInterface';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
@@ -17,7 +17,8 @@ export const selectSituationValue = writable(null);
 export const effectors = writable([]);
 export const addressFeature = writable({});
 export const inputAddress = writable("");
-import type situation from './directoryStoreInterface';
+export const selectFacility = writable("");
+export const selectFacilityValue = writable(null);
 
 const next = writable(null);
 
@@ -92,6 +93,9 @@ async function fetchEffectors(next) {
 async function fetchEffector(uid) {
 	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${uid}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	if (err) {
+		console.log(err);
+	}
 	if (response) {
 		let data: any = response;
 		return data;
@@ -229,24 +233,26 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 	return effectors;
 }
 
-export const getEffectors = asyncDerived(
-	([locale, effectors]),
-	async ([$locale, $effectors]) => {
+export const getEffectors = asyncReadable(
+	{},
+	async () => {
+		//let contacts = getLocalStorage("contacts")?.data;
+		//if (!import.meta.env.DEV && PUBLIC_CACHE_CONTACTS=="false" || contacts==null) {
 		let contacts = await downloadContacts();
+		//}
 		let localContacts;
 		let localContactsObj = getLocalStorage('contacts');
 		localContacts = localContactsObj?.data;
-		//console.log(localContacts?.slice(0, 5))
 		setLocalStorage('contacts', contacts)
 		if (localContacts === null || localContacts === undefined) {
 			let effectors = await downloadAllEffectors();
 			setLocalStorage('effectors', effectors);
+			//console.log(`250 getEffectors effectors:${effectors}`);
 			return effectors;
 		}
 
 		var cachelife = parseInt(env.PUBLIC_EFFECTORS_TTL);
 		let expired: boolean = true;
-		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
 		let empty: boolean = true;
 		const cachedEffectorsObj = getLocalStorage('effectors');
 		let changedObj;
@@ -262,17 +268,19 @@ export const getEffectors = asyncDerived(
 			//console.log(`isUnchanged: ${isUnchanged(changedObj)}`)
 		}
 		if (!expired && !empty && changedObj && isUnchanged(changedObj)) {
+			//console.log(`cachedEffectorsObj.data: ${cachedEffectorsObj.data}`);
 			return cachedEffectorsObj.data;
 		} else if (expired || empty) {
 			const allEffectors = await downloadAllEffectors();
+			//console.log(`allEffectors: ${allEffectors}`);
 			return allEffectors;
 		} else {
 			const effectors = await processCachedEffectors(changedObj);
+			//console.log(`279 effectors: ${effectors}`);
 			return effectors;
 		}
 	}
 );
-
 export const distanceEffectors = asyncDerived(
 	([addressFeature, getEffectors]),
 	async ([$addressFeature, $getEffectors]) => {
@@ -333,6 +341,50 @@ export const categories = asyncDerived(
 		return categories
 	});
 
+export const facilities = asyncReadable(
+	{},
+	async () => {
+		var cachelife = parseInt(env.PUBLIC_FACILITIES_TTL);
+		const cacheName = "facilities";
+		let cachedData;
+		let expired: boolean = true;
+		let empty: boolean = true;
+		if (browser) {
+			cachedData = localStorage.getItem(`${cacheName}`);
+		}
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			expired = elapsed > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
+			}
+		}
+		if (cachedData && !expired && !empty) {
+			return cachedData.data;
+		} else {
+			const url = `${variables.BASE_API_URI}/facilities`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, url);
+			if (response) {
+				let data = response?.facilities;
+				data = data.sort(function (a, b) {
+					return a.name.localeCompare(b.name);
+				})
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+				}
+				//console.log(data);
+				return data;
+			} else if (err) {
+				console.error(err);
+			}
+		}
+	}
+);
+
 export const getSituations = asyncReadable(
 	{},
 	async () => {
@@ -376,7 +428,7 @@ export const getSituations = asyncReadable(
 export const situations = asyncDerived(
 	([getSituations]),
 	async ([$getSituations]) => {
-		let situations: [] | situation[] = [];
+		let situations: [] | Situation[] = [];
 		try {
 			situations = (
 				$getSituations.map(function (e) {
@@ -389,7 +441,7 @@ export const situations = asyncDerived(
 				)
 			);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 		return situations;
 	});
@@ -419,24 +471,23 @@ function compareEffectorDistance(a, b, distEffectors) {
 	}
 }
 
-export const fullFilteredEffectors = asyncDerived(
-	([getEffectors, term, selectCommunes, selectSituation, getSituations, distanceEffectors]),
-	async ([$getEffectors, $term, $selectCommunes, $selectSituation, $getSituations, $distanceEffectors]) => {
+export const fullFilteredEffectors = derived(
+	([getEffectors, term, selectSituation, getSituations, distanceEffectors]),
+	([$getEffectors, $term, $selectSituation, $getSituations, $distanceEffectors]) => {
+		/*try {
+		console.log(`fullFilteredEffectors $getEffectors: ${JSON.parse($getEffectors)}`);
+		} catch (e) {
+			console.log(`fullFilteredEffectors $getEffectors: ${$getEffectors}`);
+		}
+		console.log(`fullFilteredEffectors $getEffectors type: ${typeof ($getEffectors)}`);*/
 		if (
-			//!$selectCommunes?.length
 			$selectSituation == ''
 			&& $term == ''
 			&& $distanceEffectors == null
 		) {
+			//console.log("fullFilteredEffectors: return $getEffectors");
 			return $getEffectors
 		} else {
-			/*return $getEffectors.filter(function (x) {
-				if (!$selectCommunes?.length) {
-					return true
-				} else {
-					return $selectCommunes.includes(x.commune.uid)
-				}
-			})*/
 			return $getEffectors.filter(function (x) {
 				if ($term == '') {
 					return true
@@ -447,7 +498,6 @@ export const fullFilteredEffectors = asyncDerived(
 				if ($selectSituation == '') {
 					return true
 				} else {
-					let situation = $getSituations.find(obj => { return obj.uid == $selectSituation });
 					let effectors = $getSituations.find(obj => { return obj.uid == $selectSituation })?.effectors;
 					//console.log(effectors);
 					let condition = effectors.includes(x.uid);
@@ -460,9 +510,9 @@ export const fullFilteredEffectors = asyncDerived(
 )
 
 export const filteredEffectors = asyncDerived(
-	([fullFilteredEffectors, selectCategories, selectCommunes]),
-	async ([$fullFilteredEffectors, $selectCategories, $selectCommunes]) => {
-		if (!$selectCategories?.length && !$selectCommunes?.length) {
+	([fullFilteredEffectors, selectCategories, selectCommunes, selectFacility]),
+	async ([$fullFilteredEffectors, $selectCategories, $selectCommunes, $selectFacility]) => {
+		if (!$selectCategories?.length && !$selectCommunes?.length && $selectFacility==="") {
 			return $fullFilteredEffectors
 		} else {
 			return $fullFilteredEffectors.filter(function (x) {
@@ -480,6 +530,12 @@ export const filteredEffectors = asyncDerived(
 					return true
 				} else {
 					return $selectCommunes.includes(x.commune.uid)
+				}
+			}).filter(function (x) {
+				if ($selectFacility==="") {
+					return true
+				} else {
+					return $selectFacility==x.facility
 				}
 			})
 		}
@@ -571,55 +627,74 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 	}
 )
 
-
-export const categoryOfCommune = asyncDerived(
-	([selectCommunes, categories, fullFilteredEffectors]),
-	async ([$selectCommunes, $categories, $fullFilteredEffectors]) => {
-		if ($selectCommunes.length == 0) {
+export const categoryOf = derived(
+	([selectCommunes, fullFilteredEffectors, selectFacility]),
+    ([$selectCommunes, $fullFilteredEffectors, $selectFacility, ]) => {
+		//console.log(`categoryOf fullFilteredEffectors: "${$fullFilteredEffectors}" type: ${typeof($fullFilteredEffectors)}`);
+		if (!Array.isArray($fullFilteredEffectors)) {
+			return []
+		}
+		if (!$selectCommunes.length && $selectFacility == "") {
 			return uniq(
 				$fullFilteredEffectors.map(
 					function (x) {
-						let dct = { value: x.name, label: x.label };
 						return x.types
 					}
 				).flat()
-			)/*.map(
-				function (x) {
-					let dct = { value: x.uid, label: x.name };
-					return dct
-				}
-			)*/
+			)
 		} else {
 			return uniq(
-				$fullFilteredEffectors.filter(e => $selectCommunes.includes(e.commune.uid)
+				$fullFilteredEffectors.filter(
+					function (x) {
+						return (
+							(!$selectCommunes.length || $selectCommunes.includes(x.commune.uid)) && (!$selectFacility || $selectFacility == x.facility)
+						)
+					}
 				).map(
 					function (x) {
-						let dct = { value: x.name, label: x.label };
 						return x.types
 					}
 				).flat()
-			)/*.map(
-				function (x) {
-					let dct = { value: x.uid, label: x.name };
-					return dct
-				}
-			)*/
+			)
 		}
 	}
 )
 
-export const communeOfCategory = asyncDerived(
-	([selectCategories, communes, fullFilteredEffectors]),
-	async ([$selectCategories, $communes, $fullFilteredEffectors]) => {
-		if (!$selectCategories?.length) {
+export const communeOf = derived(
+	([selectCategories, communes, fullFilteredEffectors, selectFacility]),
+	([$selectCategories, $communes, $fullFilteredEffectors, $selectFacility]) => {
+		if (!$selectCategories?.length && !$selectFacility) {
 			return $communes
 		} else {
 			return uniq(
 				$fullFilteredEffectors.filter(
-					x => x.types.map(t => t.uid).some(
-						r => $selectCategories.includes(r)
-					)
+					x => {
+						return (!$selectCategories?.length || x.types.map(t => t.uid).some(
+							r => $selectCategories.includes(r)
+						)) && (!$selectFacility || x.facility == $selectFacility)
+					}
 				).map(x => x.commune)
+			)
+		}
+	}
+)
+
+export const facilityOf = asyncDerived(
+	([selectCategories, facilities, fullFilteredEffectors, selectCommunes]),
+	async ([$selectCategories, $facilities, $fullFilteredEffectors, $selectCommunes]) => {
+		if (!$selectCategories?.length && !$selectCommunes?.length) {
+			return $facilities.map(x=>x.uid)
+		} else {
+			return uniq(
+				$fullFilteredEffectors.filter(
+					(x) => {
+						return (
+							(!$selectCategories?.length || x.types.map(t => t.uid).some(
+								r => $selectCategories.includes(r)
+							)) && (!$selectCommunes?.length || $selectCommunes.includes($facilities.find(({uid}) => uid===x.facility).commune)
+						))
+					}
+				).map(x => x.facility)
 			)
 		}
 	}

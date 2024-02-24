@@ -9,12 +9,13 @@
 		selectCommunes,
 		selectCategories,
 		selectSituation,
-		addressFeature
+		addressFeature,
+		selectFacility,
 	} from '$lib/store/directoryStore';
 </script>
 
 <a href="/" class="btn variant-filled">
-	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $addressFeature?.geometry?.coordinates}
+	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || $addressFeature?.geometry?.coordinates}
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="flex flex-wrap whitespace-normal text-left">
 			{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}

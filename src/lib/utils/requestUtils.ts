@@ -227,8 +227,7 @@ export const handlePostRequestsWithPermissions = async (
 
 export const handleRequestsWithPermissions = async (
 	fetch,
-	targetUrl: string
-): Promise<[{}, CustomError]> => {
+	targetUrl: string): Promise<[{}, CustomError]> => {
 	let refreshToken;
 	if (browser) {
 		refreshToken = browserGet('refreshToken')
@@ -262,7 +261,7 @@ export const handleRequestsWithPermissions = async (
 			mode: 'cors',
 			headers: {
 				Authorization: `Bearer ${accessRefresh.access}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
 		};
 	} else {
@@ -270,7 +269,7 @@ export const handleRequestsWithPermissions = async (
 			method: 'GET',
 			mode: 'cors',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
 		};
 	}

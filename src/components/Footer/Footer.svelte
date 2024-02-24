@@ -94,7 +94,9 @@
 				>© 2023 <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
 			</span>
 			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+				{#if $facilityStore?.contact?.socialnetworks}
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />
+				{/if}
 				{#if variables.BLOG_URI}
 				<BlogIconLink />
 				{/if}

@@ -1,11 +1,11 @@
 <script lang="ts">
     import Fa from 'svelte-fa';
 	import { faDeleteLeft, faEraser } from '@fortawesome/free-solid-svg-icons';
-	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, addressFeature, inputAddress } from '$lib/store/directoryStore';
+	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, addressFeature, inputAddress, selectFacility, selectFacilityValue } from '$lib/store/directoryStore';
 
 	let isDisabled = true;
 
-	$: isDisabled = !($term || $selectCommunesValue || $selCatVal || $selectSituationValue || $inputAddress);
+	$: isDisabled = !($term || $selectCommunesValue || $selCatVal || $selectSituationValue || $inputAddress || $selectFacilityValue);
 
 	function erase() {
 		term.set("");
@@ -17,6 +17,8 @@
 		selectSituationValue.set(null);
 		addressFeature.set({});
 		inputAddress.set("");
+		selectFacility.set("");
+		selectFacilityValue.set(null);
 	}
 </script>
 

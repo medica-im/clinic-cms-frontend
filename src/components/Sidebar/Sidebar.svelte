@@ -163,8 +163,9 @@
 				<span>Blog</span>
 			</AppRailAnchor>
 		{/if}
-
+		{#if data?.contact?.socialnetworks}
 		<SoMed data={data.contact.socialnetworks} appRail={true} />
+		{/if}
 	</AppRail>
 	{#if filteredMenuNavLinks.length}
 	<!-- Nav Links -->

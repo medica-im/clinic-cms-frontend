@@ -3,7 +3,6 @@
 	import {
 		categories,
 		selectCategories,
-		categoryOfCommune,
 		categorizedFullFilteredEffectors
 	} from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
@@ -31,12 +30,12 @@
 		let next = '';
 		do {
 			const url = `${baseUrl}${next}`;
-			console.log(url);
+			//console.log(url);
 			const res = await fetch(url);
 			const data = await res.json();
 			records.push(...data.effector_types);
 			next = data.meta.next;
-			console.log(next);
+			//console.log(next);
 		} while (next);
 		//console.log(`effector_types: ${JSON.stringify(records)}`);
 		return records;

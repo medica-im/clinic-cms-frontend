@@ -57,7 +57,9 @@
 			</a>
 		</li>
 		{/if}
+		{#if facility?.contact?.socialnetworks}
 		<SoMed data={data.contact.socialnetworks} sideBar={true} />
+		{/if}
 		<User facility={data.facility} sideBar={true} />
 	</ul>
 </nav>

@@ -1,33 +1,37 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { communes, selectCommunes, selectCommunesValue, communeOf } from '$lib/store/directoryStore';
+	import {facilities, selectFacility, selectFacilityValue, facilityOf} from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
+
+	import type { Facility } from '$lib/store/directoryStoreInterface';
+
 	const label = 'label';
 	const itemId = 'value';
 	//let value = null;
 
 	onMount(() => {
-		selectCommunesValue.set(getValue());
+		selectFacilityValue.set(getValue());
 	});
 
-    function getItems(communes) {
-        return communes.map(function (x) {
+    function getItems(_facilitiesOf: string[]) {
+		let _allFacilities = get(facilities);
+        return _allFacilities.filter((f) => _facilitiesOf.includes(f.uid)).map(function (x) {
 			let dct = { value: x.uid, label: x.name };
 			return dct;
 		})
 	}
 
 	function getValue() {
-		let sCommunes = get(selectCommunes);
-		if (!sCommunes?.length) {
+		let sFacility = get(selectFacility);
+		if (sFacility=="") {
 			return null;
 		} else {
-			let c = get(communes);
+			let c = get(facilities);
 			if (c) {
 				let val = c
-					.filter((x) => sCommunes.includes(x.uid))
+					.filter((x) => sFacility == x.uid)
 					.map(function (x) {
 						let dct = { value: x.uid, label: x.name };
 						return dct;
@@ -39,37 +43,37 @@
 
 	function handleClear(event) {
 		if (event.detail) {
-			selectCommunes.set([]);
+			selectFacility.set("");
 		}
 	}
 
 	function handleChange(event) {
 		if (event.detail) {
-			selectCommunes.set([event.detail.value]);
+			selectFacility.set(event.detail.value);
 		}
 	}
 </script>
 
-{#await communeOf.load()}
+{#await facilityOf.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()} />
+		<Select loading={true} placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()} />
 	</div>
 {:then}
 <!--
-selectCommunes: {$selectCommunes}<br>
-communes: {$communes} ({$communes.length})<br>
-communeOf: {$communeOf} ({$communeOf.length})
+selectFacility: {$selectFacility}<br>
+facilities: {$facilities} ({$facilities.length})<br>
+facilityOf: {$facilityOf} ({$facilityOf.length})
 -->
 	<div class="text-surface-700 theme">
 		<Select
 			{label}
 			{itemId}
-			items={getItems($communeOf)}
+			items={getItems($facilityOf)}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()}
-			bind:value={$selectCommunesValue}
+			placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()}
+			bind:value={$selectFacilityValue}
 		/>
 	</div>
 {/await}

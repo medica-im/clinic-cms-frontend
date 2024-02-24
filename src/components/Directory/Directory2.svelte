@@ -10,6 +10,7 @@
 	import SelectCategories from './SelectCategories.svelte';
 	import SelectCategoriesChips from './SelectCategoriesChips.svelte';
 	import SelectSituations from './SelectSituations.svelte';
+	import SelectFacility from '$components/Directory/SelectFacility.svelte';
 	import Geocoder from '$components/Geocoder/Geocoder.svelte';
 	import Fa from 'svelte-fa';
 	import { faArrowsUpToLine } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +19,7 @@
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore';
 	import Clear from '$components/Directory/Clear.svelte';
+	import { page } from '$app/stores';
 
 	const effectors = categorizedCachedEffectors();
 	let top;
@@ -51,116 +53,147 @@
 		<div class="section-container" bind:this={top}>
 			{#await categorizedFilteredEffectors.load()}
 				<div class="space-y-2">
-					<div class="row">
-						<div class="col">
-							<Geocoder />
+					{#if $page.data.directory?.inputField?.geocoder}
+						<div class="row">
+							<div class="col">
+								<Geocoder />
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<SelectSituations />
+					{/if}
+					{#if $page.data.directory?.inputField?.situation}
+						<div class="row">
+							<div class="col">
+								<SelectSituations />
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<SelectCommunes />
+					{/if}
+					{#if $page.data.directory?.inputField?.commune}
+						<div class="row">
+							<div class="col">
+								<SelectCommunes />
+							</div>
 						</div>
-					</div>
+					{/if}
 					{#if $selectSituation}
 						<div class="row">
 							<div class="col">
 								<SelectCategoriesChips />
 							</div>
 						</div>
-					{:else}
+					{:else if $page.data.directory?.inputField?.category}
 						<div class="row">
 							<div class="col">
 								<SelectCategories />
 							</div>
 						</div>
 					{/if}
-					<div class="row">
-						<div class="col">
-							<SearchDirectory />
-						</div>
-					</div>
-				</div>
-				{#if effectors && [...effectors]?.length}
-					<div class="flex justify-center m-4 space-x-2 items-center">
-						<Spinner w="4" h="4" />
-						<p>Mise à jour...</p>
-					</div>
-					<div class="my-2 flex justify-between w-full">
-						<p>{contactCount(effectors)}</p><Clear/>
-					</div>
-					<div class="my-4 space-y-4">
-						{#each [...effectors] as [key, value]}
-							<div class="space-y-4 my-4 anchordiv" id={key}>
-								<div class="relative inline-block">
-									<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
-										{value.length}
-									</span>
-
-									<span class="badge variant-filled"
-										><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
-									>
-								</div>
+					{#if $page.data.directory?.inputField?.facility}
+						<div class="row">
+							<div class="col">
+								<SelectFacility />
 							</div>
-							{#each value as effector}
-								<div class="space-y-4 my-4">
-									<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-										<Effector {effector} />
+						</div>
+					{/if}
+					{#if $page.data.directory?.inputField?.search}
+						<div class="row">
+							<div class="col">
+								<SearchDirectory />
+							</div>
+						</div>
+					{/if}
+					{#if effectors && [...effectors]?.length}
+						<div class="flex justify-center m-4 space-x-2 items-center">
+							<Spinner w="4" h="4" />
+							<p>Mise à jour...</p>
+						</div>
+						<div class="my-2 flex justify-between w-full">
+							<p>{contactCount(effectors)}</p>
+							<Clear />
+						</div>
+						<div class="my-4 space-y-4">
+							{#each [...effectors] as [key, value]}
+								<div class="space-y-4 my-4 anchordiv" id={key}>
+									<div class="relative inline-block">
+										<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
+											{value.length}
+										</span>
+
+										<span class="badge variant-filled"
+											><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
+										>
 									</div>
 								</div>
+								{#each value as effector}
+									<div class="space-y-4 my-4">
+										<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+											<Effector {effector} />
+										</div>
+									</div>
+								{/each}
 							{/each}
-						{/each}
-					</div>
-				{:else}
-					<div class="flex justify-center m-4 space-x-2 items-center">
-						<Spinner w="4" h="4" />
-						<p>Chargement...</p>
-					</div>
-				{/if}
+						</div>
+					{:else}
+						<div class="flex justify-center m-4 space-x-2 items-center">
+							<Spinner w="4" h="4" />
+							<p>Chargement...</p>
+						</div>
+					{/if}
+				</div>
 			{:then}
 				<div class="space-y-2">
+					{#if $page.data.directory?.inputField?.geocoder}
 					<div class="row">
 						<div class="col">
 							<Geocoder />
 						</div>
 					</div>
+					{/if}
+					{#if $page.data.directory?.inputField?.situation}
 					<div class="row">
 						<div class="col">
 							<SelectSituations />
 						</div>
 					</div>
+					{/if}
+					{#if $page.data.directory?.inputField?.commune}
 					<div class="row">
 						<div class="col">
 							<SelectCommunes />
 						</div>
 					</div>
+					{/if}
 					{#if $selectSituation}
 						<div class="row">
 							<div class="col">
 								<SelectCategoriesChips />
 							</div>
 						</div>
-					{:else}
+					{:else if $page.data.directory?.inputField?.category}
 						<div class="row">
 							<div class="col">
 								<SelectCategories />
 							</div>
 						</div>
 					{/if}
+					{#if $page.data.directory?.inputField?.facility}
+					<div class="row">
+						<div class="col">
+							<SelectFacility />
+						</div>
+					</div>
+					{/if}
+					{#if $page.data.directory?.inputField?.search}
 					<div class="row">
 						<div class="col">
 							<SearchDirectory />
 						</div>
 					</div>
+					{/if}
 				</div>
 
 				<div class="my-2 flex justify-between w-full">
 					<span class="badge variant-ghost-surface">{countString}</span>
-					<Clear/>
+					<Clear />
 				</div>
 
 				<div class="my-4 space-y-4">

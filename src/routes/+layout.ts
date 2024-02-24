@@ -4,12 +4,16 @@ import type { Locales } from '$i18n/i18n-types'
 import { loadLocaleAsync } from '$i18n/i18n-util.async'
 import { browser } from '$app/environment'
 import { QueryClient } from '@tanstack/svelte-query'
+import { variables } from '$lib/utils/constants';
+import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import LL, { setLocale } from '$i18n/i18n-svelte'
 import { get } from 'svelte/store'
 
+let directory;
+
 /** @type {import('./$types').LayoutLoad} */
 
-export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }) => { 
+export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { locale } }) => { 
 // load dictionary into memory
 	await loadLocaleAsync(locale)
 
@@ -19,7 +23,13 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }
 	// get the translation functions value from the store
 	//const $LL = get(LL)
 	//console.info($LL.log({ fileName: '+layout.ts' }))
-
+  const apiUrl = `${variables.BASE_API_URI}/directory/`;
+  const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
+  if (response) {
+      directory = response;
+  } else if (err) {
+    console.error(err);
+  }
   const fData = await facilityStore.load();
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -32,6 +42,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }
   return {
       queryClient: queryClient,
       locale: locale,
+      directory: directory,
       facility: fData,
       sections: [
         { slug: 'profile', title: 'Profile' },
