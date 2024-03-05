@@ -15,5 +15,9 @@
     }
 </script>
 
-<span><Fa icon={getIcon(data.type)}/></span>
-<span><a href="tel:{data.phone}">{data.phone}</a></span>
+<div class="flex content-start space-x-2 items-center">
+<div class="flex-initial"><span clas="w-4"><Fa icon={getIcon(data.type)} /></span></div>
+<a href="tel:{data.phone}">
+<div class="flex-initial">{data.phone}</div>
+</a>
+</div>

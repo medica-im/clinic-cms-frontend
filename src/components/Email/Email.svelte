@@ -1,0 +1,22 @@
+<script lang="ts">
+	import LL from '$i18n/i18n-svelte';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { language } from '$lib/store/languageStore';
+	import Fa from 'svelte-fa';
+	import { faAddressBook, faEnvelope } from '@fortawesome/free-regular-svg-icons';
+	import { faGlobe, faBlog } from '@fortawesome/free-solid-svg-icons';
+
+	export let data;
+
+	function removeHttp(url) {
+		return url.replace(/^https?:\/\//, '');
+	}
+</script>
+<div class="flex content-start space-x-2 items-center">
+	<div class="flex-initial break-words overflow-hidden p-0"><span class="w-4"><Fa icon={faEnvelope} /></span></div>
+	<a href="mailto:{data.email}">
+	<div class="w-64 md:w-full flex-initial break-words overflow-hidden">
+	{data.email}
+	</div>
+</a>
+</div>

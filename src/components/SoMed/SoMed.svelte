@@ -10,8 +10,9 @@
 		faSkype
 	} from '@fortawesome/free-brands-svg-icons';
 	import { drawerStore } from '@skeletonlabs/skeleton';
+	import type { SocialNetwork } from '$lib/interfaces/socialnetwork.interface';
 	export let embedded = false;
-	export let data;
+	export let data: SocialNetwork[];
 	export let appBar = false;
 	export let sideBar = false;
 	export let appRail = false;
@@ -53,8 +54,8 @@
 		return element.url;
 	}
     */
-	function getIcon(somed) {
-		let type = somed.type;
+	function getIcon(somed: SocialNetwork) {
+		let type: string = somed.type;
 		const icons = {
 			T: faTwitter,
 			F: faFacebook,
@@ -63,7 +64,7 @@
 			YT: faYoutube,
 			S: faSkype
 		};
-		return icons[type];
+		return icons[type as keyof typeof icons];
 	}
 </script>
 
@@ -71,7 +72,7 @@
 	{#each data as somed}
 		<a
 			href={somed.url}
-			title={somed.get_type_display}
+			title={somed.type_display}
 			class="btn-icon btn-icon-sm hover:variant-soft-secondary"
 			target="_blank"
 			rel="external"
@@ -83,7 +84,7 @@
 	{#each data as somed}
 		<li>
 			<a href={somed.url} class="hover:variant-soft-secondary" target="_blank" rel="external">
-				<span><Fa icon={getIcon(somed)} size="lg" /></span><span>{somed.get_type_display}</span>
+				<span><Fa icon={getIcon(somed)} size="lg" /></span><span>{somed.type_display}</span>
 			</a>
 		</li>
 	{/each}
@@ -98,7 +99,7 @@
 	}}
 >
 	<svelte:fragment slot="lead"><Fa icon={getIcon(somed)} size="lg" class="inline-block outline-none" /></svelte:fragment>
-	<span>{somed.get_type_display}</span>
+	<span>{somed.type_display}</span>
 </AppRailAnchor>
 	{/each}
 {:else}
@@ -106,7 +107,7 @@
 	{#each data as somed}
 		<a
             href={somed.url}
-            title={somed.get_type_display}
+            title={somed.type_display}
             class="btn-icon variant-ghost-secondary"
             target="_blank"
             rel="external">

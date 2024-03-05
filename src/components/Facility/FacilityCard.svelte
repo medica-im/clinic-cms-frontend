@@ -2,6 +2,7 @@
 	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import Navigation from '$components/Navigation/Navigation.svelte';
+	import Email from '$components/Email/Email.svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
 	import LL from '$i18n/i18n-svelte';
@@ -48,6 +49,13 @@
 					<p class="space-x-2">
 						<Address data={facility.contact} />
 					</p>
+					{#if facility.contact?.emails}
+					<ul class="list">
+					{#each facility.contact?.emails as email}
+                                <Email data={email}/>
+							{/each}
+					</ul>                                    
+                    {/if}
 					<p>
 						
 						{#if browser}

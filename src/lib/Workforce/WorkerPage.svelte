@@ -32,15 +32,15 @@
 
 <div class="lg:flex m-auto font-serif m-4 p-4 gap-8">
 	<div class="space-y-2">
-		<h2 class="w-full text-2xl">
+		<h1 class="w-full text-2xl">
 			{workerTitleFormattedName(userData)}
-		</h2>
+		</h1>
 
 		{#each userData.occupations as occupation}
 			{#if occupation.specialty}
-				<h3>
+				<h2 class="h2">
 					{occupation.specialty.label}
-				</h3>
+				</h2>
 				{#each occupation.specialty.facilities as facility}
 					<WorkerFacility {facility} />
 				{/each}

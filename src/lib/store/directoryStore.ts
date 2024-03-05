@@ -94,7 +94,7 @@ async function fetchEffector(uid) {
 	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${uid}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
 	if (err) {
-		console.log(err);
+		console.log(JSON.stringify(err));
 	}
 	if (response) {
 		let data: any = response;
