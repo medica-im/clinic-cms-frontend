@@ -18,7 +18,7 @@
 		<span class="hidden 2xl:inline-block">{data.type_display}</span>
 	</div>
 	</div>
-	<a href="mailto:{data.email}">
+	<a class="unstyled underline underline-offset-4" href="mailto:{data.email}">
 	<div class="w-64 md:w-full flex-initial break-words overflow-hidden">{data.email}</div>
 </a>
 

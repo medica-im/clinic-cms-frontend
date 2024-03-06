@@ -7,7 +7,7 @@
 	import Payment from '$components/Addressbook/Payment/Payment.svelte';
 	import Cost from '$components/Addressbook/Cost/Cost.svelte';
 	import Info from '$components/Addressbook/Info/Info.svelte';
-	import Appointment from './Appointment.svelte';
+	import Appointment from '../components/Effector/Appointment/Appointments.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
 	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';

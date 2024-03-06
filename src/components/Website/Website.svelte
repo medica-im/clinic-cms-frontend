@@ -30,11 +30,11 @@
 				</div>
 			</div>
             <a
+		class="unstyled underline underline-offset-4"
 		href={data.website}
 		title={removeHttp(data.website)}
 		target="_blank"
 		rel="external"
-		class=""
 	>
 			<div class="w-64 md:w-full flex-initial break-words overflow-hidden">{removeHttp(data.website)}</div>
             </a>

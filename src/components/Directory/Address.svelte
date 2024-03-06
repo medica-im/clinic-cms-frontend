@@ -11,49 +11,55 @@
 	export let data;
 </script>
 
-<ul class="list">
-	{#if data.building}
-		<li>{data.building}</li>
-	{/if}
-	<li>{data.street || 'MISSING ADDRESS FIELD: STREET'}</li>
-	{#if data.geographical_complement}
-		<li>({data.geographical_complement})</li>
-	{/if}
-	<li>
-		<div class="flex">
-			<div>{data.zip || 'MISSING ADDRESS FIELD: ZIP'}</div>
-			<div>&nbsp;</div>
-			<div><b>{data.city || 'MISSING ADDRESS FIELD: CITY'}</b></div>
-		</div>
-	</li>
-	{#if data.latitude && data.longitude}
+<div>
+	<ul class="list">
+		{#if data.building}
+			<li>{data.building}</li>
+		{/if}
+		<li>{data.street || 'MISSING ADDRESS FIELD: STREET'}</li>
+		{#if data.geographical_complement}
+			<li>({data.geographical_complement})</li>
+		{/if}
 		<li>
-			<div>
-				<Distance uid={data.facility_uid} />
+			<div class="flex">
+				<div>{data.zip || 'MISSING ADDRESS FIELD: ZIP'}</div>
+				<div>&nbsp;</div>
+				<div><b>{data.city || 'MISSING ADDRESS FIELD: CITY'}</b></div>
 			</div>
 		</li>
-		<li>
-			<div class="flex space-x-4">
+		{#if data.latitude && data.longitude}
+			<li>
 				<div>
-					<a
-						href="https://www.openstreetmap.org/#map={data.zoom ||
-							19}/{data.latitude}/{data.longitude}" class="unstyled">
-							<button type="button" class="btn variant-filled btn-sm">
-							<span><Fa icon={faMapLocationDot} size="xs" /></span><span>OSM</span></button>
-							</a>
+					<Distance uid={data.facility_uid} />
 				</div>
-			</div>
-			<div class="flex space-x-4">
-				<div>
-					<a
-						href="http://www.google.com/maps/place/{data.latitude},{data.longitude}">
-						<button type="button" class="btn variant-filled btn-sm">
-						<span><Fa icon={faLocationDot} size="xs" /></span><span>Google Maps</span>
-						</button>
-						</a
-					>
+			</li>
+			<li>
+				<div class="flex space-x-4">
+					<div>
+						<a
+							href="https://www.openstreetmap.org/#map={data.zoom ||
+								19}/{data.latitude}/{data.longitude}"
+							class="unstyled"
+						>
+							<button type="button" class="btn variant-ghost-secondary btn-sm">
+								<span><Fa icon={faMapLocationDot} size="xs" /></span><span>OSM</span></button
+							>
+						</a>
+					</div>
 				</div>
-			</div>
-		</li>
-	{/if}
-</ul>
+				<div class="flex space-x-4">
+					<div>
+						<a
+							href="http://www.google.com/maps/place/{data.latitude},{data.longitude}"
+							class="unstyled"
+						>
+							<button type="button" class="btn variant-ghost-secondary btn-sm">
+								<span><Fa icon={faLocationDot} size="xs" /></span><span>Google Maps</span>
+							</button>
+						</a>
+					</div>
+				</div>
+			</li>
+		{/if}
+	</ul>
+</div>

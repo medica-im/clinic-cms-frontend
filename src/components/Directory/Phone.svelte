@@ -16,8 +16,8 @@
 </script>
 
 <div class="flex content-start space-x-2 items-center">
-<div class="flex-initial"><span clas="w-4"><Fa icon={getIcon(data.type)} /></span></div>
-<a href="tel:{data.phone}">
+<div class="flex-initial"><span class="w-4"><Fa icon={getIcon(data.type)} /></span></div>
+<a class="unstyled underline underline-offset-4" href="tel:{data.phone}">
 <div class="flex-initial">{data.phone}</div>
 </a>
 </div>
