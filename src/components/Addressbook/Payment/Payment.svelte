@@ -19,8 +19,8 @@
 	<div>
 		{#each data as method, i}
 			{#if i == 0}{capitalizeFirstLetter(
-					method.label
-				)}{:else}{' '}{method.label}{/if}{#if i < data.length - 2},
+					method.label_fr
+				)}{:else}{' '}{method.label_fr}{/if}{#if i < data.length - 2},
 			{:else if i == data.length - 2}{' '}{$LL.AND()}{:else}.{/if}
 		{/each}
 	</div>

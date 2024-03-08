@@ -19,7 +19,10 @@
 	import Map from '$components/Map/Map.svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Appointment from '$lib/components/Effector/Appointment/Appointments.svelte';
+	import Cost from '$lib/components/Effector/Cost/Cost.svelte';
+	import Payment from '$components/Addressbook/Payment/Payment.svelte';
 	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
+	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import Back from '$components/Directory/Back.svelte';
 	export let effector: any;
 </script>
@@ -54,7 +57,14 @@
 				</div>
 			</div>
 		{/if}
+		<Cost data={effector}/>
+
 		<ul class="py-4 space-y-4">
+			{#if effector?.payment_methods?.length}
+			<li class="d-flex justify-content-between align-items-start">
+				<Payment data={effector.payment_methods} />
+			</li>
+	{/if}
 		{#if effector.emails?.length}
 			<li class="d-flex justify-content-between align-items-start">
 				<div class="flex items-center p-1">
@@ -102,6 +112,9 @@
 					</div>
 				</div>
 			</li>
+		{/if}
+		{#if effector?.languages || effector?.rpps || effector?.adeli}
+		<Info data={effector}/>
 		{/if}
 		{#if effector.address}
 			<li class="d-flex justify-content-between align-items-start">

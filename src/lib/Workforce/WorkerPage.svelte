@@ -53,7 +53,7 @@
 				{/each}
 			{/if}
 		{/each}
-		<ul class="py-4 space-y-4">
+		<ul class="py-4 space-y-4 list">
 			{#if userData.appointments && userData.appointments.length}
 				<li class="d-flex justify-content-between align-items-start">
 					<Appointment appointments={userData.appointments} />
@@ -104,9 +104,11 @@
 					<Payment data={userData.payment} />
 				</li>
 			{/if}
-			<li class="d-flex justify-content-between align-items-start">
-				<Info data={userData} />
-			</li>
+			{#if data?.languages || data?.rpps || data?.adeli}
+				<li class="d-flex justify-content-between align-items-start">
+					<Info data={userData} />
+				</li>
+			{/if}
 			{#if userData.websites.length}
 				<li class="d-flex justify-content-between align-items-start">
 					<div class="flex items-center p-1">
