@@ -10,8 +10,8 @@ first.toLocaleUpperCase(l) + rest.join('')
 export const lowercaseFirstLetter = ([ first, ...rest ], l=lang) =>
 first.toLocaleLowerCase(l) + rest.join('')
 
-export const workerTitleFormattedName = (w: Worker) =>
-`${w.title}${w.title ? " " : ""}${w.formatted_name}`
+export const workerTitleFormattedName = (w) =>
+`${w.title}${w.title ? " " : ""}${w.name}`
 
 export const removeSpaces = (s: string) => s.replace(/\s+/g, '-').normalize("NFD").replace(/\p{Diacritic}/gu, "");
 

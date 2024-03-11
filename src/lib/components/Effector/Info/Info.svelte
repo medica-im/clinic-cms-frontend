@@ -15,11 +15,11 @@
 			</h3>
 		</div>
 	</div>
-	{#if data.languages && data.languages.length}
+	{#if data.spoken_languages && data?.spoken_languages.length}
 		<div class="flex p-1">
 			<div class="w-9" />
 			<div>
-				<Languages data={data.languages} />
+				<Languages data={data.spoken_languages} />
 			</div>
 		</div>
 	{/if}

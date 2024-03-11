@@ -23,6 +23,7 @@
 	import Payment from '$components/Addressbook/Payment/Payment.svelte';
 	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
 	import Info from '$lib/components/Effector/Info/Info.svelte';
+	import Avatar from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$components/Directory/Back.svelte';
 	export let effector: any;
 </script>
@@ -36,6 +37,9 @@
 <div class="flex flex-col m-2 space-y-8">
 	<h2 class="h3">{effector.name}</h2>
 	<h3 class="h4 italic">{effector?.effector_type?.name}</h3>
+	{#if effector?.avatar}
+	<Avatar data={effector}/>
+	{/if}
 		{#if effector?.appointments?.length}
 			<div class="card max-w-md variant-ghost p-1 d-flex justify-content-between align-items-start">
 				<Appointment appointments={effector.appointments} />
@@ -113,7 +117,7 @@
 				</div>
 			</li>
 		{/if}
-		{#if effector?.languages || effector?.rpps || effector?.adeli}
+		{#if effector?.spoken_languages || effector?.rpps || effector?.adeli}
 		<Info data={effector}/>
 		{/if}
 		{#if effector.address}
