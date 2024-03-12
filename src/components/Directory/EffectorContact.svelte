@@ -52,6 +52,7 @@
 			<Appointment appointments={effector.appointments} />
 		</div>
 	{/if}
+	{#if effector.phones?.length || effector.emails?.length}
 	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2">
 		{#if effector.phones?.length}
 			<div class="d-flex justify-content-between align-items-start">
@@ -86,6 +87,8 @@
 			</div>
 		{/if}
 	</div>
+	{/if}
+	{#if effector?.convention || effector?.carte_vitale || effector?.third_party_payers?.length || effector?.payment_methods?.length}
 	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2">
 		<div>
 			<Cost data={effector} />
@@ -96,6 +99,8 @@
 			</div>
 		{/if}
 	</div>
+	{/if}
+	{#if effector.websites?.length || effector.socialnetworks?.length}
 	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2">
 		{#if effector.websites?.length}
 			<div class="d-flex justify-content-between align-items-start">
@@ -130,13 +135,14 @@
 			</div>
 		{/if}
 	</div>
-	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-4 p-2">
+	{/if}
 	{#if effector?.spoken_languages || effector?.rpps || effector?.adeli}
+	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-4 p-2">
 		<div class="d-flex justify-content-between align-items-start">
 			<Info data={effector} />
 		</div>
-	{/if}
 	</div>
+	{/if}
 	{#if effector.address}
 	<div class="card max-w-3xl variant-ghost p-2">
 		<div class="d-flex justify-content-between align-items-start">

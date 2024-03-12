@@ -6,7 +6,6 @@
 	export let data;
 </script>
 
-{#if data?.convention || data?.carte_vitale || data?.third_party_payers?.length}
 	<div class="flex items-center py-2">
 		<div class="w-9"><Fa icon={faEuroSign} /></div>
 		<div>
@@ -43,4 +42,3 @@
 			</div>
 		</div>
 	{/if}
-{/if}
