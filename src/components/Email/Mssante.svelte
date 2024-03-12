@@ -11,15 +11,15 @@
 
 	export let data: Email;
 </script>
+
 <div class="flex content-start space-x-2 items-center">
 	<div class="flex-initial break-words overflow-hidden">
-	<div class="btn btn-sm !bg-transparent p-0 align-middle">
-		<span class="w-4"><MssanteLogo/></span>
-		<span class="hidden 2xl:inline-block">{data.type_display}</span>
-	</div>
+		<div class="btn btn-sm !bg-transparent p-0 align-middle">
+			<span class="w-4"><MssanteLogo /></span>
+			<span class="hidden 2xl:inline-block">{data.type_display}</span>
+		</div>
 	</div>
 	<a class="unstyled underline underline-offset-4" href="mailto:{data.email}">
-	<div class="w-64 md:w-full flex-initial break-words overflow-hidden">{data.email}</div>
-</a>
-
+		<div class="w-56 md:w-full flex-initial break-words overflow-hidden">{data.email}</div>
+	</a>
 </div>

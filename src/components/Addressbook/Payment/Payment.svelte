@@ -6,7 +6,7 @@
 	export let data;
 </script>
 
-<div class="flex items-center p-1">
+<div class="flex items-center py-2">
 	<div class="w-9"><Fa icon={faCreditCard} /></div>
 	<div>
 		<h3>
@@ -14,7 +14,7 @@
         </h3>
 	</div>
 </div>
-<div class="flex p-1">
+<div class="flex">
 	<div class="w-9" />
 	<div>
 		{#each data as method, i}

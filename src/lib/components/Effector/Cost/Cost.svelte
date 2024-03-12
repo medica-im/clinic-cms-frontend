@@ -7,7 +7,7 @@
 </script>
 
 {#if data?.convention || data?.carte_vitale || data?.third_party_payers?.length}
-	<div class="flex items-center p-1">
+	<div class="flex items-center py-2">
 		<div class="w-9"><Fa icon={faEuroSign} /></div>
 		<div>
 			<h3>
@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	{#if data?.convention != null}
-		<div class="flex p-1">
+		<div class="flex">
 			<div class="w-9" />
 			<div>
 				Conventionnement: {data.convention.label}.
@@ -25,14 +25,14 @@
 	{/if}
 
 	{#if data?.carte_vitale != null}
-		<div class="flex p-1">
+		<div class="flex">
 			<div class="w-9" />
 			<div>Carte Vitale: {data.carte_vitale ? $LL.YES() : $LL.NO()}.</div>
 		</div>
 	{/if}
 
 	{#if data?.third_party_payers?.length}
-		<div class="flex p-1">
+		<div class="flex">
 			<div class="w-9" />
 			<div>
 				{$LL.ADDRESSBOOK.THIRD_PARTY_PAYER()}:

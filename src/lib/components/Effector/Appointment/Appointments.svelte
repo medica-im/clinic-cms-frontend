@@ -17,11 +17,10 @@
 	</div>
 </div>
 <div class="flex items-center p-1">
-	<div class="w-9" />
-	<div>
-			{#if appointments.some((a) => a.house_call)}
-			<div class="space-y-2">
-			        <div class="p-2">
+	<div class="w-9 border" />
+		{#if appointments.some((a) => a.house_call)}
+			<div class="flex flex-wrap gap-8">
+				<div class="p-2">
 					<p>Pour des soins à domicile</p>
 					<div class="space-y-2 py-2">
 						{#each appointments.filter((a) => a.house_call) as appointment}
@@ -29,9 +28,9 @@
 								<Appointment {appointment} />
 							</div>
 						{/each}
-						</div>
-				    </div>
-					<div class="p-2">
+					</div>
+				</div>
+				<div class="p-2">
 					<p>Pour des soins au cabinet</p>
 					<div class="space-y-2 py-2">
 						{#each appointments.filter((a) => !a.house_call) as appointment}
@@ -39,10 +38,10 @@
 								<Appointment {appointment} />
 							</div>
 						{/each}
-						</div>
 					</div>
 				</div>
-			{:else}
+			</div>
+		{:else}
 			<ul class="space-y-2 py-2">
 				{#each appointments as appointment}
 					<li>
@@ -50,6 +49,5 @@
 					</li>
 				{/each}
 			</ul>
-			{/if}
-	</div>
+		{/if}
 </div>

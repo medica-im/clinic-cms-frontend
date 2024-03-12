@@ -277,7 +277,7 @@ export const handleRequestsWithPermissions = async (
 		const jres = await fetch(targetUrl, fetchDict);
 		if (jres.status !== 200) {
 			const data = await jres.json();
-			console.error(`Error ${jres.status} data: ${JSON.stringify(data)}`);
+			console.error(`Error ${jres.status} data: ${data}`);
 			return [{}, data];
 		}
 		return [await jres.json(), {} as CustomError];

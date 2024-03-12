@@ -30,7 +30,7 @@
 
 <style>
 	.container {
-		height: 100%;
+		height: 60%;
 		width: 100%;
 		z-index: 0;
 	}

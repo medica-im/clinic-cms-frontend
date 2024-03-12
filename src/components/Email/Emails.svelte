@@ -12,7 +12,6 @@
 	export let data: EmailType[];
 
 </script>
-<div class="">
 {#each data as email}
 {#if email.type=="M"}
 <Mssante data={email}/>
@@ -20,4 +19,3 @@
 <Email data={email}/>
 {/if}
 {/each}
-</div>
