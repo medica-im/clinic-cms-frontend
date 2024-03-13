@@ -13,6 +13,4 @@
 	let component = componentSelect[data.component];
 </script>
 
-<div class="w-full max-w-4xl mx-auto p-4 py-4">
 <svelte:component this={component} effector={data.effector} />
-</div>

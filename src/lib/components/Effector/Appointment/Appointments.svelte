@@ -17,7 +17,7 @@
 	</div>
 </div>
 <div class="flex items-center p-1">
-	<div class="w-9 border" />
+	<div class="w-9" />
 		{#if appointments.some((a) => a.house_call)}
 			<div class="flex flex-wrap gap-8">
 				<div class="p-2">
