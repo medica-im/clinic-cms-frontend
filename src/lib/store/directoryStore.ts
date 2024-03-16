@@ -431,7 +431,9 @@ export const situations = asyncDerived(
 		let situations: [] | Situation[] = [];
 		try {
 			situations = (
-				$getSituations.map(function (e) {
+				$getSituations.sort(function (a, b) {
+					return a.name.localeCompare(b.name);
+				}).map(function (e) {
 					const situation = {
 						value: e.uid,
 						label: e.name
@@ -512,7 +514,7 @@ export const fullFilteredEffectors = derived(
 export const filteredEffectors = asyncDerived(
 	([fullFilteredEffectors, selectCategories, selectCommunes, selectFacility]),
 	async ([$fullFilteredEffectors, $selectCategories, $selectCommunes, $selectFacility]) => {
-		if (!$selectCategories?.length && !$selectCommunes?.length && $selectFacility==="") {
+		if (!$selectCategories?.length && !$selectCommunes?.length && $selectFacility === "") {
 			return $fullFilteredEffectors
 		} else {
 			return $fullFilteredEffectors.filter(function (x) {
@@ -532,10 +534,10 @@ export const filteredEffectors = asyncDerived(
 					return $selectCommunes.includes(x.commune.uid)
 				}
 			}).filter(function (x) {
-				if ($selectFacility==="") {
+				if ($selectFacility === "") {
 					return true
 				} else {
-					return $selectFacility==x.facility
+					return $selectFacility == x.facility
 				}
 			})
 		}
@@ -570,8 +572,8 @@ export const categorizedCachedEffectors =
 	};
 
 export const categorizedFilteredEffectors = asyncDerived(
-	([filteredEffectors, distanceEffectors]),
-	async ([$filteredEffectors, $distanceEffectors]) => {
+	([filteredEffectors, distanceEffectors, selectSituation]),
+	async ([$filteredEffectors, $distanceEffectors, $selectSituation]) => {
 		let categorySet = new Set();
 		for (let effector of $filteredEffectors) {
 			effector.types.forEach(x => categorySet.add(x.name))
@@ -592,7 +594,10 @@ export const categorizedFilteredEffectors = asyncDerived(
 		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 
 		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
-		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
+		const sortedEffectorsObj = $selectSituation ? Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length) : Object.entries(effectorsObj).sort(function (a, b) {
+			return a[0].localeCompare(b[0]);
+		});
+		const effectorsMap = new Map(sortedEffectorsObj);
 		if ($distanceEffectors) {
 			effectorsMap.forEach((value: any) => value.sort((a, b) => compareEffectorDistance(a, b, $distanceEffectors)))
 		}
@@ -629,7 +634,7 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 
 export const categoryOf = derived(
 	([selectCommunes, fullFilteredEffectors, selectFacility]),
-    ([$selectCommunes, $fullFilteredEffectors, $selectFacility, ]) => {
+	([$selectCommunes, $fullFilteredEffectors, $selectFacility,]) => {
 		//console.log(`categoryOf fullFilteredEffectors: "${$fullFilteredEffectors}" type: ${typeof($fullFilteredEffectors)}`);
 		if (!Array.isArray($fullFilteredEffectors)) {
 			return []
@@ -683,7 +688,7 @@ export const facilityOf = asyncDerived(
 	([selectCategories, facilities, fullFilteredEffectors, selectCommunes]),
 	async ([$selectCategories, $facilities, $fullFilteredEffectors, $selectCommunes]) => {
 		if (!$selectCategories?.length && !$selectCommunes?.length) {
-			return $facilities.map(x=>x.uid)
+			return $facilities.map(x => x.uid)
 		} else {
 			return uniq(
 				$fullFilteredEffectors.filter(
@@ -691,8 +696,8 @@ export const facilityOf = asyncDerived(
 						return (
 							(!$selectCategories?.length || x.types.map(t => t.uid).some(
 								r => $selectCategories.includes(r)
-							)) && (!$selectCommunes?.length || $selectCommunes.includes($facilities.find(({uid}) => uid===x.facility).commune)
-						))
+							)) && (!$selectCommunes?.length || $selectCommunes.includes($facilities.find(({ uid }) => uid === x.facility).commune)
+							))
 					}
 				).map(x => x.facility)
 			)

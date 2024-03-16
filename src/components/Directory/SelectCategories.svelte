@@ -13,7 +13,9 @@
 	});
 
     function getItems(elements) {
-        return elements.map(function (x) {
+        return elements.sort(function (a, b) {
+				return a.name.localeCompare(b.name);
+			}).map(function (x) {
 			let dct = { value: x.uid, label: x.name };
 			return dct;
 		})

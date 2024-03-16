@@ -1,7 +1,12 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import {facilities, selectFacility, selectFacilityValue, facilityOf} from '$lib/store/directoryStore';
+	import {
+		facilities,
+		selectFacility,
+		selectFacilityValue,
+		facilityOf
+	} from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 
@@ -15,17 +20,22 @@
 		selectFacilityValue.set(getValue());
 	});
 
-    function getItems(_facilitiesOf: string[]) {
+	function getItems(_facilitiesOf: string[]) {
 		let _allFacilities = get(facilities);
-        return _allFacilities.filter((f) => _facilitiesOf.includes(f.uid)).map(function (x) {
-			let dct = { value: x.uid, label: x.name };
-			return dct;
-		})
+		return _allFacilities
+			.filter((f) => _facilitiesOf.includes(f.uid))
+			.sort(function (a, b) {
+				return a.name.localeCompare(b.name);
+			})
+			.map(function (x) {
+				let dct = { value: x.uid, label: x.name };
+				return dct;
+			});
 	}
 
 	function getValue() {
 		let sFacility = get(selectFacility);
-		if (sFacility=="") {
+		if (sFacility == '') {
 			return null;
 		} else {
 			let c = get(facilities);
@@ -43,7 +53,7 @@
 
 	function handleClear(event) {
 		if (event.detail) {
-			selectFacility.set("");
+			selectFacility.set('');
 		}
 	}
 
@@ -59,7 +69,7 @@
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()} />
 	</div>
 {:then}
-<!--
+	<!--
 selectFacility: {$selectFacility}<br>
 facilities: {$facilities} ({$facilities.length})<br>
 facilityOf: {$facilityOf} ({$facilityOf.length})
