@@ -28,6 +28,48 @@ function normalize(x: string) {
 
 export const directories = writable([]);
 
+
+export const effectorTypeLabels = asyncReadable(
+	{},
+	async () => {
+		var cachelife = parseInt(env.PUBLIC_EFFECTOR_TYPE_LABELS_TTL);
+		const cacheName = "effector_type_labels";
+		const apiPath = "/directory/effector_type_labels";
+		let cachedData;
+		let expired: boolean = true;
+		let empty: boolean = true;
+		if (browser) {
+			cachedData = localStorage.getItem(`${cacheName}`);
+		}
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			expired = elapsed > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
+			}
+		}
+		if (cachedData && !expired && !empty) {
+			return cachedData.data;
+		} else {
+			const url = `${variables.BASE_API_URI}${apiPath}`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, url);
+			if (response) {
+				let data = response;
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+				}
+				return data;
+			} else if (err) {
+				console.error(err);
+			}
+		}
+	}
+);
+
 export async function fetchElements(path: string, next: string) {
 	const effectorsUrl = `${variables.BASE_API_URI}/${path}/${next || ""}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
@@ -140,7 +182,6 @@ function changedContacts(contacts, effectors): ChangedObj {
 			}
 		}
 	)
-	//console.log(JSON.stringify(changedObj));
 	return changedObj
 }
 
@@ -578,7 +619,6 @@ export const categorizedFilteredEffectors = asyncDerived(
 		for (let effector of $filteredEffectors) {
 			effector.types.forEach(x => categorySet.add(x.name))
 		}
-		let catArray = [];
 		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
@@ -603,6 +643,93 @@ export const categorizedFilteredEffectors = asyncDerived(
 		}
 		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
+	}
+)
+
+export const cardinalCategorizedFilteredEffectors = asyncDerived(
+	([categorizedFilteredEffectors, effectorTypeLabels, filteredEffectors]),
+	async ([$categorizedFilteredEffectors, $effectorTypeLabels, $filteredEffectors]) => {
+		let cardinalMap = new Map();
+		for (var [key, value] of $categorizedFilteredEffectors) {
+			let label = key;
+			let countF: number = 0;
+			let countM: number = 0;
+			let countN: number = 0;
+			let type;
+			value.forEach(
+				(e) => {
+					type = e.types.find(e => e.name == key);
+					if (e.gender == 'F') {
+						countF += 1;
+					} else if (e.gender == 'M') {
+						countM += 1;
+					} else if (e.gender == 'N') {
+						countN += 1;
+					}
+				}
+			)
+			if (value.length > 1) {
+				if (countF > countM) {
+					label = $effectorTypeLabels[type.uid]['P']['F']
+				} else {
+					label = $effectorTypeLabels[type.uid]['P']['M']
+				}
+			} else {
+				if (countF > countM) {
+					label = $effectorTypeLabels[type.uid]['S']['F']
+				} else {
+					label = $effectorTypeLabels[type.uid]['S']['M']
+				}
+			}
+			cardinalMap.set(label, value)
+		}
+		return cardinalMap;
+	}
+)
+
+export const cardinalTypes = asyncDerived(
+	([categorizedFilteredEffectors, effectorTypeLabels]),
+	async ([$categorizedFilteredEffectors, $effectorTypeLabels]) => {
+		let cardinalMap = new Map();
+		for (var [key, value] of $categorizedFilteredEffectors) {
+			let label = key;
+			let countF: number = 0;
+			let countM: number = 0;
+			let countN: number = 0;
+			let type;
+			value.forEach(
+				(e) => {
+					type = e.types.find(e => e.name == key);
+					if (e.gender == 'F') {
+						countF += 1;
+					} else if (e.gender == 'M') {
+						countM += 1;
+					} else if (e.gender == 'N') {
+						countN += 1;
+					}
+				}
+			)
+			if (value.length > 1) {
+				if (countF > countM) {
+					label = $effectorTypeLabels[type.uid]['P']['F']
+				} else {
+					label = $effectorTypeLabels[type.uid]['P']['M']
+				}
+			} else {
+				if (countF > countM) {
+					label = $effectorTypeLabels[type.uid]['S']['F']
+				} else {
+					label = $effectorTypeLabels[type.uid]['S']['M']
+				}
+			}
+			let value_dct = {
+				'count': value.length,
+				'slug': type.slug,
+				'uid': type.uid,
+			};
+			cardinalMap.set(label, value_dct)
+		}
+		return cardinalMap;
 	}
 )
 

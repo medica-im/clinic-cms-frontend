@@ -26,7 +26,7 @@
 		<h3 class="h3">{effector.name}</h3>
 	<ul class="list">
 		<li>
-			<h4 class="h4"><i>{effector.types.map((type) => type.name)}</i></h4>
+			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
 		</li>
 		{#if effector.phones?.length}
 			<li><Phones data={effector.phones} /></li>

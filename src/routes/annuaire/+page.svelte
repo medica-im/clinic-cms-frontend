@@ -25,7 +25,7 @@
 
 	export let data: PageData;
 
-  let yScroll = 0
+	let yScroll = 0;
 
 	onMount(() => {
 		const interval = setInterval(() => {
@@ -48,26 +48,22 @@
 	{/if}
 
 	<title>
-		{$LL.HOME.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		Annuaire - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <div>
 	<!-- hero -->
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
 		<div class="section-container">
-			<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
+			<h2 class="h2">
+				{$LL.ADDRESSBOOK.TITLE()}
+			</h2>
 		</div>
 	</header>
+	<div>
+		<Directory2 />
+	</div>
 	<!-- team -->
-	<section id="team" class="bg-surface-100-800-token team-gradient">
-		<div class="section-container">
-			<Team
-				data={{
-					cardinalTypes: data.cardinalTypes,
-				}}
-			/>
-		</div>
-	</section>
 
 	{#if data.ghost}
 		<!-- blog -->

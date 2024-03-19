@@ -17,7 +17,7 @@
 			class="w-full"
 			alt="healthcare"
 		/-->
-		<TeamCarousel data={data.teamCarousel} />
+		<!--TeamCarousel data={data.teamCarousel} /-->
 	</div>
 	<div class="col-span-2 p-2 space-y-2">
 		<h2>{$LL.HOME.TEAM.TITLE()}</h2>
@@ -25,12 +25,7 @@
 			{$LL.HOME.TEAM.TEXT()}
 		</p>
 		<div class="py-2">
-			<Occupations
-				data={{
-					cO: data.cO,
-					wO: data.wO
-				}}
-			/>
+			<Occupations data={data.cardinalTypes}/>
 		</div>
 		<a href="/annuaire" class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
 			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>

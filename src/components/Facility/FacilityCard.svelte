@@ -16,18 +16,10 @@
 	export let facility;
 
 
-	const createFacilityGeoData = (fData) => {
-		let contact = fData.contact;
-		let address = {
-			latitude: 0,
-			longitude: 0,
-			zoom: 0
-		};
-		if (contact.address) {
-			address = contact.address;
-		}
+	const createFacilityGeoData = (facility) => {
+		let address=facility?.address
 		let facilityGeoData = {
-			name: fData?.name ?? 'default',
+			name: facility?.name ?? 'default',
 			latitude: Number(address?.latitude ?? 0),
 			longitude: Number(address?.longitude ?? 0),
 			zoom: address?.zoom ?? 0
@@ -45,13 +37,13 @@
             </header-->
 				<!-- Body -->
 				<div class="p-2 space-y-2 space-x-2">
-					<h4>{facility.contact.formatted_name}</h4>
+					<h4>{facility.name}</h4>
 					<p class="space-x-2">
-						<Address data={facility.contact} />
+						<Address data={facility} />
 					</p>
-					{#if facility.contact?.emails}
+					{#if facility?.emails}
 					<ul class="list">
-					{#each facility.contact?.emails as email}
+					{#each facility?.emails as email}
                                 <Email data={email}/>
 							{/each}
 					</ul>                                    
@@ -65,12 +57,14 @@
 						{/if}
 					</p>
 					<span class="inline-block align-middle space-x-1">
-						{#if facility.contact.websites}
+						{#if facility?.websites}
 							{#each facility.contact.websites as website}
 								<Website {website} />
 							{/each}
 						{/if}
-						<SoMed data={facility.contact.socialnetworks} appBar={false} />
+						{#if facility?.socialnetworks}
+						<SoMed data={facility.socialnetworks} appBar={false} />
+						{/if}
 					</span>
 					<div>
 					</div>

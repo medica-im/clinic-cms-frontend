@@ -40,7 +40,7 @@
 	<div class="flex flex-wrap max-w-3xl p-2 m-2 gap-8">
 		<div class="space-y-2">
 			<h2 class="h3">{effector.name}</h2>
-			<h3 class="h4 italic">{effector?.effector_type?.name}</h3>
+			<h3 class="h4 italic">{effector?.effector_type?.label}</h3>
 			<FacilityLink data={effector.facility} />
 		</div>
 		<div class="flex-none">

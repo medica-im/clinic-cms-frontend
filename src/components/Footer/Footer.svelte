@@ -37,14 +37,14 @@
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<li class="mb-4">
 							<a href="/">
+								{$LL.HOME.TITLE()}
+							</a>
+						</li>
+						<li class="mb-4">
+							<a href="/annuaire">
 								{$LL.NAVBAR.ADDRESSBOOK()}
 							</a>
 						</li>
-						<!--li class="mb-4">
-							<a href="/">
-								{$LL.HOME.TITLE()}
-							</a>
-						</li-->
 						<li class="mb-4">
 							<a href="/sites"> Sites </a>
 						</li>

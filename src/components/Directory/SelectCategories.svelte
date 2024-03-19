@@ -4,6 +4,8 @@
 	import { categories, selectCategories, selCatVal, categoryOf } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	const label = 'label';
 	const itemId = 'value';
@@ -43,11 +45,18 @@
 		if (event.detail) {
 			selectCategories.set([]);
 		}
+		const pageStore = get(page);
+		if (pageStore.params) {
+			goto('/annuaire');
+		}
 	}
 
 	function handleChange(event) {
 		if (event.detail) {
 			selectCategories.set([event.detail.value]);
+			if ($page.url.pathname != '/annuaire') {
+				goto('/annuaire');
+			}
 		}
 	}
 </script>

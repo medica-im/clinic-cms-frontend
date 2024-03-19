@@ -15,20 +15,10 @@
 </script>
 
 <div>
-<!--
-{#await filteredOccupationsCardinal.load()}
-		{#each Object.keys($page.data.occupationsCardinal) as name}
-		<span class="badge variant-ringed-primary m-2">
-				{$page.data.filteredOccupationsCardinal[name]['count']['total']}
-				{$page.data.filteredOccupationsCardinal[name]['label']}
-		</span>
-		{/each}
-{:then}-->
-		{#each Object.keys(data.cO) as name}
-		<a href={`/annuaire/${data["wO"][name]}`} rel="external"  class="btn variant-filled-primary btn-sm m-2"><span class="">
-				{data.cO[name]['count']['total']}
-				{data.cO[name]['label']}
+{#each [...data] as [key, value]}
+		<a href={`/annuaire/${value.slug}`} rel="external"  class="btn variant-filled-primary btn-sm m-2"><span class="">
+				{value.count}
+				{key}
 		</span></a>
 		{/each}
-<!--{/await}-->
 </div>

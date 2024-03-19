@@ -1,11 +1,14 @@
 <script>
 	import FacilityList from '../../components/FacilityList.svelte';
 	import { facilityStore } from '$lib/store/facilityStore';
+	import { facilities } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import { page } from '$app/stores';
 	import FacilityCard from '$components/Facility/FacilityCard.svelte';
+
+	export let data;
 </script>
 
 <svelte:head>
@@ -13,25 +16,31 @@
 		{$LL.SITES.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
+<header id="hero" class="bg-surface-100-800-token hero-gradient">
+	<div class="section-container">
+		<h2 class="h2">
+			Nos {data.facilities.length} sites
+		</h2>
+	</div>
+</header>
+
 <div>
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			<nav class="top-0 p-2 m-2">
-				<FacilityList organizationData={$facilityStore} />
-			</nav>
-			<div>
-				{#each $facilityStore.facility as facility}
-					{#if facility.contact}
+			<!--nav class="top-0 p-2 m-2">
+				<FacilityList data={data.facilities}/>
+			</nav-->
+			<div class="grid lg:grid-cols-2 gap-4">
+				{#each data.facilities as facility}
 						<FacilityCard {facility} />
-					{/if}
 				{/each}
 			</div>
 			<!--{/await}-->
 		</div>
 	</section>
 </div>
-
+{JSON.stringify($facilities)}
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;

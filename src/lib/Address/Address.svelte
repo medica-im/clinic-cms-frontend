@@ -3,36 +3,27 @@
 	import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 	import { faGlobe, faMobileScreen, faPhone } from '@fortawesome/free-solid-svg-icons';
 	export let data;
-	export let formattedName = false;
-
-	let addressData = {
-		formattedName: data.formatted_name,
-		street: data.address.street,
-		zip: data.address.zip,
-		city: data.address.city,
-		state: data.address.state,
-		phones: data.phonenumbers
-	};
 </script>
 
 <address>
-	{#if formattedName}
-	{addressData?.formattedName ?? 'Formatted Name'}
+	{data?.address?.street}<br />
+	{data?.address?.zip}
+	{data?.address?.city ?? 'city'}
+	{#if data?.address?.state}<br />
+		{data.address.state}
 	{/if}
-	{addressData?.street ?? 'street'}<br />
-	{addressData?.zip ?? 'zip'}
-	{addressData?.city ?? 'city'}
-	{#if addressData.state}<br />
-		{addressData?.state}
-	{/if}
-	{#if addressData.phones}<br />
-	<ul class="list">
-	{#each addressData.phones as phone}
-	<li>
-	<span>{#if ['M', 'MW'].includes(phone.type)}<Fa icon={faMobileScreen}/>{:else if ['W'].includes(phone.type)}<Fa icon={faPhone}/>{/if}</span>
-	<span class="flex-auto"><a href="tel:{phone.phone}">{phone.phone}</a></span>
-    </li>
-	{/each}
-</ul>
+	{#if data?.phones}<br />
+		<ul class="list">
+			{#each data.phones as phone}
+				<li>
+					<span
+						>{#if ['M', 'MW'].includes(phone.type)}<Fa
+								icon={faMobileScreen}
+							/>{:else if ['W'].includes(phone.type)}<Fa icon={faPhone} />{/if}</span
+					>
+					<span class="flex-auto"><a href="tel:{phone.phone}">{phone.phone}</a></span>
+				</li>
+			{/each}
+		</ul>
 	{/if}
 </address>

@@ -6,6 +6,6 @@
 </script>
 
 <h2 class="h2">
-	Bienvenue sur l'annuaire de
+	{$LL.HOME.WELCOME()}
 	{formattedNameDefiniteArticle}{#if $userData && $userData.username}&ensp;<span style="text-transform: capitalize; display:inline-block;">{$userData.username}</span>{/if}!
 </h2>

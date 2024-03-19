@@ -2,6 +2,8 @@
     import Fa from 'svelte-fa';
 	import { faDeleteLeft, faEraser } from '@fortawesome/free-solid-svg-icons';
 	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, addressFeature, inputAddress, selectFacility, selectFacilityValue } from '$lib/store/directoryStore';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	let isDisabled = true;
 
@@ -19,6 +21,9 @@
 		inputAddress.set("");
 		selectFacility.set("");
 		selectFacilityValue.set(null);
+		if ($page.url.pathname != '/annuaire') {
+				goto('/annuaire');
+			}
 	}
 </script>
 

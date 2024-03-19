@@ -14,7 +14,7 @@
 	} from '$lib/store/directoryStore';
 </script>
 
-<a href="/" class="btn variant-filled">
+<a href="/annuaire" class="btn variant-filled">
 	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || $addressFeature?.geometry?.coordinates}
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="whitespace-normal text-left">

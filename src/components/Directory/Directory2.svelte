@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { facilityStore } from '$lib/store/facilityStore';
-	import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors } from '$lib/store/directoryStore';
+	import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
@@ -19,7 +19,9 @@
 	import Clear from '$components/Directory/Clear.svelte';
 	import { page } from '$app/stores';
 
-	const effectors = categorizedCachedEffectors();
+	export let data: any;
+
+	const effectors = data || categorizedCachedEffectors();
 	let top;
 	let category = '';
 	let countString = '';
@@ -49,7 +51,7 @@
 <div>
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
-			{#await categorizedFilteredEffectors.load()}
+			{#await cardinalCategorizedFilteredEffectors.load()}
 				<div class="space-y-2">
 					{#if $page.data.directory?.inputField?.geocoder}
 						<div class="row">
@@ -195,7 +197,7 @@
 				</div>
 
 				<div class="my-4 space-y-4">
-					{#each [...$categorizedFilteredEffectors] as [key, value]}
+					{#each [...$cardinalCategorizedFilteredEffectors] as [key, value]}
 						<div class="space-y-4 my-4 anchordiv" id={key}>
 							<div class="relative inline-block">
 								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
