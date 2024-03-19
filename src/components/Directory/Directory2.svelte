@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { facilityStore } from '$lib/store/facilityStore';
-	import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors } from '$lib/store/directoryStore';
+	import {
+		categorizedFilteredEffectors,
+		selectSituation,
+		categorizedCachedEffectors,
+		cardinalCategorizedFilteredEffectors
+	} from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
@@ -101,12 +106,16 @@
 						</div>
 					{/if}
 					{#if data && [...data]?.length}
-						<div class="flex justify-center m-4 space-x-2 items-center">
+						<!--div class="flex justify-center m-4 space-x-2 items-center">
 							<Spinner w="4" h="4" />
 							<p>Mise à jour...</p>
-						</div>
+						</div-->
 						<div class="my-2 flex justify-between w-full">
-							<p>{contactCount(data)}</p>
+							<span class="badge variant-ghost-surface">{contactCount(data)}</span>
+							<span class="inline-flex items-center space-x-2">
+								<Spinner w="4" h="4" />
+								<span>Mise à jour...</span>
+							</span>
 							<Clear />
 						</div>
 						<div class="my-4 space-y-4">
@@ -141,25 +150,25 @@
 			{:then}
 				<div class="space-y-2">
 					{#if $page.data.directory?.inputField?.geocoder}
-					<div class="row">
-						<div class="col">
-							<Geocoder />
+						<div class="row">
+							<div class="col">
+								<Geocoder />
+							</div>
 						</div>
-					</div>
 					{/if}
 					{#if $page.data.directory?.inputField?.situation}
-					<div class="row">
-						<div class="col">
-							<SelectSituations />
+						<div class="row">
+							<div class="col">
+								<SelectSituations />
+							</div>
 						</div>
-					</div>
 					{/if}
 					{#if $page.data.directory?.inputField?.commune}
-					<div class="row">
-						<div class="col">
-							<SelectCommunes />
+						<div class="row">
+							<div class="col">
+								<SelectCommunes />
+							</div>
 						</div>
-					</div>
 					{/if}
 					{#if $selectSituation}
 						<div class="row">
@@ -175,18 +184,18 @@
 						</div>
 					{/if}
 					{#if $page.data.directory?.inputField?.facility}
-					<div class="row">
-						<div class="col">
-							<SelectFacility />
+						<div class="row">
+							<div class="col">
+								<SelectFacility />
+							</div>
 						</div>
-					</div>
 					{/if}
 					{#if $page.data.directory?.inputField?.search}
-					<div class="row">
-						<div class="col">
-							<SearchDirectory />
+						<div class="row">
+							<div class="col">
+								<SearchDirectory />
+							</div>
 						</div>
-					</div>
 					{/if}
 				</div>
 

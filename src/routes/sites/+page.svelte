@@ -40,7 +40,7 @@
 		</div>
 	</section>
 </div>
-{JSON.stringify($facilities)}
+<!--{JSON.stringify($facilities)}-->
 <style lang="postcss">
 	.section-container {
 		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;

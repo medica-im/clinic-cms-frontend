@@ -117,6 +117,18 @@
 		}}
 	>
 		<svelte:fragment slot="lead"
+			><DocsIcon name="home" width="w-6" height="h-6" /></svelte:fragment
+		>
+		<span>{$LL.HOME.TITLE()}</span>
+	</AppRailAnchor>
+		<AppRailAnchor
+		href="/annuaire"
+		class="lg:hidden"
+		on:click={() => {
+			onClickAnchor();
+		}}
+	>
+		<svelte:fragment slot="lead"
 			><DocsIcon name="addressBook" width="w-6" height="h-6" /></svelte:fragment
 		>
 		<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>

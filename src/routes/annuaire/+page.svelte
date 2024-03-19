@@ -2,10 +2,7 @@
 	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { fly } from 'svelte/transition';
-	import Welcome from '$lib/components/Welcome/Welcome.svelte';
-	import Team from '$lib/components/Team/Team.svelte';
 	import LL from '$i18n/i18n-svelte';
-	import Ghost from '$lib/Ghost/Ghost.svelte';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -18,7 +15,6 @@
 	import { selectFacilities } from '$lib/store/selectionStore';
 	import { onMount } from 'svelte';
 	import { invalidateAll } from '$app/navigation';
-	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
 	import Directory2 from '$components/Directory/Directory2.svelte';
@@ -63,20 +59,6 @@
 	<div>
 		<Directory2 data={data.cardinal} />
 	</div>
-	<!-- team -->
-
-	{#if data?.ghost}
-		<!-- blog -->
-		<section id="blog" class="bg-surface-100-800-token blog-gradient">
-			<div class="section-container"><Ghost data={data.ghost} /></div>
-		</section>
-	{/if}
-	<!-- programs -->
-	{#if variables.ORGANIZATION_CATEGORY == 'msp'}
-		<section id="programs" class="bg-surface-100-800-token programs-gradient">
-			<div class="section-container"><OutpatientClinicPrograms /></div>
-		</section>
-	{/if}
 </div>
 
 <style lang="postcss">
