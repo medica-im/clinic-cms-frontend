@@ -22,11 +22,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     const slug = params.slug;
     const _cardinalTypes = await cardinalTypes.load();
     const key = findKeyOfSlug(slug, _cardinalTypes);
-    console.log(key);
-    console.log(_cardinalTypes);
-    console.log(_cardinalTypes.get(key));
     const uid =  _cardinalTypes.get(key)["uid"];
-    console.log(uid);
     selectCategories.set([uid]);
     //slugAddressbook.set(params.slug);
     //const keyOccupation = await keyAddressbook.load();

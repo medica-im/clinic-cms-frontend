@@ -61,11 +61,11 @@
 		</div>
 	</header>
 	<div>
-		<Directory2 />
+		<Directory2 data={data.cardinal} />
 	</div>
 	<!-- team -->
 
-	{#if data.ghost}
+	{#if data?.ghost}
 		<!-- blog -->
 		<section id="blog" class="bg-surface-100-800-token blog-gradient">
 			<div class="section-container"><Ghost data={data.ghost} /></div>

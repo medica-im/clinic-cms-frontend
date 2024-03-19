@@ -21,7 +21,6 @@
 
 	export let data: any;
 
-	const effectors = data || categorizedCachedEffectors();
 	let top;
 	let category = '';
 	let countString = '';
@@ -101,17 +100,17 @@
 							</div>
 						</div>
 					{/if}
-					{#if effectors && [...effectors]?.length}
+					{#if data && [...data]?.length}
 						<div class="flex justify-center m-4 space-x-2 items-center">
 							<Spinner w="4" h="4" />
 							<p>Mise à jour...</p>
 						</div>
 						<div class="my-2 flex justify-between w-full">
-							<p>{contactCount(effectors)}</p>
+							<p>{contactCount(data)}</p>
 							<Clear />
 						</div>
 						<div class="my-4 space-y-4">
-							{#each [...effectors] as [key, value]}
+							{#each [...data] as [key, value]}
 								<div class="space-y-4 my-4 anchordiv" id={key}>
 									<div class="relative inline-block">
 										<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
