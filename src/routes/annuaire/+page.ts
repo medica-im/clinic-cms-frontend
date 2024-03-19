@@ -3,10 +3,13 @@ import { cardinalCategorizedFilteredEffectors, selectCategories } from '$lib/sto
 import { openGraphStore } from '$lib/store/openGraphStore';
 import type { PageLoad } from './$types';
 import { categorizedCachedEffectors } from '$lib/store/directoryStore.js';
+import { browser, building, dev, version } from '$app/environment';
 
 
 export const load: PageLoad = async ({ data }) => {
-    selectCategories.set([]);
+    if ( !browser ) {
+        selectCategories.set([]);
+    }
     return {
         //facility: await facilityStore.load(),
         //websiteSchema: await websiteSchema.load(),
