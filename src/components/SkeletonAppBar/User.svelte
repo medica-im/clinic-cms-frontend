@@ -32,7 +32,6 @@
 	}
 	export let facility;
 	export let sideBar = false;
-	export let appBar = false;
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
 </script>

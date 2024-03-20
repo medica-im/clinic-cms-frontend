@@ -295,7 +295,7 @@
 </div>
 		<div>
 			<section class="space-x-1">
-				<User {facility} appBar={true} />
+				<User {facility} />
 			</section>
 		</div>
 	</svelte:fragment>
