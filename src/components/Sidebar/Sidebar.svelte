@@ -9,6 +9,7 @@
 	import { menuNavLinks, menuNavCats } from '../../links';
 	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
+	import { resetDirectory } from '$components/Directory/utils';
 
 	// Stores
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
@@ -125,6 +126,7 @@
 		href="/annuaire"
 		class="lg:hidden"
 		on:click={() => {
+			resetDirectory();
 			onClickAnchor();
 		}}
 	>

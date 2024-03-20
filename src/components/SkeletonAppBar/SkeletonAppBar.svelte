@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resetDirectory } from '$components/Directory/utils';
 	import { browser } from '$app/environment';
 	import type { SubmitFunction } from '$app/forms';
 	import { variables } from '$lib/utils/constants';
@@ -166,7 +167,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="/annuaire">
+							<a href="/annuaire" on:click={resetDirectory}>
 								<span class="w-6 text-center"><Fa icon={faAddressBook} /></span>
 								<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 							</a>

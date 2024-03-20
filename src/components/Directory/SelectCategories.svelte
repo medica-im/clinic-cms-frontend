@@ -11,20 +11,28 @@
 	const itemId = 'value';
 
 	onMount(() => {
-		selCatVal.set(getValue());
+		if ($selectCategories) {
+			$selCatVal = getValue($selectCategories);
+		}
 	});
 
-    function getItems(elements) {
-        return elements.sort(function (a, b) {
-				return a.name.localeCompare(b.name);
-			}).map(function (x) {
-			let dct = { value: x.uid, label: x.name };
-			return dct;
-		})
+	$: if ($selCatVal === undefined) {
+		$selCatVal = getValue($selectCategories);
 	}
 
-	function getValue() {
-		let sElements = get(selectCategories);
+	function getItems(elements) {
+		return elements
+			.sort(function (a, b) {
+				return a.name.localeCompare(b.name);
+			})
+			.map(function (x) {
+				let dct = { value: x.uid, label: x.name };
+				return dct;
+			});
+	}
+
+	function getValue(selectCategories: string[]) {
+		let sElements = selectCategories || get(selectCategories);
 		if (!sElements?.length) {
 			return null;
 		} else {
@@ -52,7 +60,7 @@
 	}
 
 	function handleChange(event) {
-		if (event.detail) {
+		if (event.detail && event.detail.value) {
 			selectCategories.set([event.detail.value]);
 			if ($page.url.pathname != '/annuaire') {
 				goto('/annuaire');
@@ -66,7 +74,7 @@
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
 	</div>
 {:then}
-<!--
+	<!--
 categories: {$categories} ({$categories.length})<br>
 categoryOf: {$categoryOf} ({$categoryOf.length})
 $selCatVal: {$selCatVal}<br>

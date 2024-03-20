@@ -6,7 +6,24 @@ import {
     selectOccupations,
     slugAddressbook,
     keyAddressbook } from '$lib/store/workforceStore';
-import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes } from '$lib/store/directoryStore';
+import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes, selCatVal, categories } from '$lib/store/directoryStore';
+
+function getValue(selectCategories: string[]) {
+    if (!selectCategories?.length) {
+        return null;
+    } else {
+        let c = get(categories);
+        if (c) {
+            let val = c
+                .filter((x) => selectCategories.includes(x.uid))
+                .map(function (x) {
+                    let dct = { value: x.uid, label: x.name };
+                    return dct;
+                })[0];
+            return val;
+        }
+    }
+}
 
 const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
     let result = null;
@@ -24,6 +41,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     const key = findKeyOfSlug(slug, _cardinalTypes);
     const uid =  _cardinalTypes.get(key)["uid"];
     selectCategories.set([uid]);
+    selCatVal.set(getValue([uid]));
     //slugAddressbook.set(params.slug);
     //const keyOccupation = await keyAddressbook.load();
     //selectOccupations.set([keyOccupation]);

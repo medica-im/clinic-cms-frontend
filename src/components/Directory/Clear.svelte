@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { resetDirectory } from '$components/Directory/utils'; 
     import Fa from 'svelte-fa';
 	import { faDeleteLeft, faEraser } from '@fortawesome/free-solid-svg-icons';
 	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, addressFeature, inputAddress, selectFacility, selectFacilityValue } from '$lib/store/directoryStore';
@@ -10,17 +11,7 @@
 	$: isDisabled = !($term || $selectCommunesValue || $selCatVal || $selectSituationValue || $inputAddress || $selectFacilityValue);
 
 	function erase() {
-		term.set("");
-		selectCommunes.set([]);
-		selectCommunesValue.set(null);
-		selectCategories.set([]);
-		selCatVal.set(null);
-		selectSituation.set("");
-		selectSituationValue.set(null);
-		addressFeature.set({});
-		inputAddress.set("");
-		selectFacility.set("");
-		selectFacilityValue.set(null);
+		resetDirectory();
 		if ($page.url.pathname != '/annuaire') {
 				goto('/annuaire');
 			}

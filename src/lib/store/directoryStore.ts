@@ -687,11 +687,42 @@ export const cardinalCategorizedFilteredEffectors = asyncDerived(
 	}
 )
 
+export const categorizedEffectors = asyncDerived(
+	([getEffectors]),
+	async ([$getEffectors]) => {
+		let categorySet = new Set();
+		for (let effector of $getEffectors) {
+			effector.types.forEach(x => categorySet.add(x.name))
+		}
+		//console.log(categorySet);
+		let categoryArr = Array.from(categorySet);
+		categoryArr.sort();
+		//console.log(categoryArr);
+		const effectorsObj = categoryArr.reduce((acc, current) => {
+			acc[current] = [];
+			return acc;
+		}, {});
+		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		for (let effector of $getEffectors) {
+			effector.types.forEach(x => effectorsObj[x.name].push(effector))
+		}
+		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
+		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
+		const sortedEffectorsObj = Object.entries(effectorsObj).sort(function (a, b) {
+			return a[0].localeCompare(b[0]);
+		});
+		const effectorsMap = new Map(sortedEffectorsObj);
+		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
+		return effectorsMap;
+	}
+)
+
+
 export const cardinalTypes = asyncDerived(
-	([categorizedFilteredEffectors, effectorTypeLabels]),
-	async ([$categorizedFilteredEffectors, $effectorTypeLabels]) => {
+	([categorizedEffectors, effectorTypeLabels]),
+	async ([$categorizedEffectors, $effectorTypeLabels]) => {
 		let cardinalMap = new Map();
-		for (var [key, value] of $categorizedFilteredEffectors) {
+		for (var [key, value] of $categorizedEffectors) {
 			let label = key;
 			let countF: number = 0;
 			let countM: number = 0;

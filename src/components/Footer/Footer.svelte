@@ -9,7 +9,7 @@
 	import { language } from '$lib/store/languageStore';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import { programsNavLinks } from '../../links';
-
+    import DirectoryAnchor from '$components/Directory/DirectoryAnchor.svelte';
 	const cBase =
 		'bg-surface-50 dark:bg-surface-900 border-t border-surface-500/10 text-xs md:text-base';
 </script>
@@ -41,9 +41,7 @@
 							</a>
 						</li>
 						<li class="mb-4">
-							<a href="/annuaire">
-								{$LL.NAVBAR.ADDRESSBOOK()}
-							</a>
+							<DirectoryAnchor/>
 						</li>
 						<li class="mb-4">
 							<a href="/sites"> Sites </a>

@@ -6,7 +6,7 @@
 	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 	import TeamCarousel from '$components/Carousel/TeamCarousel.svelte';
-
+    import DirectoryAnchor from '$components/Directory/DirectoryAnchor.svelte';
 	export let data: any;
 </script>
 
@@ -27,8 +27,6 @@
 		<div class="py-2">
 			<Occupations data={data.cardinalTypes}/>
 		</div>
-		<a href="/annuaire" class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
-			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
-		</a>
+		<DirectoryAnchor data="button"/>
 	</div>
 </div>
