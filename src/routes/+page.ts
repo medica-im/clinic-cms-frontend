@@ -10,7 +10,7 @@ export const load: PageLoad = async ({ data }) => {
         //facility: await facilityStore.load(),
         //websiteSchema: await websiteSchema.load(),
         //occupationsCardinal: await occupationsCardinal.load(),
-        openGraph: await openGraphStore.load(),
+        //openGraph: await openGraphStore.load(),
         cardinalTypes: await cardinalTypes.load(),
         //workforceOccupation: await workforceOccupation.load(),
         //teamCarousel: await teamCarouselStore.load(),

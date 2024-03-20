@@ -23,7 +23,7 @@
     </div>
 </header>
 <div>
-    <Directory2 data={data.cardinal} />
+    <Directory2 data={data} />
 </div>
 
 <style lang="postcss">

@@ -37,9 +37,9 @@
 	});
 </script>
 
-<LDTag schema={data.websiteSchema} />
+<!--LDTag schema={data.websiteSchema} /-->
 <svelte:head>
-	{#if data.openGraph}
+	{#if data?.openGraph}
 		<OpenGraph opengraph={data.openGraph} />
 	{/if}
 
@@ -57,7 +57,7 @@
 		</div>
 	</header>
 	<div>
-		<Directory2 data={data.cardinal} />
+		<Directory2 data={data} />
 	</div>
 </div>
 

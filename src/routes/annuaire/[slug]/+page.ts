@@ -1,12 +1,9 @@
 import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
-import {
-    workforceDataCached,
-    filteredOccupationsCardinal,
-    selectOccupations,
-    slugAddressbook,
-    keyAddressbook } from '$lib/store/workforceStore';
 import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes, selCatVal, categories } from '$lib/store/directoryStore';
+import { variables } from '$lib/utils/constants';
+
+let directory;
 
 function getValue(selectCategories: string[]) {
     if (!selectCategories?.length) {
@@ -28,18 +25,26 @@ function getValue(selectCategories: string[]) {
 const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
     let result = null;
     for (const [key, value] of map) {
-      if (value.slug==slug) {
-        result = key;
-      }
+        if (value.slug == slug) {
+            result = key;
+        }
     }
     return result;
-  };
+};
 
 export const load: PageLoad = async ({ fetch, params }) => {
+    const apiUrl = `${variables.BASE_API_URI}/directory/`;
+    const res = await fetch(apiUrl);
+    if (res.ok) {
+        directory = await res.json();
+    } else {
+        console.error(res);
+    }
+
     const slug = params.slug;
     const _cardinalTypes = await cardinalTypes.load();
     const key = findKeyOfSlug(slug, _cardinalTypes);
-    const uid =  _cardinalTypes.get(key)["uid"];
+    const uid = _cardinalTypes.get(key)["uid"];
     selectCategories.set([uid]);
     selCatVal.set(getValue([uid]));
     //slugAddressbook.set(params.slug);
@@ -47,6 +52,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     //selectOccupations.set([keyOccupation]);
     //const sOC = await filteredOccupationsCardinal.load();
     return {
+        directory: directory,
         key: key,
         slug: params.slug,
         cardinal: await cardinalCategorizedFilteredEffectors.load()

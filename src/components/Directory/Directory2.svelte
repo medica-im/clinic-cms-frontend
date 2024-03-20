@@ -56,48 +56,48 @@
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
 			<div class="space-y-2">
-				{#if $page.data.directory?.inputField?.geocoder}
+				{#if data.directory?.inputField?.geocoder}
 					<div class="row">
 						<div class="col">
 							<Geocoder />
 						</div>
 					</div>
 				{/if}
-				{#if $page.data.directory?.inputField?.situation}
+				{#if data.directory?.inputField?.situation}
 					<div class="row">
 						<div class="col">
 							<SelectSituations />
 						</div>
 					</div>
 				{/if}
-				{#if $page.data.directory?.inputField?.commune}
+				{#if data.directory?.inputField?.commune}
 					<div class="row">
 						<div class="col">
 							<SelectCommunes />
 						</div>
 					</div>
 				{/if}
-				{#if $selectSituation}
-					<div class="row">
-						<div class="col">
-							<SelectCategoriesChips />
-						</div>
-					</div>
-				{:else if $page.data.directory?.inputField?.category}
+				{#if data.directory?.inputField?.category}
 					<div class="row">
 						<div class="col">
 							<SelectCategories />
 						</div>
 					</div>
+				{:else if $selectSituation}
+					<div class="row">
+						<div class="col">
+							<SelectCategoriesChips />
+						</div>
+					</div>
 				{/if}
-				{#if $page.data.directory?.inputField?.facility}
+				{#if data.directory?.inputField?.facility}
 					<div class="row">
 						<div class="col">
 							<SelectFacility />
 						</div>
 					</div>
 				{/if}
-				{#if $page.data.directory?.inputField?.search}
+				{#if data.directory?.inputField?.search}
 					<div class="row">
 						<div class="col">
 							<SearchDirectory />
@@ -105,9 +105,9 @@
 					</div>
 				{/if}
 				{#await cardinalCategorizedFilteredEffectors.load()}
-					{#if data && [...data]?.length}
+					{#if data.cardinal && [...data.cardinal]?.length}
 						<div class="my-2 flex justify-between w-full">
-							<span class="badge variant-ghost-surface">{contactCount(data)}</span>
+							<span class="badge variant-ghost-surface">{contactCount(data.cardinal)}</span>
 							<span class="inline-flex items-center space-x-2">
 								<Spinner w="4" h="4" />
 								<span>Mise à jour...</span>
@@ -115,7 +115,7 @@
 							<Clear />
 						</div>
 						<div class="my-4 space-y-4">
-							{#each [...data] as [key, value]}
+							{#each [...data.cardinal] as [key, value]}
 								<div class="space-y-4 my-4 anchordiv" id={key}>
 									<div class="relative inline-block">
 										<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
@@ -145,7 +145,9 @@
 				{:then}
 					<div class="my-4 space-y-4">
 						<div class="my-2 flex justify-between w-full">
-							<span class="badge variant-ghost-surface">{contactCount(data)}</span>
+							<span class="badge variant-ghost-surface"
+								>{contactCount($cardinalCategorizedFilteredEffectors)}</span
+							>
 							<Clear />
 						</div>
 						{#each [...$cardinalCategorizedFilteredEffectors] as [key, value]}
