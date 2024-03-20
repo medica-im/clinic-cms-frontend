@@ -3,8 +3,6 @@ import type { PageLoad } from './$types';
 import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes, selCatVal, categories } from '$lib/store/directoryStore';
 import { variables } from '$lib/utils/constants';
 
-let directory;
-
 function getValue(selectCategories: string[]) {
     if (!selectCategories?.length) {
         return null;
@@ -33,14 +31,6 @@ const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
 };
 
 export const load: PageLoad = async ({ fetch, params }) => {
-    const apiUrl = `${variables.BASE_API_URI}/directory/`;
-    const res = await fetch(apiUrl);
-    if (res.ok) {
-        directory = await res.json();
-    } else {
-        console.error(res);
-    }
-
     const slug = params.slug;
     const _cardinalTypes = await cardinalTypes.load();
     const key = findKeyOfSlug(slug, _cardinalTypes);
@@ -52,9 +42,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
     //selectOccupations.set([keyOccupation]);
     //const sOC = await filteredOccupationsCardinal.load();
     return {
-        directory: directory,
-        key: key,
-        slug: params.slug,
         cardinal: await cardinalCategorizedFilteredEffectors.load()
     };
 }
