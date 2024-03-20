@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import {
 		categorizedFilteredEffectors,
@@ -22,7 +23,6 @@
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore';
 	import Clear from '$components/Directory/Clear.svelte';
-	import { page } from '$app/stores';
 
 	export let data: any;
 
@@ -56,48 +56,50 @@
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
 			<div class="space-y-2">
-				{#if data.directory?.inputField?.geocoder}
+				{#if variables.INPUT_GEOCODER}
 					<div class="row">
 						<div class="col">
 							<Geocoder />
 						</div>
 					</div>
 				{/if}
-				{#if data.directory?.inputField?.situation}
+				{#if variables.INPUT_SITUATION}
 					<div class="row">
 						<div class="col">
 							<SelectSituations />
 						</div>
 					</div>
 				{/if}
-				{#if data.directory?.inputField?.commune}
+				{#if variables.INPUT_COMMUNE}
 					<div class="row">
 						<div class="col">
 							<SelectCommunes />
 						</div>
 					</div>
 				{/if}
-				{#if data.directory?.inputField?.category}
-					<div class="row">
-						<div class="col">
-							<SelectCategories />
+				{#if variables.INPUT_CATEGORY}
+					{#if $selectSituation}
+						<div class="row">
+							<div class="col">
+								<SelectCategoriesChips />
+							</div>
 						</div>
-					</div>
-				{:else if $selectSituation}
-					<div class="row">
-						<div class="col">
-							<SelectCategoriesChips />
+					{:else}
+						<div class="row">
+							<div class="col">
+								<SelectCategories />
+							</div>
 						</div>
-					</div>
+					{/if}
 				{/if}
-				{#if data.directory?.inputField?.facility}
+				{#if variables.INPUT_FACILITY}
 					<div class="row">
 						<div class="col">
 							<SelectFacility />
 						</div>
 					</div>
 				{/if}
-				{#if data.directory?.inputField?.search}
+				{#if variables.INPUT_SEARCH}
 					<div class="row">
 						<div class="col">
 							<SearchDirectory />
