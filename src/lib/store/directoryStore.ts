@@ -2,7 +2,7 @@ import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@
 import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-import { env } from '$env/dynamic/public';
+import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL } from '$env/static/public';
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
 import type { Situation } from './directoryStoreInterface';
@@ -32,7 +32,7 @@ export const directories = writable([]);
 export const effectorTypeLabels = asyncReadable(
 	{},
 	async () => {
-		var cachelife = parseInt(env.PUBLIC_EFFECTOR_TYPE_LABELS_TTL);
+		var cachelife = parseInt(PUBLIC_EFFECTOR_TYPE_LABELS_TTL);
 		const cacheName = "effector_type_labels";
 		const apiPath = "/directory/effector_type_labels";
 		let cachedData;
@@ -292,7 +292,7 @@ export const getEffectors = asyncReadable(
 			return effectors;
 		}
 
-		var cachelife = parseInt(env.PUBLIC_EFFECTORS_TTL);
+		var cachelife = parseInt(PUBLIC_EFFECTORS_TTL);
 		let expired: boolean = true;
 		let empty: boolean = true;
 		const cachedEffectorsObj = getLocalStorage('effectors');
@@ -385,7 +385,7 @@ export const categories = asyncDerived(
 export const facilities = asyncReadable(
 	{},
 	async () => {
-		var cachelife = parseInt(env.PUBLIC_FACILITIES_TTL);
+		var cachelife = parseInt(PUBLIC_FACILITIES_TTL);
 		const cacheName = "facilities";
 		let cachedData;
 		let expired: boolean = true;
@@ -429,7 +429,7 @@ export const facilities = asyncReadable(
 export const getSituations = asyncReadable(
 	{},
 	async () => {
-		var cachelife = parseInt(env.PUBLIC_SITUATIONS_TTL);
+		var cachelife = parseInt(PUBLIC_SITUATIONS_TTL);
 		const cacheName = "situations";
 		let cachedData;
 		let expired: boolean = true;
