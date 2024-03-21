@@ -126,7 +126,7 @@
 			</button>
 			<!-- Logo -->
 			<a class="flex xl:inline-block space-x-2" href="/" title={$LL.NAVBAR.GO_HOME()}>
-				<span class="xl:inline-block w-9 h-9 align-text-bottom"><AddressBookLogo /></span>
+				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
 				{#if isObjectEmpty($userData)}
 					<span class="hidden 2xl:inline-block"
 						><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span

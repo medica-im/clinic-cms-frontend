@@ -12,6 +12,8 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { isMobile } from '$lib/helpers/deviceDetector';
+	import Fa from 'svelte-fa';
+	import { faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
 
 	export let facility;
 
@@ -79,5 +81,12 @@
 		<div class="m-1 p-1 h-56">
 			<LeafletMap geoData={createFacilityGeoData(facility)} />
 		</div>
+		{#if $page.url.pathname == '/sites'}
+		<div class="m-1 p-1">
+		<a href="/sites/{facility.slug}" class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
+			<span><Fa icon={faMagnifyingGlassLocation} size="lg" /></span><span>Voir plus sur {facility.name}</span>
+		</a>
+	</div>
+		{/if}
 	</div>
 </section>

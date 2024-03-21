@@ -6,7 +6,7 @@
 	export let data: Facility;
 </script>
 
-<a href="/etablissement/{data.slug}" class="unstyled underline underline-offset-4 flex gap-2">
+<a href="/sites/{data.slug}" class="unstyled underline underline-offset-4 flex gap-2">
 	<span class="badge-icon"
 		><Icon component={Svg} width="24" height="24" viewBox="0 0 24 24">
 			<path fill="currentColor" d={mdiMapMarkerOutline} />
