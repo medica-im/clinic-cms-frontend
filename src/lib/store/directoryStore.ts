@@ -578,7 +578,7 @@ export const filteredEffectors = asyncDerived(
 				if ($selectFacility === "") {
 					return true
 				} else {
-					return $selectFacility == x.facility
+					return $selectFacility == x.facility.uid
 				}
 			})
 		}
@@ -810,7 +810,7 @@ export const categoryOf = derived(
 				$fullFilteredEffectors.filter(
 					function (x) {
 						return (
-							(!$selectCommunes.length || $selectCommunes.includes(x.commune.uid)) && (!$selectFacility || $selectFacility == x.facility)
+							(!$selectCommunes.length || $selectCommunes.includes(x.commune.uid)) && (!$selectFacility || $selectFacility == x.uid)
 						)
 					}
 				).map(
@@ -834,7 +834,7 @@ export const communeOf = derived(
 					x => {
 						return (!$selectCategories?.length || x.types.map(t => t.uid).some(
 							r => $selectCategories.includes(r)
-						)) && (!$selectFacility || x.facility == $selectFacility)
+						)) && (!$selectFacility || x.facility.uid == $selectFacility)
 					}
 				).map(x => x.commune)
 			)
@@ -854,10 +854,10 @@ export const facilityOf = asyncDerived(
 						return (
 							(!$selectCategories?.length || x.types.map(t => t.uid).some(
 								r => $selectCategories.includes(r)
-							)) && (!$selectCommunes?.length || $selectCommunes.includes($facilities.find(({ uid }) => uid === x.facility).commune)
+							)) && (!$selectCommunes?.length || $selectCommunes.includes($facilities.find(({ uid }) => uid === x.facility.uid).commune)
 							))
 					}
-				).map(x => x.facility)
+				).map(x => x.facility.uid)
 			)
 		}
 	}

@@ -27,9 +27,7 @@ const fetchCareHome = async (fetch, uid) => {
 
 export const load: PageLoad = async ({ fetch, params }) => {
     const url = `${variables.BASE_API_URI}/fulleffector/${params.type}/${params.commune}/${params.effector}/`;
-    console.log(url);
     let [res, error]= await handleRequestsWithPermissions(fetch,url);
-    console.log(res);
     //const effectors = get(getEffectors);
     //const effectors = await getEffectors.load();
     //let effector = findEffector(effectors, params)

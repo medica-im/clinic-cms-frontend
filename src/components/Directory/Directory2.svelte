@@ -111,7 +111,7 @@
 						<div class="my-2 flex justify-between w-full">
 							<span class="badge variant-ghost-surface">{contactCount(data.cardinal)}</span>
 							<span class="inline-flex items-center space-x-2">
-								<Spinner w="4" h="4" />
+								<Spinner w={4} h={4} />
 								<span>Mise à jour...</span>
 							</span>
 							<Clear />
@@ -129,18 +129,18 @@
 										>
 									</div>
 								</div>
-								{#each value as effector}
-									<div class="space-y-4 my-4">
-										<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+								<div class="grid lg:grid-cols-2 gap-4">
+									{#each value as effector}
+										<div class="space-y-4 my-4">
 											<Effector {effector} />
 										</div>
-									</div>
-								{/each}
+									{/each}
+								</div>
 							{/each}
 						</div>
 					{:else}
 						<div class="flex justify-center m-4 space-x-2 items-center">
-							<Spinner w="4" h="4" />
+							<Spinner w={4} h={4} />
 							<p>Chargement...</p>
 						</div>
 					{/if}
@@ -164,13 +164,13 @@
 									>
 								</div>
 							</div>
-							{#each value as effector}
-								<div class="space-y-4 my-4">
-									<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+							<div class="grid lg:grid-cols-2 gap-4">
+								{#each value as effector}
+									<div class="space-y-4 my-4">
 										<Effector {effector} />
 									</div>
-								</div>
-							{/each}
+								{/each}
+							</div>
 						{/each}
 					</div>
 				{/await}

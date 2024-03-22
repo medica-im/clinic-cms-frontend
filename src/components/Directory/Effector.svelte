@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Phones from './Phones.svelte';
 	import Addresses from './Addresses.svelte';
-	import Distance from './Distance.svelte';
-	import { distanceEffectors } from '$lib/store/directoryStore';
+	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
 	import Address from './Address.svelte';
 	export let effector: any;
 
@@ -22,22 +21,24 @@
 
 <div class="card p-4 m-4">
 	<a class="unstyled" href={effectorPageUrl(effector)}>
-
-		<h3 class="h3">{effector.name}</h3>
-	<ul class="list">
-		<li>
+		<div class="space-y-3">
+			<h3 class="h3">{effector.name}</h3>
 			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
-		</li>
-		{#if effector.phones?.length}
-			<li><Phones data={effector.phones} /></li>
-		{/if}
-		{#if effector.address}
-			<li><Address data={effector.address} /></li>
-		{/if}
-		{#if effector.other_addresses?.length}
-			<li><Addresses data={effector.other_addresses} /></li>
-		{/if}
-	</ul>
-</a>
 
+			{#if effector.phones?.length}
+				<Phones data={effector.phones} />
+			{/if}
+			<div class="space-y-1">
+				{#if effector.facility}
+					<div><FacilityLink data={effector.facility} /></div>
+				{/if}
+				{#if effector.address}
+					<div><Address data={effector.address} /></div>
+				{/if}
+				{#if effector.other_addresses?.length}
+					<div><Addresses data={effector.other_addresses} /></div>
+				{/if}
+			</div>
+		</div>
+	</a>
 </div>
