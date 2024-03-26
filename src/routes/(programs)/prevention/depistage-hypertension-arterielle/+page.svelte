@@ -137,7 +137,7 @@
 				</li>
 				<li>
 					Les <a href="/annuaire/infirmiere" class="anchor">infirmières</a> et les
-					<a href="/annuaire/medecin" class="anchor">médecins</a>
+					<a href="/annuaire/medecin-generaliste" class="anchor">médecins généralistes</a>
 					du <a href="/sites/pole-sante-gare" class="anchor">Pôle Santé Gare</a>.
 				</li>
 			</ul>
