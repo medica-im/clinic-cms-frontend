@@ -6,7 +6,7 @@
 	import { variables } from '$lib/utils/constants';
 
 	import DocsIcon from '$components/Icon/Icon.svelte';
-	import { menuNavLinks, menuNavCats } from '../../links';
+	import { menuNavLinks, menuNavCats } from '../../lib/links';
 	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import { resetDirectory } from '$components/Directory/utils';
@@ -95,12 +95,12 @@
 				>
 				<span>Maison de santé</span>
 			</AppRailTile>
-			<AppRailTile bind:group={$storeCategory} name={'education'} value={'education'}>
+			<!--AppRailTile bind:group={$storeCategory} name={'education'} value={'education'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" /></svelte:fragment
 				>
 				<span>Éducation</span>
-			</AppRailTile>
+			</AppRailTile-->
 			<AppRailTile bind:group={$storeCategory} name="Prévention" value={'prevention'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faShieldHeart" width="w-6" height="h-6" /></svelte:fragment

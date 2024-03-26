@@ -11,7 +11,7 @@
 
 <svelte:head>
 	<title>
-		{$LL.EATING()} - {capitalizeFirstLetter(
+		Hypertension - {capitalizeFirstLetter(
 			$LL.PREVENTIVE_HEALTHCARE(),
 			$language
 		)} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
@@ -23,8 +23,8 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1>Les bons gestes au quotidien pour un bon équilibre</h1>
-		<p>Un programme de prévention pour l’équilibre alimentaire.</p>
+		<h1>{capitalizeFirstLetter($LL.DISEASE.CHILDHOOD_OBESITY(), $language)}</h1>
+		<p>« Mission : retrouve ton cap », un dispositif pour prévenir le surpoids et l’obésité infantile.</p>
 	</div>
 </header>
 
@@ -32,8 +32,7 @@
 	<div class="section-container">
 		<h2>Personnes concernées</h2>
 		<p>
-			Ce programme, porté par la MSP d’Avignon, s’adresse à toutes les personnes âgés de plus de 16
-			ans.
+			Enfants de 3 à 12 ans.
 		</p>
 	</div>
 </section>
@@ -43,8 +42,10 @@
 		<h2>Objectifs</h2>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
-				<li>aider à développer autonomie alimentaire, bien-être et forme physique</li>
-				<li>aider à faire des choix alimentaires plus éclairés en matière de santé</li>
+				<li>Comprendre</li>
+				<li>Prescrire</li>
+				<li>Prendre en charge</li>
+				<li>Accompagner</li>
 			</ul>
 		</div>
 	</div>
@@ -52,20 +53,13 @@
 
 <section>
 	<div class="section-container">
-		<h2>Ateliers</h2>
+		<h2>Consultations</h2>
 
-		<p>Les ateliers se déroulent en petits groupes et durent environ 2 heures.</p>
+		<p></p>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
-				<li>Mangeons équilibré</li>
-				<li>Cuisinons sainement</li>
-				<li>Course et astuces</li>
-				<li>Du sens dans nos assiettes</li>
-				<li>Bougeons</li>
-				<li>Restons zen</li>
-				<li>Motivons-nous</li>
-				<li>Mon corps mon amour</li>
-				<li>Stop aux clichés</li>
+				<li></li>
+				<li></li>
 			</ul>
 		</div>
 	</div>
@@ -79,9 +73,8 @@
 			<ul class="list-disc space-y-4 p-4">
 				<li>psychologue</li>
 				<li>diététicienne</li>
-				<li>éducatrice sportive</li>
-				<li>kinésithérapeute</li>
-				<li>socio-esthéticienne</li>
+				<li>médecin</li>
+				<li>pédiatre</li>
 			</ul>
 		</div>
 	</div>
@@ -90,10 +83,8 @@
 <section>
 	<div class="section-container">
 		<h2>Conditions d'accès</h2>
-
 		<p>
-			Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
-			gratuite.
+			Ce programme est financé par l’Assurance Maladie, la participation est donc gratuite.
 		</p>
 	</div>
 </section>

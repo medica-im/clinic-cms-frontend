@@ -24,7 +24,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export const programsNavLinks: any = [
-	{
+	/*{
 		id: 'education-therapeutique',
 		title: {
 			en: 'Therapeutic education',
@@ -82,7 +82,7 @@ export const programsNavLinks: any = [
 				category: 'program'
 			}
 		]
-	},
+	},*/
 	{
 		id: 'prevention',
 		title: {
@@ -101,16 +101,23 @@ export const programsNavLinks: any = [
 				category: 'definition'
 			},
 			{
-				href: '/prevention/syndrome-epuisement-professionnel',
-				label: 'Épuisement professionnel',
-				keywords: 'prévention, santé, maladie, dépistage, burnout, épuisement, professionnel',
+				href: '/prevention/depistage-hypertension-arterielle',
+				label: 'Dépistage hypertension artérielle',
+				keywords: 'prévention, santé, maladie, dépistage, hypertension',
 				icon: null,
 				category: 'program'
 			},
 			{
-				href: '/prevention/alimentation',
-				label: 'Alimentation',
+				href: '/prevention/depistage-apnee-sommeil',
+				label: 'Dépistage apnée du sommeil',
 				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
+				icon: null,
+				category: 'program'
+			},
+			{
+				href: '/prevention/obesite-infantile',
+				label: 'Obésité infantile',
+				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique, surpoids, obésité',
 				icon: null,
 				category: 'program'
 			}
@@ -167,12 +174,12 @@ export const menuNavLinks: any = isMSP ? [
 				keywords: 'santé, msp, pluripro',
 				icon: faInfo
 			},
-			{
+			/*{
 				href: '/maison-de-sante/chronologie',
 				label: 'Chronologie',
 				keywords: 'chronologie, historique, histoire, chronologique',
 				icon: faTimeline
-			},
+			},*/
 			{
 				href: '/maison-de-sante/projet-de-sante',
 				label: 'Projet de santé',
@@ -210,14 +217,14 @@ export const menuNavCats: any = isMSP ? [
 		},
 		list: ['maison-de-sante']
 	},
-	{
+	/*{
 		id: 'education',
 		title: {
 			en: 'Education',
 			fr: 'Éducation'
 		},
 		list: ['education-therapeutique', 'education-sante']
-	},
+	},*/
 	{
 		id: 'prevention',
 		title: {

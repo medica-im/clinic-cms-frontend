@@ -17,33 +17,33 @@ const fr: Translation = {
   },
   CONTACT: {
     TITLE: "Contact",
-		CALL_US: "Appelez-nous"
+    CALL_US: "Appelez-nous"
   },
-	SITES: {
-		TITLE: "Sites"
-	},
+  SITES: {
+    TITLE: "Sites"
+  },
   SEARCH: "Recherche",
   ADDRESSBOOK: {
     A11Y: {
-			PROFILE_PIC_OF: "Photo de profil de"
-		},
+      PROFILE_PIC_OF: "Photo de profil de"
+    },
     TITLE: "Annuaire",
     GEOCODER: {
-			PLACEHOLDER: "Entrer l'adresse de la personne...",
+      PLACEHOLDER: "Entrer l'adresse de la personne...",
       ARIA_LABEL: "Recherche de l'adresse de la personne"
-		},
+    },
     OCCUPATIONS: {
       PLACEHOLDER: "Sélectionner par profession..."
     },
     COMMUNES: {
-			PLACEHOLDER: "Sélectionner par commune..."
-		},
+      PLACEHOLDER: "Sélectionner par commune..."
+    },
     FACILITIES: {
       PLACEHOLDER: "Sélectionner par établissement..."
     },
     CATEGORIES: {
       PLACEHOLDER: "Sélectionner par catégorie....",
-			ALL: "Toutes catégories"
+      ALL: "Toutes catégories"
     },
     SITUATIONS: {
       PLACEHOLDER: "Sélectionner par situation..."
@@ -54,21 +54,21 @@ const fr: Translation = {
       ARIA_LABEL: "Recherche par nom ou prénom"
     },
     GOTOADDRESSBOOK: "Retourner vers l'annuaire",
-		GOTOSEARCH: "Retourner aux résultats de recherche",
+    GOTOSEARCH: "Retourner aux résultats de recherche",
     APPOINTMENT: {
       LABEL: "Prendre rendez-vous"
     },
     LOCATION: "Lieu d'exercice",
     SPECIALTY: "Spécialité",
-		CLEAR: "Effacer",
+    CLEAR: "Effacer",
     PAYMENT_METHODS: "Moyens de paiement",
     PAYMENT_METHOD: "Moyen de paiement",
-		COSTS_AND_REIMBURSEMENTS: "Tarifs et remboursements",
-		THIRD_PARTY_PAYER: "Tiers payant",
-		SOMED: "Réseaux sociaux",
-		SPOKEN_LANGUAGE: "langue parlée",
-		SPOKEN_LANGUAGES: "langues parlées",
-		INFORMATIONS: "informations"
+    COSTS_AND_REIMBURSEMENTS: "Tarifs et remboursements",
+    THIRD_PARTY_PAYER: "Tiers payant",
+    SOMED: "Réseaux sociaux",
+    SPOKEN_LANGUAGE: "langue parlée",
+    SPOKEN_LANGUAGES: "langues parlées",
+    INFORMATIONS: "informations"
   },
   NAVBAR: {
     ADDRESSBOOK: "Annuaire",
@@ -81,7 +81,7 @@ const fr: Translation = {
     HEALTH_PROJECT: "Projet de santé",
     LANGUAGE: "Langue",
     NAVIGATE: "Naviguer",
-		GO_HOME: "Aller à l'Accueil",
+    GO_HOME: "Aller à l'Accueil",
     THEME: "Thème"
   },
   LOGIN: {
@@ -110,47 +110,52 @@ const fr: Translation = {
     ROLE: 'Rôle'
   },
   FACILITY: {
-		OUTPATIENT_CLINIC: 'Maison de santé'
-	},
+    OUTPATIENT_CLINIC: 'Maison de santé'
+  },
   BLOG: {
-		READMORE: 'Lire la suite'
-	},
-	OUTPATIENT_CLINIC: {
-		MDT_MEETING: 'réunion de concertation pluriprofessionnelle',
+    READMORE: 'Lire la suite'
+  },
+  OUTPATIENT_CLINIC: {
+    MDT_MEETING: 'réunion de concertation pluriprofessionnelle',
     TPE: 'éducation thérapeutique du patient',
     PROGRAMS: 'programmes',
     OUR_PROGRAM: 'notre programme',
     OUR_PROGRAMS: 'nos programmes',
-		OUR_OTHER_PROGRAM: 'notre autre programme',
-		OUR_OTHER_PROGRAMS: 'nos autres programmes'
-	},
-	DISEASE: {
-		DIABETES: 'diabète',
-    CANCER: 'cancer'
-	},
-	WEBSITE: 'site web',
+    OUR_OTHER_PROGRAM: 'notre autre programme',
+    OUR_OTHER_PROGRAMS: 'nos autres programmes'
+  },
+  DISEASE: {
+    DIABETES: 'diabète',
+    CANCER: 'cancer',
+    APNEA: 'syndrome d\'apnées du sommeil',
+    CHILDHOOD_OBESITY: 'obésité infantile',
+  },
+  SCREENING: {
+    HYPERTENSION: 'dépistage de l\'hypertension artérielle'
+  },
+  WEBSITE: 'site web',
   LEARN_MORE: 'En savoir plus',
   LEXICON: 'lexique',
   HEALTH_RECORD: 'dossier patient',
-	HEALTH_EDUCATION: 'éducation pour la santé',
+  HEALTH_EDUCATION: 'éducation pour la santé',
   PREVENTION: 'prévention',
-	PREVENTIVE_HEALTHCARE: 'prévention en santé',
+  PREVENTIVE_HEALTHCARE: 'prévention en santé',
   BURNOUT: 'syndrôme d\'épuisement professionnel',
   EATING: 'Alimentation',
   PRIVACY_POLICY: 'politique de confidentialité',
   LEGAL_NOTICES: 'mentions légales',
-	RESOURCES: 'ressources',
-	LEGAL: 'légal',
-	PHONE: 'téléphone',
-	DIRECTION: 'itinéraire',
-	YES: 'oui',
-	NO: 'non',
+  RESOURCES: 'ressources',
+  LEGAL: 'légal',
+  PHONE: 'téléphone',
+  DIRECTION: 'itinéraire',
+  YES: 'oui',
+  NO: 'non',
   AND: 'et',
   SKELETON: {
-		AUTOCOMPLETE: {
-			EMPTY_STATE: 'Aucun résultat trouvé'
-		}
-	}
+    AUTOCOMPLETE: {
+      EMPTY_STATE: 'Aucun résultat trouvé'
+    }
+  }
 }
 
 export default fr

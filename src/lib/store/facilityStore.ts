@@ -6,7 +6,52 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { occupations, workforceDataCached, selectOccupations, workforceDict } from '$lib/store/workforceStore';
 import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
-import { select_value } from 'svelte/internal';
+import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
+
+export const facilities = asyncReadable(
+	{},
+	async () => {
+		var cachelife = parseInt(PUBLIC_FACILITIES_TTL);
+		const cacheName = "facilities";
+		let cachedData;
+		let expired: boolean = true;
+		let empty: boolean = true;
+		if (browser) {
+			cachedData = localStorage.getItem(`${cacheName}`);
+		}
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			expired = elapsed > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
+			}
+		}
+		if (cachedData && !expired && !empty) {
+			return cachedData.data;
+		} else {
+			const url = `${variables.BASE_API_URI}/facilities`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, url);
+			if (response) {
+				let data = response?.facilities;
+				data = data.sort(function (a, b) {
+					return a.name.localeCompare(b.name);
+				})
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+				}
+				//console.log(data);
+				return data;
+			} else if (err) {
+				console.error(err);
+			}
+		}
+	}
+);
+
 
 export const facilityStore = asyncDerived(
 	(locale),
@@ -167,10 +212,10 @@ export const occupationOfFacilityStore = asyncDerived(
 );
 
 export const siteCount = asyncDerived(
-	(facilityStore),
-	async ($facilityStore) => {
+	(facilities),
+	async ($facilities) => {
 		try {
-			let len = $facilityStore.facility.length;
+			let len = $facilities.length;
 			return len;
 		} catch (err) {
 			console.error(err);

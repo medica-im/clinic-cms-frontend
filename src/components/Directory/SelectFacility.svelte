@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
+	import { facilities } from '$lib/store/facilityStore';
 	import {
-		facilities,
 		selectFacility,
 		selectFacilityValue,
 		facilityOf

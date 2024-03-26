@@ -79,7 +79,7 @@
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="/{ facility.category.slug }">{$LL.NAVBAR.ABOUT()}</a></li>
 							{#if timeline}
-								<li><a class="dropdown-item" href="/chronologie">{$LL.NAVBAR.TIMELINE()}</a></li>
+								<li><a class="dropdown-item" href="/chronologie">{$LL.NAVBAR.TIMELINE()}{timeline}</a></li>
 							{/if}
 						</ul>
 					</li>

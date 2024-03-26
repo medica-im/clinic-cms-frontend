@@ -38,14 +38,14 @@ const en: BaseTranslation = {
 			PLACEHOLDER: "Select by profession..."
 		},
 		FACILITIES: {
-            PLACEHOLDER: "Select by facility..."
+			PLACEHOLDER: "Select by facility..."
 		},
 		CATEGORIES: {
-            PLACEHOLDER: "Select by category...",
+			PLACEHOLDER: "Select by category...",
 			ALL: "All categories"
 		},
 		SITUATIONS: {
-            PLACEHOLDER: "Select by situation..."
+			PLACEHOLDER: "Select by situation..."
 		},
 		SEARCH: {
 			LABEL: "Name",
@@ -102,7 +102,7 @@ const en: BaseTranslation = {
 	EMAILADDRESS: "Email address",
 	PASSWORD: "Password",
 	TIMELINE: {
-        TITLE: "Timeline"
+		TITLE: "Timeline"
 	},
 	USER: {
 		PROFILE: "{userName:string} profile",
@@ -125,7 +125,12 @@ const en: BaseTranslation = {
 	},
 	DISEASE: {
 		DIABETES: 'diabetes',
-		CANCER: 'cancer'
+		CANCER: 'cancer',
+		APNEA: 'sleep apnea',
+		CHILDHOOD_OBESITY: 'childhood obesity',
+	},
+	SCREENING: {
+		HYPERTENSION: 'hypertension screening'
 	},
 	WEBSITE: 'website',
 	LEARN_MORE: 'Learn more',

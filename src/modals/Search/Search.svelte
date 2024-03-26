@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { menuNavLinks } from '../../links';
+	import { menuNavLinks } from '../../lib/links';
 	import { Modal, modalStore } from '@skeletonlabs/skeleton';
 	// Classes
 	const cBase =

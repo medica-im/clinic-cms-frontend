@@ -6,8 +6,8 @@
 	import { faPills, faShieldHeart, faPersonChalkboard, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import ProgramNav from '$components/ProgramNav.svelte';
-	import { programsNavLinks } from '../../links';
-	import { getProgram } from '../../links';
+	import { programsNavLinks } from '../../lib/links';
+	import { getProgram } from '../../lib/links';
 </script>
 
 <div class="space-y-4 md:space-y-10">

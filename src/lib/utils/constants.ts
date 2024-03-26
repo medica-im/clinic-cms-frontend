@@ -17,7 +17,9 @@ const GHOST_API_KEY = import.meta.env.VITE_GHOST_API_KEY;
 
 const DEFAULT_LANGUAGE = import.meta.env.VITE_DEFAULT_LANGUAGE;
 
-const TIMELINE = import.meta.env.VITE_TIMELINE;
+const TIMELINE: boolean = (import.meta.env.VITE_TIMELINE == "true")
+	? true
+	: false;
 
 const BLOG_URI: string = import.meta.env.VITE_BLOG_URI
 

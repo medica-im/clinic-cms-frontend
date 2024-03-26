@@ -1,7 +1,7 @@
 <script>
 	import FacilityList from '../../components/FacilityList.svelte';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import { facilities } from '$lib/store/directoryStore';
+	import { facilities } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';

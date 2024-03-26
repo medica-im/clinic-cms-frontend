@@ -6,6 +6,7 @@ import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATION
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
 import type { Situation } from './directoryStoreInterface';
+import { facilities } from '$lib/store/facilityStore';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
@@ -382,49 +383,6 @@ export const categories = asyncDerived(
 		return categories
 	});
 
-export const facilities = asyncReadable(
-	{},
-	async () => {
-		var cachelife = parseInt(PUBLIC_FACILITIES_TTL);
-		const cacheName = "facilities";
-		let cachedData;
-		let expired: boolean = true;
-		let empty: boolean = true;
-		if (browser) {
-			cachedData = localStorage.getItem(`${cacheName}`);
-		}
-		if (cachedData) {
-			cachedData = JSON.parse(cachedData);
-			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
-			expired = elapsed > cachelife;
-			if ('data' in cachedData) {
-				if (cachedData.data?.length) {
-					empty = false;
-				}
-			}
-		}
-		if (cachedData && !expired && !empty) {
-			return cachedData.data;
-		} else {
-			const url = `${variables.BASE_API_URI}/facilities`;
-			const [response, err] = await handleRequestsWithPermissions(fetch, url);
-			if (response) {
-				let data = response?.facilities;
-				data = data.sort(function (a, b) {
-					return a.name.localeCompare(b.name);
-				})
-				if (browser) {
-					var json = { data: data, cachetime: Date.now() / 1000 }
-					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
-				}
-				//console.log(data);
-				return data;
-			} else if (err) {
-				console.error(err);
-			}
-		}
-	}
-);
 
 export const getSituations = asyncReadable(
 	{},

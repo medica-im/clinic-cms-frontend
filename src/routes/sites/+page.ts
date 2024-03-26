@@ -1,4 +1,4 @@
-import { facilities } from '$lib/store/directoryStore';
+import { facilities } from '$lib/store/facilityStore';
 import { occupationsCardinal, workforceOccupation, teamCarouselStore } from '$lib/store/workforceStore';
 import { openGraphStore } from '$lib/store/openGraphStore';
 import type { PageLoad } from './$types';

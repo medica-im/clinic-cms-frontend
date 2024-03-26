@@ -8,7 +8,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
-	import { programsNavLinks } from '../../links';
+	import { programsNavLinks } from '../../lib/links';
 	import { resetDirectory } from '$components/Directory/utils';
 
 	const cBase =

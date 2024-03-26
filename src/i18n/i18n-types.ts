@@ -375,6 +375,20 @@ type RootTranslation = {
 		 * c​a​n​c​e​r
 		 */
 		CANCER: string
+		/**
+		 * s​y​n​d​r​o​m​e​ ​d​'​a​p​n​é​e​s​ ​d​u​ ​s​o​m​m​e​i​l
+		 */
+		APNEA: string
+		/**
+		 * o​b​é​s​i​t​é​ ​i​n​f​a​n​t​i​l​e
+		 */
+		CHILDHOOD_OBESITY: string
+	}
+	SCREENING: {
+		/**
+		 * d​é​p​i​s​t​a​g​e​ ​d​e​ ​l​'​h​y​p​e​r​t​e​n​s​i​o​n​ ​a​r​t​é​r​i​e​l​l​e
+		 */
+		HYPERTENSION: string
 	}
 	/**
 	 * s​i​t​e​ ​w​e​b
@@ -818,6 +832,20 @@ export type TranslationFunctions = {
 		 * cancer
 		 */
 		CANCER: () => LocalizedString
+		/**
+		 * syndrome d'apnées du sommeil
+		 */
+		APNEA: () => LocalizedString
+		/**
+		 * obésité infantile
+		 */
+		CHILDHOOD_OBESITY: () => LocalizedString
+	}
+	SCREENING: {
+		/**
+		 * dépistage de l'hypertension artérielle
+		 */
+		HYPERTENSION: () => LocalizedString
 	}
 	/**
 	 * site web
