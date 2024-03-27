@@ -1,7 +1,7 @@
 import { variables } from '$lib/utils/constants';
 
-export const getGhostData = async (fetch: any, key: string, count: number = 10) => {
-    const apiUrl = `${variables.BLOG_URI}/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=${count}`;
+export const getGhostData = async (fetch: any, key: string, count: number) => {
+    const apiUrl = `${variables.BLOG_URI}/ghost/api/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=${count}`;
     try {
         const response = await fetch(apiUrl);
         if (response?.ok) {

@@ -4,14 +4,13 @@
 	export let data;
 	
 	// TODO: deal with data.meta and pagination if more than a few articles
-	const { posts } = data;
+	const posts = data.posts;
 
 	function formatDate(datetime: string, locale) {
 		const event = new Date(datetime);
 		return event.toLocaleDateString(locale);
 	}
 </script>
-
 {#if Array.isArray(posts) && posts.length}
 <div class="!bg-transparent space-y-4 md:space-y-10">
 <div class="text-center">

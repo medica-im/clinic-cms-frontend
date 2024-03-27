@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ data }) => {
         cardinalTypes: await cardinalTypes.load(),
         //workforceOccupation: await workforceOccupation.load(),
         //teamCarousel: await teamCarouselStore.load(),
-        //ghost: data.ghost
+        ghost: data.ghost
         //effectors: categorizedCachedEffectors()
     };
 }
