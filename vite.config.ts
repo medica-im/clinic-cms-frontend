@@ -8,7 +8,7 @@ const config: UserConfig = {
 	optimizeDeps: {
         include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
     },
-	plugins: [sveltekit(), isoImport(), purgeCss()],
+	plugins: [sveltekit(), isoImport()/*, purgeCss()*/],
 	resolve: {
 		alias: {
 			'$': path.resolve(__dirname, 'src'),
