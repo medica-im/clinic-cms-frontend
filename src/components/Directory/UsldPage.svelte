@@ -34,7 +34,7 @@
 			<div class="card">
 				<h4 class="h4">Hébergement</h4>
 				<div class="card p-2">
-					<h5>USLD</h5>
+					<h5 class="h5">USLD</h5>
 					{#if Object.keys(data).includes('usld_permanent_bed')}
 						{label('usld_permanent_bed')}
 					{/if}

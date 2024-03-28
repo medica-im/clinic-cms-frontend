@@ -1,68 +1,68 @@
 <script lang="ts">
+	import { initializeStores } from '@skeletonlabs/skeleton';
     import { facilityStore } from '$lib/store/facilityStore';
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
-	import '@skeletonlabs/skeleton/styles/all.css';
-	import '../app.postcss';
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-	import { storeCurrentUrl, storeTheme } from '$lib/store/skeletonStores';
-	import Sidebar from '$components/Sidebar/Sidebar.svelte';
-	import { userData } from '$lib/store/userStore';
-	import { navigating } from '$app/stores';
-	import { afterNavigate } from '$app/navigation';
-	import { loading } from '$lib/store/loadingStore';
-	import { i18nNotificationData, notificationData } from '$lib/store/notificationStore';
-	import { fly } from 'svelte/transition';
-	import { afterUpdate, onMount } from 'svelte';
-	import type { Load } from '@sveltejs/kit';
-	import type { Locales } from '$i18n/i18n-types';
-	import type { Facility } from '$lib/interfaces/facility.interface';
-	import { baseLocale, locales } from '$i18n/i18n-util';
-	import { loadLocaleAsync } from '$i18n/i18n-util.async';
-	import LL from '$i18n/i18n-svelte';
-	import { setLocale } from '$i18n/i18n-svelte';
-	import { page } from '$app/stores';
-	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
-	import { variables } from '$lib/utils/constants';
-	import { language } from '$lib/store/languageStore';
-	import favicon from '$lib/assets/favicon.svg';
-	import maskicon from '$lib/assets/mask-icon.svg';
-	import addressbookregular from '$lib/assets/address-book-regular.png';
-	import { AppShell } from '@skeletonlabs/skeleton';
-	import { Modal } from '@skeletonlabs/skeleton';
-	import { Toast } from '@skeletonlabs/skeleton';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
-	// Modal Components
-	import Search from '$modals/Search/Search.svelte';
+    import '../app.postcss';
+    import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+    import { storePopup } from '@skeletonlabs/skeleton';
+    import { storeCurrentUrl, storeTheme } from '$lib/store/skeletonStores';
+    import Sidebar from '$components/Sidebar/Sidebar.svelte';
+    import { userData } from '$lib/store/userStore';
+    import { navigating } from '$app/stores';
+    import { afterNavigate } from '$app/navigation';
+    import { loading } from '$lib/store/loadingStore';
+    import { i18nNotificationData, notificationData } from '$lib/store/notificationStore';
+    import { fly } from 'svelte/transition';
+    import { afterUpdate, onMount } from 'svelte';
+    import type { Load } from '@sveltejs/kit';
+    import type { Locales } from '$i18n/i18n-types';
+    import type { Facility } from '$lib/interfaces/facility.interface';
+    import { baseLocale, locales } from '$i18n/i18n-util';
+    import { loadLocaleAsync } from '$i18n/i18n-util.async';
+    import LL from '$i18n/i18n-svelte';
+    import { setLocale } from '$i18n/i18n-svelte';
+    import { page } from '$app/stores';
+    import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
+    import { variables } from '$lib/utils/constants';
+    import { language } from '$lib/store/languageStore';
+    import favicon from '$lib/assets/favicon.svg';
+    import maskicon from '$lib/assets/mask-icon.svg';
+    import addressbookregular from '$lib/assets/address-book-regular.png';
+    import { AppShell } from '@skeletonlabs/skeleton';
+    import { Modal } from '@skeletonlabs/skeleton';
+    import { Toast } from '@skeletonlabs/skeleton';
+    import type { ToastSettings } from '@skeletonlabs/skeleton';
+    // Modal Components
+    import Search from '$modals/Search/Search.svelte';
 
-	// Types
-	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
-	// components
-	import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
-	import Drawer from '$components/Drawer/Drawer.svelte';
-	import Footer from '$components/Footer/Footer.svelte';
+    // Types
+    import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+    // components
+    import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
+    import Drawer from '$components/Drawer/Drawer.svelte';
+    import Footer from '$components/Footer/Footer.svelte';
 
-	// Theme stylesheet is loaded from LayoutServerData
-	import type { LayoutServerData } from './$types';
-	import { QueryClientProvider } from '@tanstack/svelte-query'
+    // Theme stylesheet is loaded from LayoutServerData
+    import type { LayoutServerData } from './$types';
+    import { QueryClientProvider } from '@tanstack/svelte-query'
     import type { LayoutData } from './$types'
-	import type { ComponentEvents } from 'svelte';
+    import type { ComponentEvents } from 'svelte';
     import { scrollY } from '$lib/store/scrollStore';
 
-	export let data: LayoutServerData;
+    export let data: LayoutServerData;
+
+	initializeStores();
 
 
+    $: loading.setNavigate(!!$navigating);
+    $: loading.setLoading(!!$navigating, 'Loading, please wait...');
 
-	$: loading.setNavigate(!!$navigating);
-	$: loading.setLoading(!!$navigating, 'Loading, please wait...');
-
-	function scrollHandler(event: ComponentEvents<AppShell>['scroll']) {
+    function scrollHandler(event: ComponentEvents<AppShell>['scroll']) {
 	scrollY.set(event.currentTarget.scrollTop);
 }
 
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+    storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	onMount(async () => {
+    onMount(async () => {
 		if (browserGet('refreshToken')) {
 			const [response, errs] = await getCurrentUser(
 				fetch,
@@ -77,7 +77,7 @@
 		}
 	});
 
-	afterUpdate(async () => {
+    afterUpdate(async () => {
 		const notifyEl = document.getElementById('notification') as HTMLElement;
 		// const notifyEl = document.getElementsByClassName('notification');
 		if (notifyEl && $notificationData !== '') {
@@ -96,7 +96,7 @@
 		}
 	});
 
-	afterNavigate((params: any) => {
+    afterNavigate((params: any) => {
 		// Store current page route URL
 		storeCurrentUrl.set($page.url.pathname);
 		// Scroll to top
@@ -108,7 +108,7 @@
 		}
 	});
 
-	function matchList(pageUrlPath: string): boolean {
+    function matchList(pageUrlPath: string): boolean {
 		const url = ['maison-de-sante', 'education-therapeutique', 'education-sante', 'prevention'];
 		let match = url.filter(function (e) {
 			let m: bool;
@@ -122,19 +122,19 @@
 		return Boolean(match.length);
 	}
 
-	// Registered list of Components for Modals
-	const modalComponentRegistry: Record<string, ModalComponent> = {
+    // Registered list of Components for Modals
+    const modalComponentRegistry: Record<string, ModalComponent> = {
 		modalSearch: { ref: Search }
 	};
 
-	// Disable left sidebar on homepage
-	$: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto' : 'w-0';
+    // Disable left sidebar on homepage
+    $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto' : 'w-0';
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
-	<link rel="mask-icon" href={maskicon} color="#000000">
-	<link rel="apple-touch-icon" href={addressbookregular}>
+	<link rel="icon" href="{favicon}">
+	<link rel="mask-icon" href="{maskicon}" color="#000000">
+	<link rel="apple-touch-icon" href="{addressbookregular}">
 	
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
@@ -142,33 +142,28 @@
 	{/if}
 </svelte:head>
 <!-- Overlays -->
-<Modal components={modalComponentRegistry} />
-<Toast />
+<Modal components="{modalComponentRegistry}"></Modal>
+<Toast></Toast>
 
-<Drawer data={$facilityStore} />
+<Drawer data="{$facilityStore}"></Drawer>
 
-<AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4" on:scroll={scrollHandler}>
+<AppShell {slotSidebarLeft} regionpage="overflow-y-scroll" slotfooter="bg-black p-4" on:scroll="{scrollHandler}">
 		<svelte:fragment slot="header">
-			<SkeletonAppBar facility={$facilityStore} />
+			<SkeletonAppBar facility="{$facilityStore}"></SkeletonAppBar>
 		</svelte:fragment>
 		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data={$facilityStore} class="hidden lg:grid w-[360px] overflow-hidden" />
+			<Sidebar data="{$facilityStore}" class="hidden lg:grid w-[360px] overflow-hidden"></Sidebar>
 		</svelte:fragment>
 		<svelte:fragment slot="pageHeader">
 			{#if $notificationData}
-				<p
-					class="notification"
-					id="notification"
-					in:fly={{ x: 200, duration: 500, delay: 500 }}
-					out:fly={{ x: 200, duration: 500 }}
-				>
+				<p class="notification" id="notification" in:fly={{x: 200, duration: 500, delay: 0 }} out:fly={{}}>
 					{$notificationData}
 				</p>
 			{/if}
 		</svelte:fragment>
 		<!-- Page Content -->
-		<QueryClientProvider client={data.queryClient}>
-			<slot />
+		<QueryClientProvider client="{data.queryClient}">
+			<slot></slot>
 		</QueryClientProvider>
-		<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
+		<svelte:fragment slot="pageFooter"><Footer></Footer></svelte:fragment>
 	</AppShell>

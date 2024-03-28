@@ -37,7 +37,7 @@
 {@const program = getProgram(data)}
 <div class="card bg-initial w-fit my-2 py-2">
 	<header class="card-header">
-		<h3>
+		<h3 class="h3">
 			{programOf(program.title, $language, isOther, program.list.length)}
 		</h3>
 	</header>

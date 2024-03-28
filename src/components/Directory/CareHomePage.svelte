@@ -97,7 +97,7 @@
 							{#if Object.keys(data).includes('regular_permanent_bed') || Object.keys(data).includes('regular_temporary_bed')}
 								<li>
 									<div class="card p-2">
-										<h5>Standard</h5>
+										<h5 class="h5">Standard</h5>
 										<ul class="list">
 											{#if Object.keys(data).includes("regular_permanent_bed")}
 											<li>{label("regular_permanent_bed")}</li>
@@ -110,7 +110,7 @@
 									</li>
 									<li>
 									<div class="card p-2">
-										<h5>Alzheimer</h5>
+										<h5 class="h5">Alzheimer</h5>
 										<ul class="list">
 											{#if Object.keys(data).includes("alzheimer_permanent_bed")}
 											<li>{label("alzheimer_permanent_bed")}</li>
@@ -123,7 +123,7 @@
 								</li>
 								<li>
 									<div class="card p-2">
-										<h5>UHR</h5>
+										<h5 class="h5">UHR</h5>
 										<ul class="list">
 											{#if Object.keys(data).includes("uhr_permanent_bed")}
 											<li>{label("uhr_permanent_bed")}</li>
@@ -133,7 +133,7 @@
 								</li>
 								<li>
 									<div class="card p-2">
-										<h5>UVPHA</h5>
+										<h5 class="h5">UVPHA</h5>
 										<ul class="list">
 											{#if Object.keys(data).includes("uvpha_permanent_bed")}
 											<li>{label("uvpha_permanent_bed")}</li>

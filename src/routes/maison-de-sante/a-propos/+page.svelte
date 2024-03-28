@@ -41,13 +41,13 @@
 
 <header>
 	<div class="section-container">
-		<h1>Qu'est-ce qu'une maison de santé pluriprofessionnelle?</h1>
+		<h1 class="h1">Qu'est-ce qu'une maison de santé pluriprofessionnelle?</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Définition</h2>
+		<h2 class="h2">Définition</h2>
 		<p>
 			Une Maison de Santé Pluriprofessionnelle (MSP) est une forme particulière d’<Def
 				w="Équipe de soins primaires"
@@ -60,7 +60,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Plusieurs professions</h2>
+		<h2 class="h2">Plusieurs professions</h2>
 		<p>
 			Une MSP doit être constituée au minimum de deux médecins généralistes et d'un professionnel
 			paramédical.
@@ -77,7 +77,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Géographie</h2>
+		<h2 class="h2">Géographie</h2>
 		<p>Ils exerçent sur un ou plusieurs sites.</p>
 		<div class="card variant-ringed-primary p-4 max-w-fit">
 			Deux types de MSP selon la répartition géographique des professionnels.
@@ -106,7 +106,7 @@
 </section>
 <section>
 	<div class="section-container">
-		<h2>Projet de santé</h2>
+		<h2 class="h2">Projet de santé</h2>
 		<p>
 			L’action d’une MSP s’inscrit dans le cadre d’un
 			<a href="/maison-de-sante/projet-de-sante">projet de santé</a>, établi à partir d’un
@@ -123,7 +123,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Communication</h2>
+		<h2 class="h2">Communication</h2>
 		<p>Les professionnels de santé se transmettent les informations de manière organisée.</p>
 		<div class="w-fit">
 		<nav class="list-nav">
@@ -150,7 +150,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Au-delà des soins</h2>
+		<h2 class="h2">Au-delà des soins</h2>
 		<p>La MSP vise à offrir à sa patientèle un ensemble de services de santé de proximité.</p>
 		<div class="w-fit text-token card p-4 space-y-4">
 			<p class="font-bold">Nos services de santé</p>

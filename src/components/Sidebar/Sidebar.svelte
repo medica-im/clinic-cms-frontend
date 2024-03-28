@@ -7,16 +7,17 @@
 
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	import { menuNavLinks, menuNavCats } from '../../lib/links';
-	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
+	import { AppRail, AppRailTile, AppRailAnchor, getDrawerStore } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import { resetDirectory } from '$components/Directory/utils';
 
 	// Stores
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
-	import { drawerStore } from '@skeletonlabs/skeleton';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import Fa from 'svelte-fa';
 	import { faBlog } from '@fortawesome/free-solid-svg-icons';
+
+	const drawerStore = getDrawerStore();
 	// Props
 	export let embedded = false;
 	export let data;

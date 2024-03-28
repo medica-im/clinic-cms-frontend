@@ -25,7 +25,7 @@
 <div>
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
 		<div class="section-container">
-			<h2>{capitalizeFirstLetter($LL.LEGAL_NOTICES(), $language)}</h2>
+			<h2 class="h2">{capitalizeFirstLetter($LL.LEGAL_NOTICES(), $language)}</h2>
 		</div>
 	</header>
 	<!-- programs -->

@@ -7,7 +7,7 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: [
-		vitePreprocess(),
+		vitePreprocess({}),
 		preprocess({
 			postcss: true
 		})
@@ -16,9 +16,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			'$i18n': './src/i18n',
-			'$components': './src/components',
-			'$modals': './src/modals',
+			$i18n: './src/i18n',
+			$components: './src/components',
+			$modals: './src/modals'
 		}
 	}
 };

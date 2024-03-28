@@ -20,7 +20,7 @@
 		<!--TeamCarousel data={data.teamCarousel} /-->
 	</div>
 	<div class="col-span-2 p-2 space-y-2">
-		<h2>{$LL.HOME.TEAM.TITLE()}</h2>
+		<h2 class="h2">{$LL.HOME.TEAM.TITLE()}</h2>
 		<p>
 			{$LL.HOME.TEAM.TEXT()}
 		</p>

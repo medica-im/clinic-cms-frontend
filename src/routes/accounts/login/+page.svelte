@@ -68,7 +68,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1>{$LL.LOGIN.LOGIN()}</h1>
+			<h1 class="h1">{$LL.LOGIN.LOGIN()}</h1>
 		</div>
 	</header>
 

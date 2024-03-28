@@ -39,7 +39,7 @@
             </header-->
 				<!-- Body -->
 				<div class="p-2 space-y-2 space-x-2">
-					<h4>{facility.name}</h4>
+					<h4 class="h4">{facility.name}</h4>
 					<p class="space-x-2">
 						<Address data={facility} />
 					</p>

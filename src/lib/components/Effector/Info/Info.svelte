@@ -10,7 +10,7 @@
 	<div class="flex items-center py-2">
 		<div class="w-9"><Fa icon={faInfo} /></div>
 		<div>
-			<h3>
+			<h3 class="h3">
 				{capitalizeFirstLetter($LL.ADDRESSBOOK.INFORMATIONS())}
 			</h3>
 		</div>

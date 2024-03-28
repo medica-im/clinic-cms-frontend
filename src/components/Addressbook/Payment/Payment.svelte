@@ -9,7 +9,7 @@
 <div class="flex items-center py-2">
 	<div class="w-9"><Fa icon={faCreditCard} /></div>
 	<div>
-		<h3>
+		<h3 class="h3">
 			{#if data.length < 2}{$LL.ADDRESSBOOK.PAYMENT_METHOD()}{:else}{$LL.ADDRESSBOOK.PAYMENT_METHODS()}{/if}
         </h3>
 	</div>

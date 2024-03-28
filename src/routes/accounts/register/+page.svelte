@@ -47,7 +47,7 @@
 	in:fly={{ y: 100, duration: 500, delay: 500 }}
 	out:fly={{ duration: 500 }}
 >
-	<h1>Register</h1>
+	<h1 class="h1">Register</h1>
 	{#if errors}
 		{#each errors as error}
 			<p class="center error">{error.error}</p>

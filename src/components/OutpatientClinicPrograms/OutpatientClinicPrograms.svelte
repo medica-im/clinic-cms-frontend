@@ -13,7 +13,7 @@
 <div class="space-y-4 md:space-y-10">
 	<!-- Info -->
 	<div class="space-y-4 text-center">
-		<h2>Actions santé</h2>
+		<h2 class="h2">Actions santé</h2>
 		<p>Au-delà des habituelles séances et consultations, les professionnels de {$facilityStore.formatted_name_definite_article} agissent pour votre santé en vous proposant ces ateliers.</p>
 	</div>
 	<!-- Grid -->

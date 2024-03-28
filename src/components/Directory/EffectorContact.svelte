@@ -77,7 +77,7 @@
 				<div class="flex items-center py-2">
 					<div class="w-9"><Fa icon={faEnvelope} /></div>
 					<div>
-						<h3>Email</h3>
+						<h3 class="h3">Email</h3>
 					</div>
 				</div>
 				<div class="flex">
@@ -109,7 +109,7 @@
 				<div class="flex items-center p-1">
 					<div class="w-9"><Fa icon={faGlobe} /></div>
 					<div>
-						<h3>Web</h3>
+						<h3 class="h3">Web</h3>
 					</div>
 				</div>
 				<div class="flex p-1">
@@ -125,7 +125,7 @@
 				<div class="flex items-center p-1">
 					<div class="w-9"><Fa icon={faCircleNodes} /></div>
 					<div>
-						<h3>{$LL.ADDRESSBOOK.SOMED()}</h3>
+						<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
 					</div>
 				</div>
 				<div class="flex p-1">
@@ -151,7 +151,7 @@
 			<div class="flex items-center p-1">
 				<div class="w-9"><Fa icon={faMapLocationDot} /></div>
 				<div>
-					<h3>{capitalizeFirstLetter($LL.ADDRESSBOOK.LOCATION())}</h3>
+					<h3 class="h3">{capitalizeFirstLetter($LL.ADDRESSBOOK.LOCATION())}</h3>
 				</div>
 			</div>
 			<div class="flex p-1">

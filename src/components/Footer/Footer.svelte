@@ -24,7 +24,7 @@
 					<div class="flex items-center space-x-2">
 						<span class="flex w-8 h-8 items-center"><OutpatientClinicLogo /></span>
 
-						<h3>
+						<h3 class="h3">
 							{capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
 						</h3>
 					</div>

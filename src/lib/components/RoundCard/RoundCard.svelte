@@ -17,8 +17,8 @@
         <img src={img} class="max-h-64 bg-black/50" alt={alt} />
     </div>
     <div class="p-2 space-y-2">
-        <h6>{date}</h6>
-        <h3>{title}</h3>
+        <h6 class="h6">{date}</h6>
+        <h3 class="h3">{title}</h3>
         <article>
             <p>{excerpt}</p>
         </article>

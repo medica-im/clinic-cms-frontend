@@ -768,7 +768,7 @@ export const categoryOf = derived(
 				$fullFilteredEffectors.filter(
 					function (x) {
 						return (
-							(!$selectCommunes.length || $selectCommunes.includes(x.commune.uid)) && (!$selectFacility || $selectFacility == x.uid)
+							(!($selectCommunes.length) || $selectCommunes.includes(x.commune.uid)) && (!$selectFacility || $selectFacility == x.facility.uid)
 						)
 					}
 				).map(

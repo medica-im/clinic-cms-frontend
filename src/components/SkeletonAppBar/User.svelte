@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { logOutUser } from '$lib/utils/requestUtils';
 	import { userData } from '$lib/store/userStore';
-	import { drawerStore } from '@skeletonlabs/skeleton';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import { isObjectEmpty } from '$lib/utils/utils';
 
 	import Fa from 'svelte-fa';
@@ -23,6 +23,7 @@
 		faUser
 	} from '@fortawesome/free-solid-svg-icons';
 	export let embedded = false;
+	const drawerStore = getDrawerStore();
 
 	// ListItem Click Handler
 	function onListItemClick(): void {

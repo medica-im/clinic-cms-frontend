@@ -24,13 +24,13 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1>{capitalizeFirstLetter($LL.DISEASE.APNEA(), $language)}</h1>
+		<h1 class="h1">{capitalizeFirstLetter($LL.DISEASE.APNEA(), $language)}</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Définition</h2>
+		<h2 class="h2">Définition</h2>
 		<p>
 			
 		</p>
@@ -48,7 +48,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Objectifs</h2>
+		<h2 class="h2">Objectifs</h2>
 		<p>
 		</p>
 	</div>
@@ -56,7 +56,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Déroulement</h2>
+		<h2 class="h2">Déroulement</h2>
 		<p></p>
 		<div class="pl-5">
 		<ul class="list-disc space-y-4 p-4">
@@ -69,7 +69,7 @@
 </section>
 <section>
 	<div class="section-container">
-		<h2>Conditions d'accès</h2>
+		<h2 class="h2">Conditions d'accès</h2>
 		<p>
 		</p>
 	</div>

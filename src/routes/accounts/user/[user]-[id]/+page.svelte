@@ -30,7 +30,7 @@
 
 {#if currentUserData && currentUserData.id}
 
-		<h1>{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
+		<h1 class="h1">{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
 		</h1>
 
 		<div class="card">

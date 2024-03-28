@@ -13,13 +13,13 @@
 <div>
 <header>
 	<div class="section-container">
-		<h1>{$LL.NAVBAR.HEALTH_PROJECT()}</h1>
+		<h1 class="h1">{$LL.NAVBAR.HEALTH_PROJECT()}</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Définition</h2>
+		<h2 class="h2">Définition</h2>
 		<p>
 			L'<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044628615/2021-12-25/"
 				>article L6323-3</a

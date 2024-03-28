@@ -102,14 +102,14 @@ export const programsNavLinks: any = [
 			},
 			{
 				href: '/prevention/depistage-hypertension-arterielle',
-				label: 'Dépistage hypertension artérielle',
+				label: 'Hypertension artérielle',
 				keywords: 'prévention, santé, maladie, dépistage, hypertension',
 				icon: null,
 				category: 'program'
 			},
 			{
 				href: '/prevention/depistage-apnee-sommeil',
-				label: 'Dépistage apnée du sommeil',
+				label: 'Apnée du sommeil',
 				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
 				icon: null,
 				category: 'program'

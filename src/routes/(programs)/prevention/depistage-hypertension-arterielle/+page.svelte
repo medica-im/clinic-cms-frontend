@@ -24,7 +24,7 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1>{capitalizeFirstLetter($LL.SCREENING.HYPERTENSION(), $language)}</h1>
+		<h1 class="h1">{capitalizeFirstLetter($LL.SCREENING.HYPERTENSION(), $language)}</h1>
 		<p>
 			Dépistage et suivi de l'hypertension artérielle (HTA) par l'automesure tensionnelle à
 			domicile.
@@ -34,14 +34,14 @@
 
 <section>
 	<div class="section-container">
-		<h2>Personnes concernées</h2>
+		<h2 class="h2">Personnes concernées</h2>
 		<p>Personnes âgées de plus de 40 ans.</p>
 	</div>
 </section>
 
 <section>
 	<div class="section-container">
-		<h2>Objectifs</h2>
+		<h2 class="h2">Objectifs</h2>
 		<p>
 			Objectifs de l’automesure tensionnelle réalisée en dehors du cabinet médical et au domicile du
 			patient:

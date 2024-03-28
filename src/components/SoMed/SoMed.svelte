@@ -9,13 +9,15 @@
 		faYoutube,
 		faSkype
 	} from '@fortawesome/free-brands-svg-icons';
-	import { drawerStore } from '@skeletonlabs/skeleton';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import type { SocialNetwork } from '$lib/interfaces/socialnetwork.interface';
 	export let embedded = false;
 	export let data: SocialNetwork[];
 	export let appBar = false;
 	export let sideBar = false;
 	export let appRail = false;
+
+	const drawerStore = getDrawerStore();
 
 	// ListItem Click Handler
 	function onListItemClick(): void {

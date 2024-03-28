@@ -39,14 +39,14 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1>{capitalizeFirstLetter($LL.DISEASE.CHILDHOOD_OBESITY(), $language)}</h1>
+		<h1 class="h1">{capitalizeFirstLetter($LL.DISEASE.CHILDHOOD_OBESITY(), $language)}</h1>
 		<p>« Mission: retrouve ton cap », prévention du surpoids et de l’obésité infantile.</p>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Présentation</h2>
+		<h2 class="h2">Présentation</h2>
 		<p>
 			Le programme « Mission : retrouve ton cap » permet aux enfants de 3 à 12 ans en surpoids ou à
 			risque de le devenir de bénéficier d’une prise en charge précoce et pluridisciplinaire
@@ -57,7 +57,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Présentation en vidéo</h2>
+		<h2 class="h2">Présentation en vidéo</h2>
 		<div class="py-4">
 		<VideoPlayer data={videos}/>
 		</div>
@@ -66,7 +66,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Personnes concernées</h2>
+		<h2 class="h2">Personnes concernées</h2>
 		<p>Enfants de 3 à 12 ans.</p>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
@@ -82,7 +82,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>De quelles prestations l'enfant peut-il bénéficier?</h2>
+		<h2 class="h2">De quelles prestations l'enfant peut-il bénéficier?</h2>
 		<p>L'enfant peut bénéficier pendant 2 ans:</p>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
@@ -101,7 +101,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Intervenants</h2>
+		<h2 class="h2">Intervenants</h2>
 
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
@@ -114,7 +114,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Conditions d'accès</h2>
+		<h2 class="h2">Conditions d'accès</h2>
 		<p>
 			Ce programme est pris en charge à 100% par l’Assurance Maladie, sans avance de frais par la
 			famille.
@@ -126,7 +126,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Ressources utiles pour les enfants et les parents</h2>
+		<h2 class="h2">Ressources utiles pour les enfants et les parents</h2>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
 				<li>la présentation du programme <a href="https://www.ameli.fr/bayonne/assure/remboursements/rembourse/mission-retrouve-ton-cap" rel="external" class="anchor">« Mission : retrouve ton cap »</a> sur le site de l'Assurance Maladie</li>

@@ -9,7 +9,7 @@
 	<div class="flex items-center py-2">
 		<div class="w-9"><Fa icon={faEuroSign} /></div>
 		<div>
-			<h3>
+			<h3 class="h3">
 				{$LL.ADDRESSBOOK.COSTS_AND_REIMBURSEMENTS()}
 			</h3>
 		</div>
