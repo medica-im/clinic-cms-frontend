@@ -16,7 +16,7 @@
 	import Phones from './Phones.svelte';
 	import Address from './Address.svelte';
 	import Websites from '$components/Website/Websites.svelte';
-	import Map from '$components/Map/Map.svelte';
+	import Map from '$lib/components/Map/Map.svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Appointment from '$lib/components/Effector/Appointment/Appointments.svelte';
 	import Cost from '$lib/components/Effector/Cost/Cost.svelte';
@@ -25,6 +25,8 @@
 	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import Avatar from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$components/Directory/Back.svelte';
+	import { createMapData } from '$lib/components/Map/mapData';
+
 	export let effector: any;
 </script>
 
@@ -159,7 +161,9 @@
 				<div class="p-2 space-y-2 h-96 w-full">
 					<FacilityLink data={effector.facility} />
 					<Address data={effector.address} />
-					<Map data={effector.address} />
+					<div class="map">
+					<Map data={createMapData(effector.address)} />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -170,3 +174,11 @@
 	</div>
 </div>
 </div>
+
+<style>
+    .map {
+      height: 300px;
+      width: 100%;
+      border: 0px;
+    }
+</style>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
+	import Map from '$lib/components/Map/Map.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import Navigation from '$components/Navigation/Navigation.svelte';
 	import Email from '$components/Email/Email.svelte';
@@ -14,6 +15,7 @@
 	import { isMobile } from '$lib/helpers/deviceDetector';
 	import Fa from 'svelte-fa';
 	import { faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
+	import { createMapData } from '$lib/components/Map/mapData';
 
 	export let facility;
 
@@ -79,7 +81,8 @@
             </footer-->
 			</div>
 		<div class="m-1 p-1 h-56">
-			<LeafletMap geoData={createFacilityGeoData(facility)} />
+			<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
+			<Map data={createMapData(facility?.address)}/>
 		</div>
 		{#if $page.url.pathname == '/sites'}
 		<div class="m-1 p-1">

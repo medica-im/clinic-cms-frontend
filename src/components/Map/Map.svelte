@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
+	import Map from '$lib/components/Map/Map.svelte';
 	export let data: any;
 
 	const createFacilityGeoData = (data) => {
