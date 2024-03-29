@@ -6,7 +6,7 @@
 	import { variables } from '$lib/utils/constants';
 
 	import DocsIcon from '$components/Icon/Icon.svelte';
-	import { menuNavLinks, menuNavCats } from '../../lib/links';
+	import { menuNavLinks, menuNavCats } from '$lib/links';
 	import { AppRail, AppRailTile, AppRailAnchor, getDrawerStore } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import { resetDirectory } from '$components/Directory/utils';
@@ -84,8 +84,7 @@
 </script>
 
 <div
-	class="grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ??
-		''}"
+	class="grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ?? ''}"
 >
 	<!-- App Rail -->
 	<AppRail background="bg-transparent" border="border-r border-surface-500/30">

@@ -37,148 +37,141 @@
 </svelte:head>
 
 <div class="flex flex-col items-center">
-<div class="flex flex-col m-4 p-4 space-y-8">
-
-	<div class="flex flex-wrap max-w-3xl p-2 m-2 gap-8">
-		<div class="space-y-2">
-			<h2 class="h3">{effector.name}</h2>
-			<h3 class="h4 italic">{effector?.effector_type?.label}</h3>
-			<FacilityLink data={effector.facility} />
+	<div class="flex flex-col m-4 p-4 space-y-8">
+		<div class="flex flex-wrap max-w-3xl p-2 m-2 gap-8">
+			<div class="space-y-2">
+				<h2 class="h3">{effector.name}</h2>
+				<h3 class="h4 italic">{effector?.effector_type?.label}</h3>
+				<FacilityLink data={effector.facility} />
+			</div>
+			<div class="flex-none">
+				{#if effector?.avatar}
+					<Avatar data={effector} />
+				{/if}
+			</div>
 		</div>
-		<div class="flex-none">
-			{#if effector?.avatar}
-				<Avatar data={effector} />
-			{/if}
-		</div>
-	</div>
-	{#if effector?.appointments?.length}
-		<div class="card max-w-3xl variant-ghost p-2 m-2 d-flex justify-content-between align-items-start">
-			<Appointment appointments={effector.appointments} />
-		</div>
-	{/if}
-	{#if effector.phones?.length || effector.emails?.length}
-	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2 m-2">
-		{#if effector.phones?.length}
-			<div class="d-flex justify-content-between align-items-start">
-				<div class="flex items-center py-2">
-					<div class="w-9"><Fa icon={faPhone} /></div>
-					<div>
-						<h3 class="h4">{capitalizeFirstLetter($LL.PHONE())}</h3>
-					</div>
-				</div>
-				<div class="flex items-center p-2">
-					<div class="w-9" />
-					<div class="py-2 space-x-2">
-						<Phones data={effector.phones} />
-					</div>
-				</div>
+		{#if effector?.appointments?.length}
+			<div
+				class="card max-w-3xl variant-ghost p-2 m-2 d-flex justify-content-between align-items-start"
+			>
+				<Appointment appointments={effector.appointments} />
 			</div>
 		{/if}
-		{#if effector.emails?.length}
-			<div class="d-flex justify-content-between align-items-start">
-				<div class="flex items-center py-2">
-					<div class="w-9"><Fa icon={faEnvelope} /></div>
-					<div>
-						<h3 class="h3">Email</h3>
+		{#if effector.phones?.length || effector.emails?.length}
+			<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2 m-2">
+				{#if effector.phones?.length}
+					<div class="d-flex justify-content-between align-items-start">
+						<div class="flex items-center py-2">
+							<div class="w-9"><Fa icon={faPhone} /></div>
+							<div>
+								<h3 class="h4">{capitalizeFirstLetter($LL.PHONE())}</h3>
+							</div>
+						</div>
+						<div class="flex items-center p-2">
+							<div class="w-9" />
+							<div class="py-2 space-x-2">
+								<Phones data={effector.phones} />
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="flex">
-					<div class="w-9" />
-					<div class="py-2">
-						<Emails data={effector.emails} />
+				{/if}
+				{#if effector.emails?.length}
+					<div class="d-flex justify-content-between align-items-start">
+						<div class="flex items-center py-2">
+							<div class="w-9"><Fa icon={faEnvelope} /></div>
+							<div>
+								<h3 class="h3">Email</h3>
+							</div>
+						</div>
+						<div class="flex">
+							<div class="w-9" />
+							<div class="py-2">
+								<Emails data={effector.emails} />
+							</div>
+						</div>
 					</div>
-				</div>
+				{/if}
 			</div>
 		{/if}
-	</div>
-	{/if}
-	{#if effector?.convention || effector?.carte_vitale || effector?.third_party_payers?.length || effector?.payment_methods?.length}
-	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2 m-2">
-		<div>
-			<Cost data={effector} />
-		</div>
-		{#if effector?.payment_methods?.length}
-			<div class="d-flex justify-content-between align-items-start">
-				<Payment data={effector.payment_methods} />
-			</div>
-		{/if}
-	</div>
-	{/if}
-	{#if effector.websites?.length || effector.socialnetworks?.length}
-	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2 m-2">
-		{#if effector.websites?.length}
-			<div class="d-flex justify-content-between align-items-start">
-				<div class="flex items-center p-1">
-					<div class="w-9"><Fa icon={faGlobe} /></div>
-					<div>
-						<h3 class="h3">Web</h3>
-					</div>
-				</div>
-				<div class="flex p-1">
-					<div class="w-9" />
-					<div class="py-2 space-x-2">
-						<Websites data={effector.websites} />
-					</div>
-				</div>
-			</div>
-		{/if}
-		{#if effector.socialnetworks?.length}
-			<div class="d-flex justify-content-between align-items-start">
-				<div class="flex items-center p-1">
-					<div class="w-9"><Fa icon={faCircleNodes} /></div>
-					<div>
-						<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
-					</div>
-				</div>
-				<div class="flex p-1">
-					<div class="w-9" />
-					<div class="py-2 space-x-2">
-						<SoMed data={effector.socialnetworks} appBar={false} />
-					</div>
-				</div>
-			</div>
-		{/if}
-	</div>
-	{/if}
-	{#if effector?.spoken_languages || effector?.rpps || effector?.adeli}
-	<div class="flex flex-wrap card variant-ghost max-w-3xl gap-4 p-2 m-2">
-		<div class="d-flex justify-content-between align-items-start">
-			<Info data={effector} />
-		</div>
-	</div>
-	{/if}
-	{#if effector.address}
-	<div class="card max-w-3xl variant-ghost p-2 m-2">
-		<div class="d-flex justify-content-between align-items-start">
-			<div class="flex items-center p-1">
-				<div class="w-9"><Fa icon={faMapLocationDot} /></div>
+		{#if effector?.convention || effector?.carte_vitale || effector?.third_party_payers?.length || effector?.payment_methods?.length}
+			<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2 m-2">
 				<div>
-					<h3 class="h3">{capitalizeFirstLetter($LL.ADDRESSBOOK.LOCATION())}</h3>
+					<Cost data={effector} />
+				</div>
+				{#if effector?.payment_methods?.length}
+					<div class="d-flex justify-content-between align-items-start">
+						<Payment data={effector.payment_methods} />
+					</div>
+				{/if}
+			</div>
+		{/if}
+		{#if effector.websites?.length || effector.socialnetworks?.length}
+			<div class="flex flex-wrap card variant-ghost max-w-3xl gap-8 p-2 m-2">
+				{#if effector.websites?.length}
+					<div class="d-flex justify-content-between align-items-start">
+						<div class="flex items-center p-1">
+							<div class="w-9"><Fa icon={faGlobe} /></div>
+							<div>
+								<h3 class="h3">Web</h3>
+							</div>
+						</div>
+						<div class="flex p-1">
+							<div class="w-9" />
+							<div class="py-2 space-x-2">
+								<Websites data={effector.websites} />
+							</div>
+						</div>
+					</div>
+				{/if}
+				{#if effector.socialnetworks?.length}
+					<div class="d-flex justify-content-between align-items-start">
+						<div class="flex items-center p-1">
+							<div class="w-9"><Fa icon={faCircleNodes} /></div>
+							<div>
+								<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
+							</div>
+						</div>
+						<div class="flex p-1">
+							<div class="w-9" />
+							<div class="py-2 space-x-2">
+								<SoMed data={effector.socialnetworks} appBar={false} />
+							</div>
+						</div>
+					</div>
+				{/if}
+			</div>
+		{/if}
+		{#if effector?.spoken_languages || effector?.rpps || effector?.adeli}
+			<div class="flex flex-wrap card variant-ghost max-w-3xl gap-4 p-2 m-2">
+				<div class="d-flex justify-content-between align-items-start">
+					<Info data={effector} />
 				</div>
 			</div>
-			<div class="flex p-1">
-				<div class="w-9" />
-				<div class="p-2 space-y-2 h-96 w-full">
-					<FacilityLink data={effector.facility} />
-					<Address data={effector.address} />
-					<div class="map">
-					<Map data={createMapData(effector.address)} />
+		{/if}
+		{#if effector.address}
+			<div class="card max-w-3xl variant-ghost p-2 m-2">
+				<div class="d-flex justify-content-between align-items-start">
+					<div class="flex items-center p-1">
+						<div class="w-9"><Fa icon={faMapLocationDot} /></div>
+						<div>
+							<h3 class="h3">{capitalizeFirstLetter($LL.ADDRESSBOOK.LOCATION())}</h3>
+						</div>
+					</div>
+					<div class="flex p-1">
+						<div class="w-9" />
+						<div class="p-2 space-y-2 h-96 w-full">
+							<FacilityLink data={effector.facility} />
+							<Address data={effector.address} />
+							<div class="h-56">
+								<Map data={createMapData(effector.address)} />
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+		{/if}
+		<div class="flex flex-row-reverse">
+			<Back />
 		</div>
 	</div>
-	{/if}
-	<div class="flex flex-row-reverse">
-		<Back />
-	</div>
 </div>
-</div>
-
-<style>
-    .map {
-      height: 300px;
-      width: 100%;
-      border: 0px;
-    }
-</style>
