@@ -21,13 +21,13 @@
 		faUser,
 		faPersonChalkboard
 	} from '@fortawesome/free-solid-svg-icons';
-	import { menuNavLinks, menuNavCats } from '../../lib/links';
+	import { menuNavLinks, menuNavCats } from '$/lib/links.ts';
 
     function getNavGroups(id: Number) {
         let cat = menuNavCats.find(obj => {
             return obj.id === id
         })
-    const navGroup = menuNavLinks.filter((x: Array<any>) => cat.list.includes(x.id));
+    const navGroup = Object.values(menuNavLinks).filter(x => cat.list.includes(x.id));
     return navGroup
     }
 	// Reactive

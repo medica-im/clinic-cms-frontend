@@ -23,8 +23,8 @@ import {
 	faShieldHeart
 } from '@fortawesome/free-solid-svg-icons';
 
-export const programsNavLinks: any = [
-	/*{
+export const programsNavLinks: any = {
+	/*'education-therapeutique': {
 		id: 'education-therapeutique',
 		title: {
 			en: 'Therapeutic education',
@@ -57,7 +57,7 @@ export const programsNavLinks: any = [
 			}
 		]
 	},
-	{
+	'education-sante': {
 		id: 'education-sante',
 		title: {
 			en: 'Health education',
@@ -83,7 +83,7 @@ export const programsNavLinks: any = [
 			}
 		]
 	},*/
-	{
+	'prevention': {
 		id: 'prevention',
 		title: {
 			en: 'Health prevention',
@@ -123,11 +123,11 @@ export const programsNavLinks: any = [
 			}
 		]
 	}
-];
+};
 
-export const getIsOther = (url) => {
+export const getIsOther = (url: string) => {
 	const rootPath = "/" + url.split("/")[1]
-    const prog = programsNavLinks.find(({ href }) => href === rootPath);
+    const prog = Object.values(programsNavLinks).find(e => e.href === rootPath);
 	const progArray = prog.list.filter((e) => e.href == url && e.category == "program");
 	if (typeof progArray != "undefined"
                     && progArray != null
@@ -140,7 +140,7 @@ export const getIsOther = (url) => {
 
 export const getProgram = (url: string) => {
 	const rootPath = "/" + url.split("/")[1]
-    const prog = programsNavLinks.find(({ href }) => href === rootPath);
+    const prog = Object.values(programsNavLinks).find(e => e.href === rootPath);
 	const dict = {
 		id: prog.id,
 		title: prog.title,
@@ -151,16 +151,16 @@ export const getProgram = (url: string) => {
 
 export const getAllPrograms = () => {
 	let programArray = [];
-	for (let p of programsNavLinks) {
+	for (let p of Object.values(programsNavLinks)) {
 		programArray.push(getProgram(p.href))
 	  }
 	return programArray
 }
 
-export const menuNavLinks: any = isMSP ? [
+const outpatientClinicLinks: any = {
 	// outpatient clinic
-	{
-		id: 'maison-de-sante',
+	'msp': {
+		id: 'msp',
 		title: {
 			en: 'Outpatient clinic',
 			fr: 'Maison de santé'
@@ -205,9 +205,15 @@ export const menuNavLinks: any = isMSP ? [
 				icon: null
 			}
 		]
-	}].concat(programsNavLinks) : []
+	}
+}
 
-export const menuNavCats: any = isMSP ? [
+export const menuNavLinks: any = {
+	...outpatientClinicLinks,
+	...programsNavLinks
+};
+
+export const menuNavCats: any = [
 	// outpatient clinic
 	{
 		id: 'msp',
@@ -215,8 +221,9 @@ export const menuNavCats: any = isMSP ? [
 			en: 'Outpatient clinic',
 			fr: 'Maison de santé'
 		},
-		list: ['maison-de-sante']
+		list: ['msp']
 	},
+	// programs
 	/*{
 		id: 'education',
 		title: {
@@ -233,4 +240,4 @@ export const menuNavCats: any = isMSP ? [
 		},
 		list: ['prevention']
 	}
-] : []
+];

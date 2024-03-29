@@ -27,7 +27,7 @@
 
   let yScroll = 0
 
-	onMount(() => {
+	/*onMount(() => {
 		const interval = setInterval(() => {
 			invalidateAll();
 		}, 1000);
@@ -38,7 +38,7 @@
 		selectOccupations.set([]);
 		selectFacilities.set([]);
 		term.set('');
-	});
+	});*/
 </script>
 
 <!--LDTag schema={data?.websiteSchema} /-->

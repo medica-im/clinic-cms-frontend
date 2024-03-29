@@ -59,7 +59,7 @@
 						{$LL.OUTPATIENT_CLINIC.PROGRAMS()}
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
-						{#each programsNavLinks as navLink}
+						{#each Object.values(programsNavLinks) as navLink}
 							<li class="mb-4">
 								<a href={navLink.href} class="hover:underline ">{navLink.title[$language]}</a>
 							</li>

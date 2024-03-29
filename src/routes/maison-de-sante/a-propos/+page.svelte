@@ -163,7 +163,7 @@
 							<span class="flex flex-wrap whitespace-normal text-left">Soins</span></a
 						>
 					</li>
-					{#if  programsNavLinks.find(x=>x.id=="prevention")}
+					{#if  Object.values(programsNavLinks).find(x=>x.id=="prevention")}
 					<li>
 						<a href="/prevention"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
@@ -172,7 +172,7 @@
 						>
 					</li>
 					{/if}
-					{#if  programsNavLinks.find(x=>x.id=="education-sante")}
+					{#if  Object.values(programsNavLinks).find(x=>x.id=="education-sante")}
 					<li>
 						<a href="/education-sante"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
@@ -182,7 +182,7 @@
 						>
 					</li>
 					{/if}
-					{#if  programsNavLinks.find(x=>x.id=="education-therapeutique")}
+					{#if  Object.values(programsNavLinks).find(x=>x.id=="education-therapeutique")}
 					<li>
 						<a href="/education-therapeutique"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>

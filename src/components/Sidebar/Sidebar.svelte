@@ -13,7 +13,6 @@
 
 	// Stores
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
-	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import Fa from 'svelte-fa';
 	import { faBlog } from '@fortawesome/free-solid-svg-icons';
 
@@ -30,8 +29,7 @@
 		drawerStore.close();
 	}
 
-	const storeCategory: Writable<string> = writable(menuNavCats?.[0]?.id);
-	let filteredMenuNavLinks: any[] = menuNavLinks;
+	let filteredMenuNavLinks: any[] = [];
 
 	// ListItem Click Handler
 	function onListItemClick(): void {
@@ -40,8 +38,7 @@
 		drawerStore.close();
 	}
 
-	function setNavCategory(c: string): void {
-		storeCategory.set(c);
+	/*function setNavCategory(c: string): void {
 		// prettier-ignore
 		switch($storeCategory) {
 			case('education'):
@@ -54,30 +51,35 @@
 			    filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => linkSet?.id === 'prevention');
 				break;
 		}
-	}
+	}*/
 
 	// Lifecycle
 	page.subscribe((page) => {
 		let path: string = page.url.pathname;
-		if (!path) return;
+		//let basePath: string = page.url.pathname.split('/')[1];
+
+		if (!path || path=="/") return;
 		// Translate path to menuNavCats id
-		filteredMenuNavLinks = menuNavLinks.filter((linkSet: any) => {
+		filteredMenuNavLinks = Object.values(menuNavLinks).filter((linkSet: any) => {
 			return linkSet.list.some((e: any) => e.href == path);
 		});
+		//console.log(filteredMenuNavLinks);
 		if (filteredMenuNavLinks.length) {
 			let menuNavLinkId = filteredMenuNavLinks[0].id;
 			let selectNavCats = menuNavCats.filter((navCat: any) => {
 				return navCat.list.some((e: any) => e == menuNavLinkId);
 			});
+			//console.log(`selectNavCats: ${JSON.stringify(selectNavCats)}`);
 			if (selectNavCats.length) {
 				let menuNavCatId: string = selectNavCats[0].id;
-				storeCategory.set(menuNavCatId);
+				currentRailCategory=menuNavCatId;
+				//console.log(`currentRailCategory: ${currentRailCategory}`)
 			}
 		}
 	});
-	storeCategory.subscribe((c: string) => setNavCategory(c));
 
 	// Reactive
+	$: filteredMenuNavLinks = Object.values(menuNavLinks).filter(e => e.id == currentRailCategory);
 	$: classesActive = (href: string) => {
 		return $storeCurrentUrl == href ? 'variant-ringed-primary' : '';
 	};
@@ -89,7 +91,7 @@
 	<!-- App Rail -->
 	<AppRail background="bg-transparent" border="border-r border-surface-500/30">
 		{#if variables.ORGANIZATION_CATEGORY == 'msp'}
-			<AppRailTile bind:group={$storeCategory} name={'maison-de-sante'} value={'msp'}>
+			<AppRailTile bind:group={currentRailCategory} name="msp" value={'msp'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="outpatientClinic" width="w-6" height="h-6" /></svelte:fragment
 				>
@@ -101,7 +103,7 @@
 				>
 				<span>Éducation</span>
 			</AppRailTile-->
-			<AppRailTile bind:group={$storeCategory} name="Prévention" value={'prevention'}>
+			<AppRailTile bind:group={currentRailCategory} name="prevention" value={'prevention'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faShieldHeart" width="w-6" height="h-6" /></svelte:fragment
 				>
@@ -181,7 +183,7 @@
 		<SoMed data={data.contact.socialnetworks} appRail={true} />
 		{/if}
 	</AppRail>
-	{#if filteredMenuNavLinks.length}
+	{#if filteredMenuNavLinks?.length}
 	<!-- Nav Links -->
 	<section class="p-4 pb-20 space-y-4 overflow-y-auto">
 		{#each filteredMenuNavLinks as { id, title, href, list }, i}
