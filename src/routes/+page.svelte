@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import { fly } from 'svelte/transition';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
 	import LL from '$i18n/i18n-svelte';
@@ -9,36 +8,11 @@
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import {
-		occupationsCardinal,
-		selectOccupations,
-		term,
-		workforceOccupation
-	} from '$lib/store/workforceStore';
-	import { selectFacilities } from '$lib/store/selectionStore';
-	import { onMount } from 'svelte';
-	import { invalidateAll } from '$app/navigation';
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
-	import Directory2 from '$components/Directory/Directory2.svelte';
 
 	export let data: PageData;
-
-  let yScroll = 0
-
-	/*onMount(() => {
-		const interval = setInterval(() => {
-			invalidateAll();
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-		};
-		selectOccupations.set([]);
-		selectFacilities.set([]);
-		term.set('');
-	});*/
 </script>
 
 <!--LDTag schema={data?.websiteSchema} /-->
