@@ -19,9 +19,8 @@
 
 	export let facility;
 
-
 	const createFacilityGeoData = (facility) => {
-		let address=facility?.address
+		let address = facility?.address;
 		let facilityGeoData = {
 			name: facility?.name ?? 'default',
 			latitude: Number(address?.latitude ?? 0),
@@ -32,64 +31,70 @@
 	};
 </script>
 
-<section id="{facility.name}_anchor" class="card variant-soft mx-4 my-6 p-1 lg:scroll-mt-12">
+<div id="{facility.name}_anchor" class="card variant-soft mx-4 my-6 p-2 lg:scroll-mt-12">
 	<div class="grid grid-cols-1 md:grid-cols-2">
-			<div class="overflow-hidden m-1 p-1">
-				<!-- Header -->
-				<!--header>
+		<div class="overflow-hidden m-1 p-1">
+			<!-- Header -->
+			<!--header>
                 <img src={img} class="bg-black/50 w-full" alt={alt} />
             </header-->
-				<!-- Body -->
-				<div class="p-2 space-y-2 space-x-2">
-					<h4 class="h4">{facility.name}</h4>
-					<p class="space-x-2">
-						<Address data={facility} />
-					</p>
-					{#if facility?.emails}
+			<!-- Body -->
+			<div class="p-2 space-y-2 space-x-2">
+				<h4 class="h4">{facility.name}</h4>
+				<p class="space-x-2">
+					<Address data={facility} />
+				</p>
+				{#if facility?.emails}
 					<ul class="list">
-					{#each facility?.emails as email}
-                                <Email data={email}/>
-							{/each}
-					</ul>                                    
-                    {/if}
-					<p>
-						
-						{#if browser}
+						{#each facility?.emails as email}
+							<Email data={email} />
+						{/each}
+					</ul>
+				{/if}
+				<p>
+					{#if browser}
 						{#if isMobile(window)}
-						<Navigation geoData={createFacilityGeoData(facility)} />
+							<Navigation geoData={createFacilityGeoData(facility)} />
 						{/if}
-						{/if}
-					</p>
-					<span class="inline-block align-middle space-x-1">
-						{#if facility?.websites}
-							{#each facility.contact.websites as website}
-								<Website {website} />
-							{/each}
-						{/if}
-						{#if facility?.socialnetworks}
+					{/if}
+				</p>
+				<span class="inline-block align-middle space-x-1">
+					{#if facility?.websites}
+						{#each facility.contact.websites as website}
+							<Website {website} />
+						{/each}
+					{/if}
+					{#if facility?.socialnetworks}
 						<SoMed data={facility.socialnetworks} appBar={false} />
-						{/if}
-					</span>
-					<div>
-					</div>
-				</div>
-				<!-- Footer -->
-				<!--footer class="p-4 flex justify-start items-center space-x-4">
+					{/if}
+				</span>
+				<div></div>
+			</div>
+			<!-- Footer -->
+			<!--footer class="p-4 flex justify-start items-center space-x-4">
                 <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
                     <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
                 </a>
             </footer-->
-			</div>
-		<div class="m-1 p-1 h-56">
-			<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
-			<Map data={createMapData(facility?.address)}/>
 		</div>
-		{#if $page.url.pathname == '/sites'}
-		<div class="m-1 p-1">
-		<a href="/sites/{facility.slug}" class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
-			<span><Fa icon={faMagnifyingGlassLocation} size="lg" /></span><span>Voir plus sur {facility.name}</span>
-		</a>
+		<div class="m-1 p-1 h-56 lg:w-full">
+			<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
+			<Map data={createMapData(facility?.address)} />
+		</div>
 	</div>
+
+	<div class="mx-0">
+		{#if $page.url.pathname == '/sites'}
+			<a href="/sites/{facility.slug}" class="" data-sveltekit-preload-data="hover">
+				<div class="flex items-center justify-around p-4 w-fit rounded-full variant-filled-primary hover:bg-primary-400">
+					<div class="inline-flex flex-shrink-0 justify-center items-center w-4 h-4">
+						<Fa icon={faMagnifyingGlassLocation} size="lg" />
+					</div>
+					<div class="ml-3 break-words overflow-hidden">
+						{facility.name}
+					</div>
+				</div>
+			</a>
 		{/if}
 	</div>
-</section>
+</div>
