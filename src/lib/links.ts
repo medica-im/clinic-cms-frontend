@@ -108,9 +108,9 @@ export const programsNavLinks: any = {
 				category: 'program'
 			},
 			{
-				href: '/prevention/depistage-apnee-sommeil',
-				label: 'Apnée du sommeil',
-				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
+				href: '/prevention/depistage-syndrome-apnees-sommeil',
+				label: 'Apnées du sommeil',
+				keywords: 'prévention, apnées, sommeil, somnolence',
 				icon: null,
 				category: 'program'
 			},

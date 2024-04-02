@@ -100,7 +100,7 @@
 		</div>
 		<p>
 			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est multisite, elle regroupe
-			<a href="/sites">{$siteCount} sites</a>.
+			<a href="/sites" class="anchor">{$siteCount} sites</a>.
 		</p>
 	</div>
 </section>
@@ -109,12 +109,12 @@
 		<h2 class="h2">Projet de santé</h2>
 		<p>
 			L’action d’une MSP s’inscrit dans le cadre d’un
-			<a href="/maison-de-sante/projet-de-sante">projet de santé</a>, établi à partir d’un
+			<a href="/maison-de-sante/projet-de-sante" class="anchor">projet de santé</a>, établi à partir d’un
 			diagnostic de l’état de santé de la population et témoignant d’un exercice coordonné entre les
 			professionnels de santé souhaitant participer à ses activités.
 		</p>
 		<p>
-			Les professionnels se mobilisent autour de <a href="/maison-de-sante/projet-de-sante"
+			Les professionnels se mobilisent autour d'un <a href="/maison-de-sante/projet-de-sante" class="anchor"
 				>projet de santé</a
 			> commun bénéficiant à leurs patients.
 		</p>
@@ -129,7 +129,7 @@
 		<nav class="list-nav">
 		<ul>
 			<li>
-				<a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
+				<a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle" class="anchor"
 						>
 				<span><Fa icon={faPeopleGroup} /></span><span class="whitespace-normal underline"
 					>Réunions de concertation pluriprofessionnelles</span
@@ -137,7 +137,7 @@
 				>
 			</li>
 			<li>
-				<a href="/maison-de-sante/dossier-patient">
+				<a href="/maison-de-sante/dossier-patient" class="anchor">
 				<span><Fa icon={faNetworkWired} /></span><span class="whitespace-normal underline"
 					>Logiciel métier partagé</span
 				></a>
@@ -157,7 +157,7 @@
 			<nav class="list-nav">
 				<ul>
 					<li>
-						<a href="/annuaire"
+						<a href="/annuaire" class="anchor"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Soins</span></a
@@ -165,7 +165,7 @@
 					</li>
 					{#if  Object.values(programsNavLinks).find(x=>x.id=="prevention")}
 					<li>
-						<a href="/prevention"
+						<a href="/prevention" class="anchor"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Prévention</span></a
@@ -174,7 +174,7 @@
 					{/if}
 					{#if  Object.values(programsNavLinks).find(x=>x.id=="education-sante")}
 					<li>
-						<a href="/education-sante"
+						<a href="/education-sante" class="anchor"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Éducation pour la santé</span
@@ -184,7 +184,7 @@
 					{/if}
 					{#if  Object.values(programsNavLinks).find(x=>x.id=="education-therapeutique")}
 					<li>
-						<a href="/education-therapeutique"
+						<a href="/education-therapeutique" class="anchor"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left"

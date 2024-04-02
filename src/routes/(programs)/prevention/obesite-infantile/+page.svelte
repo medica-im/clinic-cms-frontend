@@ -123,6 +123,15 @@
 	</div>
 </section>
 
+<section>
+	<div class="section-container">
+		<h2 class="h2">Référent</h2>
+		<p>
+			<a class="anchor" href="/pediatre/bayonne/nadine-larrede-marsault">Nadine Larrède-Marsault</a>,
+			pédiatre.
+		</p>
+	</div>
+</section>
 
 <section>
 	<div class="section-container">

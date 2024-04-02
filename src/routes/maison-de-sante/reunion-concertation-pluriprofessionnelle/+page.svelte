@@ -3,7 +3,7 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import Carousel from '$components/Carousel/Carousel.svelte';
+	//import Carousel from '$components/Carousel/Carousel.svelte';
 </script>
 
 <svelte:head>
