@@ -48,8 +48,11 @@
 <section>
 	<div class="section-container">
 		<h2 class="h2">Définition</h2>
+		<p>Une maison de santé pluriprofessionnelle (MSP) est un mode d’exercice professionnel collectif et coordonné créé en 2007, développé pour répondre au besoin de "travailler ensemble" et aux problématiques de santé actuelles, notamment la prise en charge des maladies chroniques et le vieillissement de la population.</p>
+		<p>Une MSP propose un ensemble de services de santé de proximité sans hébergement, ainsi que des actions de prévention, d'éducation à la santé et d'éducation thérapeutique. Elle constitue une réponse à l’évolution des modes d’exercice souhaitée par de nombreux professionnels de santé. Elle facilite la coordination des acteurs de prévention et d’éducation à la santé présents sur les territoires.</p>
+		<p>Les professionnels de santé d'une MSP exercent à titre libéral.</p>
 		<p>
-			Une Maison de Santé Pluriprofessionnelle (MSP) est une forme particulière d’<Def
+			Une Maison de Santé Pluriprofessionnelle est une forme particulière d’<Def
 				w="Équipe de soins primaires"
 			/>. Il s’agit d’une organisation créée par les professionnels de santé eux-mêmes, en
 			s’appuyant sur les relations existantes: les professionnels de santé {$facilityStore.city
@@ -78,7 +81,8 @@
 <section>
 	<div class="section-container">
 		<h2 class="h2">Géographie</h2>
-		<p>Ils exerçent sur un ou plusieurs sites.</p>
+		<p>Les professionnels d'une maison de santé exerçent sur un ou plusieurs sites.</p>
+		<p>Ainsi, malgré l'utilisation du terme "maison" dans son intitulé, "maison de santé pluriprofessionnelle" désigne un mode d'organisation d'une équipe de professionnels de santé et non un bâtiment.</p>
 		<div class="card variant-ringed-primary p-4 max-w-fit">
 			Deux types de MSP selon la répartition géographique des professionnels.
 			<dl class="list-dl">
