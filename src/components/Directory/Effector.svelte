@@ -7,14 +7,12 @@
 
 	function effectorPageUrl(effector) {
 		let typeSlug = effector.types[0].slug;
-		let communeSlug = effector.commune.slug;
+		let facilitySlug = effector.facility.slug;
 		let nameSlug = effector.slug;
-		//console.log(`${typeSlug}, ${communeSlug}, ${nameSlug}`)
-
-		if (!typeSlug || !communeSlug || !nameSlug) {
+		if (!facilitySlug || !typeSlug || !nameSlug) {
 			return;
 		} else {
-			return `/${typeSlug}/${communeSlug}/${nameSlug}`;
+			return `/${facilitySlug}/${typeSlug}/${nameSlug}`;
 		}
 	}
 </script>
@@ -23,6 +21,9 @@
 	<a class="unstyled" href={effectorPageUrl(effector)}>
 		<div class="space-y-3">
 			<h3 class="h3">{effector.name}</h3>
+			{#if (import.meta.env.VITE_DEV == 'true')}
+			<p class="text-xs">{effector.effector_uid}</p>
+			{/if}
 			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
 
 			{#if effector.phones?.length}

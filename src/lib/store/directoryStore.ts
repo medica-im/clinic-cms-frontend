@@ -124,17 +124,17 @@ async function downloadContacts() {
 }
 
 async function fetchEffectors(next) {
-	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${next || ""}`;
+	const effectorsUrl = `${variables.BASE_API_URI}/entries/${next || ""}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
 	if (response) {
 		let data: any = response;
 		next = data.meta.next;
-		return [data.effectors, next]
+		return [data.entries, next]
 	}
 }
 
 async function fetchEffector(uid) {
-	const effectorsUrl = `${variables.BASE_API_URI}/effectors/${uid}`;
+	const effectorsUrl = `${variables.BASE_API_URI}/entries/${uid}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
 	if (err) {
 		console.log(JSON.stringify(err));
