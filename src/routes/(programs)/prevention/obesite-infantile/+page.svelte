@@ -127,7 +127,7 @@
 	<div class="section-container">
 		<h2 class="h2">Référent</h2>
 		<p>
-			<a class="anchor" href="/pediatre/bayonne/nadine-larrede-marsault">Nadine Larrède-Marsault</a>,
+			<a class="anchor" href="/pole-sante-gare/pediatre/nadine-larrede-marsault">Nadine Larrède-Marsault</a>,
 			pédiatre.
 		</p>
 	</div>

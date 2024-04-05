@@ -149,7 +149,7 @@
 	<div class="section-container">
 		<h2 class="h2">Référent</h2>
 		<p>
-			<a class="anchor" href="/medecin-generaliste/bayonne/benjamin-soen">Dr Benjamin Soen</a>,
+			<a class="anchor" href="/pole-sante-gare/medecin-generaliste/benjamin-soen">Dr Benjamin Soen</a>,
 			médecin généraliste.
 		</p>
 	</div>

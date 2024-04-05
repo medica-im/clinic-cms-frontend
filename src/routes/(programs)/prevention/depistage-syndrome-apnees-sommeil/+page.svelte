@@ -276,12 +276,12 @@
 				<div class="pl-5">
 					<ul class="list-disc space-y-4 p-4">
 						<li>
-							<a href="/medecin-generaliste/bayonne/mickael-da-silva-andrade" class="anchor"
+							<a href="/pole-sante-gare/medecin-generaliste/mickael-da-silva-andrade" class="anchor"
 								>Dr Mickaël Da Silva Andrade</a
 							>, médecin généraliste
 						</li>
 						<li>
-							<a href="/medecin-generaliste/bayonne/claire-guiller" class="anchor"
+							<a href="/pole-sante-gare/medecin-generaliste/claire-guiller" class="anchor"
 								>Dr Claire Guiller</a
 							>, médecin généraliste
 						</li>
