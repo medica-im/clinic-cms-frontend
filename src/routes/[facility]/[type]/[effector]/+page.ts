@@ -3,6 +3,7 @@ import { getEffectors } from '$lib/store/directoryStore';
 import { get } from '@square/svelte-store';
 import { variables } from '$lib/utils/constants';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+import { dev } from '$app/environment';
 
 const fetchCareHome = async (fetch, uid) => {
     const apiUrl = `${variables.BASE_API_URI}/carehomes/${uid}`;
@@ -24,6 +25,9 @@ const fetchCareHome = async (fetch, uid) => {
 export const load: PageLoad = async ({ fetch, params }) => {
     const url = `${variables.BASE_API_URI}/fulleffector/${params.facility}/${params.type}/${params.effector}/`;
     let [res, error]= await handleRequestsWithPermissions(fetch,url);
+    if (dev) {
+        console.log(res);
+    }
     //const effectors = get(getEffectors);
     //const effectors = await getEffectors.load();
     //let effector = findEffector(effectors, params)

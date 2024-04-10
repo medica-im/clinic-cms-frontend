@@ -11,9 +11,9 @@
 </script>
 
 <div class="flex items-center p-1">
-	<div class="w-9"><Fa icon={faCalendarCheck} /></div>
+	<div class="w-9"><Fa icon={faCalendarCheck} size="sm" /></div>
 	<div>
-		<h3 class="h4">{$LL.ADDRESSBOOK.APPOINTMENT.LABEL()}</h3>
+		<h3 class="h3">{$LL.ADDRESSBOOK.APPOINTMENT.LABEL()}</h3>
 	</div>
 </div>
 <div class="flex items-center p-1">

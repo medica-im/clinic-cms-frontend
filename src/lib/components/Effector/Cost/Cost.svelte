@@ -5,9 +5,9 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	export let data;
 </script>
-
+<div class="d-flex justify-content-between align-items-start">
 	<div class="flex items-center py-2">
-		<div class="w-9"><Fa icon={faEuroSign} /></div>
+		<div class="w-9"><Fa icon={faEuroSign} size="sm" /></div>
 		<div>
 			<h3 class="h3">
 				{$LL.ADDRESSBOOK.COSTS_AND_REIMBURSEMENTS()}
@@ -17,7 +17,7 @@
 	{#if data?.convention != null}
 		<div class="flex">
 			<div class="w-9" />
-			<div>
+			<div class="py-2">
 				Conventionnement: {data.convention.label}.
 			</div>
 		</div>
@@ -26,14 +26,14 @@
 	{#if data?.carte_vitale != null}
 		<div class="flex">
 			<div class="w-9" />
-			<div>Carte Vitale: {data.carte_vitale ? $LL.YES() : $LL.NO()}.</div>
+			<div class="py-2">Carte Vitale: {data.carte_vitale ? $LL.YES() : $LL.NO()}.</div>
 		</div>
 	{/if}
 
 	{#if data?.third_party_payers?.length}
 		<div class="flex">
 			<div class="w-9" />
-			<div>
+			<div class="py-2">
 				{$LL.ADDRESSBOOK.THIRD_PARTY_PAYER()}:
 				{#each data.third_party_payers as p, i}
 				    {@const count = data.third_party_payers.length}
@@ -42,3 +42,4 @@
 			</div>
 		</div>
 	{/if}
+	</div>

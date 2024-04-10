@@ -10,13 +10,20 @@
 		const event = new Date(datetime);
 		return event.toLocaleDateString(locale);
 	}
+
+	function colsCount() {
+		let count = posts.length;
+		if ( count < 2 ) return 1
+		else if ( count = 2 ) return 2
+		else return 3 
+	}
 </script>
 {#if Array.isArray(posts) && posts.length}
 <div class="!bg-transparent space-y-4 md:space-y-10">
 <div class="text-center">
 <h2 class="h2">Blog</h2>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 p-4">
+<div class="grid grid-cols-1 lg:grid-cols-{colsCount()} gap-4 md:gap-10 p-4 place-items-center">
 	{#each posts as post}
 		<RoundCard
 		url={post.url}

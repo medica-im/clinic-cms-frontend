@@ -25,19 +25,25 @@
 		{$LL.HOME.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
-<div>
+
 	<!-- hero -->
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
-		<div class="section-container">
+		<div class="mx-0 flex flex-col items-center justify-center p-4 py-6 space-y-2">
+		<div class="">
 			<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
 		</div>
+		<div class="">
+				La <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a> du quartier Saint-Esprit,
+				à Bayonne.
+		</div>
+	</div>
 	</header>
 	<!-- team -->
 	<section id="team" class="bg-surface-100-800-token team-gradient">
 		<div class="section-container">
 			<Team
 				data={{
-					cardinalTypes: data.cardinalTypes,
+					cardinalTypes: data.cardinalTypes
 				}}
 			/>
 		</div>
@@ -54,11 +60,11 @@
 			<div class="section-container"><OutpatientClinicPrograms /></div>
 		</section>
 	{/if}
-</div>
+
 
 <style lang="postcss">
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-10 flex items-center justify-center;
+		@apply mx-auto flex w-full max-w-7xl items-center justify-center p-4 py-8;
 	}
 	/* Hero Gradient */
 	/* prettier-ignore */
