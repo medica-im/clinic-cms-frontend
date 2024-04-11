@@ -7,6 +7,7 @@ import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
 import type { Situation } from './directoryStoreInterface';
 import { facilities } from '$lib/store/facilityStore';
+import { isAuth } from '$lib/store/authStore';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
