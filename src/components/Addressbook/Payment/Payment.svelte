@@ -6,17 +6,17 @@
 	export let data;
 </script>
 
-<div class="flex items-center py-2">
-	<div class="w-9"><Fa icon={faCreditCard} /></div>
+<div class="flex items-center p-1">
+	<div class="w-9"><Fa icon={faCreditCard} size="sm" /></div>
 	<div>
 		<h3 class="h3">
 			{#if data.length < 2}{$LL.ADDRESSBOOK.PAYMENT_METHOD()}{:else}{$LL.ADDRESSBOOK.PAYMENT_METHODS()}{/if}
         </h3>
 	</div>
 </div>
-<div class="flex">
+<div class="flex p-1">
 	<div class="w-9" />
-	<div>
+	<div class="p-1">
 		{#each data as method, i}
 			{#if i == 0}{capitalizeFirstLetter(
 					method.label_fr

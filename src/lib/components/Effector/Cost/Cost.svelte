@@ -5,8 +5,8 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	export let data;
 </script>
-<div class="d-flex justify-content-between align-items-start">
-	<div class="flex items-center py-2">
+
+	<div class="flex items-center p-1">
 		<div class="w-9"><Fa icon={faEuroSign} size="sm" /></div>
 		<div>
 			<h3 class="h3">
@@ -15,31 +15,32 @@
 		</div>
 	</div>
 	{#if data?.convention != null}
-		<div class="flex">
+		<div class="flex p-1">
 			<div class="w-9" />
-			<div class="py-2">
+			<div class="p-1">
 				Conventionnement: {data.convention.label}.
 			</div>
 		</div>
 	{/if}
 
 	{#if data?.carte_vitale != null}
-		<div class="flex">
+		<div class="flex p-1">
 			<div class="w-9" />
-			<div class="py-2">Carte Vitale: {data.carte_vitale ? $LL.YES() : $LL.NO()}.</div>
+			<div class="p-1">
+				Carte Vitale: {data.carte_vitale ? $LL.YES() : $LL.NO()}.
+			</div>
 		</div>
 	{/if}
 
 	{#if data?.third_party_payers?.length}
-		<div class="flex">
+		<div class="flex p-1">
 			<div class="w-9" />
-			<div class="py-2">
+			<div class="p-1">
 				{$LL.ADDRESSBOOK.THIRD_PARTY_PAYER()}:
 				{#each data.third_party_payers as p, i}
-				    {@const count = data.third_party_payers.length}
+					{@const count = data.third_party_payers.length}
 					{#if i > 0}{' '}{/if}{p.label_fr}{#if i < count - 2},{:else if i == count - 2}{' '}{$LL.AND()}{:else}.{/if}
 				{/each}
 			</div>
 		</div>
 	{/if}
-	</div>

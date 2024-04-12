@@ -43,7 +43,8 @@
 		<div class="section-container">
 			<Team
 				data={{
-					cardinalTypes: data.cardinalTypes
+					cardinalTypes: data.cardinalTypes,
+					teamCarousel: data.teamCarousel
 				}}
 			/>
 		</div>

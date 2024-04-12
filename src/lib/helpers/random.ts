@@ -1,11 +1,11 @@
 import {prng_alea} from 'esm-seedrandom';
+import { PUBLIC_HASH } from '$env/static/public';
 
 export const shuffle = (array: []) => {
     let currentIndex = array.length, randomIndex;
     
-    // seed with current date (YYYY-MM-DD)
-    const date = new Date().toISOString().slice(0,10);
-    const dailyrng = prng_alea(date);
+    // seed with current git hash
+    const dailyrng = prng_alea(PUBLIC_HASH);
   
     // While there remain elements to shuffle.
     while (currentIndex != 0) {

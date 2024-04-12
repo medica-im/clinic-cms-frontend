@@ -8,6 +8,7 @@ import { replacer, reviver } from '$lib/utils/utils';
 import type { Situation } from './directoryStoreInterface';
 import { facilities } from '$lib/store/facilityStore';
 import { isAuth } from '$lib/store/authStore';
+import { shuffle } from '$lib/helpers/random';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
@@ -138,7 +139,7 @@ async function fetchEffector(uid) {
 	const effectorsUrl = `${variables.BASE_API_URI}/entries/${uid}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
 	if (err) {
-		console.log(JSON.stringify(err));
+		console.error(JSON.stringify(err));
 	}
 	if (response) {
 		let data: any = response;
@@ -233,7 +234,6 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 			(e, index, arr) => {
 				let idx = changedObj.toDelete.indexOf(e.uid);
 				if (idx > -1) {
-					//console.log(`delete ${JSON.stringify(JSON.stringify(arr[index]))}`)
 					arr.splice(index, 1);
 					return true;
 				}
@@ -246,9 +246,7 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 		changedObj.toAdd.forEach(
 			async (uid, idx, arr) => {
 				const newEffector = await fetchEffector(uid);
-				//console.log(`add ${JSON.stringify(newEffector)}`);
 				let count = effectors.push(newEffector);
-				//console.log(`add effectors count: ${count}`);
 				setLocalStorage('effectors', effectors);
 			}
 		)
@@ -259,7 +257,6 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 				effectors.filter(
 					(element, index, array) => {
 						if (element.uid == uid) {
-							//console.log(`update: splice ${JSON.stringify(arr[index])}`);
 							array.splice(index, 1);
 							return true;
 						}
@@ -268,7 +265,6 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 				)
 				const updatedEffector = await fetchEffector(uid);
 				let count = effectors.push(updatedEffector);
-				//console.log(`effectors count: ${count}`);
 				setLocalStorage('effectors', effectors);
 			}
 		)
@@ -290,7 +286,6 @@ export const getEffectors = asyncReadable(
 		if (localContacts === null || localContacts === undefined) {
 			let effectors = await downloadAllEffectors();
 			setLocalStorage('effectors', effectors);
-			//console.log(`250 getEffectors effectors:${effectors}`);
 			return effectors;
 		}
 
@@ -308,22 +303,32 @@ export const getEffectors = asyncReadable(
 				}
 			}
 			changedObj = changedContacts(contacts, cachedEffectorsObj.data);
-			//console.log(`isUnchanged: ${isUnchanged(changedObj)}`)
 		}
 		if (!expired && !empty && changedObj && isUnchanged(changedObj)) {
-			//console.log(`cachedEffectorsObj.data: ${cachedEffectorsObj.data}`);
 			return cachedEffectorsObj.data;
 		} else if (expired || empty) {
 			const allEffectors = await downloadAllEffectors();
-			//console.log(`allEffectors: ${allEffectors}`);
 			return allEffectors;
 		} else {
 			const effectors = await processCachedEffectors(changedObj);
-			//console.log(`279 effectors: ${effectors}`);
 			return effectors;
 		}
 	}
 );
+
+export const getAvatars = async () => {
+	const cachedEffectorsObj = getLocalStorage('effectors');
+	let cachedEffectors = cachedEffectorsObj?.data;
+	if (!cachedEffectors) {
+		cachedEffectors = await getEffectors.load();
+	}
+	let carousel = cachedEffectors.filter(function (item: any) {
+		return item?.avatar?.lt
+	});
+	shuffle(carousel);
+	return carousel
+	};
+
 export const distanceEffectors = asyncDerived(
 	([addressFeature, getEffectors]),
 	async ([$addressFeature, $getEffectors]) => {
@@ -331,12 +336,10 @@ export const distanceEffectors = asyncDerived(
 		if (!targetGeoJSON) {
 			return;
 		}
-		//console.log(`targetGeoJSON: ${targetGeoJSON}`);
 		const distanceOfEffector = {};
 		for (const effector of $getEffectors) {
 			let longitude = effector.address.longitude;
 			let latitude = effector.address.latitude;
-			//console.log(longitude, latitude);
 			if (!longitude || !latitude) {
 				continue;
 			}
@@ -344,7 +347,6 @@ export const distanceEffectors = asyncDerived(
 			const dist = haversine(targetGeoJSON, effectorGeoJSON);
 			distanceOfEffector[effector.address.facility_uid] = dist;
 		}
-		//console.log(distanceOfEffector);
 		return distanceOfEffector;
 	}
 );
@@ -449,9 +451,7 @@ export const situations = asyncDerived(
 	});
 
 function distanceOfEffector(e, distEffectors) {
-	//console.log(`distanceOfEffector e: ${JSON.stringify(e)}`)
 	let uid = e.address?.facility_uid;
-	//console.log(uid);
 	if (uid) {
 		return distEffectors[uid];
 	} else {
@@ -476,18 +476,11 @@ function compareEffectorDistance(a, b, distEffectors) {
 export const fullFilteredEffectors = derived(
 	([getEffectors, term, selectSituation, getSituations, distanceEffectors]),
 	([$getEffectors, $term, $selectSituation, $getSituations, $distanceEffectors]) => {
-		/*try {
-		console.log(`fullFilteredEffectors $getEffectors: ${JSON.parse($getEffectors)}`);
-		} catch (e) {
-			console.log(`fullFilteredEffectors $getEffectors: ${$getEffectors}`);
-		}
-		console.log(`fullFilteredEffectors $getEffectors type: ${typeof ($getEffectors)}`);*/
 		if (
 			$selectSituation == ''
 			&& $term == ''
 			&& $distanceEffectors == null
 		) {
-			//console.log("fullFilteredEffectors: return $getEffectors");
 			return $getEffectors
 		} else {
 			return $getEffectors.filter(function (x) {
@@ -501,9 +494,7 @@ export const fullFilteredEffectors = derived(
 					return true
 				} else {
 					let effectors = $getSituations.find(obj => { return obj.uid == $selectSituation })?.effectors;
-					//console.log(effectors);
 					let condition = effectors.includes(x.uid);
-					//console.log(condition);
 					return condition;
 				}
 			})
@@ -564,10 +555,7 @@ export const categorizedCachedEffectors =
 		for (let effector of cachedEffectors) {
 			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
-		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
 		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
-		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
 	};
 
@@ -578,21 +566,16 @@ export const categorizedFilteredEffectors = asyncDerived(
 		for (let effector of $filteredEffectors) {
 			effector.types.forEach(x => categorySet.add(x.name))
 		}
-		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
-		//console.log(categoryArr);
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
 		}, {});
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $filteredEffectors) {
 			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 
-		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
 		const sortedEffectorsObj = $selectSituation ? Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length) : Object.entries(effectorsObj).sort(function (a, b) {
 			return a[0].localeCompare(b[0]);
 		});
@@ -600,7 +583,6 @@ export const categorizedFilteredEffectors = asyncDerived(
 		if ($distanceEffectors) {
 			effectorsMap.forEach((value: any) => value.sort((a, b) => compareEffectorDistance(a, b, $distanceEffectors)))
 		}
-		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
 	}
 )
@@ -653,25 +635,19 @@ export const categorizedEffectors = asyncDerived(
 		for (let effector of $getEffectors) {
 			effector.types.forEach(x => categorySet.add(x.name))
 		}
-		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
-		//console.log(categoryArr);
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
 		}, {});
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $getEffectors) {
 			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
-		//console.log(`effectorsObj: ${JSON.stringify(Object.entries(effectorsObj))}`);
 		const sortedEffectorsObj = Object.entries(effectorsObj).sort(function (a, b) {
 			return a[0].localeCompare(b[0]);
 		});
 		const effectorsMap = new Map(sortedEffectorsObj);
-		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
 	}
 )
@@ -731,20 +707,16 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 			effector.types.forEach(x => categorySet.add(x.name))
 		}
 		let catArray = [];
-		//console.log(categorySet);
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
-		//console.log(categoryArr);
 		const effectorsObj = categoryArr.reduce((acc, current) => {
 			acc[current] = [];
 			return acc;
 		}, {});
-		//console.log(`effectorsObj: ${JSON.stringify(effectorsObj)}`);
 		for (let effector of $fullFilteredEffectors) {
 			effector.types.forEach(x => effectorsObj[x.name].push(effector))
 		}
 		const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
-		//console.log(`effectorsMap: ${JSON.stringify(Array.from(effectorsMap.entries()))}`);
 		return effectorsMap;
 	}
 )
@@ -752,7 +724,6 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 export const categoryOf = derived(
 	([selectCommunes, fullFilteredEffectors, selectFacility]),
 	([$selectCommunes, $fullFilteredEffectors, $selectFacility,]) => {
-		//console.log(`categoryOf fullFilteredEffectors: "${$fullFilteredEffectors}" type: ${typeof($fullFilteredEffectors)}`);
 		if (!Array.isArray($fullFilteredEffectors)) {
 			return []
 		}

@@ -11,11 +11,11 @@
 
 {#if appointment.url}
 	<a href={appointment.url} rel="external" class="btn variant-ghost-secondary">
-		<span><Fa icon={faGlobe} /></span><span>{$LL.WEBSITE()}</span></a
+		<span><Fa icon={faGlobe} size="sm" /></span><span>{$LL.WEBSITE()}</span></a
 	>
 {:else if appointment.phone}
 <a href="tel:{appointment.phone}" rel="external" class="btn variant-ghost-secondary">
-	<span><Fa icon={faPhone} /></span><span>{appointment.phone}</span></a
+	<span><Fa icon={faPhone} size="sm" /></span><span>{appointment.phone}</span></a
 >	
 <!--a href="tel:{appointment.phone}">{appointment.phone}</a-->
 {/if}

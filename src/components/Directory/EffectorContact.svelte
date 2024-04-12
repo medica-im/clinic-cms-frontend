@@ -36,7 +36,7 @@
 	</title>
 </svelte:head>
 
-<div class="grid grid-col-1 justify-center space-y-8">
+<div class="grid grid-col-1 justify-center space-y-4">
 	<div class="flex flex-wrap p-2 gap-10">
 		<div class="space-y-2">
 			<h2 class="h2 flex-initial break-words overflow-hidden">{effector.name}</h2>
@@ -49,7 +49,7 @@
 			{/if}
 		</div>
 	</div>
-	<div class="grid grid-col-1 lg:grid-cols-1 p-2 gap-8">
+	<div class="grid grid-col-1 lg:grid-cols-1 p-2 gap-4">
 		{#if effector?.appointments?.length}
 			<div class="d-flex justify-content-between align-items-start">
 				<Appointment appointments={effector.appointments} />
@@ -63,7 +63,7 @@
 						<h3 class="h3">{capitalizeFirstLetter($LL.PHONE())}</h3>
 					</div>
 				</div>
-				<div class="flex items-center py-2">
+				<div class="flex items-center p-1">
 					<div class="w-9" />
 					<div class="py-2 space-x-2">
 						<Phones data={effector.phones} />
@@ -89,63 +89,55 @@
 		{/if}
 
 		{#if effector?.convention || effector?.carte_vitale || effector?.third_party_payers?.length || effector?.payment_methods?.length}
-			<div class="flex flex-wrap gap-4 p-2">
-				<div>
-					<Cost data={effector} />
+			<div class="d-flex justify-content-between align-items-start">
+				<Cost data={effector} />
+			</div>
+			{#if effector?.payment_methods?.length}
+				<div class="d-flex justify-content-between align-items-start">
+					<Payment data={effector.payment_methods} />
 				</div>
-				{#if effector?.payment_methods?.length}
-					<div class="d-flex justify-content-between align-items-start">
-						<Payment data={effector.payment_methods} />
+			{/if}
+		{/if}
+		{#if effector.websites?.length}
+			<div class="d-flex justify-content-between align-items-start">
+				<div class="flex items-center p-1">
+					<div class="w-9"><Fa icon={faGlobe} size="sm" /></div>
+					<div>
+						<h3 class="h3">Web</h3>
 					</div>
-				{/if}
+				</div>
+				<div class="flex p-1">
+					<div class="w-9" />
+					<div class="p-1 space-x-2">
+						<Websites data={effector.websites} />
+					</div>
+				</div>
 			</div>
 		{/if}
-		{#if effector.websites?.length || effector.socialnetworks?.length}
-			<div class="flex flex-wrap gap-4">
-				{#if effector.websites?.length}
-					<div class="d-flex justify-content-between align-items-start">
-						<div class="flex items-center p-1">
-							<div class="w-9"><Fa icon={faGlobe} size="sm" /></div>
-							<div>
-								<h3 class="h3">Web</h3>
-							</div>
-						</div>
-						<div class="flex p-1">
-							<div class="w-9" />
-							<div class="py-2 space-x-2">
-								<Websites data={effector.websites} />
-							</div>
-						</div>
+		{#if effector.socialnetworks?.length}
+			<div class="d-flex justify-content-between align-items-start">
+				<div class="flex items-center p-1">
+					<div class="w-9"><Fa icon={faCircleNodes} /></div>
+					<div>
+						<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
 					</div>
-				{/if}
-				{#if effector.socialnetworks?.length}
-					<div class="d-flex justify-content-between align-items-start">
-						<div class="flex items-center p-1">
-							<div class="w-9"><Fa icon={faCircleNodes} /></div>
-							<div>
-								<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
-							</div>
-						</div>
-						<div class="flex p-1">
-							<div class="w-9" />
-							<div class="py-2 space-x-2">
-								<SoMed data={effector.socialnetworks} appBar={false} />
-							</div>
-						</div>
+				</div>
+				<div class="flex p-1">
+					<div class="w-9" />
+					<div class="p-1 space-x-2">
+						<SoMed data={effector.socialnetworks} appBar={false} />
 					</div>
-				{/if}
+				</div>
 			</div>
 		{/if}
 		{#if effector?.spoken_languages || effector?.rpps || effector?.adeli}
-			<div class="flex flex-wrap gap-4 p-2">
-				<div class="d-flex justify-content-between align-items-start">
-					<Info data={effector} />
-				</div>
+			<div class="d-flex justify-content-between align-items-start">
+				<Info data={effector} />
 			</div>
 		{/if}
 	</div>
 	{#if effector.address}
-		<div class="p-2">
+		<div class="px-2">
 			<div class="flex items-center p-1">
 				<div class="w-9"><Fa icon={faMapLocationDot} size="sm" /></div>
 				<div>
@@ -154,7 +146,7 @@
 			</div>
 			<div class="flex p-1">
 				<div class="w-9" />
-				<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 p-2">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 p-1">
 					<div class="space-y-2">
 						<FacilityLink data={effector.facility} />
 						<Address data={effector.address} />
