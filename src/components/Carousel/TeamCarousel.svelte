@@ -51,7 +51,7 @@
 				<img class="h-auto w-fit" src="{variables.BASE_URI}{worker.avatar.lt}" alt={worker.name} />
 			</a>
 			<figcaption class="text-center w-64">
-				<a href="/{worker.slug}" class="anchor"
+				<a href="/{worker.facility.slug}/{worker.types[0].slug}/{worker.slug}" class="anchor"
 					><div class="mx-auto text-primary underline">
 						{worker.name}, {getLabels(worker)}
 					</div></a
