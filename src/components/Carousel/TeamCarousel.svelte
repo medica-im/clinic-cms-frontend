@@ -47,7 +47,7 @@
 	{:else}
 		{@const worker = data[0]}
 		<figure class="content-center shrink mx-auto w-64">
-			<a href="/{worker.slug}" class="flex m-2">
+			<a href="/{worker.facility.slug}/{worker.types[0].slug}/{worker.slug}" class="flex m-2">
 				<img class="h-auto w-fit" src="{variables.BASE_URI}{worker.avatar.lt}" alt={worker.name} />
 			</a>
 			<figcaption class="text-center w-64">
