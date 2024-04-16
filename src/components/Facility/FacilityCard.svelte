@@ -1,5 +1,4 @@
 <script lang="ts">
-	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
 	import Map from '$lib/components/Map/Map.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import Navigation from '$components/Navigation/Navigation.svelte';

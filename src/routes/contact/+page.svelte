@@ -1,11 +1,12 @@
 <script lang="ts">
-	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
+	import Map from '$lib/components/Map/Map.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import Fa from 'svelte-fa';
 	import Address from '$lib/Address/Address.svelte';
+	import { createMapData } from '$lib/components/Map/mapData';
 
 	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 	import {
@@ -62,7 +63,7 @@
 									</div>
 									<div class="grow ml-6">
 										<p class="font-bold mb-1">Siège social</p>
-										<Address data={$facilityStore.contact} formattedName={true} />
+										<Address data={$facilityStore.contact} />
 									</div>
 								</div>
 							</div>
@@ -89,7 +90,7 @@
 
 					<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
 						<div class="map-container-2 w-full">
-							<LeafletMap geoData={createFacilityGeoData(data.facility)} />
+							<Map data={createMapData(data?.facility?.contact?.address)} />
 						</div>
 					</div>
 				</div>
