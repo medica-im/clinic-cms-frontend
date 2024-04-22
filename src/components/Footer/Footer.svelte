@@ -90,7 +90,7 @@
 		<!-- Row 2 -->
 		<div class="sm:flex sm:items-center sm:justify-between">
 			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				>© 2023 <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
+				>© 2024 <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
 			</span>
 			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
 				{#if $facilityStore?.contact?.socialnetworks}
@@ -105,7 +105,7 @@
 		<!-- Row 3 -->
 		<div class="sm:flex sm:items-center sm:justify-between">
 			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="hover:underline">Médecine Libre</a>.
+				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="anchor">Médecine Libre</a>.
 			</span>
 			<!--div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />

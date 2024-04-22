@@ -24,7 +24,7 @@
 		<div class="p-0 text-left">
 			<Occupations data={data.cardinalTypes}/>
 		</div>
-		<a href="/annuaire" on:click={resetDirectory} class="btn variant-filled-primary" data-sveltekit-preload-data="hover">
+		<a href="/annuaire" on:click={resetDirectory} class="btn variant-ghost-surface" data-sveltekit-preload-data="hover">
 			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 		</a>
 		

@@ -25,7 +25,7 @@
 	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import Avatar from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$components/Directory/Back.svelte';
-	import { createMapData } from '$lib/components/Map/mapData';
+	import { createMapData } from '$lib/components/Map/mapData.ts';
 
 	export let effector: any;
 </script>
@@ -152,7 +152,7 @@
 						<Address data={effector.address} />
 					</div>
 					<div class="h-56 w-64 lg:h-64 lg:w-96 p-2">
-						<Map data={createMapData(effector.address)} />
+						<Map data={createMapData(effector.address, effector.facility.name)} />
 					</div>
 				</div>
 			</div>

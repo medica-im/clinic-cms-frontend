@@ -7,6 +7,8 @@ import { occupations, workforceDataCached, selectOccupations, workforceDict } fr
 import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
 import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
+import { shuffle } from '$lib/helpers/random';
+
 
 export const facilities = asyncReadable(
 	{},
@@ -52,6 +54,14 @@ export const facilities = asyncReadable(
 	}
 );
 
+export const facilitiesWithAvatar = async () => {
+	const cachedFacilities = await facilities.load();
+	let carousel = cachedFacilities.filter(function (item: any) {
+		return item?.avatar?.raw
+	});
+	shuffle(carousel);
+	return carousel
+};
 
 export const facilityStore = asyncDerived(
 	(locale),

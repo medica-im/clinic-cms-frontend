@@ -1,3 +1,5 @@
+import type { SocialNetwork } from './socialnetwork.interface.js';
+
 export interface Category {
 	id?: bigint;
 	name?: string;
@@ -19,6 +21,9 @@ export interface Address {
     longitude?: number;
     zoom?: number;
     contact?: bigint;
+    tooltip_direction?: string;
+    tooltip_permanent?: boolean;
+    tooltip_text?: string;
 }
 
 export interface Addresses extends Array<Address>{}

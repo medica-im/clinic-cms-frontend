@@ -15,6 +15,7 @@
 	import Fa from 'svelte-fa';
 	import { faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
 	import { createFacilitiesMapData } from '$lib/components/Map/mapData';
+	import { variables } from '$lib/utils/constants';
 
 	export let facility;
 
@@ -30,35 +31,21 @@
 	};
 </script>
 
-<div id="{facility.name}_anchor" class="card variant-soft p-2 lg:scroll-mt-12">
-	<div class="grid grid-cols-1 md:grid-cols-2">
-		<div class="overflow-hidden m-1 p-1">
-			<!-- Header -->
-			<!--header>
-                <img src={img} class="bg-black/50 w-full" alt={alt} />
-            </header-->
-			<!-- Body -->
-			<div class="p-2 space-y-2 space-x-2">
-				<a href="/sites/{facility.slug}" class="anchor" data-sveltekit-preload-data="hover">
-					<h4 class="h4">{facility.name}</h4>
-				</a>
-				<p class="space-x-2">
+<div class="flex flex-wrap card variant-soft p-4 space-x-8 space-y-8 w-fit">
+			<div class="space-y-2 space-x-2 mx-0">
 					<Address data={facility} />
-				</p>
 				{#if facility?.emails}
-					<ul class="list">
 						{#each facility?.emails as email}
 							<Email data={email} />
 						{/each}
-					</ul>
 				{/if}
-				<p>
+				
 					{#if browser}
 						{#if isMobile(window)}
 							<Navigation geoData={createFacilityGeoData(facility)} />
 						{/if}
 					{/if}
-				</p>
+				
 				<span class="inline-block align-middle space-x-1">
 					{#if facility?.websites}
 						{#each facility.websites as website}
@@ -69,20 +56,23 @@
 						<SoMed data={facility.socialnetworks} appBar={false} />
 					{/if}
 				</span>
-				<div></div>
 			</div>
-			<!-- Footer -->
-			<!--footer class="p-4 flex justify-start items-center space-x-4">
-                <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
-                    <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
-                </a>
-            </footer-->
+		{#if facility?.avatar?.raw}
+		<div>
+			<figure class="content-center shrink mx-auto w-64 lg:w-80">
+				<img class="h-auto w-fit" src="{variables.BASE_URI}{facility.avatar.raw}" alt={facility.name} />
+				<figcaption class="text-center w-64 lg:w-80">
+					<div class="mx-auto text-primary">
+							{facility.name}
+						</div>
+				</figcaption>
+			</figure>
 		</div>
-		<div class="m-1 p-1 h-64 lg:w-full">
+		{/if}
+		<div class="h-64 w-64 lg:w-96 lg:h-96">
 			<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
 			<Map data={createFacilitiesMapData([facility])} />
 		</div>
-	</div>
 
 	<!--div class="mx-0">
 		{#if $page.url.pathname == '/sites'}

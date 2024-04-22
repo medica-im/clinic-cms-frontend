@@ -20,7 +20,10 @@ const en: BaseTranslation = {
 		CALL_US: "Call us"
 	},
 	SITES: {
-		TITLE: "Sites"
+		TITLE: "Sites",
+		SINGULAR: "Site",
+		PLURAL: "Sites",
+		ALL: "All sites"
 	},
 	SEARCH: "Search",
 	ADDRESSBOOK: {

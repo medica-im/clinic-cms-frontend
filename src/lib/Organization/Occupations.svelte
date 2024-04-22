@@ -16,7 +16,7 @@
 
 <div class="space-x-2">
 {#each [...data] as [key, value]}
-		<a href={`/annuaire/${value.slug}`} rel="external"  class="btn variant-filled-primary btn-sm m-2"><span class="">
+		<a href={`/annuaire/${value.slug}`} rel="external"  class="btn variant-ghost-primary btn-sm m-2"><span class="">
 				{value.count}
 				{key}
 		</span></a>

@@ -20,7 +20,10 @@ const fr: Translation = {
     CALL_US: "Appelez-nous"
   },
   SITES: {
-    TITLE: "Sites"
+    TITLE: "Sites",
+    SINGULAR: "Site",
+    PLURAL: "Sites",
+    ALL: "Tous les sites"
   },
   SEARCH: "Recherche",
   ADDRESSBOOK: {

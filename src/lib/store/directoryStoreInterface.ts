@@ -1,3 +1,8 @@
+import type { SocialNetwork } from '$lib/interfaces/socialnetwork.interface.js';
+import type { Website } from '$lib/interfaces/website.interface.js';
+import type { Email } from '$lib/interfaces/email.interface.js';
+import type { Phone } from '$lib/interfaces/phone.interface.js';
+
 export interface Situation {
     value: string;
     label: string;
@@ -16,6 +21,15 @@ export interface Address {
     street: string|null
     zip: string|null,
     zoom: number|null,
+    tooltip_direction: string|null;
+    tooltip_permanent?: boolean|null;
+    tooltip_text?: string|null;
+}
+
+export interface Avatar {
+        fb: string|null,
+        lt: string|null,
+        raw: string|null
 }
 
 export interface Facility {
@@ -26,5 +40,10 @@ export interface Facility {
     resource_uri: string|null,
     slug: string,
     uid: string,
+    socialnetworks: SocialNetwork[]|null,
+    websites: Website[]|null,
+    avatar: Avatar,
+    emails: Email[],
+    phones: Phone[],
 }
 

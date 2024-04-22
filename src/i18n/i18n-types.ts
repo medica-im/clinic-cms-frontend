@@ -64,6 +64,18 @@ type RootTranslation = {
 		 * S​i​t​e​s
 		 */
 		TITLE: string
+		/**
+		 * S​i​t​e
+		 */
+		SINGULAR: string
+		/**
+		 * S​i​t​e​s
+		 */
+		PLURAL: string
+		/**
+		 * T​o​u​s​ ​l​e​s​ ​s​i​t​e​s
+		 */
+		ALL: string
 	}
 	/**
 	 * R​e​c​h​e​r​c​h​e
@@ -522,6 +534,18 @@ export type TranslationFunctions = {
 		 * Sites
 		 */
 		TITLE: () => LocalizedString
+		/**
+		 * Site
+		 */
+		SINGULAR: () => LocalizedString
+		/**
+		 * Sites
+		 */
+		PLURAL: () => LocalizedString
+		/**
+		 * Tous les sites
+		 */
+		ALL: () => LocalizedString
 	}
 	/**
 	 * Recherche

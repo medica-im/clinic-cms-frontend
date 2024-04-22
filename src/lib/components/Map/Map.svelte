@@ -1,29 +1,54 @@
 <script lang="ts">
 	import '$lib/assets/leaflet/leaflet.css';
-    //import 'leaflet/dist/leaflet.css';
 	import { DEFAULT_TILE_LAYER_OPTIONS, DEFAULT_TILE_URL } from './common.js';
 	import { browser } from '$app/environment';
-	import { Marker, LeafletMap, TileLayer } from 'svelte-leafletjs?client';
+	import { Marker, LeafletMap, TileLayer, Tooltip } from 'svelte-leafletjs?client';
 	import type { MapOptions } from 'leaflet';
-	import type { MapData } from '$lib/interfaces/mapData.interface';
-    //import {onMount} from "svelte";
-	export let data: MapData;
+	import type { MapData } from '$lib/interfaces/mapData.interface.ts';
+	import { onMount } from 'svelte';
+	export let data: MapData[];
 
-    let leafletMap;
+	let leafletMap;
 
-	const mapOptions: MapOptions = {
-		center: data.latLng,
-		zoom: data.zoom
+	const getPoints = () => {
+		return data.map((x) => x.latLng);
 	};
 
-    /*onMount(() => {
-        leafletMap.getMap().fitBounds([[45.040073, 38.984425], [45.021316, 39.076927]]);
-    });*/
+	const getMapOptions = ():MapOptions|null => {
+        if (data.length == 1) {
+			return {
+				center: data[0].latLng,
+				zoom: data[0].zoom
+			}
+		} else {
+			return {
+				zoom: 0
+			}
+		}
+	};
+
+	onMount(() => {
+		if ( data.length>1 ) {
+		    leafletMap.getMap().fitBounds(getPoints());
+		}
+	});
 </script>
 
 {#if browser}
-	<LeafletMap bind:this={leafletMap} options={mapOptions}>
+	<LeafletMap bind:this={leafletMap} options={getMapOptions()}>
 		<TileLayer url={DEFAULT_TILE_URL} options={DEFAULT_TILE_LAYER_OPTIONS} />
-		<Marker latLng={data.latLng} />
+		{#each data as point}
+			<Marker latLng={point.latLng}>
+				{#if point.tooltip}
+					<Tooltip
+						options={{
+							permanent: point?.tooltip?.permanent||false,
+							direction: point?.tooltip?.direction||'auto',
+							opacity: point?.tooltip?.opacity||0.9,
+						}}>{point?.tooltip?.text}</Tooltip
+					>
+				{/if}
+			</Marker>
+		{/each}
 	</LeafletMap>
 {/if}

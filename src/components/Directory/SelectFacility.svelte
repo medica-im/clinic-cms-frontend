@@ -10,8 +10,6 @@
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 
-	import type { Facility } from '$lib/store/directoryStoreInterface';
-
 	const label = 'label';
 	const itemId = 'value';
 	//let value = null;
