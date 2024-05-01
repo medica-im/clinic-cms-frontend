@@ -14,12 +14,15 @@
 			labels.length < 2 ? '' : ` ${$LL.AND()} `
 		);
 	}
+	function compareFn(a,b) {
+		return b.effectors.length - a.effectors.length
+	}
 </script>
 
 <div class="flex justify-center shrink place-content-center content-center mx-auto w-80 lg:w-96">
 	{#if browser}
 		<Carousel autoplay autoplayDuration={5000} duration={1000} dots={false}>
-			{#each data as facility}
+			{#each data.sort(compareFn) as facility}
 				<div class="mx-auto">
 					<figure class="mx-auto w-64 lg:w-80">
 						<a href="/sites/{facility.slug}" class="flex m-2">
@@ -44,7 +47,7 @@
 			{/each}
 		</Carousel>
 	{:else}
-		{@const facility = data[0]}
+		{@const facility = data.sort(compareFn)[0]}
 		<figure class="content-center shrink mx-auto w-64 lg:w-80">
 			<a href="/sites/{facility.slug}" class="flex m-2">
 				<img class="h-auto w-fit" src="{variables.BASE_URI}{facility.avatar.raw}" alt={facility.name} />

@@ -15,12 +15,15 @@
 		const title = data?.facilities?.length > 1 ? $LL.SITES.PLURAL() : $LL.SITES.SINGULAR();
 		return title;
 	}
+	function compareFn(a,b) {
+		return b.effectors.length - a.effectors.length
+	}
 </script>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
 	<div class="space-y-4 text-center">
 		<h2 class="h2">{title()}</h2>
-		{#each data.facilities as facility}
+		{#each data.facilities.sort(compareFn) as facility}
 			<div>
 				<a href="/sites/{facility.slug}" class="btn variant-ghost-primary w-fit">{facility.name}</a>
 			</div>
