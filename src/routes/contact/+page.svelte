@@ -7,7 +7,7 @@
 	import Fa from 'svelte-fa';
 	import Address from '$lib/Address/Address.svelte';
 	import { createMapData } from '$lib/components/Map/mapData';
-
+	import Emails from '$components/Email/Emails.svelte';
 	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 	import {
 		faBuilding,
@@ -64,6 +64,9 @@
 									<div class="grow ml-6">
 										<p class="font-bold mb-1">Siège social</p>
 										<Address data={$facilityStore.contact} />
+										{#if $facilityStore.contact.emails}
+										<Emails data={$facilityStore.contact.emails} />
+										{/if}
 									</div>
 								</div>
 							</div>
