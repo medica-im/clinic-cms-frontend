@@ -20,7 +20,6 @@
 
 	const facilities = filterFacilities(data.facilities);
 	const carouselFacilities = filterFacilities(data.carousel);
-	console.log(carouselFacilities);
 
 	function title() {
 		const title = data?.facilities?.length > 1 ? $LL.SITES.PLURAL() : $LL.SITES.SINGULAR();
