@@ -23,7 +23,7 @@
 	import Payment from '$components/Addressbook/Payment/Payment.svelte';
 	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
 	import Info from '$lib/components/Effector/Info/Info.svelte';
-	import Avatar from '$lib/components/Effector/Avatar/Avatar.svelte';
+	import AvatarList from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$components/Directory/Back.svelte';
 	import { createMapData } from '$lib/components/Map/mapData.ts';
 
@@ -45,7 +45,7 @@
 		</div>
 		<div class="flex-none">
 			{#if effector?.avatar}
-				<Avatar data={effector} />
+				<AvatarList data={effector} />
 			{/if}
 		</div>
 	</div>

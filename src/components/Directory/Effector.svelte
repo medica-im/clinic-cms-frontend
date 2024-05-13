@@ -3,6 +3,8 @@
 	import Addresses from './Addresses.svelte';
 	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
 	import Address from './Address.svelte';
+	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
+
 	export let effector: any;
 
 	function effectorPageUrl(effector) {
@@ -16,14 +18,17 @@
 		}
 	}
 </script>
+<a class="unstyled" href={effectorPageUrl(effector)}>
 
-<div class="card p-4 m-4">
-	<a class="unstyled" href={effectorPageUrl(effector)}>
-		<div class="space-y-3">
+<div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
+		<AvatarList data={effector} />
+		<div class="p-4 space-y-1">
 			<h3 class="h3">{effector.name}</h3>
+			<!--
 			{#if (import.meta.env.VITE_DEV == 'true')}
 			<p class="text-xs">{effector.effector_uid}</p>
 			{/if}
+			-->
 			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
 
 			{#if effector.phones?.length}
@@ -33,13 +38,15 @@
 				{#if effector.facility}
 					<div><FacilityLink data={effector.facility} /></div>
 				{/if}
+				<!--
 				{#if effector.address}
 					<div><Address data={effector.address} /></div>
 				{/if}
 				{#if effector.other_addresses?.length}
 					<div><Addresses data={effector.other_addresses} /></div>
 				{/if}
+				-->
 			</div>
 		</div>
-	</a>
 </div>
+</a>
