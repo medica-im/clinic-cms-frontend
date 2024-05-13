@@ -7,6 +7,13 @@
 	import FacilityCard from '$components/Facility/FacilityCard.svelte';
 
 	export let data;
+	function filterFacilities(facilities) {
+		const f = facilities.filter((facility) =>
+			facility.organizations.includes(data.organization.uid)
+		);
+		return f;
+	}
+	const facilities = filterFacilities(data.facilities);
 </script>
 
 <svelte:head>
@@ -17,7 +24,7 @@
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
 	<div class="section-container">
 		<h2 class="h2">
-			Nos {data.facilities.length} sites
+			Nos {facilities.length} sites
 		</h2>
 	</div>
 </header>
@@ -30,18 +37,19 @@
 				<FacilityList data={data.facilities}/>
 			</nav-->
 			<div class="grid lg:grid-cols-2 gap-4">
-				{#each data.facilities as facility}
-						<FacilityCard {facility} />
+				{#each facilities as facility}
+					<FacilityCard {facility} />
 				{/each}
 			</div>
 			<!--{/await}-->
 		</div>
 	</section>
 </div>
+
 <!--{JSON.stringify($facilities)}-->
 <style lang="postcss">
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
+		@apply mx-auto w-full max-w-7xl p-4 py-8 md:py-12;
 	}
 	/* Hero Gradient */
 	/* prettier-ignore */

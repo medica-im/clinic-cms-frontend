@@ -222,11 +222,12 @@ export const occupationOfFacilityStore = asyncDerived(
 );
 
 export const siteCount = asyncDerived(
-	(facilities),
-	async ($facilities) => {
+	([facilities, facilityStore]),
+	async ([$facilities, $facilityStore]) => {
 		try {
-			let len = $facilities.length;
-			return len;
+			return $facilities.filter((facility) =>
+				facility.organizations.includes($facilityStore.uid)
+			).length;
 		} catch (err) {
 			console.error(err);
 		}

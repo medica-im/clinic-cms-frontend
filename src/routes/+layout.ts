@@ -30,7 +30,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
   } else if (err) {
     console.error(err);
   }
-  const fData = await facilityStore.load();
+  const orgData = await facilityStore.load();
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -43,7 +43,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
       queryClient: queryClient,
       locale: locale,
       directory: directory,
-      facility: fData,
+      organization: orgData,
       sections: [
         { slug: 'profile', title: 'Profile' },
         { slug: 'notifications', title: 'Notifications' }

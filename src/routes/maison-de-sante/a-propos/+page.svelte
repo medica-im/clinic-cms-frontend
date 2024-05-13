@@ -5,7 +5,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import { siteCount } from '$lib/store/facilityStore';
+	import { siteCount } from '$lib/store/facilityStore.ts';
 	import OccupationsComma from '$lib/Organization/OccupationsComma.svelte';
 	import Def from '$lib/components/TooltipDefinition/Def.svelte';
 	import Fa from 'svelte-fa';

@@ -54,7 +54,7 @@
 <!-- Facility -->
 <section id="team" class="bg-surface-100-800-token facility-gradient">
 	<div class="section-container">
-		<Facility data={{ facilities: data.facilities, carousel: data.carousel }} />
+		<Facility data={{ facilities: data.facilities, carousel: data.facilityCarousel, organization: data.organization }} />
 	</div>
 </section>
 {#if data.ghost?.posts}

@@ -10,7 +10,7 @@
 
 <svelte:head>
 <title>
-    Annuaire - {capitalizeFirstLetter($page.data.facility.formatted_name, $language)}
+    Annuaire - {capitalizeFirstLetter($page.data.organization.formatted_name, $language)}
 </title>
 </svelte:head>
 

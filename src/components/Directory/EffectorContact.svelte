@@ -32,7 +32,7 @@
 
 <svelte:head>
 	<title>
-		{effector.name} - {capitalizeFirstLetter($page.data.facility.formatted_name, $language)}
+		{effector.name} - {capitalizeFirstLetter($page.data.organization.formatted_name, $language)}
 	</title>
 </svelte:head>
 
