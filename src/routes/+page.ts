@@ -9,7 +9,7 @@ export const load: PageLoad = async ({ data }) => {
     return {
         facilityCarousel: await facilitiesWithAvatar(),
         facilities: await facilities.load(),
-        //websiteSchema: await websiteSchema.load(),
+        /*websiteSchema: await websiteSchema.load(),*/
         openGraph: await openGraphStore.load(),
         cardinalTypes: await cardinalTypes.load(),
         teamCarousel: await getAvatars(),

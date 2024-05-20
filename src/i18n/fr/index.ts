@@ -134,7 +134,8 @@ const fr: Translation = {
     CHILDHOOD_OBESITY: 'obésité infantile',
   },
   SCREENING: {
-    HYPERTENSION: 'dépistage de l\'hypertension artérielle'
+    HYPERTENSION: 'dépistage de l\'hypertension artérielle',
+    COLORECTAL_CANCER: 'cancer colorectal'
   },
   WEBSITE: 'site web',
   LEARN_MORE: 'En savoir plus',

@@ -21,7 +21,7 @@
 		faUser,
 		faPersonChalkboard
 	} from '@fortawesome/free-solid-svg-icons';
-	import { menuNavLinks, menuNavCats } from '$/lib/links.ts';
+	import { menuNavLinks, menuNavCats } from '$lib/links.ts';
 
     function getNavGroups(id: Number) {
         let cat = menuNavCats.find(obj => {

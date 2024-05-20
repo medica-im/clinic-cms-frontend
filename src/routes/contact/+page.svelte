@@ -22,6 +22,7 @@
 		faEnvelope,
 		faBlog
 	} from '@fortawesome/free-solid-svg-icons';
+	import Logo from '$lib/components/Logo/Logo.svelte';
 
 	export let data;
 
@@ -46,31 +47,31 @@
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			<div class="p-4">
-				<div class="flex flex-wrap">
-					<div class="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
-						<div class="flex flex-wrap pt-12 lg:pt-0">
-							<div
-								class="mb-12 grow-0 shrink-0 basis-auto w-full md:w-6/12 lg:w-full xl:w-6/12 px-3 md:px-6 xl:px-12"
-							>
-								<div class="flex items-start">
-									<div class="shrink-0">
-										<div
-											class="p-4 bg-primary-500 rounded-md shadow-md w-14 h-14 flex items-center justify-center"
-										>
-											<Fa icon={faLocationDot} size="2x" />
-										</div>
-									</div>
-									<div class="grow ml-6">
-										<p class="font-bold mb-1">Siège social</p>
-										<Address data={$facilityStore.contact} />
-										{#if $facilityStore.contact.emails}
-										<Emails data={$facilityStore.contact.emails} />
-										{/if}
+			<div class="flex flex-wrap">
+				<div class="grow-0 shrink-0 basis-auto lg:w-6/12 xl:w-8/12">
+					<div class="flex flex-wrap pt-12 lg:pt-0">
+						<div
+							class="mb-12 grow-0 shrink-0 basis-auto w-full md:w-6/12 lg:w-full xl:w-6/12 px-3 md:px-6 xl:px-12"
+						>
+							<div class="flex items-start">
+								<div class="shrink-0 hidden lg:block">
+									<div
+										class="p-4 bg-primary-500 rounded-md shadow-md w-14 h-14 flex items-center justify-center"
+									>
+										<Fa icon={faLocationDot} size="2x" />
 									</div>
 								</div>
+								<div class="grow ml-6">
+									<p class="font-bold mb-1">Siège social</p>
+									<Address data={$facilityStore.contact} />
+									{#if $facilityStore.contact.emails}
+										<Emails data={$facilityStore.contact.emails} />
+									{/if}
+									<Logo data={64} />
+								</div>
 							</div>
-							<!--div
+						</div>
+						<!--div
 								class="mb-12 grow-0 shrink-0 basis-auto w-full md:w-6/12 lg:w-full xl:w-6/12 px-3 md:px-6 xl:px-12"
 							>
 								<div class="flex align-start">
@@ -88,13 +89,11 @@
 									</div>
 								</div>
 							</div-->
-						</div>
 					</div>
-
-					<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
-						<div class="map-container-2 w-full">
-							<Map data={createMapData(data?.facility?.contact?.address)} />
-						</div>
+				</div>
+				<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
+					<div class="map-container-2 w-full p-4">
+						<Map data={createMapData(data?.facility?.contact?.address)} />
 					</div>
 				</div>
 			</div>
@@ -104,7 +103,7 @@
 
 <style lang="postcss">
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-12;
+		@apply mx-auto w-full max-w-7xl p-4 py-8 md:py-12;
 	}
 	/* Hero Gradient */
 	/* prettier-ignore */

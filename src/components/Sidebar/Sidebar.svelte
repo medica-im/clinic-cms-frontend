@@ -2,9 +2,9 @@
 	import { language } from '$lib/store/languageStore';
 	import LL from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
-	import { variables } from '$lib/utils/constants';
+	import { variables } from '$lib/utils/constants.ts';
 	import DocsIcon from '$components/Icon/Icon.svelte';
-	import { menuNavLinks, menuNavCats } from '$lib/links';
+	import { menuNavLinks, menuNavCats } from '$lib/links.ts';
 	import { AppRail, AppRailTile, AppRailAnchor, getDrawerStore } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import { resetDirectory } from '$components/Directory/utils';

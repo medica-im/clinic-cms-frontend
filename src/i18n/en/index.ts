@@ -133,7 +133,8 @@ const en: BaseTranslation = {
 		CHILDHOOD_OBESITY: 'childhood obesity',
 	},
 	SCREENING: {
-		HYPERTENSION: 'hypertension screening'
+		HYPERTENSION: 'hypertension screening',
+		COLORECTAL_CANCER: 'colorectal cancer'
 	},
 	WEBSITE: 'website',
 	LEARN_MORE: 'Learn more',

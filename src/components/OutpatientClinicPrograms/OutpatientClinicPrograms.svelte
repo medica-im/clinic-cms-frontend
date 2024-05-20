@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { language } from '$lib/store/languageStore';
-    import { facilityStore } from '$lib/store/facilityStore';
+	import { language } from '$lib/store/languageStore.ts';
+    import { facilityStore } from '$lib/store/facilityStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import Fa from 'svelte-fa';
 	import { faPills, faShieldHeart, faPersonChalkboard, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import ProgramNav from '$components/ProgramNav.svelte';
-	import { programsNavLinks } from '../../lib/links';
-	import { getProgram } from '../../lib/links';
+	import { programsNavLinks } from '../../lib/links.ts';
+	import { getProgram } from '../../lib/links.ts';
 </script>
 
 <div class="space-y-4 md:space-y-10">

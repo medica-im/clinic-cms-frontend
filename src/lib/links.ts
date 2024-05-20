@@ -1,5 +1,5 @@
 // Navigation Links & Sitemap
-import { variables } from '$lib/utils/constants';
+import { variables } from '$lib/utils/constants.ts';
 
 const isMSP: boolean = variables.ORGANIZATION_CATEGORY == "msp"
 
@@ -118,6 +118,13 @@ export const programsNavLinks: any = {
 				href: '/prevention/obesite-infantile',
 				label: 'Obésité infantile',
 				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique, surpoids, obésité',
+				icon: null,
+				category: 'program'
+			},
+			{
+				href: '/prevention/depistage-cancer-colorectal',
+				label: 'Cancer colorectal',
+				keywords: 'prévention, cancer, colon, rectum, activité, physique, diététique, surpoids, obésité, alcool, tabac, sédentarité',
 				icon: null,
 				category: 'program'
 			}
