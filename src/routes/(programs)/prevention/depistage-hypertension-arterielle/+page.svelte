@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
+	import LL from '$i18n/i18n-svelte.ts';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';

@@ -134,13 +134,15 @@ const en: BaseTranslation = {
 	},
 	SCREENING: {
 		HYPERTENSION: 'hypertension screening',
-		COLORECTAL_CANCER: 'colorectal cancer'
+		COLORECTAL_CANCER: 'colorectal cancer',
+		CERVICAL_CANCER: 'cervical cancer'
 	},
 	WEBSITE: 'website',
 	LEARN_MORE: 'Learn more',
 	LEXICON: 'lexicon',
 	HEALTH_RECORD: 'health record',
 	HEALTH_EDUCATION: 'health education',
+	HEALTH_SERVICES: 'health services',
 	PREVENTION: 'prevention',
 	PREVENTIVE_HEALTHCARE: 'preventive healthcare',
 	BURNOUT: 'occupational burnout',

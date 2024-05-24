@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { language } from '$lib/store/languageStore.ts';
     import { facilityStore } from '$lib/store/facilityStore.ts';
-	import LL from '$i18n/i18n-svelte';
+	import LL from '$i18n/i18n-svelte.ts';
 	import Fa from 'svelte-fa';
 	import { faPills, faShieldHeart, faPersonChalkboard, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
@@ -14,10 +14,10 @@
 	<!-- Info -->
 	<div class="space-y-4 text-center">
 		<h2 class="h2">Actions santé</h2>
-		<p>Au-delà des habituelles séances et consultations, les professionnels de {$facilityStore.formatted_name_definite_article} agissent pour votre santé en vous proposant ces programmes.</p>
+		<p>En plus des habituelles séances et consultations, les professionnels de {$facilityStore.formatted_name_definite_article} agissent pour votre santé en vous proposant un ensemble de services et de programmes dédiés au dépistage, à la prévention et aux soins.</p>
 	</div>
 	<!-- Grid -->
-	<div class="grid grid-cols-1 lg:grid-cols-{Object.keys(programsNavLinks).length} gap-4 place-items-center">
+	<div class="grid grid-cols-1 lg:grid-cols-{Object.keys(programsNavLinks).length} gap-4 align-top justify-items-center">
 		<!-- Loop -->
 		{#each Object.values(programsNavLinks) as progCat}
 			{@const program = getProgram(progCat.href)}

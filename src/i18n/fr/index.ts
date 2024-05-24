@@ -135,13 +135,15 @@ const fr: Translation = {
   },
   SCREENING: {
     HYPERTENSION: 'dépistage de l\'hypertension artérielle',
-    COLORECTAL_CANCER: 'cancer colorectal'
+    COLORECTAL_CANCER: 'cancer colorectal',
+    CERVICAL_CANCER: 'cancer du col de l\'utérus'
   },
   WEBSITE: 'site web',
   LEARN_MORE: 'En savoir plus',
   LEXICON: 'lexique',
   HEALTH_RECORD: 'dossier patient',
   HEALTH_EDUCATION: 'éducation pour la santé',
+  HEALTH_SERVICES: 'offre de soins',
   PREVENTION: 'prévention',
   PREVENTIVE_HEALTHCARE: 'prévention en santé',
   BURNOUT: 'syndrôme d\'épuisement professionnel',

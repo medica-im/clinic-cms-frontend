@@ -405,6 +405,10 @@ type RootTranslation = {
 		 * c​a​n​c​e​r​ ​c​o​l​o​r​e​c​t​a​l
 		 */
 		COLORECTAL_CANCER: string
+		/**
+		 * c​a​n​c​e​r​ ​d​u​ ​c​o​l​ ​d​e​ ​l​'​u​t​é​r​u​s
+		 */
+		CERVICAL_CANCER: string
 	}
 	/**
 	 * s​i​t​e​ ​w​e​b
@@ -426,6 +430,10 @@ type RootTranslation = {
 	 * é​d​u​c​a​t​i​o​n​ ​p​o​u​r​ ​l​a​ ​s​a​n​t​é
 	 */
 	HEALTH_EDUCATION: string
+	/**
+	 * o​f​f​r​e​ ​d​e​ ​s​o​i​n​s
+	 */
+	HEALTH_SERVICES: string
 	/**
 	 * p​r​é​v​e​n​t​i​o​n
 	 */
@@ -878,6 +886,10 @@ export type TranslationFunctions = {
 		 * cancer colorectal
 		 */
 		COLORECTAL_CANCER: () => LocalizedString
+		/**
+		 * cancer du col de l'utérus
+		 */
+		CERVICAL_CANCER: () => LocalizedString
 	}
 	/**
 	 * site web
@@ -899,6 +911,10 @@ export type TranslationFunctions = {
 	 * éducation pour la santé
 	 */
 	HEALTH_EDUCATION: () => LocalizedString
+	/**
+	 * offre de soins
+	 */
+	HEALTH_SERVICES: () => LocalizedString
 	/**
 	 * prévention
 	 */

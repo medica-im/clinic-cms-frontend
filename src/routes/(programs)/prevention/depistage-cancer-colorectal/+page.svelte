@@ -338,6 +338,12 @@
 	</div>
 </section>
 
+<section>
+	<div class="section-container">
+		<ProgramNav data={$page.url.pathname} />
+	</div>
+</section>
+
 <style lang="postcss">
 	.section-container {
 		@apply mx-auto w-full max-w-7xl space-y-2 p-4 py-4 md:space-y-4 md:py-8;

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { language } from '$lib/store/languageStore';
-	import LL from '$i18n/i18n-svelte';
+	import { language } from '$lib/store/languageStore.ts';
+	import LL from '$i18n/i18n-svelte.ts';
 	import { page } from '$app/stores';
 	import { variables } from '$lib/utils/constants.ts';
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	import { menuNavLinks, menuNavCats } from '$lib/links.ts';
 	import { AppRail, AppRailTile, AppRailAnchor, getDrawerStore } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
-	import { resetDirectory } from '$components/Directory/utils';
+	import { resetDirectory } from '$components/Directory/utils.ts';
 	// Stores
-	import { storeCurrentUrl } from '$lib/store/skeletonStores';
+	import { storeCurrentUrl } from '$lib/store/skeletonStores.ts';
 	import Fa from 'svelte-fa';
 	import { faBlog } from '@fortawesome/free-solid-svg-icons';
 
@@ -125,6 +125,12 @@
 				>
 				<span>Éducation</span>
 			</AppRailTile-->
+			<AppRailTile bind:group={currentRailCategory} name="soins" value={'soins'}>
+				<svelte:fragment slot="lead"
+					><DocsIcon name="faHandHoldingMedical" width="w-6" height="h-6" /></svelte:fragment
+				>
+				<span>Soins</span>
+			</AppRailTile>
 			<AppRailTile bind:group={currentRailCategory} name="prevention" value={'prevention'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faShieldHeart" width="w-6" height="h-6" /></svelte:fragment

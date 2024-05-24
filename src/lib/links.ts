@@ -20,10 +20,37 @@ import {
 	faUser,
 	faPersonChalkboard,
 	faPills,
-	faShieldHeart
+	faShieldHeart,
+	faHandHoldingMedical,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const programsNavLinks: any = {
+	'soins': {
+		id: 'soins',
+		title: {
+			en: 'Health services',
+			fr: 'Soins'
+		},
+		menu: 'Soins',
+		href: '/soins',
+		icon: faHandHoldingMedical,
+		list: [
+			{
+				href: '/soins',
+				label: 'Présentation',
+				keywords: 'soins, soigner',
+				icon: null,
+				category: 'definition'
+			},
+			{
+				href: '/soins/permanence-infirmiere',
+				label: 'Permanence infirmière',
+				keywords: 'infirmière, infirmier, IDE, nursing, prévention',
+				icon: null,
+				category: 'program'
+			}
+		]
+	},
 	/*'education-therapeutique': {
 		id: 'education-therapeutique',
 		title: {
@@ -125,6 +152,20 @@ export const programsNavLinks: any = {
 				href: '/prevention/depistage-cancer-colorectal',
 				label: 'Cancer colorectal',
 				keywords: 'prévention, cancer, colon, rectum, activité, physique, diététique, surpoids, obésité, alcool, tabac, sédentarité',
+				icon: null,
+				category: 'program'
+			},
+			{
+				href: '/prevention/depistage-cancer-col-uterus',
+				label: "Cancer du col de l'utérus",
+				keywords: 'femme, dépistage, prévention, cancer, uterus, HPV, frottis',
+				icon: null,
+				category: 'program'
+			},
+			{
+				href: '/prevention/bilan-prevention',
+				label: "Bilan prévention",
+				keywords: 'prévention, dépistage',
 				icon: null,
 				category: 'program'
 			}
@@ -246,5 +287,13 @@ export const menuNavCats: any = [
 			fr: 'Prévention'
 		},
 		list: ['prevention']
+	},
+	{
+		id: 'soins',
+		title: {
+			en: 'Health services',
+			fr: 'Soins'
+		},
+		list: ['soins']
 	}
 ];

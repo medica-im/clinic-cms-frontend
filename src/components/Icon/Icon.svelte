@@ -1,5 +1,5 @@
 <script context="module">
-	import { icons } from './icons';
+	import { icons } from './icons.ts';
 </script>
 
 <script lang="ts">

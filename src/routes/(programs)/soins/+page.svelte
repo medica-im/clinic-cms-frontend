@@ -5,11 +5,12 @@
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { page } from '$app/stores';
 	import ProgramNav from '$components/ProgramNav.svelte';
+	import { programsNavLinks } from '$lib/links.ts';
 </script>
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
+		Soins - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
@@ -18,21 +19,13 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1 class="h1">{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</h1>
+			<h1 class="h1">Soins</h1>
 		</div>
 	</header>
 
 	<section>
 		<div class="section-container">
-			<p>
-				La prévention est selon l’OMS en 1948, «l’ensemble des mesures visant à éviter ou réduire le
-				nombre et la gravité des maladies, des accidents et des handicaps».
-			</p>
-			<p>
-				La prévention de la maladie comprend des mesures qui visent non seulement à empêcher
-				l’apparition de la maladie, telle que la lutte contre les facteurs de risque, mais également
-				à en arrêter les progrès et à en réduire les conséquences.
-			</p>
+			<p>Les professionnels de {$facilityStore.formatted_name_definite_article} vous propose {programsNavLinks.soins.length>1 ? "ces programmes":"ce programme"} de soins.</p>
 		</div>
 	</section>
 

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
+	import LL from '$i18n/i18n-svelte.ts';
 	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 	import { faGlobe, faPhone } from '@fortawesome/free-solid-svg-icons';
 	import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
-	import type { Appointment } from '$lib/interfaces/appointment.interface';
+	import type { Appointment } from '$lib/interfaces/appointment.interface.ts';
 
 	export let appointment: Appointment;
 </script>
