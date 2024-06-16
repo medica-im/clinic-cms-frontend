@@ -69,7 +69,7 @@ export const post = async (
 };
 
 export const getCurrentUser = async (
-	fetch,
+	fetch: any,
 	refreshUrl: string,
 	userUrl: string
 ): Promise<[User, Array<CustomError>]> => {
@@ -158,7 +158,7 @@ export const logOutUser = async (): Promise<void> => {
 };
 
 export const handlePostRequestsWithPermissions = async (
-	fetch,
+	fetch: any,
 	targetUrl: string,
 	body: unknown,
 	method = 'POST'
@@ -234,7 +234,7 @@ export const handlePostRequestsWithPermissions = async (
 };
 
 export const handleRequestsWithPermissions = async (
-	fetch,
+	fetch: any,
 	targetUrl: string
 ): Promise<[{}, CustomError]> => {
 	let refreshToken;

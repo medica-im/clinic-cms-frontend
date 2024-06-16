@@ -2,11 +2,8 @@ import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
 import {
     workforceDataCached,
-    occupations,
-    occupationsCardinal,
     filteredOccupationsCardinal,
     selectOccupations,
-    workforceOccupation,
     slugAddressbook,
     keyAddressbook } from '$lib/store/workforceStore';
 

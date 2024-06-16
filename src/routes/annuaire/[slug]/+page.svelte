@@ -6,7 +6,7 @@
 		occupationsCardinal,
 		selectOccupations
 } from '$lib/store/workforceStore';
-	import Worker from '$lib/Workforce/Worker.svelte';
+	import Worker from '$lib/Workforce/Worker';
 	import LL from '$i18n/i18n-svelte';
 	import { locale } from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';

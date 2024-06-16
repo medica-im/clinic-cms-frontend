@@ -13,15 +13,17 @@
 	import { toggleAuth } from '$lib/store/authStore';
 	import { invalidate } from '$app/navigation';
 	import { userData } from '$lib/store/userStore';
+	import { isObjectEmpty } from '$lib/utils/utils';
+	import { get } from '@square/svelte-store';
 	import type { Access, User } from '$lib/interfaces/user.interface';
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { changeText } from '$lib/helpers/buttonText';
 	import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount } from 'svelte';
-	import { get } from 'svelte/store'
 	import { getPermissions } from '$lib/utils/permissions';
 
+	export let data;
 
 	let submitButton;
 	let submitButtonInnerHTML: string = $LL.LOGIN.TOLOGIN();
@@ -34,6 +36,10 @@
 
 	onMount(() => {
 		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+		let userDataValue = get(userData);
+        if (!isObjectEmpty(userDataValue) && data.redirect) {
+            goto(data.redirect);
+        };
 	});
 
 	$: if (response && response.user && response.user.error) {
@@ -87,7 +93,8 @@
 				}
 			}
 			toggleAuth();
-			await goto(`/accounts/user`);
+			let redirect: string = data.redirect || '/accounts/user';
+			await goto(redirect);
 		}
 	};
 </script>

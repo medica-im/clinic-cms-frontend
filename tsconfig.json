@@ -11,12 +11,6 @@
 		"sourceMap": true,
 		"strict": true,
 		"paths": {
-			"$lib": [
-				"./src/lib"
-			],
-			"$lib/*": [
-				"./src/lib/*"
-			],
 			"$i18n": [
 				"./src/i18n"
 			],
@@ -34,10 +28,16 @@
 			],
 			"$modals/*": [
 				"./src/modals/*"
+			],
+			"$lib": [
+				"./src/lib"
+			],
+			"$lib/*": [
+				"./src/lib/*"
 			]
 		}
 	},
 	"exclude": [
-        "./build/**/*"
-    ]
+		"./build/**/*"
+	]
 }
