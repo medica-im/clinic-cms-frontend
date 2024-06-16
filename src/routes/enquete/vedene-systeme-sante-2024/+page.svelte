@@ -64,6 +64,9 @@
 		>
 	</div>
 	<h2 class="h2">Contributions</h2>
+	{#if !data.responses?.length}
+	<p>Il n'y a pas encore de contribution. Soyez le premier à contribuer en remplissant le formulaire ci-dessus!</p>
+	{:else}
 	<div class="p-2 space-y-4">
 		{#if unmoderatedResponses.length && !isObjectEmpty($userData)}
 			<h3 class="h3">Contributions en attente de modération</h3>
@@ -94,6 +97,7 @@
             </Accordion>
 		{/if}
 	</div>
+	{/if}
 </div>
 
 <style lang="postcss">

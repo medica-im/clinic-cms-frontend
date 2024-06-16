@@ -16,8 +16,10 @@ export const load: PageLoad = async ({ fetch, params }) => {
         try {
             const [responses, err] = await handleRequestsWithPermissions(fetch, responsesUrl);
             if (responses) {
-                responses.sort((a, b) => (a.created > b.created) ? -1 : ((a.created < b.created) ? 1 : 0));
-                responses.forEach(e=>e.surveyName=surveyName);
+                if (responses?.length) {
+                    responses.sort((a, b) => (a.created > b.created) ? -1 : ((a.created < b.created) ? 1 : 0));
+                    responses.forEach(e=>e.surveyName=surveyName);
+                }
                 return responses;
             } else {
                 console.error(JSON.stringify(err));
