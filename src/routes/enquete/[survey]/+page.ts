@@ -3,7 +3,7 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 
 import type { PageLoad } from './$types';
 export const load: PageLoad = async ({ fetch, params }) => {
-    const surveyName = 'vedene-systeme-sante-2024';
+    const surveyName = params.survey;
     const responsesUrl = `${variables.BASE_API_URI}/surveys/${surveyName}/responses/`;
 
     const fetchSurvey = async () => {

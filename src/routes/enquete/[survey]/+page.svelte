@@ -26,8 +26,8 @@
 </script>
 
 <div class="section-container">
-	<h1>{data.survey.label}</h1>
-	<p>{data.survey.presentation}</p>
+	<h1 class="h1">{data.survey.label}</h1>
+	<div class="space-y-2">{@html data.survey.presentation}</div>
 
 	<h2>Contribuer</h2>
 	<div class="space-y-2">
@@ -67,7 +67,7 @@
 	{#if !data.responses?.length}
 	<p>Il n'y a pas encore de contribution. Soyez le premier à contribuer en remplissant le formulaire ci-dessus!</p>
 	{:else}
-	<div class="p-2 space-y-4">
+	<div class="px-2 space-y-4">
 		{#if unmoderatedResponses.length && !isObjectEmpty($userData)}
 			<h3 class="h3">Contributions en attente de modération</h3>
 			<Responses data={unmoderatedResponses} />
@@ -102,6 +102,6 @@
 
 <style lang="postcss">
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8 space-y-12 md:space-y-8;
+		@apply w-full max-w-7xl mx-auto p-4 space-y-6;
 	}
 </style>
