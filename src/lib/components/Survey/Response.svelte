@@ -1,4 +1,5 @@
 <script lang="ts">
+        import { modalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 	import { handlePostRequestsWithPermissions } from '$lib/utils/requestUtils';
@@ -37,9 +38,9 @@
 			<div>Contribution nº{data.id}</div>
 			<div>{dateTimeToFrench(data.created)}</div>
 		</div>
-		<div class="flex flex-wrap space-x-2 xl:items-center">
+		<div class="flex flex-wrap space-x-2 space-y-2 items-baseline">
 			{#if !isObjectEmpty($userData)}
-				<span class="badge variant-filled"> {data.get_moderation_display}</span>
+				<div class="badge variant-filled"> {data.get_moderation_display}</div>
 				{#if !showDropdown}
 					<button
 						type="button"
@@ -52,12 +53,14 @@
 				{/if}
 			{/if}
 			{#if showDropdown}
+                        <div class="flex flex-col md:flex-row md:justify-between space-y-2 space-x-2">
+
 				<select class="select w-32" bind:value={selectValue}>
 					<option value="PU">Publique</option>
 					<option value="PR">Privée</option>
 					<option value="SP">Spam</option>
 				</select>
-				<button type="button" class="btn btn-sm variant-ghost" on:click={() => applyChange()}
+				<div><button type="button" class="btn btn-sm variant-ghost" on:click={() => applyChange()}
 					><span>OK</span></button
 				>
 				<button
@@ -67,7 +70,8 @@
 						showDropdown = !showDropdown;
 						selectValue = null;
 					}}><span>Annuler</span></button
-				>
+				></div>
+                        </div>
 			{/if}
 		</div>
 	</header>
