@@ -27,6 +27,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     let [res, error]= await handleRequestsWithPermissions(fetch,url);
     if (dev) {
         console.log(res);
+        console.log(error);
     }
     //const effectors = get(getEffectors);
     //const effectors = await getEffectors.load();

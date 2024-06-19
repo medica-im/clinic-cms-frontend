@@ -13,7 +13,8 @@ import { language } from '$lib/store/languageStore';
 import { setLocale } from '$i18n/i18n-svelte';
 import type { Locales } from '$i18n/i18n-types'
 import LL from '$i18n/i18n-svelte';
-import { toggleAuth } from '$lib/store/authStore';
+import { isAuth } from '$lib/store/authStore';
+import { dev } from '$app/environment';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
@@ -151,9 +152,9 @@ export const logOutUser = async (): Promise<void> => {
 	userData.set({});
 	removeRefreshToken();
 	emptyLocaleStorage();
-	toggleAuth();
+	isAuth.set(false);
 	notificationData.update(() => get(LL).LOGIN.LOGOUT());
-	await goto('/accounts/login');
+	//await goto('/accounts/login');
 };
 
 export const handlePostRequestsWithPermissions = async (
@@ -250,7 +251,8 @@ export const handleRequestsWithPermissions = async (
 				return Promise.reject(response);
 			}
 		}).catch(function (err: Error) {
-			console.warn(`Could not get new token. error: ${err}`);
+			if (dev) {
+			console.warn(`Could not get new token. error: ${JSON.stringify(err)}`)};
 		}
 		)
 	}
@@ -274,15 +276,14 @@ export const handleRequestsWithPermissions = async (
 		};
 	}
 	try {
-		const jres = await fetch(targetUrl, fetchDict);
-		if (jres.status !== 200) {
-			const data = await jres.json();
-			console.error(`Error ${jres.status} data: ${data}`);
-			return [{}, data];
+		const res = await fetch(targetUrl, fetchDict);
+		if (res.ok) {
+			return [await res.json(), {} as CustomError];
+		} else {
+			return [{}, res.status as CustomError];
 		}
-		return [await jres.json(), {} as CustomError];
 	} catch (error) {
-		console.error(error);
+		console.error(`handleRequestsWithPermissions: error while fetching ${targetUrl}: `, error);
 		return [{}, error as CustomError]
 	}
 };
