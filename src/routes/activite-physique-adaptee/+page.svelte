@@ -44,8 +44,7 @@
 	<div class="section-container">
 		
 		<h1 class="h1">
-			<span class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone">
-{capitalizeFirstLetter($LL.ADAPTED_PHYSICAL_EDUCATION(), $language)} (APA)</span></h1>
+{capitalizeFirstLetter($LL.ADAPTED_PHYSICAL_EDUCATION(), $language)} (APA)</h1>
 	</div>
 </header>
 
@@ -58,10 +57,10 @@
 		</p>
 		<p>
 			L’APA est une activité physique prescrite par un médecin et encadrée par un professionnel de
-			l'activité physique adaptée (<a href="/annuaire/enseignant-activite-physique-adaptee"
+			l'activité physique adaptée (<a href="/annuaire/enseignant-activite-physique-adaptee" class="anchor"
 				>enseignant en activité physique adaptée</a
 			>
-			ou <a href="/annuaire/kinesitherapeute">kinésithérapeute</a>).
+			ou <a href="/annuaire/kinesitherapeute" class="anchor">kinésithérapeute</a>).
 		</p>
 	</div>
 </section>
@@ -167,19 +166,19 @@
 		<nav class="list-nav flex">
 			<ul>
 				<li>
-					<a href="mailto:kapa.vedene@gmail.com">
+					<a href="mailto:kapa.vedene@gmail.com" class="anchor">
 						<span class="badge bg-primary-500"><Fa icon={faEnvelope} /></span>
 						<span class="flex-auto">kapa.vedene@gmail.com</span></a
 					>
 				</li>
 				<li>
-					<a href="https://instagram.com/kapavedene">
+					<a href="https://instagram.com/kapavedene" class="anchor">
 						<span class="badge bg-primary-500"><Fa icon={faInstagram} /></span>
 						<span class="flex-auto">@kapavedene</span></a
 					>
 				</li>
 				<li>
-					<a href="tel:+33769630393">
+					<a href="tel:+33769630393" class="anchor">
 						<span class="badge bg-primary-500"><Fa icon={faMobileScreen} /></span>
 						<span class="flex-auto">0769630393</span></a
 					>
