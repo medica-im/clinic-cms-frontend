@@ -4,7 +4,6 @@
 	import { language } from '$lib/store/languageStore';
 	import Fa from 'svelte-fa';
 	import { faAddressBook, faEnvelope } from '@fortawesome/free-regular-svg-icons';
-	import { faGlobe, faBlog } from '@fortawesome/free-solid-svg-icons';
 
 	export let data;
 
