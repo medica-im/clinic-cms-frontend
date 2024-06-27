@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { userData } from '$lib/store/userStore';
+	import { workforceDataCached as workforce } from '$lib/store/workforceStore';
 	import { notificationData } from '$lib/store/notificationStore';
 	import {
 		post,
@@ -12,7 +14,6 @@
 	import { fly } from 'svelte/transition';
 	import { toggleAuth } from '$lib/store/authStore';
 	import { invalidate } from '$app/navigation';
-	import { userData } from '$lib/store/userStore';
 	import { isObjectEmpty } from '$lib/utils/utils';
 	import { get } from '@square/svelte-store';
 	import type { Access, User } from '$lib/interfaces/user.interface';
@@ -22,6 +23,9 @@
 	import LL from '$i18n/i18n-svelte';
 	import { afterUpdate, onMount } from 'svelte';
 	import { getPermissions } from '$lib/utils/permissions';
+	import Fa from 'svelte-fa';
+	import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+	import { logOutUser } from '$lib/utils/requestUtils';
 
 	export let data;
 
@@ -37,9 +41,9 @@
 	onMount(() => {
 		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
 		let userDataValue = get(userData);
-        if (!isObjectEmpty(userDataValue) && data.redirect) {
-            goto(data.redirect);
-        };
+		if (!isObjectEmpty(userDataValue) && data.redirect) {
+			goto(data.redirect);
+		}
 	});
 
 	$: if (response && response.user && response.user.error) {
@@ -47,8 +51,6 @@
 		emailWarn = true;
 		passwordWarn = true;
 	}
-
-
 
 	const handleLogin = async () => {
 		if (browserGet('refreshToken')) {
@@ -104,60 +106,83 @@
 </svelte:head>
 
 <div>
-	<header>
-		<div class="section-container">
-			<h1>{$LL.LOGIN.LOGIN()}</h1>
-		</div>
-	</header>
+	{#if isObjectEmpty($userData)}
+		<header>
+			<div class="section-container">
+				<h1>{$LL.LOGIN.LOGIN()}</h1>
+			</div>
+		</header>
 
-	<section
-		class="container"
-		in:fly={{ x: -100, duration: 500, delay: 500 }}
-		out:fly={{ duration: 500 }}
-	>
-		<div class="section-container">
-			<form
-				class="space-y-4 lg:max-w-2xl"
-				on:submit={(e) => {
-					e.preventDefault();
-					handleLogin();
-				}}
-			>
-				{#if errors}
-					<p>{errors}</p>
-				{/if}
-				<input
-					class="input"
-					type="email"
-					bind:value={email}
-					hideLabel
-					labelText={$LL.EMAILADDRESS()}
-					placeholder="{$LL.EMAILADDRESS()}..."
-					required
-					warn={emailWarn}
-				/>
-				<input
-					class="input"
-					bind:value={password}
-					required
-					type="password"
-					autocomplete="on"
-					labelText={$LL.PASSWORD()}
-					placeholder="{$LL.PASSWORD()}..."
-					warn={passwordWarn}
-				/>
-				<button
-					class="btn bg-primary-500"
-					bind:this={submitButton}
-					type="submit"
-					on:click={() => {
-						submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
-					}}>{submitButtonInnerHTML}</button
+		<section
+			class="container"
+			in:fly={{ x: -100, duration: 500, delay: 500 }}
+			out:fly={{ duration: 500 }}
+		>
+			<div class="section-container">
+				<form
+					class="space-y-4 lg:max-w-2xl"
+					on:submit={(e) => {
+						e.preventDefault();
+						handleLogin();
+					}}
 				>
-				<p><a href="/accounts/reset">{$LL.LOGIN.PASSWORD_FORGOTTEN()}</a></p>
-			</form>
+					{#if errors}
+						<p>{errors}</p>
+					{/if}
+					<input
+						class="input"
+						type="email"
+						bind:value={email}
+						hideLabel
+						labelText={$LL.EMAILADDRESS()}
+						placeholder="{$LL.EMAILADDRESS()}..."
+						required
+						warn={emailWarn}
+					/>
+					<input
+						class="input"
+						bind:value={password}
+						required
+						type="password"
+						autocomplete="on"
+						labelText={$LL.PASSWORD()}
+						placeholder="{$LL.PASSWORD()}..."
+						warn={passwordWarn}
+					/>
+					<button
+						class="btn bg-primary-500"
+						bind:this={submitButton}
+						type="submit"
+						on:click={() => {
+							submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
+						}}>{submitButtonInnerHTML}</button
+					>
+					<p><a href="/accounts/reset">{$LL.LOGIN.PASSWORD_FORGOTTEN()}</a></p>
+				</form>
+			</div>
+		</section>
+	{:else}
+		<div class="section-container">
+			<div class="alert variant-ghost w-full md:w-2/3">
+				<div>
+					<p>Vous êtes connecté sous le nom d'utilisateur '<b> {$userData?.username}</b>'.</p>
+				</div>
+				<div class="alert-actions">
+					<button
+							type="button"
+							class="btn variant-soft-secondary"
+							title={$LL.NAVBAR.LOGOUT()}
+							on:click={async () => await logOutUser()}
+							><span class="lg:inline-block align-text-bottom"
+								><Fa icon={faRightFromBracket} size="lg" /></span
+							>
+							<span>{$LL.NAVBAR.LOGOUT()}</span>
+					</button
+						>
+				</div>
+			</div>
 		</div>
-	</section>
+	{/if}
 </div>
 
 <style lang="postcss">

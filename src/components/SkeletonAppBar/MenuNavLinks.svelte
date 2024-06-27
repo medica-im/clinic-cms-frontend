@@ -21,6 +21,7 @@
 		faUser,
 		faPersonChalkboard
 	} from '@fortawesome/free-solid-svg-icons';
+	import Icon from '$components/Icon/Icon.svelte';
 	import { menuNavLinks, menuNavCats } from '../../links';
 
     function getNavGroups(id: Number) {
@@ -57,8 +58,10 @@
                 <li>
                     <a {href} class="{classesActive(href)}">
                         <span class="w-6 text-center">
-							{#if icon}
+							{#if icon && typeof(icon)=="object"}
 							<Fa icon={icon} />
+							{:else if icon && typeof(icon)=="string"}
+							<Icon name={icon}/>
 							{/if}
 						</span>
                         <span>{label}</span>

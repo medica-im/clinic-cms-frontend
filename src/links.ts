@@ -187,6 +187,12 @@ export const menuNavLinks: any = [
 				icon: null
 			},
 			{
+                href: '/activite-physique-adaptee',
+				label: 'APA',
+				keywords: 'activité, physique, adaptée',
+				icon: "bodyHealthicons"
+			},
+			{
 				href: '/maison-de-sante/lexique',
 				label: 'Lexique',
 				keywords: 'lexique, dictionaire, définition',

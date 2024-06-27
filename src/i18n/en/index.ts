@@ -172,7 +172,8 @@ const en: BaseTranslation = {
 	EDIT: "edit",
 	PROFILE: "profile",
 	UPDATE: "update",
-	DOB: "date of birth"
+	DOB: "date of birth",
+	ADAPTED_PHYSICAL_EDUCATION: "adapted physical education"
 }
 
 export default en

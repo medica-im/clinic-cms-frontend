@@ -115,9 +115,9 @@
 <!-- NOTE: using stopPropagation to override Chrome for Windows search shortcut -->
 <svelte:window on:keydown|stopPropagation={onWindowKeydown} />
 
-<AppBar shadow="shadow-lg">
+<AppBar shadow="shadow-lg" padding="p-2">
 	<svelte:fragment slot="lead">
-		<div class="flex space-x-3 xl:inline-block">
+		<div class="flex space-x-2 xl:inline-block">
 			<!-- Hamburger Menu -->
 			<button on:click={drawerOpen} class="btn-icon btn-icon xl:!hidden">
 				<Fa icon={faBars} />
@@ -235,10 +235,10 @@
 				class="btn hover:variant-soft-primary"
 				use:popup={{ event: 'click', target: 'theme' }}
 			>
-				<span class="text-lg 2xl:hidden">
+				<span class="text-lg">
 					<Fa icon={faPalette} />
 				</span>
-				<span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span>
+				<!--span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span-->
 				<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 			</button>
 			<!-- popup -->

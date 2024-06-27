@@ -556,6 +556,10 @@ type RootTranslation = {
 	 * d​a​t​e​ ​d​e​ ​n​a​i​s​s​a​n​c​e
 	 */
 	DOB: string
+	/**
+	 * a​c​t​i​v​i​t​é​ ​p​h​y​s​i​q​u​e​ ​a​d​a​p​t​é​e
+	 */
+	ADAPTED_PHYSICAL_EDUCATION: string
 }
 
 export type TranslationFunctions = {
@@ -1099,6 +1103,10 @@ export type TranslationFunctions = {
 	 * date de naissance
 	 */
 	DOB: () => LocalizedString
+	/**
+	 * activité physique adaptée
+	 */
+	ADAPTED_PHYSICAL_EDUCATION: () => LocalizedString
 }
 
 export type Formatters = {}

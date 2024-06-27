@@ -172,7 +172,8 @@ const fr: Translation = {
   EDIT: "modifier",
   PROFILE: "profil",
   UPDATE: "changer",
-  DOB: "date de naissance"
+  DOB: "date de naissance",
+  ADAPTED_PHYSICAL_EDUCATION: "activité physique adaptée"
 }
 
 export default fr
