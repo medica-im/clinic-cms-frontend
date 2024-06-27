@@ -88,7 +88,7 @@
 		<!-- Row 2 -->
 		<div class="sm:flex sm:items-center sm:justify-between">
 			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				>© 2023 <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
+				>© 2023-{new Date().getFullYear()} <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
 			</span>
 			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />
