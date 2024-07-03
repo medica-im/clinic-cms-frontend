@@ -12,13 +12,13 @@
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	import { variables } from '$lib/utils/constants';
 	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_DIRECTORY_TTL } from '$env/static/public';
 
 	let visible = false;
 	let response;
 	let normalizedInputAddress: string = '';
 	let cityCodes: string[] = [];
-	const cachelife: number = parseInt(env.PUBLIC_DIRECTORY_TTL || '0');
+	const cachelife: number = parseInt(PUBLIC_DIRECTORY_TTL || '0');
 
 	//let addressOptions: AutocompleteOption[] = [];
 
