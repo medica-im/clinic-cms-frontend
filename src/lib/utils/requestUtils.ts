@@ -10,7 +10,6 @@ import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { get } from 'svelte/store';
 import { locales } from '$i18n/i18n-util';
 import { language } from '$lib/store/languageStore';
-import { setLocale } from '$i18n/i18n-svelte';
 import type { Locales } from '$i18n/i18n-types'
 import LL from '$i18n/i18n-svelte';
 import { toggleAuth } from '$lib/store/authStore';

@@ -49,6 +49,8 @@
     import { scrollY } from '$lib/store/scrollStore';
 
     export let data: LayoutServerData;
+	setLocale(data.locale)
+    // console.info($LL.log({ fileName: '+layout.svelte' }))
 
 	initializeStores();
 
