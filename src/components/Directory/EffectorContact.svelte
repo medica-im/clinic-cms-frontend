@@ -15,7 +15,7 @@
 {#if effector.address}
     <li><Address data={effector.address} /></li>
 {/if}
-<div class="m-1 p-1 h-56 max-w-screen-sm">
+<div class="h-56 w-64 lg:h-64 lg:w-96 p-2">
     <Map data={effector.address} />
 </div>
 {#if effector.other_addresses?.length}

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { categorizedFilteredEffectors, selectSituation } from '$lib/store/directoryStore.ts';
-	import LL from '$i18n/i18n-svelte';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { language } from '$lib/store/languageStore';
+	import LL from '$i18n/i18n-svelte.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import { language } from '$lib/store/languageStore.ts';
 	import SearchDirectory from '$components/Directory/SearchDirectory.svelte';
 	import Effector from './Effector.svelte';
 	import SelectCommunes from './SelectCommunes.svelte';
@@ -16,7 +16,7 @@
 	import { categorizedCachedEffectors } from '$lib/store/directoryStore.ts';
 	import type { ConicStop } from '@skeletonlabs/skeleton';
 	import Spinner from '$components/Spinner.svelte';
-	import { scrollY } from '$lib/store/scrollStore';
+	import { scrollY } from '$lib/store/scrollStore.ts';
 	import Clear from '$components/Directory/Clear.svelte';
 
 	const effectors = categorizedCachedEffectors();

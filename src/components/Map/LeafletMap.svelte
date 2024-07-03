@@ -31,5 +31,6 @@
     main .map {
         height: 400px;
         z-index: -10;
+        padding: 60px;
     }
 </style>

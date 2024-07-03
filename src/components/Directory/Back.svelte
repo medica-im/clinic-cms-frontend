@@ -13,7 +13,7 @@
 	} from '$lib/store/directoryStore.ts';
 </script>
 
-<a href="/" class="btn variant-filled">
+<a href="/" class="btn variant-ringed">
 	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $addressFeature?.geometry?.coordinates}
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="flex flex-wrap whitespace-normal text-left">

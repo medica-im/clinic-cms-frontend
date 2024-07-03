@@ -13,8 +13,11 @@
 	};
 	let component = componentSelect[data.component];
 </script>
-
+<div class="flex flex-col">
+<div class="card !bg-transparent lg:variant-ringed p-4 m-4 min-h-96 flex-grow">
 <svelte:component this={component} effector={data.effector} />
-<div class="m-4 flex flex-row-reverse">
+</div>
+<div class="pt-16 lg:pt-1 m-4 flex flex-row-reverse">
 	<Back />
+</div>
 </div>
