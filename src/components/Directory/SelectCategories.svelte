@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { categories, selectCategories, selCatVal, categoryOfCommune } from '$lib/store/directoryStore';
+	import { categories, selectCategories, selCatVal, categoryOf } from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 
@@ -50,7 +50,7 @@
 	}
 </script>
 
-{#await categoryOfCommune.load()}
+{#await categoryOf.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
 	</div>
@@ -65,7 +65,7 @@ $selectCategories: {JSON.stringify($selectCategories)}
 		<Select
 			{label}
 			{itemId}
-			items={getItems($categoryOfCommune)}
+			items={getItems($categoryOf)}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { getSituations, situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore';
+	import { getSituations, situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	const label = 'label';

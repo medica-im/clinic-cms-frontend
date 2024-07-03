@@ -6,7 +6,62 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { occupations, workforceDataCached, selectOccupations, workforceDict } from '$lib/store/workforceStore';
 import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
-import { select_value } from 'svelte/internal';
+import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
+import { shuffle } from '$lib/helpers/random';
+
+
+export const facilities = asyncReadable(
+	{},
+	async () => {
+		var cachelife = parseInt(PUBLIC_FACILITIES_TTL);
+		const cacheName = "facilities";
+		let cachedData;
+		let expired: boolean = true;
+		let empty: boolean = true;
+		if (browser) {
+			cachedData = localStorage.getItem(`${cacheName}`);
+		}
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			expired = elapsed > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
+			}
+		}
+		if (cachedData && !expired && !empty) {
+			return cachedData.data;
+		} else {
+			const url = `${variables.BASE_API_URI}/facilities`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, url);
+			if (response) {
+				let data = response?.facilities;
+				data = data.sort(function (a, b) {
+					return a.name.localeCompare(b.name);
+				})
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+				}
+				//console.log(data);
+				return data;
+			} else if (err) {
+				console.error(err);
+			}
+		}
+	}
+);
+
+export const facilitiesWithAvatar = async () => {
+	const cachedFacilities = await facilities.load();
+	let carousel = cachedFacilities.filter(function (item: any) {
+		return item?.avatar?.raw
+	});
+	shuffle(carousel);
+	return carousel
+};
 
 export const facilityStore = asyncDerived(
 	(locale),
@@ -44,8 +99,6 @@ export const facilityStore = asyncDerived(
 					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
 				return data;
-			} else if (err) {
-				console.error(err);
 			}
 		}
 	}
@@ -169,11 +222,12 @@ export const occupationOfFacilityStore = asyncDerived(
 );
 
 export const siteCount = asyncDerived(
-	(facilityStore),
-	async ($facilityStore) => {
+	([facilities, facilityStore]),
+	async ([$facilities, $facilityStore]) => {
 		try {
-			let len = $facilityStore.facility.length;
-			return len;
+			return $facilities.filter((facility) =>
+				facility.organizations.includes($facilityStore.uid)
+			).length;
 		} catch (err) {
 			console.error(err);
 		}

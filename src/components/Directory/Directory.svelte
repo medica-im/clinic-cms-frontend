@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
-	import { facilityStore } from '$lib/store/facilityStore';
-	import { filteredEffectors, effectors, categoryOfCommune } from '$lib/store/directoryStore';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { filteredEffectors, effectors, categoryOfCommune } from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';

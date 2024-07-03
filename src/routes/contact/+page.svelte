@@ -1,9 +1,9 @@
 <script lang="ts">
-	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
-	import { language } from '$lib/store/languageStore';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
-	import LL from '$i18n/i18n-svelte';
+	import LeafletMap from '$components/Map/LeafletMap.svelte';
+	import { language } from '$lib/store/languageStore.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import LL from '$i18n/i18n-svelte.ts';
 	import Fa from 'svelte-fa';
 	import Address from '$lib/Address/Address.svelte';
 

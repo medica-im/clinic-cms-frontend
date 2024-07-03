@@ -4,7 +4,7 @@
 	import { variables } from '$lib/utils/constants';
 	import SocialNetworks from '../SoMed/SoMed.svelte';
 	import BlogIconLink from '$components/Blog/BlogIconLink.svelte';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';

@@ -2,7 +2,7 @@
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { occupations, selectOccupations, workforceOccupation } from '$lib/store/workforceStore';
-	import { occupationOfFacilityStore } from '$lib/store/facilityStore';
+	import { occupationOfFacilityStore } from '$lib/store/facilityStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import { page } from '$app/stores';

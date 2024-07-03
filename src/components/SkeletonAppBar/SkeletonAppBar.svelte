@@ -39,11 +39,11 @@
 
 	// Utilities
 	import { popup } from '@skeletonlabs/skeleton';
-	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
 
 	// Stores
 	import { storeTheme } from '$lib/store/skeletonStores';
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -52,6 +52,9 @@
 	import { isObjectEmpty } from '$lib/utils/utils';
 
 	export let facility;
+
+	const modalStore = getModalStore();
+	const drawerStore = getDrawerStore();
 
 	// Local
 	let isOsMac = false;

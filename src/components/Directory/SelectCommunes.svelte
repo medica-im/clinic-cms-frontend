@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { communes, selectCommunes, selectCommunesValue, communeOfCategory } from '$lib/store/directoryStore';
-	import LL from '$i18n/i18n-svelte';
+	import { communes, selectCommunes, selectCommunesValue, communeOf } from '$lib/store/directoryStore.ts';
+	import LL from '$i18n/i18n-svelte.ts';
 	import { get } from '@square/svelte-store';
 	const label = 'label';
 	const itemId = 'value';
@@ -59,7 +59,7 @@
 	}
 </script>
 
-{#await communeOfCategory.load()}
+{#await communeOf.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()} />
 	</div>
@@ -73,7 +73,7 @@ communeOfCategory: {$communeOfCategory} ({$communeOfCategory.length})
 		<Select
 			{label}
 			{itemId}
-			items={getItems($communeOfCategory)}
+			items={getItems($communeOf)}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}

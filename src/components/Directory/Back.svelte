@@ -10,7 +10,7 @@
 		selectCategories,
 		selectSituation,
 		addressFeature
-	} from '$lib/store/directoryStore';
+	} from '$lib/store/directoryStore.ts';
 </script>
 
 <a href="/" class="btn variant-filled">

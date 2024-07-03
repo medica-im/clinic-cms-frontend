@@ -1,5 +1,5 @@
 <script lang="ts">
-import { distanceEffectors } from '$lib/store/directoryStore';
+import { distanceEffectors } from '$lib/store/directoryStore.ts';
 import { PUBLIC_LOCALE } from '$env/static/public';
 
 export let uid: string;

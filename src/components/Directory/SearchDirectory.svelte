@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { get } from '@square/svelte-store';
-    import { term } from '$lib/store/directoryStore'  
+    import { term } from '$lib/store/directoryStore.ts'  
     import {
 		faMagnifyingGlass,
 	} from '@fortawesome/free-solid-svg-icons';

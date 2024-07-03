@@ -27,7 +27,7 @@
 </main>
 
 <style>
-    @import 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css';
+    @import 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
     main .map {
         height: 400px;
         z-index: -10;

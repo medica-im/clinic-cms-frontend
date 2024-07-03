@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { facilityStore } from '$lib/store/facilityStore';
-	import { categorizedFilteredEffectors, selectSituation } from '$lib/store/directoryStore';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { categorizedFilteredEffectors, selectSituation } from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
@@ -13,7 +13,7 @@
 	import Geocoder from '$components/Geocoder/Geocoder.svelte';
 	import Fa from 'svelte-fa';
 	import { faArrowsUpToLine } from '@fortawesome/free-solid-svg-icons';
-	import { categorizedCachedEffectors } from '$lib/store/directoryStore.js';
+	import { categorizedCachedEffectors } from '$lib/store/directoryStore.ts';
 	import type { ConicStop } from '@skeletonlabs/skeleton';
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore';

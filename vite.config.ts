@@ -1,12 +1,14 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
+import { purgeCss } from 'vite-plugin-tailwind-purgecss';
+import { isoImport } from 'vite-plugin-iso-import';
 import * as path from 'path';
 
 const config: UserConfig = {
 	optimizeDeps: {
         include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
     },
-	plugins: [sveltekit()],
+	plugins: [sveltekit(), isoImport()/*, purgeCss()*/],
 	resolve: {
 		alias: {
 			'$': path.resolve(__dirname, 'src'),

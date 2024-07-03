@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import { AppRailAnchor } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import {
@@ -9,12 +10,13 @@
 		faYoutube,
 		faSkype
 	} from '@fortawesome/free-brands-svg-icons';
-	import { drawerStore } from '@skeletonlabs/skeleton';
 	export let embedded = false;
 	export let data;
 	export let appBar = false;
 	export let sideBar = false;
 	export let appRail = false;
+
+	const drawerStore = getDrawerStore();
 
 	// ListItem Click Handler
 	function onListItemClick(): void {

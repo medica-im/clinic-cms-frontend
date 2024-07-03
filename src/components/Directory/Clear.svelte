@@ -1,7 +1,7 @@
 <script lang="ts">
     import Fa from 'svelte-fa';
 	import { faDeleteLeft, faEraser } from '@fortawesome/free-solid-svg-icons';
-	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, addressFeature, inputAddress } from '$lib/store/directoryStore';
+	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, addressFeature, inputAddress } from '$lib/store/directoryStore.ts';
 
 	let isDisabled = true;
 

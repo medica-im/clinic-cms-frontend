@@ -2,7 +2,7 @@
 	import Phones from './Phones.svelte';
 	import Addresses from './Addresses.svelte';
 	import Distance from './Distance.svelte';
-	import { distanceEffectors } from '$lib/store/directoryStore';
+	import { distanceEffectors } from '$lib/store/directoryStore.ts';
 	import Address from './Address.svelte';
 	export let effector: any;
 

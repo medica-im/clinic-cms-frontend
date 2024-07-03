@@ -2,7 +2,7 @@
 	import Fa from 'svelte-fa';
 	import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 	import { faGlobe, faMobileScreen, faPhone } from '@fortawesome/free-solid-svg-icons';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 </script>
 
 {#if $facilityStore.legal_entity}

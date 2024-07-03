@@ -3,9 +3,9 @@
 	import {
 		categories,
 		selectCategories,
-		categoryOfCommune,
+		categoryOf,
 		categorizedFullFilteredEffectors
-	} from '$lib/store/directoryStore';
+	} from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import Fa from 'svelte-fa';

@@ -5,7 +5,7 @@
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption } from '@skeletonlabs/skeleton';
 	import { normalize } from '$lib/helpers/stringHelpers';
-	import { addressFeature, inputAddress } from '$lib/store/directoryStore';
+	import { addressFeature, inputAddress } from '$lib/store/directoryStore.ts';
 	import { get } from '@square/svelte-store';
 	import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 	import Fa from 'svelte-fa';

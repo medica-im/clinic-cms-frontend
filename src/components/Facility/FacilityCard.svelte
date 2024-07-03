@@ -1,16 +1,16 @@
 <script lang="ts">
-	import LeafletMap from '$components/Map/LeafletSveltifiedMap.svelte';
+	import LeafletMap from '$components/Map/LeafletMap.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import Navigation from '$components/Navigation/Navigation.svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
-	import LL from '$i18n/i18n-svelte';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { language } from '$lib/store/languageStore';
+	import LL from '$i18n/i18n-svelte.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import { language } from '$lib/store/languageStore.ts';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { isMobile } from '$lib/helpers/deviceDetector';
+	import { isMobile } from '$lib/helpers/deviceDetector.ts';
 
 	export let facility;
 

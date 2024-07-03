@@ -2,7 +2,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { page } from '$app/stores';
 	import ProgramNav from '$components/ProgramNav.svelte';
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { fly } from 'svelte/transition';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
@@ -61,20 +61,6 @@
 	<div>
 		<Directory2 />
 	</div>
-	<!-- team -->
-
-	{#if data.ghost}
-		<!-- blog -->
-		<section id="blog" class="bg-surface-100-800-token blog-gradient">
-			<div class="section-container"><Ghost data={data.ghost} /></div>
-		</section>
-	{/if}
-	<!-- programs -->
-	{#if variables.ORGANIZATION_CATEGORY == 'msp'}
-		<section id="programs" class="bg-surface-100-800-token programs-gradient">
-			<div class="section-container"><OutpatientClinicPrograms /></div>
-		</section>
-	{/if}
 </div>
 
 <style lang="postcss">

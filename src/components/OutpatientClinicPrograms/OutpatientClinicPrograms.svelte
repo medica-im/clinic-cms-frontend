@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { language } from '$lib/store/languageStore';
-    import { facilityStore } from '$lib/store/facilityStore';
+    import { facilityStore } from '$lib/store/facilityStore.ts';
 	import LL from '$i18n/i18n-svelte';
 	import Fa from 'svelte-fa';
 	import { faPills, faShieldHeart, faPersonChalkboard, faArrowRight } from '@fortawesome/free-solid-svg-icons';
