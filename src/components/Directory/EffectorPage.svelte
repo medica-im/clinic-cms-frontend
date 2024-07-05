@@ -24,7 +24,7 @@
 			<Addresses data={effector.other_addresses} />
 		{/if}
 		</div>
-		<div class="h-56 w-64 lg:h-64 lg:w-96 p-2">
+		<div class="h-56 w-56 lg:h-64 lg:w-96 p-2">
 			<Map data={effector.address} />
 		</div>
 	</div>

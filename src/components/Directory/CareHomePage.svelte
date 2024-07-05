@@ -153,7 +153,7 @@
 			{label('day_care')}
 		{/if}
 	</div>
-	<div class="h-56 w-64 lg:h-64 lg:w-96 p-2">
+	<div class="h-56 w-56 lg:h-64 lg:w-96">
 		<Map data={effector.address} />
 	</div>
 </div>

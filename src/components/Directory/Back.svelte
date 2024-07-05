@@ -13,14 +13,14 @@
 	} from '$lib/store/directoryStore.ts';
 </script>
 
-<a href="/" class="btn variant-ringed">
+<a href="/" class="btn btn-sm variant-filled-primary">
 	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $addressFeature?.geometry?.coordinates}
-		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
+		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} size="sm" /></span>
 		<span class="flex flex-wrap whitespace-normal text-left">
 			{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}
 		</span>
 	{:else}
-		<span class="badge variant-filled-primary"> <Fa icon={faArrowRight} /></span>
+		<span class="badge variant-filled-primary"> <Fa icon={faArrowRight} size="sm" /></span>
 		<span class="flex flex-wrap whitespace-normal text-left">
 			{capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK())}
 		</span>

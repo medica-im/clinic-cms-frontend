@@ -2,7 +2,7 @@ import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@
 import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL } from '$env/static/public';
+import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL, PUBLIC_CONTACTS_TTL, PUBLIC_EFFECTORS_LIMIT } from '$env/static/public';
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
 import type { Situation } from './directoryStoreInterface.ts';
@@ -24,6 +24,11 @@ export const selectFacility = writable("");
 export const selectFacilityValue = writable(null);
 
 const next = writable(null);
+
+const isExpired = (cachedObj: any, cacheLife: number) => {
+	let elapsed = (Date.now() / 1000) - cachedObj.cachetime;
+	return elapsed > cacheLife;
+}
 
 function normalize(x: string) {
 	return x.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
@@ -126,7 +131,13 @@ async function downloadContacts() {
 }
 
 async function fetchEffectors(next) {
-	const effectorsUrl = `${variables.BASE_API_URI}/entries/${next || ""}`;
+	const limit = parseInt(PUBLIC_EFFECTORS_LIMIT);
+	let q="";
+	if (limit && !next) {
+        q=`?limit=${limit}`
+	}
+	const effectorsUrl = `${variables.BASE_API_URI}/entries/${next || q}`;
+	//console.log(effectorsUrl);
 	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
 	if (response) {
 		let data: any = response;
@@ -189,19 +200,24 @@ function changedContacts(contacts, effectors): ChangedObj {
 }
 
 async function downloadAllEffectors() {
-	let hasMore = true
+	let fetchCounter = 0;
+	let hasMore = true;
 	let next = "";
 	let effectors = [];
 	while (hasMore) {
 		const [_effectors, _next] = await fetchEffectors(next);
+		fetchCounter++;
+		console.info(`fetch n°: ${fetchCounter}`);
 		effectors = [...effectors, ..._effectors];
+		console.info(`fetched effectors: ${effectors.length}`);
+		setLocalStorage('effectors', effectors);
 		if (_next === null) {
 			hasMore = false;
 		} else {
 			next = _next
 		}
 	}
-	setLocalStorage('effectors', effectors);
+	//setLocalStorage('effectors', effectors);
 	return effectors;
 }
 
@@ -275,24 +291,27 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 export const getEffectors = asyncReadable(
 	{},
 	async () => {
-		//let contacts = getLocalStorage("contacts")?.data;
-		//if (!import.meta.env.DEV && PUBLIC_CACHE_CONTACTS=="false" || contacts==null) {
+		const cachedEffectorsObj = getLocalStorage('effectors');
+		let localContactsObj = getLocalStorage("contacts");
+		var contactsCacheLife = parseInt(PUBLIC_CONTACTS_TTL);
+		let contactsExpired = true;
+		if (localContactsObj) {
+		    contactsExpired = isExpired(localContactsObj, contactsCacheLife);
+		}
+		if (!contactsExpired && cachedEffectorsObj.data?.length ) {
+			return cachedEffectorsObj.data;
+		}
 		let contacts = await downloadContacts();
-		//}
-		let localContacts;
-		let localContactsObj = getLocalStorage('contacts');
-		localContacts = localContactsObj?.data;
 		setLocalStorage('contacts', contacts)
+		let localContacts = localContactsObj?.data;
 		if (localContacts === null || localContacts === undefined) {
 			let effectors = await downloadAllEffectors();
 			setLocalStorage('effectors', effectors);
 			return effectors;
 		}
-
 		var cachelife = parseInt(PUBLIC_EFFECTORS_TTL);
 		let expired: boolean = true;
 		let empty: boolean = true;
-		const cachedEffectorsObj = getLocalStorage('effectors');
 		let changedObj;
 		if (cachedEffectorsObj) {
 			let elapsed = (Date.now() / 1000) - cachedEffectorsObj.cachetime;
