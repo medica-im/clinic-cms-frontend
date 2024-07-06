@@ -1,19 +1,13 @@
-import { facilityStore, websiteSchema } from '$lib/store/facilityStore';
-import { occupationsCardinal, workforceOccupation, teamCarouselStore } from '$lib/store/workforceStore';
+import { websiteSchema } from '$lib/store/facilityStore';
 import { openGraphStore } from '$lib/store/openGraphStore';
 import type { PageLoad } from './$types';
-import { categorizedCachedEffectors } from '$lib/store/directoryStore.js';
+import { categorizedFilteredEffectors } from '$lib/store/directoryStore.ts';
 
 
-export const load: PageLoad = async ({ data }) => {
+export const load: PageLoad = async ({ parent }) => {
     return {
-        //facility: await facilityStore.load(),
+        entries: await categorizedFilteredEffectors.load(),
         //websiteSchema: await websiteSchema.load(),
-        //occupationsCardinal: await occupationsCardinal.load(),
         openGraph: await openGraphStore.load(),
-        //workforceOccupation: await workforceOccupation.load(),
-        //teamCarousel: await teamCarouselStore.load(),
-        //ghost: data.ghost
-        //effectors: categorizedCachedEffectors()
     };
 }

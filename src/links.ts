@@ -2,7 +2,6 @@
 import { variables } from '$lib/utils/constants';
 
 const isMSP: boolean = variables.ORGANIZATION_CATEGORY == "msp"
-console.log(isMSP)
 
 import {
 	faBars,

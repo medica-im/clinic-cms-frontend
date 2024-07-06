@@ -39,7 +39,7 @@ export const ghost = asyncReadable(
 				    return articles;
                 } else {
                 const error = `HTTP Response Code: ${response?.status}`;
-                console.log(error)
+                console.error(error)
                 throw new Error(error);
 			}
         } catch(error) {

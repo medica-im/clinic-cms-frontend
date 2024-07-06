@@ -130,7 +130,7 @@ async function downloadContacts() {
 	return contacts
 }
 
-async function fetchEffectors(next) {
+async function fetchEffectors(fetch, next) {
 	const limit = parseInt(PUBLIC_EFFECTORS_LIMIT);
 	let q="";
 	if (limit && !next) {
@@ -199,25 +199,24 @@ function changedContacts(contacts, effectors): ChangedObj {
 	return changedObj
 }
 
-async function downloadAllEffectors() {
+export const  downloadAllEffectors = async (fetch) => {
 	let fetchCounter = 0;
 	let hasMore = true;
 	let next = "";
 	let effectors = [];
 	while (hasMore) {
-		const [_effectors, _next] = await fetchEffectors(next);
+		const [_effectors, _next] = await fetchEffectors(fetch, next);
 		fetchCounter++;
-		console.info(`fetch n°: ${fetchCounter}`);
+		//console.info(`fetch n°: ${fetchCounter}`);
 		effectors = [...effectors, ..._effectors];
-		console.info(`fetched effectors: ${effectors.length}`);
-		setLocalStorage('effectors', effectors);
+		//console.info(`fetched effectors: ${effectors.length}`);
 		if (_next === null) {
 			hasMore = false;
 		} else {
 			next = _next
 		}
 	}
-	//setLocalStorage('effectors', effectors);
+	setLocalStorage('effectors', effectors);
 	return effectors;
 }
 
@@ -291,21 +290,21 @@ async function processCachedEffectors(changedObj: ChangedObj) {
 export const getEffectors = asyncReadable(
 	{},
 	async () => {
-		const cachedEffectorsObj = getLocalStorage('effectors');
+		const cachedEffectorsObj = getLocalStorage("effectors");
 		let localContactsObj = getLocalStorage("contacts");
 		var contactsCacheLife = parseInt(PUBLIC_CONTACTS_TTL);
 		let contactsExpired = true;
 		if (localContactsObj) {
 		    contactsExpired = isExpired(localContactsObj, contactsCacheLife);
 		}
-		if (!contactsExpired && cachedEffectorsObj.data?.length ) {
+		if (!contactsExpired && cachedEffectorsObj?.data?.length ) {
 			return cachedEffectorsObj.data;
 		}
 		let contacts = await downloadContacts();
 		setLocalStorage('contacts', contacts)
 		let localContacts = localContactsObj?.data;
 		if (localContacts === null || localContacts === undefined) {
-			let effectors = await downloadAllEffectors();
+			let effectors = await downloadAllEffectors(fetch);
 			setLocalStorage('effectors', effectors);
 			return effectors;
 		}
@@ -326,7 +325,7 @@ export const getEffectors = asyncReadable(
 		if (!expired && !empty && changedObj && isUnchanged(changedObj)) {
 			return cachedEffectorsObj.data;
 		} else if (expired || empty) {
-			const allEffectors = await downloadAllEffectors();
+			const allEffectors = await downloadAllEffectors(fetch);
 			return allEffectors;
 		} else {
 			const effectors = await processCachedEffectors(changedObj);
@@ -555,11 +554,11 @@ export const filteredEffectors = asyncDerived(
 )
 
 export const categorizedCachedEffectors =
-	() => {
-		const cachedEffectorsObj = getLocalStorage('effectors');
-		const cachedEffectors = cachedEffectorsObj?.data;
-		if (!cachedEffectors) {
-			return null;
+	(cachedEffectors: []) => {
+		//const cachedEffectorsObj = getLocalStorage('effectors');
+		//const cachedEffectors = cachedEffectorsObj?.data;
+		if (!cachedEffectors || !cachedEffectors?.length) {
+			return [];
 		}
 		let categorySet = new Set();
 		for (let effector of cachedEffectors) {

@@ -1,3 +1,4 @@
+import { downloadAllEffectors } from '$lib/store/directoryStore.ts';
 import { facilityStore } from '$lib/store/facilityStore.ts'
 import type { LayoutLoad } from './$types'
 import { browser } from '$app/environment'
@@ -8,7 +9,7 @@ import { i18nObject } from '$i18n/i18n-util.js'
 
 /** @type {import('./$types').LayoutLoad} */
 
-export const load: LayoutLoad<{ locale: Locales }> = async ({ data: { locale } }) => { 
+export const load: LayoutLoad<{ locale: Locales }> = async ({fetch, data: { locale } }) => { 
   // load dictionary into memory
 	await loadLocaleAsync(locale)
 	// if you need to output a localized string in a `load` function,
