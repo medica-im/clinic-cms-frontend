@@ -9,6 +9,7 @@
 	import OccupationsComma from '$lib/Organization/OccupationsComma.svelte';
 	import Def from '$lib/components/TooltipDefinition/Def.svelte';
 	import Fa from 'svelte-fa';
+	import logoKapaVedene from '$lib/assets/images/logo_kapa_vedene.jpg';
 	import {
 		faInfo,
 		faTimeline,
@@ -29,6 +30,7 @@
 		faMobileScreen
 	} from '@fortawesome/free-solid-svg-icons';
 	import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+	import Alert from '$/routes/(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
 </script>
 
 <svelte:head>
@@ -47,6 +49,8 @@
 {capitalizeFirstLetter($LL.ADAPTED_PHYSICAL_EDUCATION(), $language)} (APA)</h1>
 	</div>
 </header>
+
+<Alert/>
 
 <section>
 	<div class="section-container">
@@ -105,6 +109,12 @@
 <section>
 	<div class="section-container">
 		<h2 class="h2">Association KAPA Vedène: l'APA à Vedène!</h2>
+		<div class="py-2 xl:px-6 xl:float-right">
+			<img
+						src={logoKapaVedene}
+						alt="logo de l'association KAPA Vedène"
+					/>
+        </div>
 		<h3 class="h3">Présentation</h3>
 		<p>
 			L'association KAPA Vedène a été créée en mai 2021 au sein du cabinet de kinésithérapie de la maison de santé de Vedène pour promouvoir et proposer des activités
@@ -167,19 +177,19 @@
 			<ul>
 				<li>
 					<a href="mailto:kapa.vedene@gmail.com" class="anchor">
-						<span class="badge bg-primary-500"><Fa icon={faEnvelope} /></span>
+						<span class="badge"><Fa icon={faEnvelope} /></span>
 						<span class="flex-auto">kapa.vedene@gmail.com</span></a
 					>
 				</li>
 				<li>
 					<a href="https://instagram.com/kapavedene" class="anchor">
-						<span class="badge bg-primary-500"><Fa icon={faInstagram} /></span>
+						<span class="badge"><Fa icon={faInstagram} /></span>
 						<span class="flex-auto">@kapavedene</span></a
 					>
 				</li>
 				<li>
 					<a href="tel:+33769630393" class="anchor">
-						<span class="badge bg-primary-500"><Fa icon={faMobileScreen} /></span>
+						<span class="badge"><Fa icon={faMobileScreen} /></span>
 						<span class="flex-auto">0769630393</span></a
 					>
 				</li>

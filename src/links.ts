@@ -49,6 +49,13 @@ export const programsNavLinks: any = [
 				keywords: 'patient, ETP, cancer, éducation, thérapeutique',
 				icon: null,
 				category: 'program'
+			},
+			{
+				href: '/education-therapeutique/ecole-du-dos',
+				label: 'École du dos',
+				keyword: 'lombalgie, dos, activité physique adaptée, école',
+				icon: null,
+				category: 'program'
 			}
 		]
 	},

@@ -12,7 +12,8 @@ const config: UserConfig = {
 			'$': path.resolve(__dirname, 'src'),
 			'$i18n': path.resolve('./src/i18n/'),
 			'$components': path.resolve('./src/components/'),
-			'$modals': path.resolve('./src/modals/')
+			'$modals': path.resolve('./src/modals/'),
+			'$routes': path.resolve('./src/routes/')
 		}
 	},
 	test: {
