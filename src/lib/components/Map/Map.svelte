@@ -39,7 +39,7 @@
 		<TileLayer url={DEFAULT_TILE_URL} options={DEFAULT_TILE_LAYER_OPTIONS} />
 		{#each data as point}
 			<Marker latLng={point.latLng}>
-				{#if point.tooltip}
+				{#if point?.tooltip?.text}
 					<Tooltip
 						options={{
 							permanent: point?.tooltip?.permanent||false,

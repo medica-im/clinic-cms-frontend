@@ -13,11 +13,17 @@
 	};
 	let component = componentSelect[data.component];
 </script>
-<div class="flex flex-col">
-<div class="card !bg-transparent lg:variant-ringed p-4 m-4 min-h-96 flex-grow">
+<div class="section-container">
+<div class="card !bg-transparent lg:variant-ringed p-2 lg:p-4 lg:m-4 flex-grow">
 <svelte:component this={component} effector={data.effector} />
 </div>
-<div class="pt-20 lg:pt-1 m-4 flex flex-row-reverse">
+<div class="p-2 lg:p-4 lg:m-4 flex flex-row-reverse">
 	<Back />
 </div>
 </div>
+
+<style lang="postcss">
+	.section-container {
+		@apply w-full max-w-7xl mx-auto p-2 py-8 md:py-12;
+	}
+</style>

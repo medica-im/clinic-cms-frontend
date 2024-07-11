@@ -1,7 +1,7 @@
 import type { MapData } from '$lib/interfaces/mapData.interface.ts';
 import type { Facility, Address } from '$lib/store/directoryStoreInterface.js';
 
-export const createMapData = (address: Address, facilityName: string) => {
+export const createMapData = (address: Address, facilityName: string ="") => {
     const mapData: MapData[] = [
         {
         latLng: [Number(address?.latitude ?? 0), Number(address?.longitude ?? 0)],
@@ -18,15 +18,16 @@ export const createMapData = (address: Address, facilityName: string) => {
 };
 
 export const createFacilitiesMapData = (facilities: Facility[], tooltip=false) => {
+    console.log(`facilities: ${JSON.stringify(facilities)}`);
     const points: MapData[] = [];
     facilities.forEach((item: Facility)=>{
         points.push({
             latLng: [Number(item.address?.latitude ?? 0), Number(item.address?.longitude ?? 0)],
             zoom: item?.address?.zoom ?? 0,
             tooltip: {
-                text: item.address.tooltip_text||item.name,
+                text: item.address?.tooltip_text||item.name,
                 permanent: tooltip,
-                direction: item.address.tooltip_direction||"auto",
+                direction: item.address?.tooltip_direction||"auto",
                 opacity: 0.7
             }
     });

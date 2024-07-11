@@ -1,4 +1,8 @@
 <script lang="ts">
+	import Map from '$lib/components/Map/Map.svelte';
+	import LeafletSveltified from '$components/Map/LeafletSveltified.svelte';
+
+	import { createMapData } from '$lib/components/Map/mapData.ts';
 	import LeafletMap from '$components/Map/LeafletMap.svelte';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
@@ -88,8 +92,10 @@
 					</div>
 
 					<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
-						<div class="map-container-2 w-full">
-							<LeafletMap geoData={createFacilityGeoData(data.facility)} />
+						<div class="h-64 lg:h-80 w-full">
+							<LeafletSveltified data={createMapData(data?.facility?.contact?.address)} />
+							<!--LeafletMap geoData={createFacilityGeoData(data.facility)} /-->
+							<!--Map data={createMapData(data?.facility?.contact?.address)} /-->
 						</div>
 					</div>
 				</div>

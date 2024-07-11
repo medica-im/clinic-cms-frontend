@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { createMapData } from '$lib/components/Map/mapData.ts';
+	import LeafletSveltified from '$components/Map/LeafletSveltified.svelte';
 	import Phones from './Phones.svelte';
 	import Addresses from './Addresses.svelte';
 	import Address from './Address.svelte';
@@ -153,7 +155,7 @@
 			{label('day_care')}
 		{/if}
 	</div>
-	<div class="h-56 w-56 lg:h-64 lg:w-96">
-		<Map data={effector.address} />
+	<div class="w-full h-64 lg:h-96 lg:w-96">
+		<LeafletSveltified data={createMapData(effector.address)} />
 	</div>
 </div>
