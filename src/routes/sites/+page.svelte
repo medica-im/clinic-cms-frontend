@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { facilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';

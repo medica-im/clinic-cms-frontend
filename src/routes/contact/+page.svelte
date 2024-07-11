@@ -25,17 +25,6 @@
 	import Logo from '$lib/components/Logo/Logo.svelte';
 
 	export let data;
-
-	const createFacilityGeoData = (fData) => {
-		let address = fData.contact.address;
-		let facilityGeoData = {
-			name: 'contact',
-			latitude: Number(address?.latitude ?? 0),
-			longitude: Number(address?.longitude ?? 0),
-			zoom: address?.zoom ?? 0
-		};
-		return facilityGeoData;
-	};
 </script>
 
 <svelte:head>

@@ -1,13 +1,11 @@
-
 import type { Handle, RequestEvent } from '@sveltejs/kit';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors'
-import { variables } from '$lib/utils/constants';
-import { detectLocale, i18n, isLocale } from '$i18n/i18n-util'
-import { loadAllLocales } from '$i18n/i18n-util.sync'
+import { variables } from '$lib/utils/constants.ts';
+import { detectLocale, i18n, isLocale } from '$i18n/i18n-util.ts'
+import { loadAllLocales } from '$i18n/i18n-util.sync.ts'
 
 loadAllLocales()
 const L = i18n()
-
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// read language slug
@@ -34,7 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	//console.info(LL.log({ fileName: 'hooks.server.ts' }))
 
 	return resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('%lang%', lang)
+		transformPageChunk: ({ html }) => html.replace('%lang%', locale)
 	});
 }
 

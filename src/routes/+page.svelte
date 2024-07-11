@@ -57,12 +57,13 @@
 		<Facility data={{ facilities: data.facilities, carousel: data.facilityCarousel, organization: data.organization }} />
 	</div>
 </section>
-{#if data.ghost?.posts}
+{#await data.ghost}
+{:then ghost}
 	<!-- blog -->
 	<section id="blog" class="bg-surface-100-800-token blog-gradient">
-		<div class="section-container"><Ghost data={data.ghost} /></div>
+		<div class="section-container"><Ghost data={ghost} /></div>
 	</section>
-{/if}
+{/await}
 <!-- programs -->
 {#if variables.ORGANIZATION_CATEGORY == 'msp'}
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">

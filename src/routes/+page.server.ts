@@ -8,10 +8,7 @@ let count = parseInt(GHOST_POST_COUNT) || 6;
 let data;
 
 export const load: PageServerLoad = async ({ fetch, params }) => {
-    if (GHOST_API_KEY) {
-        data = await getGhostData(fetch, GHOST_API_KEY, count);
-    }
     return {
-        ghost: data
+        ghost: await getGhostData(fetch, GHOST_API_KEY, count)
     };
 };

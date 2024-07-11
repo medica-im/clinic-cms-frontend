@@ -11,15 +11,15 @@
 
 	let videos = [
 		{
-			src: "/mrtc_1080.mp4",
+			src: "/videos/mrtc_1080.mp4",
 			type: "video/mp4"
 	    },
 		{
-			src: "/mrtc_720.mp4",
+			src: "/videos/mrtc_720.mp4",
 			type: "video/mp4"
 	    },
 		{
-			src: "/mrtc_540.mp4",
+			src: "/videos/mrtc_540.mp4",
 			type: "video/mp4"
 	    }
 	];
@@ -107,6 +107,7 @@
 			<ul class="list-disc space-y-4 p-4">
 				<li><a href="/annuaire/psychologue" class="anchor">psychologues</a></li>
 				<li><a href="/annuaire/dieteticien" class="anchor">diététiciennes</a></li>
+				<li><a href="/pole-sante-gare/kinesitherapeute/damien-ibaremborde" class="anchor">Damien Ibaremborde, kinésithérapeute</a></li>
 			</ul>
 		</div>
 	</div>

@@ -75,16 +75,13 @@
 		if (roles?.length) {
 			Object.assign(body, {roles: roles});
 		}
-		console.log(body);
 		const url = `${variables.BASE_API_URI}/addressbook/profile/`;
 		const [res, error] = await handlePostRequestsWithPermissions(fetch, url, body);
-		console.log(res, error);
 		if (error.length) {
 			console.error(JSON.stringify(error));
 			errorObject = error;
 			errorVisible = true;
 		} else {
-			console.log(JSON.stringify(res));
 			databaseHtml = html;
 		}
 	}
@@ -100,7 +97,6 @@
 			},
 			'PATCH'
 		);
-		console.log(res, error);
 		if (error.length) {
 			console.error(JSON.stringify(error));
 			errorObject = error;
