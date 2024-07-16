@@ -121,7 +121,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	
+	<script defer data-domain="msp-vedene.fr" src="https://plausible.medica.im/js/script.js"></script>
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
 	<meta name="robots" content="noindex">
