@@ -105,8 +105,8 @@
 
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
-				<li><a href="/annuaire/psychologue" class="anchor">psychologues</a></li>
-				<li><a href="/annuaire/dieteticien" class="anchor">diététiciennes</a></li>
+				<li>Rébecca Medou, psychologue</li>
+				<li><a href="/pole-sante-gare/dieteticien/benjamine-briaud" class="anchor">Benjamine Briaud, diététicienne</a></li>
 				<li><a href="/pole-sante-gare/kinesitherapeute/damien-ibaremborde" class="anchor">Damien Ibaremborde, kinésithérapeute</a></li>
 			</ul>
 		</div>
