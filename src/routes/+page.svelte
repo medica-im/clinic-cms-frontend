@@ -17,7 +17,7 @@
 	export let data: PageData;
 </script>
 
-<!--LDTag schema={data?.websiteSchema} /-->
+<LDTag schema={data?.websiteSchema} />
 <svelte:head>
 	{#if data?.openGraph}
 		<OpenGraph opengraph={data.openGraph} />
