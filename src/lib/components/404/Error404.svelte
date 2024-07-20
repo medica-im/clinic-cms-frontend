@@ -13,7 +13,7 @@
 			<p class="lead">
 				{$LL.ERROR404.DOESNOTEXIST()}
 			</p>
-			<a class="anchor" href="/" class="btn btn-light">{$LL.ERROR404.HOME()}</a>
+			<a href="/" class="btn btn-light">{$LL.ERROR404.HOME()}</a>
 		</div>
 	</div>
 </div>
