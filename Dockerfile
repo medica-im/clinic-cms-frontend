@@ -1,11 +1,11 @@
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 COPY . .
 RUN npm ci
 RUN npm run build --verbose
 
-FROM node:16-alpine AS deploy-node
+FROM node:18-alpine AS deploy-node
 
 WORKDIR /app
 RUN rm -rf ./*
