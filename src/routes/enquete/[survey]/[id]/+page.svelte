@@ -18,7 +18,7 @@
 	{:else}
 	<p>Aucune contribution retrouvée.</p>
 	{/if}
-	<a class="anchor" href="/enquete/{data.surveyName}" class="btn variant-filled">
+	<a href="/enquete/{data.surveyName}" class="btn variant-filled">
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="whitespace-normal text-left">
 			Retourner vers l'enquête
