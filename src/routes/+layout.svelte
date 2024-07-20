@@ -1,7 +1,6 @@
 <script lang="ts">
+	import { initializeStores } from '@skeletonlabs/skeleton';
     import { facilityStore } from '$lib/store/facilityStore';
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
-	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
@@ -25,7 +24,9 @@
 	import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 	import { variables } from '$lib/utils/constants';
 	import { language } from '$lib/store/languageStore';
-	import favicon from '$lib/assets/favicon.png';
+	import favIcon from '$lib/assets/favicon/favicon.svg';
+    import maskIcon from '$lib/assets/favicon/mask-icon.svg';
+    import appleTouchIcon from '$lib/assets/favicon/apple-touch-icon.png';
 	import { AppShell } from '@skeletonlabs/skeleton';
 	import { Modal } from '@skeletonlabs/skeleton';
 	import { Toast } from '@skeletonlabs/skeleton';
@@ -43,6 +44,8 @@
 	// Theme stylesheet is loaded from LayoutServerData
 	import type { LayoutServerData } from './$types';
 	export let data: LayoutServerData;
+
+	initializeStores();
 
 	$: loading.setNavigate(!!$navigating);
 	$: loading.setLoading(!!$navigating, 'Loading, please wait...');
@@ -120,7 +123,10 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={favIcon} />
+	<link rel="mask-icon" href="{maskIcon}" color="#000000">
+	<link rel="apple-touch-icon" href="{appleTouchIcon}">
+
 	<script defer data-domain="msp-vedene.fr" src="https://plausible.medica.im/js/script.js"></script>
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
@@ -135,10 +141,10 @@
 
 <AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4">
 		<svelte:fragment slot="header">
-			<SkeletonAppBar facility={$facilityStore} />
+			<SkeletonAppBar facility="{$facilityStore}" />
 		</svelte:fragment>
 		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data={$facilityStore} class="hidden lg:grid w-[360px] overflow-hidden" />
+			<Sidebar data="{$facilityStore}" class="hidden lg:grid w-[360px] overflow-hidden" />
 		</svelte:fragment>
 		<svelte:fragment slot="pageHeader">
 			{#if $notificationData}

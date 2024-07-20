@@ -201,7 +201,7 @@
 		<h2 class="h2">Calendrier</h2>
 		<div class="md:px-4">
 			<p>
-				Les ateliers ont lieu au <a href="/sites#pole_sante_vedene_anchor" class="anchor"
+				Les ateliers ont lieu au <a class="anchor" href="/sites#pole_sante_vedene_anchor"
 					>pôle médico-social Jean Jaurès</a
 				>.
 			</p>
@@ -209,7 +209,7 @@
 				<Calendar {plugins} {options} />
 			</div>
 			<p>
-				Prévenir en cas d'absence: <a href="tel:+33769630393" class="anchor">
+				Prévenir en cas d'absence: <a class="anchor" href="tel:+33769630393">
 					<span class="badge variant-ghost"><Fa icon={faMobileScreen} /></span>
 					<span class="flex-auto">0769630393</span></a
 				>
@@ -229,14 +229,14 @@
 			<nav class="list-nav flex">
 				<ul>
 					<li>
-						<a href="mailto:kapa.vedene@gmail.com" class="anchor">
+						<a class="anchor" href="mailto:kapa.vedene@gmail.com">
 							<span class="badge variant-ghost"><Fa icon={faEnvelope} /></span>
 							<span class="flex-auto">kapa.vedene@gmail.com</span></a
 						>
 					</li>
 
 					<li>
-						<a href="tel:+33769630393" class="anchor">
+						<a class="anchor" href="tel:+33769630393">
 							<span class="badge variant-ghost"><Fa icon={faMobileScreen} /></span>
 							<span class="flex-auto">0769630393</span></a
 						>
@@ -254,13 +254,13 @@
 			<nav class="list-nav flex">
 				<ul>
 					<li>
-						<a href="https://instagram.com/kapavedene" class="anchor">
+						<a class="anchor" href="https://instagram.com/kapavedene">
 							<span class="badge variant-ghost"><Fa icon={faInstagram} /></span>
 							<span class="flex-auto">@kapavedene</span></a
 						>
 					</li>
 					<li>
-						<a href="/activite-physique-adaptee" class="anchor">
+						<a class="anchor" href="/activite-physique-adaptee">
 							<span class="badge variant-ghost"><Fa icon={faGlobe} /></span>
 							<span class="flex-auto">Activité physique adaptée et KAPA Vedène</span></a
 						>

@@ -40,13 +40,13 @@
 			<span class="badge variant-filled-surface"
 				>{capitalizeFirstLetter($LL.HEALTH_EDUCATION(), $language)}</span
 			>
-			<h1>Parentalité et petite enfance</h1>
+			<h1 class="h1">Parentalité et petite enfance</h1>
 		</div>
 	</header>
 
 	<section>
 		<div class="section-container">
-			<h2>Organisation</h2>
+			<h2 class="h2">Organisation</h2>
 			<p>
 				Ce programme est porté par {$facilityStore.formatted_name_definite_article}.
 			</p>
@@ -54,13 +54,13 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Public</h2>
+			<h2 class="h2">Public</h2>
 			<p>Il s’adresse à tous les parents d’enfants âgés de 0 à 3 ans.</p>
 		</div>
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Objectifs</h2>
+			<h2 class="h2">Objectifs</h2>
 			<div class="pl-5">
 				<ul class="list-disc p-4 space-y-4">
 					<li>Informer et sécuriser sur la santé de l’enfant de 0 à 3 ans</li>
@@ -71,7 +71,7 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Ateliers</h2>
+			<h2 class="h2">Ateliers</h2>
 			<div class="pl-5">
 				<ul class="list-disc p-4 space-y-4">
 					<li>Sommeil et rythme de vie de bébé</li>
@@ -89,7 +89,7 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Lieux</h2>
+			<h2 class="h2">Lieux</h2>
 			<p>Les ateliers ont lieu dans ces structures:</p>
 			<div class="pl-5">
 				<ul class="list-disc pl-4 space-y-4">
@@ -103,7 +103,7 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Intervenantes</h2>
+			<h2 class="h2">Intervenantes</h2>
 			<div class="pl-5">
 				<ul class="list-disc p-4 space-y-4">
 					<li>Diététicienne</li>
@@ -118,7 +118,7 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Financement</h2>
+			<h2 class="h2">Financement</h2>
 			<p>
 				Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
 				gratuite.

@@ -12,13 +12,15 @@
 
 	// Stores
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
-	import { drawerStore } from '@skeletonlabs/skeleton';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import Fa from 'svelte-fa';
 	import {faBlog} from '@fortawesome/free-solid-svg-icons';
 	// Props
 	export let embedded = false;
 	export let data;
+
+	const drawerStore = getDrawerStore();
 
 	// Local
 	let currentRailCategory: keyof typeof menuNavLinks | undefined = undefined;

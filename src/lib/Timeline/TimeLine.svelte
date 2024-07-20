@@ -14,7 +14,7 @@
         "media": {
             "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/CMB_Timeline300_no_WMAP.jpg/1280px-CMB_Timeline300_no_WMAP.jpg",
             "caption": "Timeline of the universe.",
-            "credit": "NASA with modifications by Cherkash <a href=\"https://en.wikipedia.org/wiki/File:CMB_Timeline300_no_WMAP.jpg\">via Wikipedia</a>"
+            "credit": "NASA with modifications by Cherkash <a class="anchor" href=\"https://en.wikipedia.org/wiki/File:CMB_Timeline300_no_WMAP.jpg\">via Wikipedia</a>"
         },
         "text": {
             "headline": "Cosmological Scale Timeline",
@@ -92,7 +92,7 @@
             "media": {
                 "url": "https://commons.wikimedia.org/wiki/File:Ape_skeletons.png",
                 "caption": "The hominoids are descendants of a common ancestor.",
-                "credit": "<a href=\"https://en.wikipedia.org/wiki/Human_evolution\">Wikipedia</a>"
+                "credit": "<a class="anchor" href=\"https://en.wikipedia.org/wiki/Human_evolution\">Wikipedia</a>"
             },
             "start_date": {
                 "year": "-315000"
@@ -108,7 +108,7 @@
             "media": {
                 "url": "https://commons.wikimedia.org/wiki/File:0854_Ein_Krug_aus_Bronocice,_3.550_v._Chr..JPG",
                 "caption": "Bronocice pot",
-                "credit": "<a href=\"https://en.wikipedia.org/wiki/Bronocice_pot\">Wikipedia</a>"
+                "credit": "<a class="anchor" href=\"https://en.wikipedia.org/wiki/Bronocice_pot\">Wikipedia</a>"
             },
             "start_date": {
                 "year": "-3500"

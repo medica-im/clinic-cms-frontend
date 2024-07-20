@@ -9,12 +9,14 @@
 		faYoutube,
 		faSkype
 	} from '@fortawesome/free-brands-svg-icons';
-	import { drawerStore } from '@skeletonlabs/skeleton';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	export let embedded = false;
 	export let data;
 	export let appBar = false;
 	export let sideBar = false;
 	export let appRail = false;
+
+	const drawerStore = getDrawerStore();
 
 	// ListItem Click Handler
 	function onListItemClick(): void {
@@ -82,7 +84,7 @@
 {:else if sideBar}
 	{#each data as somed}
 		<li>
-			<a href={somed.url} class="hover:variant-soft-secondary" target="_blank" rel="external">
+			<a href={somed.url} class="anchor" target="_blank" rel="external">
 				<span><Fa icon={getIcon(somed)} size="lg" /></span><span>{somed.get_type_display}</span>
 			</a>
 		</li>

@@ -22,13 +22,13 @@
 		<span class="badge variant-filled-surface"
 			>{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)}</span
 		>
-		<h1>Hope: accompagnement pendant un cancer</h1>
+		<h1 class="h1">Hope: accompagnement pendant un cancer</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Présentation</h2>
+		<h2 class="h2">Présentation</h2>
 		<p>
 			Ce programme comporte à la fois des ateliers en petits groupes, animés par un professionnel de
 			santé spécifiquement formé à l’éducation thérapeutique, et des ateliers individuels.
@@ -38,7 +38,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Personnes concernées</h2>
+		<h2 class="h2">Personnes concernées</h2>
 		<p>
 			Ce programme, porté par la MSP de Carpentras et répliqué sur Vedène, s’adresse à toute
 			personne de plus de 18 ans ayant eu une annonce de cancer, en cours de traitement ou moins de
@@ -49,7 +49,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Objectifs</h2>
+		<h2 class="h2">Objectifs</h2>
 		<div class="w-fit text-token card p-4 space-y-4">
 			<div class="pl-5">
 				<ul class="list-disc p-4 space-y-4">
@@ -64,7 +64,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Déroulement</h2>
+		<h2 class="h2">Déroulement</h2>
 		<div class="w-fit text-token card p-4 space-y-4">
 			<p class="font-bold">4 ateliers collectifs de 2 heures:</p>
 			<div class="pl-5">
@@ -94,7 +94,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Conditions d'accès</h2>
+		<h2 class="h2">Conditions d'accès</h2>
 		<p>
 			Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
 			gratuite.

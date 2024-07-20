@@ -8,7 +8,7 @@
 </script>
 
 <div class="section-container">
-	<h1>{data.survey.label}</h1>
+	<h1 class="h1">{data.survey.label}</h1>
 
 	{#if data.response?.id}
 	<h2 class="h2">Contribution {data.response.id}</h2>
@@ -18,7 +18,7 @@
 	{:else}
 	<p>Aucune contribution retrouvée.</p>
 	{/if}
-	<a href="/enquete/{data.surveyName}" class="btn variant-filled">
+	<a class="anchor" href="/enquete/{data.surveyName}" class="btn variant-filled">
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="whitespace-normal text-left">
 			Retourner vers l'enquête

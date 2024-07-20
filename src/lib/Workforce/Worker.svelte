@@ -26,14 +26,14 @@
 		</a>
 	<div class="m-2 p-2">
 		<a href="/{workerData.slug}"
-			><h3>{workerTitleFormattedName(workerData)}</h3></a
+			><h3 class="h3">{workerTitleFormattedName(workerData)}</h3></a
 		>
 		<div class="my-2">
 			{#each workerData.occupations as occupation}
 				{#if occupation.name == currentOccupationName}
 					{#if occupation.specialty}
 						<div class="my-2">
-							<h5>
+							<h5 class="h5">
 								{occupation.specialty.label}
 							</h5>
 						</div>
@@ -44,7 +44,7 @@
 						{/each}
 					{:else}
 						<div class="my-2">
-							<h5>
+							<h5 class="h5">
 								{occupation.label}
 							</h5>
 						</div>

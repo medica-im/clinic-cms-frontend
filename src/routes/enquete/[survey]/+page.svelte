@@ -29,7 +29,7 @@
 	<h1 class="h1">{data.survey.label}</h1>
 	<div class="space-y-2">{@html data.survey.presentation}</div>
 
-	<h2>Contribuer</h2>
+	<h2 class="h2">Contribuer</h2>
 	<div class="space-y-2">
 		<label class="label space-y-2">
 			<span class={labelClass}>{label}</span>

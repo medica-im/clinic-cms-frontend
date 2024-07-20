@@ -1,5 +1,5 @@
 <script lang="ts">
-        import { modalStore } from '@skeletonlabs/skeleton';
+        import { getModalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 	import { handlePostRequestsWithPermissions } from '$lib/utils/requestUtils';

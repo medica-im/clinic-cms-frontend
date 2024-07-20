@@ -52,7 +52,7 @@
 				<div class="my-4">
 					{#each Object.keys(data.occupationsCardinal) as name}
 						<section class="space-y-4 my-4">
-							<h3>
+							<h3 class="h3">
 								{data.occupationsCardinal[name]['count']['total']}
 								{data.occupationsCardinal[name]['label']}
 							</h3>
@@ -100,7 +100,7 @@
 							.map((x) => x.name)
 							.includes(name)}
 							<section class="space-y-4 my-4">
-								<h3>
+								<h3 class="h3">
 									{$filteredOccupationsCardinal[name]['count']['total']}
 									{$filteredOccupationsCardinal[name]['label']}
 								</h3>

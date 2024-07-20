@@ -18,7 +18,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1>{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.MDT_MEETING(), $language)}</h1>
+			<h1 class="h1">{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.MDT_MEETING(), $language)}</h1>
 		</div>
 	</header>
 

@@ -13,11 +13,11 @@
 <div class="space-y-4 md:space-y-10">
 	<!-- Info -->
 	<div class="space-y-4 text-center">
-		<h2>Actions santé</h2>
+		<h2 class="h2">Actions santé</h2>
 		<p>Au-delà des habituelles séances et consultations, les professionnels de {$facilityStore.formatted_name_definite_article} agissent pour votre santé en vous proposant ces ateliers.</p>
 	</div>
 	<!-- Grid -->
-	<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+	<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 		<!-- Loop -->
 		{#each programsNavLinks as progCat}
 			{@const program = getProgram(progCat.href)}
@@ -29,7 +29,7 @@
                     </a>
             </div>
             <div>
-				<a href={progCat.href} class="btn bg-initial hover:variant-soft-primary"><h3 class="flex flex-wrap whitespace-normal text-left">{progCat.title[$language]}</h3></a>
+				<a href={progCat.href} class="btn bg-initial hover:variant-soft-primary"><h3 class="h3 flex flex-wrap whitespace-normal text-left">{progCat.title[$language]}</h3></a>
             </div>
             <div>
 				<ul class="list text-left">

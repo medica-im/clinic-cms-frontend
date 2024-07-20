@@ -26,31 +26,31 @@
 <nav class="list-nav">
 	<ul>
 		<li>
-			<a href="/" class={classesActive('/')}>
+			<a class="anchor" href="/" class={classesActive('/')}>
 				<span><Fa icon={faHouse} size="lg" /></span>
 				<span>{$LL.HOME.TITLE()}</span>
 			</a>
 		</li>
 		<li>
-			<a href="/sites" class={classesActive('/sites')}>
+			<a class="anchor" href="/sites" class={classesActive('/sites')}>
 				<span><Fa icon={faMapLocationDot} size="lg" /></span>
 				<span>Sites</span>
 			</a>
 		</li>
 		<li>
-			<a href="/annuaire" class={classesActive('/annuaire')}>
+			<a class="anchor" href="/annuaire" class={classesActive('/annuaire')}>
 				<span><Fa icon={faAddressBook} size="lg" /></span>
 				<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 			</a>
 		</li>
 		<li>
-			<a href="/contact" class={classesActive('/contact')}>
+			<a class="anchor" href="/contact" class={classesActive('/contact')}>
 				<span><Fa icon={faEnvelope} size="lg" /></span>
 				<span>Contact</span>
 			</a>
 		</li>
 		<li>
-			<a href={variables.BLOG_URI}>
+			<a class="anchor" href={variables.BLOG_URI}>
 				<span><Fa icon={faBlog} size="lg" /></span>
 				<span>Blog</span>
 			</a>

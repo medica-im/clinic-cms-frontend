@@ -24,13 +24,13 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1>Épuisement professionnel</h1>
+		<h1 class="h1">Épuisement professionnel</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Définition</h2>
+		<h2 class="h2">Définition</h2>
 		<p>
 			Selon l’Institut national de recherche et de sécurité pour la prévention des accidents du
 			travail et des maladies professionnelles (INRS):
@@ -60,7 +60,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Objectifs</h2>
+		<h2 class="h2">Objectifs</h2>
 		<p>
 			Ce programme a pour objectif de repérer, soutenir, accompagner et orienter les personnes en
 			situation d’épuisement professionnel, de souffrance au travail.
@@ -70,7 +70,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Déroulement</h2>
+		<h2 class="h2">Déroulement</h2>
 		<p>Deux ateliers d’une durée de deux heures:</p>
 		<div class="pl-5">
 		<ul class="list-disc space-y-4 p-4">
@@ -83,7 +83,7 @@
 </section>
 <section>
 	<div class="section-container">
-		<h2>Conditions d'accès</h2>
+		<h2 class="h2">Conditions d'accès</h2>
 		<p>
 			Ce programme est porté et financé par {$facilityStore.formatted_name_definite_article}. La
 			participation est donc gratuite.

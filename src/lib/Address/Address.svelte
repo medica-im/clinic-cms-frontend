@@ -30,7 +30,7 @@
 	{#each addressData.phones as phone}
 	<li>
 	<span>{#if ['M', 'MW'].includes(phone.type)}<Fa icon={faMobileScreen}/>{:else if ['W'].includes(phone.type)}<Fa icon={faPhone}/>{/if}</span>
-	<span class="flex-auto"><a href="tel:{phone.phone}">{phone.phone}</a></span>
+	<span class="flex-auto"><a class="anchor" href="tel:{phone.phone}">{phone.phone}</a></span>
     </li>
 	{/each}
 </ul>

@@ -23,14 +23,14 @@
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1>Les bons gestes au quotidien pour un bon équilibre</h1>
+		<h1 class="h1">Les bons gestes au quotidien pour un bon équilibre</h1>
 		<p>Un programme de prévention pour l’équilibre alimentaire.</p>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Personnes concernées</h2>
+		<h2 class="h2">Personnes concernées</h2>
 		<p>
 			Ce programme, porté par la MSP d’Avignon, s’adresse à toutes les personnes âgés de plus de 16
 			ans.
@@ -40,7 +40,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Objectifs</h2>
+		<h2 class="h2">Objectifs</h2>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
 				<li>aider à développer autonomie alimentaire, bien-être et forme physique</li>
@@ -52,7 +52,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Ateliers</h2>
+		<h2 class="h2">Ateliers</h2>
 
 		<p>Les ateliers se déroulent en petits groupes et durent environ 2 heures.</p>
 		<div class="pl-5">
@@ -73,7 +73,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Intervenants</h2>
+		<h2 class="h2">Intervenants</h2>
 
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
@@ -89,7 +89,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Conditions d'accès</h2>
+		<h2 class="h2">Conditions d'accès</h2>
 
 		<p>
 			Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc

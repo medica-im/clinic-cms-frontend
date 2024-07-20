@@ -14,7 +14,7 @@
             map = leaflet.map(geoData.name).setView([geoData.latitude, geoData.longitude], geoData.zoom);
 
             leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                attribution: '© <a class="anchor" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 zIndex: -1
             }).setZIndex(-1).addTo(map);
             leaflet.marker([geoData.latitude, geoData.longitude]).addTo(map)
@@ -27,7 +27,7 @@
 </main>
 
 <style>
-    @import 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css';
+    @import 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
     main .map {
         height: 400px;
         z-index: -10;

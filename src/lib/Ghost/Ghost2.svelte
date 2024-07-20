@@ -15,7 +15,7 @@
 
 <div class="!bg-transparent space-y-4 md:space-y-10">
 <div class="text-center">
-<h2>Blog</h2>
+<h2 class="h2">Blog</h2>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-10 p-4">
 	{#each $ghost.posts ?? [] as post}

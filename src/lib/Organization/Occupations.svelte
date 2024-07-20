@@ -25,7 +25,7 @@
 		{/each}
 {:then}-->
 		{#each Object.keys(data.cO) as name}
-		<a href={`/annuaire/${data["wO"][name]}`} rel="external"  class="btn variant-filled-primary btn-sm m-2"><span class="">
+		<a href={`/annuaire/${data["wO"][name]}`} rel="external"  class="btn variant-ghost-primary btn-sm m-2"><span class="">
 				{data.cO[name]['count']['total']}
 				{data.cO[name]['label']}
 		</span></a>

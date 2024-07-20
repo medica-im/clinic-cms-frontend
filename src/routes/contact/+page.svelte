@@ -80,7 +80,7 @@
 									<div class="grow ml-6">
 										<p class="font-bold mb-1">{capitalizeFirstLetter($LL.PHONE(), $language)}</p>
 										<p>Secrétariat</p>
-										<a href="tel:+33490163675">0490163675</a>
+										<a class="anchor" href="tel:+33490163675">0490163675</a>
 									</div>
 								</div>
 							</div-->

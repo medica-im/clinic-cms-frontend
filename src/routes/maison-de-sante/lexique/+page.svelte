@@ -19,7 +19,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1>{capitalizeFirstLetter($LL.LEXICON(), $language)}</h1>
+			<h1 class="h1">{capitalizeFirstLetter($LL.LEXICON(), $language)}</h1>
 		</div>
 	</header>
 
@@ -29,7 +29,7 @@
 				{#each Object.keys(dict) as k}
 					<dt id={removeSpaces(k)}>{k}</dt>
 					<dd>
-						{#if dict[k][0] in dict}Voir <a href="#{removeSpaces(dict[k][0])}">{dict[k][0]}</a
+						{#if dict[k][0] in dict}Voir <a class="anchor" href="#{removeSpaces(dict[k][0])}">{dict[k][0]}</a
 							>{:else}{dict[k][0]}{#if dict[k][1]}<br />{dict[k][1]}{/if}{/if}
 					</dd>
 				{/each}

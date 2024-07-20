@@ -21,7 +21,7 @@
 			<span class="badge variant-filled-surface"
 				>{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)}</span
 			>
-			<h1>
+			<h1 class="h1">
 				Vivez à fond avec votre diabète: programme d’éducation thérapeutique du patient diabétique
 			</h1>
 		</div>
@@ -29,7 +29,7 @@
 
 	<section>
 		<div class="section-container">
-			<h2>Personnes concernées</h2>
+			<h2 class="h2">Personnes concernées</h2>
 			<p>
 				Ce programme s’adresse à toutes les personnes diabétiques de type 2 âgées de plus de 18 ans,
 				que leur diabète soit insulino-requérant ou non.
@@ -39,7 +39,7 @@
 
 	<section>
 		<div class="section-container">
-			<h2>Déroulement</h2>
+			<h2 class="h2">Déroulement</h2>
 			<p>6 ateliers de 2 heures.</p>
 			<div class="pl-5">
 				<ul class="list-disc space-y-4 p-2">
@@ -59,7 +59,7 @@
 
 	<section>
 		<div class="section-container">
-			<h2>Financement</h2>
+			<h2 class="h2">Financement</h2>
 			<p>
 				Ce programme est financé par l’Agence Régionale de Santé PACA, la participation est donc
 				gratuite.

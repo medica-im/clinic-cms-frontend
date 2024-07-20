@@ -100,7 +100,7 @@
 				<!-- this message is ephemeral; it exists because the page was rendered in
        response to a form submission. it will vanish if the user reloads -->
 				<p>{$LL.LOGIN.CHANGE_PASSWORD_SUCCESS()}</p>
-                <a href="/accounts/login"
+                <a class="anchor" href="/accounts/login"
 					><div class="flex flex-nowrap space-x-2"><span><Fa icon={faRightToBracket} size="lg" /></span>
 					<span>{$LL.NAVBAR.LOGIN()}</span></div></a
 				>

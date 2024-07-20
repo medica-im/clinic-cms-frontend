@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { logOutUser } from '$lib/utils/requestUtils';
 	import { userData } from '$lib/store/userStore';
-	import { drawerStore } from '@skeletonlabs/skeleton';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import { isObjectEmpty } from '$lib/utils/utils';
 
 	import Fa from 'svelte-fa';
@@ -24,15 +24,19 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	export let embedded = false;
 
+	
+	export let facility;
+	export let sideBar = false;
+	export let appBar = false;
+
+	const drawerStore = getDrawerStore();
+
 	// ListItem Click Handler
 	function onListItemClick(): void {
 		// On Drawer embed Only:
 		if (!embedded) return;
 		drawerStore.close();
 	}
-	export let facility;
-	export let sideBar = false;
-	export let appBar = false;
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
 </script>

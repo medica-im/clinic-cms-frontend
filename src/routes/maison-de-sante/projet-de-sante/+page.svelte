@@ -14,22 +14,22 @@
 <div>
 <header>
 	<div class="section-container">
-		<h1>{$LL.NAVBAR.HEALTH_PROJECT()}</h1>
+		<h1 class="h1">{$LL.NAVBAR.HEALTH_PROJECT()}</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Définition</h2>
+		<h2 class="h2">Définition</h2>
 		<p>
-			L'<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044628615/2021-12-25/"
+			L'<a class="anchor" href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044628615/2021-12-25/"
 				>article L6323-3</a
 			>, qui définit une maison de santé pluriprofessionnelle, aborde également le projet santé.
 		</p>
 
 		<blockquote>
 			Le projet de santé est compatible avec les orientations des schémas régionaux mentionnés à
-			l'article <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213708"
+			l'article <a class="anchor" href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213708"
 				>L. 1434-2</a
 			>. Il est transmis pour information à l'agence régionale de santé. Ce projet de santé est
 			signé par chacun des professionnels de santé membres de la maison de santé. Il peut également

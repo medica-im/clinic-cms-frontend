@@ -40,14 +40,14 @@
 
 		{#each workerData.occupations as occupation}
 			{#if occupation.specialty}
-				<h3>
+				<h3 class="h3">
 					{occupation.specialty.label}
 				</h3>
 				{#each occupation.specialty.facilities as facility}
 					<WorkerFacility {facility} />
 				{/each}
 			{:else}
-				<h3>
+				<h3 class="h3">
 					{occupation.label}
 				</h3>
 				{#each occupation.facilities as facility}
@@ -66,13 +66,13 @@
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faEnvelope} /></div>
 						<div>
-							<h3>Email</h3>
+							<h3 class="h3">Email</h3>
 						</div>
 					</div>
 					<div class="flex p-1">
 						<div class="w-9" />
 						<div>
-							<a href="mailto:{workerData.account_email}">{workerData.account_email}</a>
+							<a class="anchor" href="mailto:{workerData.account_email}">{workerData.account_email}</a>
 						</div>
 					</div>
 				</li>
@@ -83,7 +83,7 @@
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faPhone} /></div>
 						<div>
-							<h3>{cFL($LL.PHONE())}</h3>
+							<h3 class="h3">{cFL($LL.PHONE())}</h3>
 						</div>
 					</div>
 
@@ -91,7 +91,7 @@
 						<div class="flex p-1">
 							<div class="w-9" />
 							<div>
-								<a href="tel:{p.phone}" rel="nofollow">{p.phone}</a> ({p.type_display})
+								<a class="anchor" href="tel:{p.phone}" rel="nofollow">{p.phone}</a> ({p.type_display})
 							</div>
 						</div>
 					{/each}
@@ -114,7 +114,7 @@
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faGlobe} /></div>
 						<div>
-							<h3>Web</h3>
+							<h3 class="h3">Web</h3>
 						</div>
 					</div>
 					<div class="flex p-1">
@@ -132,7 +132,7 @@
 					<div class="flex items-center p-1">
 						<div class="w-9"><Fa icon={faCircleNodes} /></div>
 						<div>
-							<h3>{$LL.ADDRESSBOOK.SOMED()}</h3>
+							<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
 						</div>
 					</div>
 					<div class="flex p-1">
@@ -148,7 +148,7 @@
 				<div class="flex items-center p-1">
 					<div class="w-9"><Fa icon={faBook} /></div>
 					<div>
-						<h3>{cFL($LL.PROFILE())}</h3>
+						<h3 class="h3">{cFL($LL.PROFILE())}</h3>
 					</div>
 				</div>
 				<div class="flex p-1">
@@ -163,7 +163,7 @@
 			<div class="flex items-center p-1">
 				<div class="w-9"><Fa icon={faBook} /></div>
 				<div>
-					<h3>{cFL($LL.PROFILE())}</h3>
+					<h3 class="h3">{cFL($LL.PROFILE())}</h3>
 				</div>
 			</div>
 			<div class="flex p-1">

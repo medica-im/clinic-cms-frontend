@@ -10,7 +10,7 @@
 <div class="flex items-center p-1">
 	<div class="w-9"><Fa icon={faCalendarCheck} /></div>
 	<div>
-		<h3>{$LL.ADDRESSBOOK.APPOINTMENT.LABEL()}</h3>
+		<h3 class="h3">{$LL.ADDRESSBOOK.APPOINTMENT.LABEL()}</h3>
 	</div>
 </div>
 <div class="flex items-center p-1">
@@ -24,13 +24,13 @@
 							<span><Fa icon={faGlobe} /></span><span>{$LL.WEBSITE()}</span></a
 						>
 					{:else if appointment.type == 'phone'}
-						<a href="tel:{appointment.phone}">{appointment.phone}</a>
+						<a class="anchor" href="tel:{appointment.phone}">{appointment.phone}</a>
 					{:else if appointment.type == 'app'}
 						{appointment.app.name}
 						<ul class="list">
 							{#each appointment.app.links as link}
 								<li>
-									<a href={link.url}><img src={link.store.image} alt="{link.store.name} logo" /></a>
+									<a class="anchor" href={link.url}><img src={link.store.image} alt="{link.store.name} logo" /></a>
 								</li>
 							{/each}
 						</ul>

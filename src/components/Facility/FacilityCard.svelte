@@ -44,7 +44,7 @@
             </header-->
 				<!-- Body -->
 				<div class="p-2 space-y-2 space-x-2">
-					<h4>{facility.contact.formatted_name}</h4>
+					<h4 class="h4">{facility.contact.formatted_name}</h4>
 					<p class="space-x-2">
 						<Address data={facility.contact} />
 					</p>
@@ -69,7 +69,7 @@
 				</div>
 				<!-- Footer -->
 				<!--footer class="p-4 flex justify-start items-center space-x-4">
-                <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
+                <a class="anchor" href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
                     <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
                 </a>
             </footer-->

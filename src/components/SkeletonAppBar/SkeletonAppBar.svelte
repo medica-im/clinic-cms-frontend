@@ -38,17 +38,20 @@
 
 	// Utilities
 	import { popup } from '@skeletonlabs/skeleton';
-	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
 
 	// Stores
 	import { storeTheme } from '$lib/store/skeletonStores';
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import { userData } from '$lib/store/userStore';
 	import { isObjectEmpty } from '$lib/utils/utils';
+
+	const drawerStore = getDrawerStore();
+	const modalStore = getModalStore();
 
 	export let facility;
 
@@ -127,7 +130,7 @@
 				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
 				{#if isObjectEmpty($userData)}
 					<span class="hidden 2xl:inline-block"
-						><h3>{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span
+						><h3 class="h3">{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span
 					>
 				{/if}
 			</a>
@@ -201,18 +204,18 @@
 				<nav class="list-nav">
 					<ul>
 						<li>
-							<a href="/{ facility.category.slug }/a-propos">
+							<a class="anchor" href="/{ facility.category.slug }/a-propos">
 								<span class="w-6 text-center"><Fa icon={faInfo} /></span>
 								<span>{$LL.NAVBAR.ABOUT()}</span>
 							</a>
 							{#if variables.TIMELINE}
-							<a href="/{ facility.category.slug }/chronologie">
+							<a class="anchor" href="/{ facility.category.slug }/chronologie">
 								<span class="w-6 text-center"><Fa icon={faTimeline} /></span>
 								<span>{$LL.NAVBAR.TIMELINE()}</span>
 							</a>
 							{/if}
 							<!--hr class="my-4"-->
-							<a href="/{ facility.category.slug }/projet-de-sante">
+							<a class="anchor" href="/{ facility.category.slug }/projet-de-sante">
 								<span class="w-6 text-center"><Fa icon={faBookMedical} /></span>
 								<span>{$LL.NAVBAR.HEALTH_PROJECT()}</span>
 							</a>
@@ -244,7 +247,7 @@
 			<!-- popup -->
 			<div class="card p-4 w-60 shadow-xl" data-popup="theme">
 				<section class="flex justify-between items-center">
-					<h6>Mode</h6>
+					<h6 class="h6">Mode</h6>
 					<LightSwitch />
 				</section>
 				<!--hr class="my-4" />

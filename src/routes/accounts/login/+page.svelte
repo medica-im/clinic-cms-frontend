@@ -109,7 +109,7 @@
 	{#if isObjectEmpty($userData)}
 		<header>
 			<div class="section-container">
-				<h1>{$LL.LOGIN.LOGIN()}</h1>
+				<h1 class="h1">{$LL.LOGIN.LOGIN()}</h1>
 			</div>
 		</header>
 
@@ -157,7 +157,7 @@
 							submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
 						}}>{submitButtonInnerHTML}</button
 					>
-					<p><a href="/accounts/reset">{$LL.LOGIN.PASSWORD_FORGOTTEN()}</a></p>
+					<p><a class="anchor" href="/accounts/reset">{$LL.LOGIN.PASSWORD_FORGOTTEN()}</a></p>
 				</form>
 			</div>
 		</section>

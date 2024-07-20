@@ -1,4 +1,4 @@
-import { facilityStore, websiteSchema } from '$lib/store/facilityStore';
+import { facilityStore, websiteSchema } from '$lib/store/facilityStore.ts';
 import { occupationsCardinal, workforceOccupation, teamCarouselStore } from '$lib/store/workforceStore';
 import { openGraphStore } from '$lib/store/openGraphStore';
 import type { PageLoad } from './$types';

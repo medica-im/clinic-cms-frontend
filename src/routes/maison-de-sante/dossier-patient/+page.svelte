@@ -17,13 +17,13 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1>Partage d’information au sein de l’équipe de soins</h1>
+			<h1 class="h1">Partage d’information au sein de l’équipe de soins</h1>
 		</div>
 	</header>
 
 	<section>
 		<div class="section-container">
-			<h2>L'équipe de soins</h2>
+			<h2 class="h2">L'équipe de soins</h2>
 			<p>
 				Les professionnels de la Maison de Santé Pluriprofessionnelle intervenant directement auprès
 				des patients pour la réalisation d’actes diagnostiques, thérapeutiques, de compensation du
@@ -37,7 +37,7 @@
 	</section>
 	<section>
 		<div class="section-container">
-			<h2>Secret partagé</h2>
+			<h2 class="h2">Secret partagé</h2>
 			<p>
 				Le secret est implicitement partagé pour l’accès au dossier du patient entre les
 				professionnels de santé constituant cette équipe de soins (<a
@@ -45,7 +45,7 @@
 					>loi relative aux droits des malades et à la qualité du système de santé</a
 				>
 				et
-				<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043895798"
+				<a class="anchor" href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043895798"
 					>article L1110-4</a
 				> du Code de la santé publique).
 			</p>

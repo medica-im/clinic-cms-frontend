@@ -40,13 +40,13 @@
 
 <header>
 	<div class="section-container">
-		<h1>Qu'est-ce qu'une maison de santé pluriprofessionnelle?</h1>
+		<h1 class="h1">Qu'est-ce qu'une maison de santé pluriprofessionnelle?</h1>
 	</div>
 </header>
 
 <section>
 	<div class="section-container">
-		<h2>Définition</h2>
+		<h2 class="h2">Définition</h2>
 		<p>
 			Une Maison de Santé Pluriprofessionnelle (MSP) est une forme particulière d’<Def
 				w="Équipe de soins primaires"
@@ -59,7 +59,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Plusieurs professions</h2>
+		<h2 class="h2">Plusieurs professions</h2>
 		<p>
 			Une MSP doit être constituée au minimum de deux médecins généralistes et d'un professionnel
 			paramédical.
@@ -76,7 +76,7 @@
 
 <section>
 	<div class="section-container">
-		<h2>Géographie</h2>
+		<h2 class="h2">Géographie</h2>
 		<p>Ils exerçent sur un ou plusieurs sites.</p>
 		<div class="card variant-ringed-primary p-4 max-w-fit">
 			Deux types de MSP selon la répartition géographique des professionnels.
@@ -99,21 +99,21 @@
 		</div>
 		<p>
 			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est multisite, elle regroupe
-			<a href="/sites">{$siteCount} sites</a>.
+			<a class="anchor" href="/sites">{$siteCount} sites</a>.
 		</p>
 	</div>
 </section>
 <section>
 	<div class="section-container">
-		<h2>Projet de santé</h2>
+		<h2 class="h2">Projet de santé</h2>
 		<p>
 			L’action d’une MSP s’inscrit dans le cadre d’un
-			<a href="/maison-de-sante/projet-de-sante">projet de santé</a>, établi à partir d’un
+			<a class="anchor" href="/maison-de-sante/projet-de-sante">projet de santé</a>, établi à partir d’un
 			diagnostic de l’état de santé de la population et témoignant d’un exercice coordonné entre les
 			professionnels de santé souhaitant participer à ses activités.
 		</p>
 		<p>
-			Les professionnels se mobilisent autour de <a href="/maison-de-sante/projet-de-sante"
+			Les professionnels se mobilisent autour de <a class="anchor" href="/maison-de-sante/projet-de-sante"
 				>projet de santé</a
 			> commun bénéficiant à leurs patients.
 		</p>
@@ -122,13 +122,13 @@
 
 <section>
 	<div class="section-container">
-		<h2>Communication</h2>
+		<h2 class="h2">Communication</h2>
 		<p>Les professionnels de santé se transmettent les informations de manière organisée.</p>
 		<div class="w-fit">
 		<nav class="list-nav">
 		<ul>
 			<li>
-				<a href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
+				<a class="anchor" href="/maison-de-sante/reunion-concertation-pluriprofessionnelle"
 						>
 				<span><Fa icon={faPeopleGroup} /></span><span class="whitespace-normal underline"
 					>Réunions de concertation pluriprofessionnelles</span
@@ -136,7 +136,7 @@
 				>
 			</li>
 			<li>
-				<a href="/maison-de-sante/dossier-patient">
+				<a class="anchor" href="/maison-de-sante/dossier-patient">
 				<span><Fa icon={faNetworkWired} /></span><span class="whitespace-normal underline"
 					>Logiciel métier partagé</span
 				></a>
@@ -149,28 +149,28 @@
 
 <section>
 	<div class="section-container">
-		<h2>Au-delà des soins</h2>
+		<h2 class="h2">Au-delà des soins</h2>
 		<p>La MSP vise à offrir à sa patientèle un ensemble de services de santé de proximité.</p>
 		<div class="w-fit text-token card p-4 space-y-4">
 			<p class="font-bold">Nos services de santé</p>
 			<nav class="list-nav">
 				<ul>
 					<li>
-						<a href="/annuaire"
+						<a class="anchor" href="/annuaire"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Soins</span></a
 						>
 					</li>
 					<li>
-						<a href="/prevention"
+						<a class="anchor" href="/prevention"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Prévention</span></a
 						>
 					</li>
 					<li>
-						<a href="/education-sante"
+						<a class="anchor" href="/education-sante"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left">Éducation pour la santé</span
@@ -178,7 +178,7 @@
 						>
 					</li>
 					<li>
-						<a href="/education-therapeutique"
+						<a class="anchor" href="/education-therapeutique"
 							><span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 
 							<span class="flex flex-wrap whitespace-normal text-left"

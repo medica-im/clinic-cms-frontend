@@ -16,7 +16,7 @@
 	</title>
 </svelte:head>
 
-<h2>{capitalizeFirstLetter(
+<h2 class="h2">{capitalizeFirstLetter(
 	$LL.PRIVACY_POLICY(),
 	$language
 )}</h2>

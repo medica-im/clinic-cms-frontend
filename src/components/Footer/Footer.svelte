@@ -19,11 +19,11 @@
 		<!-- Row 1 -->
 		<div class="md:flex md:justify-between">
 			<div class="mb-6 md:mb-0">
-				<a href="/" title={$LL.NAVBAR.GO_HOME()}>
+				<a class="anchor" href="/" title={$LL.NAVBAR.GO_HOME()}>
 					<div class="flex items-center space-x-2">
 						<span class="flex w-8 h-8 items-center"><OutpatientClinicLogo /></span>
 
-						<h3>
+						<h3 class="h3">
 							{capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
 						</h3>
 					</div>
@@ -36,20 +36,20 @@
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<li class="mb-4">
-							<a href="/">
+							<a class="anchor" href="/">
 								{$LL.HOME.TITLE()}
 							</a>
 						</li>
 						<li class="mb-4">
-							<a href="/sites"> Sites </a>
+							<a class="anchor" href="/sites"> Sites </a>
 						</li>
 						<li class="mb-4">
-							<a href="/annuaire">
+							<a class="anchor" href="/annuaire">
 								{$LL.NAVBAR.ADDRESSBOOK()}
 							</a>
 						</li>
 						<li class="mb-4">
-							<a href="/contact"> Contact </a>
+							<a class="anchor" href="/contact"> Contact </a>
 						</li>
 					</ul>
 				</div>
@@ -60,7 +60,7 @@
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						{#each programsNavLinks as navLink}
 							<li class="mb-4">
-								<a href={navLink.href} class="hover:underline ">{navLink.title[$language]}</a>
+								<a href={navLink.href} class="anchor ">{navLink.title[$language]}</a>
 							</li>
 						{/each}
 					</ul>
@@ -71,12 +71,12 @@
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<!--li class="mb-4">
-							<a href="/politique-de-confidentialite" class="hover:underline"
+							<a class="anchor" href="/politique-de-confidentialite" class="hover:underline"
 								>{capitalizeFirstLetter($LL.PRIVACY_POLICY(), $language)}</a
 							>
 						</li-->
 						<li class="mb-4">
-							<a href="/mentions-legales" class="hover:underline"
+							<a href="/mentions-legales" class="anchor"
 								>{capitalizeFirstLetter($LL.LEGAL_NOTICES(), $language)}</a
 							>
 						</li>
@@ -99,7 +99,7 @@
 		<!-- Row 3 -->
 		<div class="sm:flex sm:items-center sm:justify-between">
 			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="hover:underline">Médecine Libre</a>.
+				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="anchor">Médecine Libre</a>.
 			</span>
 			<!--div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />

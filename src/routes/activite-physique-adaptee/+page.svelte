@@ -61,10 +61,9 @@
 		</p>
 		<p>
 			L’APA est une activité physique prescrite par un médecin et encadrée par un professionnel de
-			l'activité physique adaptée (<a href="/annuaire/enseignant-activite-physique-adaptee" class="anchor"
-				>enseignant en activité physique adaptée</a
+			l'activité physique adaptée (<a class="anchor" href="/annuaire/enseignant-activite-physique-adaptee">enseignant en activité physique adaptée</a
 			>
-			ou <a href="/annuaire/kinesitherapeute" class="anchor">kinésithérapeute</a>).
+			ou <a class="anchor" href="/annuaire/kinesitherapeute">kinésithérapeute</a>).
 		</p>
 	</div>
 </section>
@@ -138,7 +137,7 @@
 		</p>
 		<p>
 			La sédentarité augmente la mortalité et le risque de développer de nombreuses maladies<sup
-			><a href="#cite_note-1" class="anchor">1</a></sup
+			><a class="anchor" href="#cite_note-1">1</a></sup
 		>:
 			maladie cardiovasculaire, diabète de type 2, cancer du colon, cancer de l'endomètre, cancer du
 			poumon, obésité, dépression.
@@ -176,19 +175,19 @@
 		<nav class="list-nav flex">
 			<ul>
 				<li>
-					<a href="mailto:kapa.vedene@gmail.com" class="anchor">
+					<a class="anchor" href="mailto:kapa.vedene@gmail.com">
 						<span class="badge"><Fa icon={faEnvelope} /></span>
 						<span class="flex-auto">kapa.vedene@gmail.com</span></a
 					>
 				</li>
 				<li>
-					<a href="https://instagram.com/kapavedene" class="anchor">
+					<a class="anchor" href="https://instagram.com/kapavedene">
 						<span class="badge"><Fa icon={faInstagram} /></span>
 						<span class="flex-auto">@kapavedene</span></a
 					>
 				</li>
 				<li>
-					<a href="tel:+33769630393" class="anchor">
+					<a class="anchor" href="tel:+33769630393">
 						<span class="badge"><Fa icon={faMobileScreen} /></span>
 						<span class="flex-auto">0769630393</span></a
 					>
@@ -207,8 +206,7 @@
 					Bouger plus! Sur le site
 					<a
 						href="https://www.mangerbouger.fr/bouger-plus
-					"
-						class="anchor">mangerbouger.fr</a
+					">mangerbouger.fr</a
 					>, des idées, des conseils et des outils adaptés pour vous aider à augmenter l'activité
 					physique et réduire le temps passé assis.
 				</li>

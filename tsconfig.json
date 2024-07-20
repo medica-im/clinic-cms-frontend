@@ -1,7 +1,7 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"outDir": "./build",
+		"plugins": [{ "name": "vite-plugin-iso-import" }],
 		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,
@@ -10,40 +10,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"paths": {
-			"$i18n": [
-				"./src/i18n"
-			],
-			"$i18n/*": [
-				"./src/i18n/*"
-			],
-			"$components": [
-				"./src/components"
-			],
-			"$components/*": [
-				"./src/components/*"
-			],
-			"$modals": [
-				"./src/modals"
-			],
-			"$modals/*": [
-				"./src/modals/*"
-			],
-			"$lib": [
-				"./src/lib"
-			],
-			"$lib/*": [
-				"./src/lib/*"
-			],
-			"$routes": [
-				"./src/routes"
-		    ],
-			"$routes/*": [
-				"./src/routes/*"
-		    ]
-		}
-	},
-	"exclude": [
-		"./build/**/*"
-	]
+		"moduleResolution": "nodenext",
+		"allowImportingTsExtensions": true
+	}
 }
