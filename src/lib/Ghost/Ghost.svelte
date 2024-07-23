@@ -6,7 +6,7 @@
 	// TODO: deal with data.meta and pagination if more than a few articles
 	const posts = data.posts;
 
-	function formatDate(datetime: string, locale) {
+	function formatDate(datetime: string, locale: string) {
 		const event = new Date(datetime);
 		return event.toLocaleDateString(locale);
 	}
@@ -18,12 +18,13 @@
 		else return 3 
 	}
 </script>
+<!--{JSON.stringify(data)}<br-->
 {#if Array.isArray(posts) && posts.length}
 <div class="!bg-transparent space-y-4 md:space-y-10">
 <div class="text-center">
 <h2 class="h2">Blog</h2>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-{colsCount()} gap-4 md:gap-10 p-4 place-items-center">
+<div class="grid grid-cols-1 lg:grid-cols-{colsCount()} gap-4 md:gap-10 p-4 place-items-top">
 	{#each posts as post}
 		<RoundCard
 		url={post.url}

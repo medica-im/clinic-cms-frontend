@@ -24,7 +24,7 @@
 	{/if}
 
 	<title>
-		{$LL.HOME.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 
@@ -57,8 +57,7 @@
 		<Facility data={{ facilities: data.facilities, carousel: data.facilityCarousel, organization: data.organization }} />
 	</div>
 </section>
-{#await data.ghost}
-{:then ghost}
+{#await data.ghost then ghost}
 	<!-- blog -->
 	<section id="blog" class="bg-surface-100-800-token blog-gradient">
 		<div class="section-container"><Ghost data={ghost} /></div>

@@ -40,11 +40,11 @@
 
 	// Utilities
 	import { popup } from '@skeletonlabs/skeleton';
-	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 
 	// Stores
 	import { storeTheme } from '$lib/store/skeletonStores';
-	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
