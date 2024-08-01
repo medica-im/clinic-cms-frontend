@@ -6,7 +6,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
-	import Directory2 from '$components/Directory/Directory2.svelte';
+	import Directory from '$components/Directory/Directory.svelte';
 
 	export let data: PageData;
 </script>
@@ -31,7 +31,7 @@
 		</div>
 	</header>
 	<div>
-		<Directory2 data={data} />
+		<Directory data={data} />
 	</div>
 </div>
 

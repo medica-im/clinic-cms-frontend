@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { language } from '$lib/store/languageStore';
-    import type { PageData } from './$types';
-    import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-    import Directory2 from '$components/Directory/Directory2.svelte';
+    import { language } from '$lib/store/languageStore.ts';
+    import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+    import Directory from '$components/Directory/Directory.svelte';
     import { page } from '$app/stores';
-    import LL from '$i18n/i18n-svelte';
-    export let data: PageData;
+    import LL from '$i18n/i18n-svelte.ts';
+    export let data;
 </script>
 
 <svelte:head>
@@ -23,7 +22,7 @@
     </div>
 </header>
 <div>
-    <Directory2 data={data} />
+    <Directory data={data} />
 </div>
 
 <style lang="postcss">

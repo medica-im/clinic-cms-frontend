@@ -80,7 +80,7 @@ categoryOf: {$categoryOf} ({$categoryOf.length})
 $selCatVal: {$selCatVal}<br>
 $selectCategories: {JSON.stringify($selectCategories)}
 -->
-	<div class="text-surface-700 theme">
+	<div class="text-surface-700 z-auto theme">
 		<Select
 			{label}
 			{itemId}
