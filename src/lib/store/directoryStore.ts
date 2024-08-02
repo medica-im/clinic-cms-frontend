@@ -22,6 +22,7 @@ export const addressFeature = writable({});
 export const inputAddress = writable("");
 export const selectFacility = writable("");
 export const selectFacilityValue = writable(null);
+export const displayMap = writable(false);
 
 const next = writable(null);
 

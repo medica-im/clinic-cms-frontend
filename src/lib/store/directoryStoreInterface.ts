@@ -47,3 +47,58 @@ export interface Facility {
     phones: Phone[],
 }
 
+export interface Commune {
+    name: string,
+    slug: string,
+    uid: string,
+    wikidata: string
+}
+
+export interface Type {
+          definition: string|null,
+          label: string|null,
+          name: string,
+          slug: string,
+          synonyms: string[]|null,
+          uid: string
+}
+
+export interface Entry {
+    address: Address,
+    avatar: Avatar|null,
+    commune: Commune,
+    effector_uid: string,
+    gender: string|null,
+    label: string,
+    name: string,
+    phones: Phone[],
+    resource_uri: string,
+    slug: string,
+    types: Type[],
+    uid: string,
+    updatedAt: number
+}
+
+export interface AddressFeature {
+    type: string,
+    geometry:{
+        type: string,
+        coordinates:[number,number]
+    },
+    properties:{
+        label: string,
+        score: number,
+        housenumber: string,
+        id: string,
+        name: string,
+        postcode: string,
+        citycode: string,
+        x: number,
+        y: number,
+        city: string,
+        context: string,
+        type: string,
+        importance: number,
+        street: string
+    }
+}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import { categorizedFilteredEffectors, selectSituation } from '$lib/store/directoryStore.ts';
+	import { categorizedFilteredEffectors, filteredEffectors, selectSituation, displayMap } from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { language } from '$lib/store/languageStore.ts';
@@ -12,14 +12,21 @@
 	import SelectSituations from './SelectSituations.svelte';
 	import Geocoder from '$components/Geocoder/Geocoder.svelte';
 	import Fa from 'svelte-fa';
-	import { faArrowsUpToLine } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faArrowsUpToLine,
+		faMapLocationDot,
+		faAddressBook
+	} from '@fortawesome/free-solid-svg-icons';
 	import type { ConicStop } from '@skeletonlabs/skeleton';
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore.ts';
 	import Clear from '$components/Directory/Clear.svelte';
+	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
+	import FacilityMap from '$lib/components/FacilityMap/FacilityMap.svelte';
 
 	export let data;
 
+	//let displayMap: boolean = false;
 	let top;
 	let category = '';
 	let countString = '';
@@ -39,6 +46,8 @@
 		top.scrollIntoView();
 	};
 </script>
+
+<svelte:window bind:scrollY={$scrollY} />
 
 <svelte:head>
 	<title>
@@ -86,10 +95,13 @@
 					</div>
 				</div>
 				{#if data && [...data]?.length}
-					<div class="my-2 flex justify-between w-full">
+					<div class="my-2 space-x-2 flex justify-between w-full">
 						<span class="badge variant-ghost-surface">{contactCount(data)}</span>
-						<div class="flex space-x-2 items-center"><Spinner w="4" h="4" /><p>Mise à jour...</p></div>
-						<Clear/>
+						<div class="flex space-x-2 items-center">
+							<Spinner w="4" h="4" />
+							<p>Mise à jour...</p>
+						</div>
+						<Clear />
 					</div>
 					<div class="my-4 space-y-4">
 						{#each [...data] as [key, value]}
@@ -158,35 +170,60 @@
 
 				<div class="my-2 flex justify-between w-full">
 					<span class="badge variant-ghost-surface">{countString}</span>
-					<Clear/>
+
+					<RadioGroup
+						padding="p-2"
+						active="variant-filled-primary"
+						hover="hover:variant-soft-primary"
+					>
+						<RadioItem bind:group={$displayMap} name="justify" value={false}
+							><div class="flex 2xl:items-center 2xl:space-x-1">
+								<Fa icon={faAddressBook} /><span class="hidden 2xl:inline-block">Annuaire</span>
+							</div></RadioItem
+						>
+						<RadioItem bind:group={$displayMap} name="justify" value={true}
+							><div class="flex 2xl:items-center 2xl:space-x-1">
+								<Fa icon={faMapLocationDot} /><span class="hidden 2xl:inline-block">Carte</span>
+							</div></RadioItem
+						>
+					</RadioGroup>
+
+					<Clear />
 				</div>
 
 				<div class="my-4 space-y-4">
-					{#each [...$categorizedFilteredEffectors] as [key, value]}
-						<div class="space-y-4 my-4 anchordiv" id={key}>
-							<div class="relative inline-block">
-								<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
-									{value.length}
-								</span>
+					{#if $displayMap}
+					<div class="h-screen">
+					<FacilityMap data={$filteredEffectors} />
+					</div>
+					{:else}
+						{#each [...$categorizedFilteredEffectors] as [key, value]}
+							<div class="space-y-4 my-4 anchordiv" id={key}>
+								<div class="relative inline-block">
+									<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
+										{value.length}
+									</span>
 
-								<span class="badge variant-filled"
-									><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
-								>
-							</div>
-						</div>
-						{#each value as effector}
-							<div class="space-y-4 my-4">
-								<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-									<Effector {effector} />
+									<span class="badge variant-filled"
+										><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
+									>
 								</div>
 							</div>
+							{#each value as effector}
+								<div class="space-y-4 my-4">
+									<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+										<Effector {effector} />
+									</div>
+								</div>
+							{/each}
 						{/each}
-					{/each}
+					{/if}
 				</div>
 			{/await}
 		</div>
 	</section>
 </div>
+
 {#if $scrollY > showOnPx}
 	<button type="button" class="back-to-top btn-icon btn-lg variant-filled" on:click={scrollToTop}>
 		<Fa icon={faArrowsUpToLine} size="lg" /></button
@@ -198,7 +235,7 @@
 		scroll-margin-top: 1rem;
 	}
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8;
+		@apply mx-auto w-full max-w-7xl p-4 py-4 md:py-8;
 		scroll-padding-top: 4rem;
 	}
 	.programs-gradient {

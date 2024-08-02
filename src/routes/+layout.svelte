@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { initializeStores } from '@skeletonlabs/skeleton';
+	import { initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
+
     import { facilityStore } from '$lib/store/facilityStore';
     import '../app.postcss';
     import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
@@ -30,7 +31,6 @@
     import { AppShell } from '@skeletonlabs/skeleton';
     import { Modal } from '@skeletonlabs/skeleton';
     import { Toast } from '@skeletonlabs/skeleton';
-    import type { ToastSettings } from '@skeletonlabs/skeleton';
     // Modal Components
     import Search from '$modals/Search/Search.svelte';
 
@@ -38,7 +38,6 @@
     import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
     // components
     import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
-    import Drawer from '$components/Drawer/Drawer.svelte';
     import Footer from '$components/Footer/Footer.svelte';
 
     // Theme stylesheet is loaded from LayoutServerData
@@ -46,6 +45,7 @@
     import { QueryClientProvider } from '@tanstack/svelte-query'
     import type { LayoutData } from './$types'
     import type { ComponentEvents } from 'svelte';
+	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
     import { scrollY } from '$lib/store/scrollStore';
 
     export let data: LayoutServerData;
@@ -53,10 +53,16 @@
     // console.info($LL.log({ fileName: '+layout.svelte' }))
 
 	initializeStores();
-
+	const drawerStore = getDrawerStore();
 
     $: loading.setNavigate(!!$navigating);
     $: loading.setLoading(!!$navigating, 'Loading, please wait...');
+	
+	
+
+	function drawerOpen(): void {
+	drawerStore.open(drawerSettings);
+}
 
     function scrollHandler(event: ComponentEvents<AppShell>['scroll']) {
 	scrollY.set(event.currentTarget.scrollTop);
@@ -147,14 +153,16 @@
 <Modal components="{modalComponentRegistry}"></Modal>
 <Toast></Toast>
 
-<Drawer data="{$facilityStore}"></Drawer>
+<Drawer zIndex="z-[100]">
+	<Sidebar data={$facilityStore}/>
+</Drawer>
 
-<AppShell {slotSidebarLeft} regionpage="overflow-y-scroll" slotfooter="bg-black p-4" on:scroll="{scrollHandler}">
+<AppShell slotSidebarLeft="bg-surface-500/5 w-0">
 		<svelte:fragment slot="header">
 			<SkeletonAppBar facility="{$facilityStore}"></SkeletonAppBar>
 		</svelte:fragment>
 		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data="{$facilityStore}" class="hidden lg:grid w-[360px] overflow-hidden"></Sidebar>
+			<Sidebar data={$facilityStore}/>
 		</svelte:fragment>
 		<svelte:fragment slot="pageHeader">
 			{#if $notificationData}

@@ -1,3 +1,5 @@
+import type { Entry } from '$lib/store/directoryStoreInterface.ts';
+
 // Replaces the locale slug in a URL.
 //
 // If the `full` argument is set to `true`, the full URL is returned as a string.
@@ -40,3 +42,16 @@ export const reviver = (key, value) => {
 	}
 	return value;
   }
+
+export const entryPageUrl = (entry: Entry) => {
+	let typeSlug = entry.types[0].slug;
+	let communeSlug = entry.commune.slug;
+	let nameSlug = entry.slug;
+	//console.log(`${typeSlug}, ${communeSlug}, ${nameSlug}`)
+
+	if (!typeSlug || !communeSlug || !nameSlug) {
+		return;
+	} else {
+		return `/${typeSlug}/${communeSlug}/${nameSlug}`;
+	}
+}

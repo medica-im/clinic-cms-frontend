@@ -22,5 +22,5 @@
 
 <button class="btn variant-filled-error" type="reset" on:click={erase} disabled='{isDisabled}'>
 	<span><Fa icon={faEraser} size="lg" /></span>
-	<span>Tout effacer</span>
+	<span>Effacer</span>
 </button>

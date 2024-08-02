@@ -64,11 +64,17 @@
 		let os = navigator.userAgent;
 		isOsMac = os.search('Mac') !== -1;
 	}
-
+	const drawerSettings: DrawerSettings = {
+	id: 'example-3',
+	// Provide your property overrides:
+	//bgDrawer: 'bg-purple-900 text-white',
+	//bgBackdrop: 'bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50',
+	width: 'w-20',
+	padding: 'p-4'
+};
 	// Drawer Handler
 	function drawerOpen(): void {
-		const s: DrawerSettings = { id: 'doc-sidenav' };
-		drawerStore.open(s);
+		drawerStore.open(drawerSettings);
 	}
 
 	// Search
@@ -174,13 +180,12 @@
 								<span>{$LL.HOME.TITLE()}</span>
 							</a>
 						</li-->
-						<li>
+						<!--li>
 							<a href="/sites">
 								<span class="w-6 text-center"><Fa icon={faMapLocationDot} /></span>
 								<span>Sites</span>
 							</a>
-						</li>
-
+						</li-->
 						<li>
 							<a href="/contact">
 								<span class="w-6 text-center"><Fa icon={faEnvelope} /></span>

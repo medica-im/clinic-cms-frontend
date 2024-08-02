@@ -45,9 +45,9 @@
 								{$LL.HOME.TITLE()}
 							</a>
 						</li-->
-						<li class="mb-4">
+						<!--li class="mb-4">
 							<a href="/sites"> Sites </a>
-						</li>
+						</li-->
 
 						<li class="mb-4">
 							<a href="/contact"> Contact </a>

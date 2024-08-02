@@ -45,13 +45,13 @@
 						href="/contact">Contact</a
 					>
 				</li>
-				<li class="nav-item">
+				<!--li class="nav-item">
 					<a
 						class="nav-link {$page.url.pathname === '/sites' ? 'active aria-current="page"' : ''}"
 						aria-current="page"
 						href="/sites">Sites</a
 					>
-				</li>
+				</li-->
 				<li class="nav-item">
 					<a
 						class="nav-link {$page.url.pathname === '/annuaire'

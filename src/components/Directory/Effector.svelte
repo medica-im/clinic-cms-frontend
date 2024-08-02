@@ -4,24 +4,14 @@
 	import Distance from './Distance.svelte';
 	import { distanceEffectors } from '$lib/store/directoryStore.ts';
 	import Address from './Address.svelte';
+	import { entryPageUrl } from '$lib/utils/utils.ts';
 	export let effector: any;
 
-	function effectorPageUrl(effector) {
-		let typeSlug = effector.types[0].slug;
-		let communeSlug = effector.commune.slug;
-		let nameSlug = effector.slug;
-		//console.log(`${typeSlug}, ${communeSlug}, ${nameSlug}`)
-
-		if (!typeSlug || !communeSlug || !nameSlug) {
-			return;
-		} else {
-			return `/${typeSlug}/${communeSlug}/${nameSlug}`;
-		}
-	}
+	
 </script>
 
 <div class="card p-4 m-4">
-	<a class="unstyled" href={effectorPageUrl(effector)}>
+	<a class="unstyled" href={entryPageUrl(effector)}>
 
 		<h3 class="h3">{effector.name}</h3>
 	<ul class="list">
