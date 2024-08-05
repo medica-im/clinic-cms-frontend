@@ -10,6 +10,10 @@
 
 	export let data: MapData[];
 
+	let innerWidth = 0;
+
+    $: isMobile = innerWidth <= 430;
+
 	let leafletMap;
 
 	const getPoints = () => {
@@ -35,7 +39,7 @@
 		}
 	});
 </script>
-
+<svelte:window bind:innerWidth />
 {#if browser}
 	<LeafletMap bind:this={leafletMap} options={getMapOptions()}>
 		<TileLayer url={DEFAULT_TILE_URL} options={DEFAULT_TILE_LAYER_OPTIONS} />
@@ -47,7 +51,7 @@
 				{#if point?.popup?.text}
 					<Popup>{@html point?.popup?.text}</Popup>
 				{/if}
-				{#if point?.tooltip?.text}
+				{#if point?.tooltip?.text && !isMobile}
 						<Tooltip options={{
 							permanent: point?.tooltip?.permanent||false,
 							direction: point?.tooltip?.direction||'auto',
