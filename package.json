@@ -80,7 +80,7 @@
 		"svelte-fa": "^3.0.3",
 		"svelte-i18n": "^4.0.0",
 		"svelte-leafletjs": "^1.2.0",
-		"svelte-select": "^5.6.1",
+		"svelte-select": "^5.8.3",
 		"typesafe-i18n": "^5.26.2",
 		"video.js": "^8.10.0",
 		"vite-plugin-iso-import": "^1.1.0"

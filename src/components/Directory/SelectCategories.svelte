@@ -1,8 +1,13 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { categories, selectCategories, selCatVal, categoryOf } from '$lib/store/directoryStore.ts';
-	import LL from '$i18n/i18n-svelte';
+	import {
+		categories,
+		selectCategories,
+		selCatVal,
+		categoryOf
+	} from '$lib/store/directoryStore.ts';
+	import LL from '$i18n/i18n-svelte.ts';
 	import { get } from '@square/svelte-store';
 
 	const label = 'label';
@@ -12,11 +17,11 @@
 		selCatVal.set(getValue());
 	});
 
-    function getItems(elements) {
-        return elements.map(function (x) {
+	function getItems(elements) {
+		return elements.map(function (x) {
 			let dct = { value: x.uid, label: x.name };
 			return dct;
-		})
+		});
 	}
 
 	function getValue() {
@@ -55,7 +60,7 @@
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
 	</div>
 {:then}
-<!--
+	<!--
 categories: {$categories} ({$categories.length})<br>
 categoryOfCommune: {$categoryOfCommune} ({$categoryOfCommune.length})
 $selCatVal: {$selCatVal}<br>
@@ -89,5 +94,6 @@ $selectCategories: {JSON.stringify($selectCategories)}
 		--item-outline: 1px solid rgb(var(--color-secondary-500));
 		--clear-select-focus-outline: 1px solid rgb(var(--color-secondary-500));
 		--height: 3rem;
+		--list-z-index: 100;
 	}
 </style>
