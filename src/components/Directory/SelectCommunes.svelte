@@ -97,5 +97,6 @@ communeOfCategory: {$communeOfCategory} ({$communeOfCategory.length})
 		--item-outline: 1px solid rgb(var(--color-secondary-500));
 		--clear-select-focus-outline: 1px solid rgb(var(--color-secondary-500));
 		--height: 3rem;
+		--list-z-index: 2000;
 	}
 </style>
