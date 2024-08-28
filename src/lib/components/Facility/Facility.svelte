@@ -1,14 +1,8 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte.ts';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { language } from '$lib/store/languageStore.ts';
-	import Fa from 'svelte-fa';
-	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
-	import FacilityCarousel from '$components/Carousel/FacilityCarousel.svelte';
-	import { resetDirectory } from '$components/Directory/utils.ts';
-	import Map from '$lib/components/Map/Map.svelte';
-	import { createFacilitiesMapData } from '$lib/components/Map/mapData.ts';
-	import { fade, scale } from 'svelte/transition';
+	import FacilityCarousel from '$lib/components/Facility/FacilityCarousel.svelte';
+	import { Map, createFacilitiesMapData } from 'clinic-cms';
+	import { scale } from 'svelte/transition';
+
 	export let data: any;
 
 	function filterFacilities(facilities) {
@@ -22,7 +16,7 @@
 	const carouselFacilities = filterFacilities(data.carousel);
 
 	function title() {
-		const title = data?.facilities?.length > 1 ? $LL.SITES.PLURAL() : $LL.SITES.SINGULAR();
+		const title = data?.facilities?.length > 1 ? 'Sites' : 'Site';
 		return title;
 	}
 	function compareFn(a, b) {
@@ -35,7 +29,11 @@
 		<h2 class="h2">{title()}</h2>
 		{#each facilities.sort(compareFn) as facility}
 			<div>
-				<a href="/sites/{facility.slug}" class="btn variant-ghost-primary w-fit">{facility.name}</a>
+				<a
+					href="/sites/{facility.slug}"
+					title={facility.name}
+					class="btn variant-ghost-primary w-fit">{facility.label || facility.name}</a
+				>
 			</div>
 		{/each}
 	</div>

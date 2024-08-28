@@ -8,7 +8,6 @@
 		faGlobe,
 		faCircleNodes,
 		faPhone,
-		faCalendarCheck,
 		faMapLocationDot
 	} from '@fortawesome/free-solid-svg-icons';
 	import LL from '$i18n/i18n-svelte';
@@ -16,16 +15,16 @@
 	import Phones from './Phones.svelte';
 	import Address from './Address.svelte';
 	import Websites from '$components/Website/Websites.svelte';
-	import Map from '$lib/components/Map/Map.svelte';
+	import { Map } from 'clinic-cms';
+	import { createMapData } from 'clinic-cms';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Appointment from '$lib/components/Effector/Appointment/Appointments.svelte';
 	import Cost from '$lib/components/Effector/Cost/Cost.svelte';
 	import Payment from '$components/Addressbook/Payment/Payment.svelte';
-	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
+	import { FacilityLink } from 'clinic-cms';
 	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import AvatarList from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$components/Directory/Back.svelte';
-	import { createMapData } from '$lib/components/Map/mapData.ts';
 
 	export let effector: any;
 </script>

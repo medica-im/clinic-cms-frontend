@@ -3,16 +3,14 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
-	import FacilityCarousel from '$components/Carousel/FacilityCarousel.svelte';
-	import LL from '$i18n/i18n-svelte';
-	import Ghost from '$lib/Ghost/Ghost.svelte';
+	import { Ghost } from 'clinic-cms';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
-	import Facility from '$lib/components/Facility/Facility.svelte';
+	import { Facility } from 'clinic-cms';
 
 	export let data: PageData;
 </script>
@@ -35,8 +33,7 @@
 			<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
 		</div>
 		<div class="">
-			La <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a>
-			du quartier Saint-Esprit, à Bayonne.
+			Votre <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a> à Châteauneuf-de-Gadagne.
 		</div>
 	</div>
 </header>

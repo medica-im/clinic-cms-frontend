@@ -6,8 +6,9 @@ import * as path from 'path';
 
 const config: UserConfig = {
 	optimizeDeps: {
-        include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
-    },
+		include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep'],
+		exclude: ['clinic-cms']
+	},
 	plugins: [sveltekit(), isoImport()/*, purgeCss()*/],
 	resolve: {
 		alias: {
@@ -19,7 +20,12 @@ const config: UserConfig = {
 	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
+	},
+	server: {
+		proxy: {
+			'/media/profile_images': 'https://dev.sante-gadagne.fr'
+			}
+		}
 };
 
 export default config;

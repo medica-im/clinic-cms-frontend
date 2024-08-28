@@ -2,8 +2,8 @@
 	import LL from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
 	import LegalEntity from '../../lib/components/LegalEntity/LegalEntity.svelte';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import Address from '$lib/Address/Address.svelte';
 	import Fa from 'svelte-fa';
 	import {
@@ -45,7 +45,7 @@
 								</div>
 								<div class="grow ml-6">
 									<p class="font-bold mb-1">Informations légales</p>
-									<LegalEntity />
+									<LegalEntity data={$facilityStore?.legal_entity}/>
 								</div>
 							</div>
 						</div>
@@ -92,8 +92,6 @@
 							</div>
 						</div>
 					</div>
-				
-			
 		</div>
 	</section>
 </div>

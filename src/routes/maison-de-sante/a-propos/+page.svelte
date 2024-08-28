@@ -103,8 +103,13 @@
 			</dl>
 		</div>
 		<p>
-			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est multisite, elle regroupe
+			{#if $siteCount > 1}
+			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est multisite, les professionnels de santé associés sont répartis sur
 			<a href="/sites" class="anchor">{$siteCount} sites</a>.
+			{:else}
+			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est monosite, tous les professionnels de santé sont regroupés au sein du même
+			<a href="/sites" class="anchor">établissement</a>.
+			{/if}
 		</p>
 	</div>
 </section>

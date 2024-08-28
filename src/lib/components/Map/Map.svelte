@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	export let data: MapData[];
 
-	let leafletMap;
+	let leafletMap: LeafletMap;
 
 	const getPoints = () => {
 		return data.map((x) => x.latLng);

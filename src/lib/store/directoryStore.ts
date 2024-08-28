@@ -5,7 +5,7 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL } from '$env/static/public';
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils';
-import type { Situation } from './directoryStoreInterface';
+import type { Situation } from '$lib/interfaces/facility.interface.ts';
 import { facilities } from '$lib/store/facilityStore';
 import { isAuth } from '$lib/store/authStore';
 import { shuffle } from '$lib/helpers/random';

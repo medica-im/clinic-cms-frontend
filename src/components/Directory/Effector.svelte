@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Phones from './Phones.svelte';
-	import Addresses from './Addresses.svelte';
-	import FacilityLink from '$lib/components/Facility/FacilityLink.svelte';
+	import { FacilityLink } from 'clinic-cms';
 	import Address from './Address.svelte';
 	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
 

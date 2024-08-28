@@ -2,7 +2,7 @@ import { facilitiesWithAvatar, facilities, websiteSchema } from '$lib/store/faci
 import { getAvatars } from '$lib/store/directoryStore.ts';
 import { openGraphStore } from '$lib/store/openGraphStore.ts';
 import type { PageLoad } from './$types';
-import { cardinalTypes } from '$lib/store/directoryStore';
+import { cardinalTypes } from '$lib/store/directoryStore.ts';
 
 
 export const load: PageLoad = async ({ data }) => {

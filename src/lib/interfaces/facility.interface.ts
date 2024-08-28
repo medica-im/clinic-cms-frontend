@@ -1,42 +1,50 @@
-import type { SocialNetwork } from './socialnetwork.interface.js';
+import type { SocialNetwork } from '$lib/interfaces/socialnetwork.interface.js';
+import type { Website } from '$lib/interfaces/website.interface.js';
+import type { Email } from '$lib/interfaces/email.interface.js';
+import type { Phone } from '$lib/interfaces/phone.interface.js';
 
-export interface Category {
-	id?: bigint;
-	name?: string;
-	formatted_name?: string;
-	definition?: string;
+export interface Situation {
+    value: string;
+    label: string;
 }
 
 export interface Address {
-    id?: bigint;
-	street?: string;
-    city?: string;
-    state?: string;
-    country?: string;
-    zip?: string;
-    type?: string;
-    public_visible?: boolean;
-    contact_visible?: boolean;
-    latitude?: number;
-    longitude?: number;
-    zoom?: number;
-    contact?: bigint;
-    tooltip_direction?: string;
-    tooltip_permanent?: boolean;
-    tooltip_text?: string;
+    building: string|null,
+    city: string,
+    country: string,
+    facility_uid: string,
+    geographical_complement: string|null
+    id: number,
+    latitude: string|null,
+    longitude: string|null,
+    state: string|null,
+    street: string|null
+    zip: string|null,
+    zoom: number|null,
+    tooltip_direction: string|null;
+    tooltip_permanent?: boolean|null;
+    tooltip_text?: string|null;
 }
 
-export interface Addresses extends Array<Address>{}
-
-export interface Contact {
-	id?: bigint;
-    formatted_name?: string;
-	url?: string;
-	addresses?: Addresses[];
+export interface Avatar {
+        fb: string|null,
+        lt: string|null,
+        raw: string|null
 }
 
 export interface Facility {
-	uid: string;
-	name: string;
-	slug: string;
+    address: Address,
+    commune: string,
+    name: string,
+    label: string,
+    organizations: any[],
+    resource_uri: string|null,
+    slug: string,
+    uid: string,
+    socialnetworks: SocialNetwork[]|null,
+    websites: Website[]|null,
+    avatar: Avatar,
+    emails: Email[],
+    phones: Phone[],
 }
+

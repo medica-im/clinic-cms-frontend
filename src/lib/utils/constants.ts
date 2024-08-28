@@ -21,7 +21,6 @@ const TIMELINE: boolean = (import.meta.env.VITE_TIMELINE == "true")
 	? true
 	: false;
 
-const BLOG_URI: string = import.meta.env.VITE_BLOG_URI
 
 const ORGANIZATION_CATEGORY: string = import.meta.env.VITE_ORGANIZATION_CATEGORY
 
@@ -48,7 +47,6 @@ export const variables: Variables = {
 	GHOST_API_KEY: GHOST_API_KEY,
 	DEFAULT_LANGUAGE: DEFAULT_LANGUAGE,
 	TIMELINE: TIMELINE,
-	BLOG_URI: BLOG_URI,
 	NOINDEX: NOINDEX,
 	ORGANIZATION_CATEGORY: ORGANIZATION_CATEGORY,
 	INPUT_GEOCODER: INPUT_GEOCODER,

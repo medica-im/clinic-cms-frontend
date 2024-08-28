@@ -16,7 +16,7 @@
 			return variables.BASE_URI + data.avatar.fb;
 		}
          else {
-			return `${variables.BASE_URI}/media/profile_images/default_profile_picture.png`;
+			return `/media/profile_images/default_profile_picture.png`;
 		}
 	}
 </script>

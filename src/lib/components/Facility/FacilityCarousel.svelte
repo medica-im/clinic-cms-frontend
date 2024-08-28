@@ -1,19 +1,8 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
 	import Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
-	import { variables } from '$lib/utils/constants';
 	export let data;
 
-	function getLabels(worker) {
-		let labels = [];
-		for (let occupation of worker.types) {
-			labels.push(occupation.label);
-		}
-		return [labels.slice(0, -1).join(', '), labels.slice(-1)[0]].join(
-			labels.length < 2 ? '' : ` ${$LL.AND()} `
-		);
-	}
 	function compareFn(a,b) {
 		return b.effectors.length - a.effectors.length
 	}
@@ -28,7 +17,7 @@
 						<a href="/sites/{facility.slug}" class="flex m-2">
 							<img
 								class="h-auto w-fit"
-								src="{variables.BASE_URI}{facility.avatar.raw}"
+								src="{facility.avatar.raw}"
 								alt={facility.name}
 							/>
 						</a>
@@ -50,7 +39,7 @@
 		{@const facility = data.sort(compareFn)[0]}
 		<figure class="content-center shrink mx-auto w-64 lg:w-80">
 			<a href="/sites/{facility.slug}" class="flex m-2">
-				<img class="h-auto w-fit" src="{variables.BASE_URI}{facility.avatar.raw}" alt={facility.name} />
+				<img class="h-auto w-fit" src="{facility.avatar.raw}" alt={facility.name} />
 			</a>
 			<figcaption class="text-center w-64 lg:w-80">
 				<a href="/sites/{facility.slug}" class="anchor"

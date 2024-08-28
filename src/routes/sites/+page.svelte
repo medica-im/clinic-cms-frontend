@@ -14,17 +14,24 @@
 		return f;
 	}
 	const facilities = filterFacilities(data.facilities);
+
+	const getHeader = () => {
+        return facilities.length ? "Notre établissement" : `Nos ${facilities.length} établissements`
+	}
+	const getTitle = () => {
+        return facilities.length ? 'Établissement' : 'Établissements'
+	}
 </script>
 
 <svelte:head>
 	<title>
-		{$LL.SITES.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{getTitle()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
 	<div class="section-container">
 		<h2 class="h2">
-			Nos {facilities.length} sites
+			{getHeader()}
 		</h2>
 	</div>
 </header>

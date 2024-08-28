@@ -2,55 +2,56 @@
 	import Fa from 'svelte-fa';
 	import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 	import { faGlobe, faMobileScreen, faPhone } from '@fortawesome/free-solid-svg-icons';
-	import { facilityStore } from '$lib/store/facilityStore';
+	export let data;
 </script>
 
-{#if $facilityStore.legal_entity}
-	{@const LE = $facilityStore.legal_entity}
-	{LE?.name ?? 'name'}
-	<dl>
-		{#if LE.type}
-		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-				<dl class="text-sm leading-6">Forme juridique</dl>
-				<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.get_type_display ?? 'type'}</dd>
+{#if data}
+	<div class="flex flex-col">
+		<div class="flex flex-col md:flex-row space-x-2">
+			<div class="font-semibold md:font-normal">Dénomination</div>
+			<div>{data?.name ?? 'name'}</div>
 		</div>
-		{/if}
-		{#if LE.RNA}
-		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-			<dt class="text-sm leading-6">RNA</dt>
-			<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.RNA ?? 'RNA'}</dd>
-		</div>
-		{/if}
-		{#if LE.SIREN}
-		<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-					<dt class="text-sm leading-6">SIREN</dt>
-					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.SIREN ?? 'SIREN'}</dd>
+		{#if data.type}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">Forme juridique</div>
+				<div>{data?.get_type_display ?? 'type'}</div>
 			</div>
 		{/if}
-		{#if LE.SIRET}
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-					<dt class="text-sm leading-6">SIRET</dt>
-					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.SIRET ?? 'SIRET'}</dd>
+		{#if data.RNA}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">RNA</div>
+				<div>{data?.RNA ?? 'RNA'}</div>
 			</div>
 		{/if}
-		{#if LE.RCS}
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">				
-					<dt class="text-sm leading-6">RCS</dt>
-					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">RCS {LE?.RCS ?? 'RCS'}</dd>
+		{#if data.SIREN}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">SIREN</div>
+				<div>{data?.SIREN ?? 'SIREN'}</div>
 			</div>
-			{/if}
-			{#if LE.VAT}
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">				
-					<dt class="text-sm leading-6">Numéro TVA intracommunautaire</dt>
-					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.VAT ?? 'VAT'}</dd>
+		{/if}
+		{#if data.SIRET}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">SIRET</div>
+				<div>{data?.SIRET ?? 'SIRET'}</div>
 			</div>
-			{/if}
-			{#if LE.CAPITAL}
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">				
-					<dt class="text-sm leading-6">Capital</dt>
-					<dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{LE?.SHARE_CAPITAL ?? 'SHARE_CAPITAL'}€</dd>
-			
+		{/if}
+		{#if data.RCS}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">RCS</div>
+				<div>RCS {data?.RCS ?? 'RCS'}</div>
 			</div>
-			{/if}
-	</dl>
+		{/if}
+		{#if data.VAT}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">Numéro TVA intracommunautaire</div>
+				<div>{data?.VAT ?? 'VAT'}</div>
+			</div>
+		{/if}
+		{#if data.CAPITAL}
+			<div class="flex flex-col md:flex-row space-x-2">
+				<div class="font-semibold md:font-normal">Capital</div>
+				<div>{data?.SHARE_CAPITAL ?? 'SHARE_CAPITAL'}€</div>
+			</div>
+		{/if}
+	</div>
 {/if}
