@@ -4,10 +4,9 @@
 	import Phones from './Phones.svelte';
 	import Addresses from './Addresses.svelte';
 	import Address from './Address.svelte';
-	import Map from '$components/Map/Map.svelte';
-	import EffectorContact from './EffectorContact.svelte';
 	export let effector: any;
 </script>
+
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 	<div class="space-y-2">
