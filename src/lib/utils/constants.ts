@@ -4,10 +4,6 @@ const BASE_API_URI: string = (import.meta.env.VITE_DEV == "true")
 	? import.meta.env.VITE_BASE_API_URI_DEV
 	: import.meta.env.VITE_BASE_API_URI_PROD;
 
-const BASE_CMS_API_URI: string = (import.meta.env.VITE_DEV == "true")
-	? import.meta.env.VITE_BASE_CMS_API_URI_DEV
-	: import.meta.env.VITE_BASE_CMS_API_URI_PROD;
-
 const BASE_URI: string = (import.meta.env.VITE_DEV == "true")
 	? import.meta.env.VITE_BASE_URI_DEV
 	: import.meta.env.VITE_BASE_URI_PROD;
@@ -26,7 +22,6 @@ const NOINDEX: boolean = (import.meta.env.VITE_NOINDEX == "true")
 
 export const variables: Variables = {
 	BASE_API_URI: BASE_API_URI,
-	BASE_CMS_API_URI: BASE_CMS_API_URI,
 	BASE_URI: BASE_URI,
 	GHOST_API_KEY: GHOST_API_KEY,
 	DEFAULT_LANGUAGE: DEFAULT_LANGUAGE,

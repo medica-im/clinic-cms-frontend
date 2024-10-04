@@ -5,7 +5,8 @@ import * as path from 'path';
 
 const config: UserConfig = {
 	optimizeDeps: {
-        include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
+        include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep'],
+		exclude: ['clinic-cms']
     },
 	plugins: [sveltekit(), isoImport()],
 	resolve: {

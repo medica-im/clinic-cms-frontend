@@ -5,7 +5,8 @@
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
 	import LL from '$i18n/i18n-svelte';
-	import Ghost from '$lib/Ghost/Ghost.svelte';
+	//import Ghost from '$lib/Ghost/Ghost.svelte';
+	import { Ghost } from 'clinic-cms';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -65,12 +66,12 @@
 			/>
 		</div>
 	</section>
-	{#if data.ghost}
+	{#await data.ghost then ghost}
 	<!-- blog -->
 	<section id="blog" class="bg-surface-100-800-token blog-gradient">
-		<div class="section-container"><Ghost data={data.ghost} /></div>
+		<div class="section-container"><Ghost data={ghost} /></div>
 	</section>
-	{/if}
+	{/await}
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container"><OutpatientClinicPrograms /></div>

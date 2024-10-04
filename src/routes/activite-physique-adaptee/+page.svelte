@@ -161,6 +161,7 @@
 		<h3 class="h3">Ateliers</h3>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
+				<li><a class="anchor" href="/education-therapeutique/ecole-du-dos">École du dos</a></li>
 				<li>Posturologie façon Bernadette De Gasquet</li>
 				<li>Gym santé vertébrale</li>
 				<li>Gym douce</li>

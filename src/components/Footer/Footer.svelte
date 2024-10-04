@@ -71,7 +71,7 @@
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<!--li class="mb-4">
-							<a class="anchor" href="/politique-de-confidentialite" class="hover:underline"
+							<a class="anchor" href="/politique-de-confidentialite"
 								>{capitalizeFirstLetter($LL.PRIVACY_POLICY(), $language)}</a
 							>
 						</li-->

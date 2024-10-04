@@ -4,9 +4,8 @@
 	import '../app.postcss';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import { storeCurrentUrl, storeTheme } from '$lib/store/skeletonStores';
+	import { storeCurrentUrl } from '$lib/store/skeletonStores';
 	import Sidebar from '$components/Sidebar/Sidebar.svelte';
-	import { userData } from '$lib/store/userStore';
 	import { navigating } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 	import { loading } from '$lib/store/loadingStore';

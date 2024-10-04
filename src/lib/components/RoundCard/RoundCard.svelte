@@ -12,7 +12,7 @@
     export let alt = 'alt description';
 </script>
 
-<a href={url} class="block card card-hover rounded-lg hover:shadow-lg grid grid-cols-1 p-4 space-y-2 items-start w-auto lg:w-80 lg:h-96">
+<a href={url} class="block card card-hover rounded-lg hover:shadow-lg grid grid-cols-1 gap-2 p-4 space-y-2 items-start w-auto lg:w-80 lg:h-96">
         <img src={img} class="w-full lg:max-h-52 bg-black/50" alt={alt} />
         <h6 class="h6">{date}</h6>
         <h4 class="h4">{title}</h4>

@@ -5,8 +5,6 @@
 
 	//export let data: any;
 
-	//const BASE_CMS_API_URI = variables.BASE_CMS_API_URI;
-
 	let tl;
 
     let data = {

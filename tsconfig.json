@@ -1,6 +1,8 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"plugins": [{ "name": "vite-plugin-iso-import" }],
 		"allowJs": true,
 		"checkJs": true,

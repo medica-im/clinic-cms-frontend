@@ -69,7 +69,7 @@
 				</div>
 				<!-- Footer -->
 				<!--footer class="p-4 flex justify-start items-center space-x-4">
-                <a class="anchor" href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
+                <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
                     <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
                 </a>
             </footer-->
