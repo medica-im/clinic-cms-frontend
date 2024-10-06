@@ -1,9 +1,11 @@
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import { variables } from '$lib/utils/constants';
 import { browser } from "$app/environment"
+import { PUBLIC_BLOG_URI } from '$env/static/public';
+
 
 const key = variables.GHOST_API_KEY;
-const apiUrl = `${variables.BLOG_URI}/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
+const apiUrl = `${PUBLIC_BLOG_URI}/ghost/api/v3/content/posts/?key=${key}&fields=title,url,custom_excerpt,feature_image,feature_image_alt,published_at&limit=2`;
 
 export const ghost = asyncReadable(
 	{},

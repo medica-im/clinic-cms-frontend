@@ -19,7 +19,12 @@ const config: UserConfig = {
 	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
+	},
+	server: {
+		proxy: {
+			'/blog': 'https://msp-vedene.fr'
+			}
+		}
 };
 
 export default config;

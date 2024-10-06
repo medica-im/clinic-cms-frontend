@@ -1,5 +1,6 @@
 import type { Variables } from '$lib/interfaces/variables.interface';
 
+
 const BASE_API_URI: string = (import.meta.env.VITE_DEV == "true")
 	? import.meta.env.VITE_BASE_API_URI_DEV
 	: import.meta.env.VITE_BASE_API_URI_PROD;
@@ -14,8 +15,6 @@ const DEFAULT_LANGUAGE = import.meta.env.VITE_DEFAULT_LANGUAGE;
 
 const TIMELINE = import.meta.env.VITE_TIMELINE;
 
-const BLOG_URI: string = import.meta.env.VITE_BLOG_URI
-
 const NOINDEX: boolean = (import.meta.env.VITE_NOINDEX == "true")
 	? true
 	: false;
@@ -26,6 +25,5 @@ export const variables: Variables = {
 	GHOST_API_KEY: GHOST_API_KEY,
 	DEFAULT_LANGUAGE: DEFAULT_LANGUAGE,
 	TIMELINE: TIMELINE,
-	BLOG_URI: BLOG_URI,
 	NOINDEX: NOINDEX
 };

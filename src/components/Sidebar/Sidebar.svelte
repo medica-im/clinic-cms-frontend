@@ -158,12 +158,9 @@
 		</AppRailAnchor>
 
 		<AppRailAnchor
-			href="{variables.BLOG_URI}"
+			href="/blog"
 			rel="external"
 			class="lg:hidden"
-			on:click={() => {
-				onClickAnchor();
-			}}
 		>
 			<svelte:fragment slot="lead"><Fa icon={faBlog} size="lg" class="inline-block outline-none" /></svelte:fragment>
 			<span>Blog</span>

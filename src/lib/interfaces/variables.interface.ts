@@ -5,6 +5,5 @@ export interface Variables {
 	readonly GHOST_API_KEY: string;
 	readonly DEFAULT_LANGUAGE: string;
 	readonly TIMELINE: boolean;
-	readonly BLOG_URI: string;
 	readonly NOINDEX: boolean;
 }

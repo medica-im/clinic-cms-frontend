@@ -285,7 +285,7 @@
 
 		<section>
             <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
-			<a href={variables.BLOG_URI} title={'blog'} class="btn-icon btn-icon-sm hover:variant-soft-secondary" target="_blank" rel="noreferrer">
+			<a href="/blog" title={'blog'} class="btn-icon btn-icon-sm hover:variant-soft-secondary" rel="external">
 				<span><Fa icon={faBlog} size="lg" /></span>
 			</a>
 			</section>
