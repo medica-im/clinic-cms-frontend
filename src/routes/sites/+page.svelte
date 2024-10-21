@@ -16,7 +16,7 @@
 	const facilities = filterFacilities(data.facilities);
 
 	const getHeader = () => {
-        return facilities.length ? "Notre établissement" : `Nos ${facilities.length} établissements`
+        return (facilities.length < 2) ? "Notre établissement" : `Nos ${facilities.length} établissements`
 	}
 	const getTitle = () => {
         return facilities.length ? 'Établissement' : 'Établissements'

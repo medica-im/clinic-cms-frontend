@@ -122,25 +122,27 @@
 
 <AppBar shadow="shadow-lg">
 	<svelte:fragment slot="lead">
-		<div class="flex space-x-3 xl:inline-block">
 			<!-- Hamburger Menu -->
-			<button on:click={drawerOpen} class="btn-icon btn-icon xl:!hidden">
+			<button on:click={drawerOpen} class="btn-icon xl:!hidden">
 				<Fa icon={faBars} />
 			</button>
+		</svelte:fragment>
 			<!-- Logo -->
-			<a class="flex xl:inline-block space-x-2" href="/" title={$LL.NAVBAR.GO_HOME()}>
-				<span class="xl:inline-block w-9 h-9 align-text-bottom"><OutpatientClinicLogo /></span>
+			<a class="" href="/" title={$LL.NAVBAR.GO_HOME()}>
+				<div class="flex items-center">
+
+				<div class="w-8 h-8 mx-1 flex-none"><OutpatientClinicLogo /></div>
 				{#if isObjectEmpty($userData)}
+					<div class="2xl:hidden flex-none">MSP Gadagne</div>
 					<span class="hidden 2xl:inline-block"
 						><h3 class="h3">{capitalizeFirstLetter(facility.formatted_name, $language)}</h3></span
 					>
 				{/if}
-			</a>
-		</div>
-	</svelte:fragment>
+				</div>
+				</a>
 	<svelte:fragment slot="trail">
-		<!-- Search -->
-		<!--div class="md:inline md:ml-4">
+			<!-- Search -->
+			<!--div class="md:inline md:ml-4">
 			<button class="btn btn-sm variant-ghost-surface hidden lg:inline-block" on:click={triggerSearch}>
 				<i class="fa-solid fa-magnifying-glass" />
 				<span class="hidden lg:inline-block">Search</span>
@@ -148,19 +150,19 @@
 			</button>
 		</div-->
 
-		<!-- Navigate -->
-		<div class="relative hidden xl:block">
-			<!-- trigger -->
-			<button
-				class="btn hover:variant-soft-primary"
-				use:popup={{ event: 'click', target: 'features' }}
-			>
-				<span>{$LL.NAVBAR.NAVIGATE()}</span>
-				<span class="opacity-50"><Fa icon={faCaretDown} /></span>
-			</button>
-			<!-- popup -->
-			<!-- prettier-ignore -->
-			<div class="card p-4 w-60 shadow-xl" data-popup="features">
+			<!-- Navigate -->
+			<div class="relative hidden xl:block">
+				<!-- trigger -->
+				<button
+					class="btn hover:variant-soft-primary"
+					use:popup={{ event: 'click', target: 'features' }}
+				>
+					<span>{$LL.NAVBAR.NAVIGATE()}</span>
+					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
+				</button>
+				<!-- popup -->
+				<!-- prettier-ignore -->
+				<div class="card p-4 w-60 shadow-xl" data-popup="features">
 				<nav class="list-nav">
 					<ul>
 						<li>
@@ -191,19 +193,19 @@
 					</ul>
 				</nav>
 			</div>
-		</div>
-		<div class="hidden">
-			<!-- trigger -->
-			<button
-				class="btn hover:variant-soft-primary"
-				use:popup={{ event: 'click', target: 'facility' }}
-			>
-				<span>{$LL.FACILITY.OUTPATIENT_CLINIC()}</span>
-				<span class="opacity-50"><Fa icon={faCaretDown} /></span>
-			</button>
-			<!-- popup -->
-			<!-- prettier-ignore -->
-			<div class="card p-4 w-60 shadow-xl" data-popup="facility">
+			</div>
+			<div class="hidden">
+				<!-- trigger -->
+				<button
+					class="btn hover:variant-soft-primary"
+					use:popup={{ event: 'click', target: 'facility' }}
+				>
+					<span>{$LL.FACILITY.OUTPATIENT_CLINIC()}</span>
+					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
+				</button>
+				<!-- popup -->
+				<!-- prettier-ignore -->
+				<div class="card p-4 w-60 shadow-xl" data-popup="facility">
 				<nav class="list-nav">
 					<ul>
 						{#if variables.ORGANIZATION_CATEGORY == "msp"}
@@ -229,18 +231,17 @@
 					</ul>
 				</nav>
 			</div>
-		</div>
-		<div class="relative hidden xl:block">
-			<MenuNavLinks />
-		</div>
+			</div>
+			<div class="relative hidden xl:block">
+				<MenuNavLinks />
+			</div>
 
-		<div>
 			<!-- trigger-->
 			<button
 				class="btn hover:variant-soft-primary"
 				use:popup={{ event: 'click', target: 'theme' }}
 			>
-				<span class="text-lg 2xl:hidden">
+				<span class="2xl:hidden">
 					<Fa icon={faPalette} />
 				</span>
 				<span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span>
@@ -249,7 +250,7 @@
 			<!-- popup -->
 			<div class="card p-4 w-60 shadow-xl" data-popup="theme">
 				<section class="flex justify-between items-center">
-					<h6  class="h6">Mode</h6>
+					<h6 class="h6">Mode</h6>
 					<LightSwitch />
 				</section>
 				<!--hr class="my-4" />
@@ -279,13 +280,10 @@
 					</div>
 				</div-->
 			</div>
-		</div>
 
-		<!-- Social -->
-		<!-- prettier-ignore -->
-		<div class="relative hidden xl:block">
-
-		<section>
+			<!-- Social -->
+			<!-- prettier-ignore -->
+			<div class="relative hidden xl:block">
 			{#if facility?.contact?.socialnetworks}
             <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
 			{/if}
@@ -294,12 +292,11 @@
 				<span><Fa icon={faBlog} size="lg" /></span>
 			</a>
 			{/if}
-			</section>
-</div>
-		<div>
-			<section class="space-x-1">
-				<User {facility} />
-			</section>
-		</div>
+        </div>
+			<div>
+				<section class="space-x-1">
+					<User {facility} />
+				</section>
+			</div>
 	</svelte:fragment>
 </AppBar>

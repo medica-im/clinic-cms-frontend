@@ -128,7 +128,7 @@
 	};
 
     // Disable left sidebar on homepage
-    $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto' : 'w-0';
+    $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto z-auto' : 'w-0';
 </script>
 
 <svelte:head>
@@ -147,7 +147,7 @@
 
 <Drawer data="{$facilityStore}"></Drawer>
 
-<AppShell {slotSidebarLeft} regionpage="overflow-y-scroll" slotfooter="bg-black p-4" on:scroll="{scrollHandler}">
+<AppShell class="z-[90000]" {slotSidebarLeft} regionpage="overflow-y-scroll" slotfooter="bg-black p-4" on:scroll="{scrollHandler}">
 		<svelte:fragment slot="header">
 			<SkeletonAppBar facility="{$facilityStore}"></SkeletonAppBar>
 		</svelte:fragment>

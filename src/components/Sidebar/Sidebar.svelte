@@ -174,7 +174,7 @@
 	</AppRail>
 	{#if filteredMenuNavLinks?.length}
 		<!-- Nav Links -->
-		<section class="p-4 pb-20 space-y-4 overflow-y-auto">
+		<section class="p-4 pb-20 space-y-4 overflow-y-auto z-[10000]">
 			{#each filteredMenuNavLinks as { id, title, href, list }, i}
 				{#if list.length > 0}
 					<!-- Title -->
