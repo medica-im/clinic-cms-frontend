@@ -3,6 +3,7 @@
 	import EffectorContact from '$components/Directory/EffectorContact.svelte';
 	import CareHomePage from '$components/Directory/CareHomePage.svelte';
 	import UsldPage from '$components/Directory/UsldPage.svelte';
+	import { userData } from '$lib/store/userStore.ts';
 	export let data: PageData;
 
 	const componentSelect = {
@@ -15,7 +16,7 @@
 
 <section id="programs" class="bg-surface-100-800-token programs-gradient">
 	<div class="section-container">
-		<svelte:component this={component} effector={data.effector} />
+		<svelte:component this={component} effector={data.effector} userData={$userData} />
 	</div>
 </section>
 

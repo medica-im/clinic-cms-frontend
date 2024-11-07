@@ -15,7 +15,7 @@
 		)}
 	</title>
 </svelte:head>
-<div>
+
 	<header>
 		<div class="section-container">
 			<h1 class="h1">{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</h1>
@@ -41,7 +41,7 @@
 			<ProgramNav data={$page.url.pathname} />
 		</div>
 	</section>
-</div>
+
 
 <style lang="postcss">
 	.section-container {

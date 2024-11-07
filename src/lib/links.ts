@@ -24,6 +24,12 @@ import {
 	faHandHoldingMedical,
 } from '@fortawesome/free-solid-svg-icons';
 
+export const programCount = (path: string) => {
+	const cat = Object.values(programsNavLinks).find(e=>e.href==path);
+	const count = cat.list.filter(e=>e.active!=false && e.category=='program').length;
+	return count
+}
+
 export const programsNavLinks: any = {
 	'soins': {
 		id: 'soins',
@@ -47,7 +53,16 @@ export const programsNavLinks: any = {
 				label: 'Permanence infirmière',
 				keywords: 'infirmière, infirmier, IDE, nursing, prévention',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
+			},
+			{
+				href: '/soins/parcours',
+				label: 'Parcours de soins',
+				keywords: 'soins, médecin, accès, parcours',
+				icon: null,
+				category: 'program',
+				active: true
 			}
 		]
 	},
@@ -128,46 +143,60 @@ export const programsNavLinks: any = {
 				category: 'definition'
 			},
 			{
+				href: '/prevention/vaccins',
+				label: 'Vaccins',
+				keywords: 'prévention, santé, maladie, vaccin',
+				icon: null,
+				category: 'program',
+				active: true
+			},
+			{
 				href: '/prevention/depistage-hypertension-arterielle',
 				label: 'Hypertension artérielle',
 				keywords: 'prévention, santé, maladie, dépistage, hypertension',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
 			},
 			{
 				href: '/prevention/depistage-syndrome-apnees-sommeil',
 				label: 'Apnées du sommeil',
 				keywords: 'prévention, apnées, sommeil, somnolence',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
 			},
 			{
 				href: '/prevention/obesite-infantile',
 				label: 'Obésité infantile',
 				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique, surpoids, obésité',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
 			},
 			{
 				href: '/prevention/depistage-cancer-colorectal',
 				label: 'Cancer colorectal',
 				keywords: 'prévention, cancer, colon, rectum, activité, physique, diététique, surpoids, obésité, alcool, tabac, sédentarité',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
 			},
 			{
 				href: '/prevention/depistage-cancer-col-uterus',
 				label: "Cancer du col de l'utérus",
 				keywords: 'femme, dépistage, prévention, cancer, uterus, HPV, frottis',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
 			},
 			{
 				href: '/prevention/bilan-prevention',
 				label: "Bilan prévention",
 				keywords: 'prévention, dépistage',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false
 			}
 		]
 	}
@@ -192,7 +221,7 @@ export const getProgram = (url: string) => {
 	const dict = {
 		id: prog.id,
 		title: prog.title,
-		list: prog.list.filter((e) => e.href != url && e.category == "program")
+		list: prog.list.filter((e) => e.href != url && e.category == "program" && e.active != false)
 	}
 	return dict;
 };

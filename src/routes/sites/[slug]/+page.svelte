@@ -1,6 +1,7 @@
 <script lang="ts">
 	import FacilityPage from '$components/Facility/FacilityPage.svelte';
 	import SitesLink from '$lib/components/Sites/SitesLink.svelte';
+	import { userData } from '$lib/store/userStore.ts';
 	export let data;
 </script>
 
@@ -14,7 +15,7 @@
 <div class="mx-0 flex flex-col items-center justify-center p-4 py-6">
 <div class="grid grid-cols-1 gap-4">
 	<div>
-		<FacilityPage facility={data.facility} />
+		<FacilityPage facility={data.facility} userData={$userData} />
 	</div>
 	<div>
 		<SitesLink />

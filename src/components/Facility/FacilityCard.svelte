@@ -5,20 +5,14 @@
 	import Email from '$components/Email/Email.svelte';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Website from '$lib/components/Website/Website.svelte';
-	import LL from '$i18n/i18n-svelte';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { language } from '$lib/store/languageStore';
-	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
-	import { isMobile } from '$lib/helpers/deviceDetector';
-	import Fa from 'svelte-fa';
-	import { faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
-	import { createFacilitiesMapData } from '$lib/components/Map/mapData';
+	import { isMobile } from '$lib/helpers/deviceDetector.ts';
+	import { createFacilitiesMapData } from '$lib/components/Map/mapData.ts';
+	import type { Facility } from '$lib/interfaces/facility.interface.ts';
 
-	export let facility;
+	export let data: Facility;
 
-	const createFacilityGeoData = (facility) => {
+	const createFacilityGeoData = (facility: Facility) => {
 		let address = facility?.address;
 		let facilityGeoData = {
 			name: facility?.name ?? 'default',
@@ -30,7 +24,7 @@
 	};
 </script>
 
-<div id="{facility.name}_anchor" class="card variant-soft p-2 lg:scroll-mt-12">
+<div id="{data.name}_anchor" class="card variant-soft p-2 lg:scroll-mt-12">
 	<div class="grid grid-cols-1 md:grid-cols-2">
 		<div class="overflow-hidden m-1 p-1">
 			<!-- Header -->
@@ -39,15 +33,15 @@
             </header-->
 			<!-- Body -->
 			<div class="p-2 space-y-2 space-x-2">
-				<a href="/sites/{facility.slug}" class="anchor" data-sveltekit-preload-data="hover">
-					<h4 class="h4">{facility.name}</h4>
+				<a href="/sites/{data.slug}" class="anchor" data-sveltekit-preload-data="hover">
+					<h4 class="h4">{data.name}</h4>
 				</a>
 				<p class="space-x-2">
-					<Address data={facility} />
+					<Address {data} />
 				</p>
-				{#if facility?.emails}
+				{#if data?.emails}
 					<ul class="list">
-						{#each facility?.emails as email}
+						{#each data?.emails as email}
 							<Email data={email} />
 						{/each}
 					</ul>
@@ -55,18 +49,18 @@
 				<p>
 					{#if browser}
 						{#if isMobile(window)}
-							<Navigation geoData={createFacilityGeoData(facility)} />
+							<Navigation geoData={createFacilityGeoData(data)} />
 						{/if}
 					{/if}
 				</p>
 				<span class="inline-block align-middle space-x-1">
-					{#if facility?.websites}
-						{#each facility.websites as website}
+					{#if data?.websites}
+						{#each data.websites as website}
 							<Website {website} />
 						{/each}
 					{/if}
-					{#if facility?.socialnetworks}
-						<SoMed data={facility.socialnetworks} appBar={false} />
+					{#if data?.socialnetworks}
+						<SoMed data={data.socialnetworks} appBar={false} />
 					{/if}
 				</span>
 				<div></div>
@@ -80,7 +74,7 @@
 		</div>
 		<div class="m-1 p-1 h-64 lg:w-full z-0">
 			<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
-			<Map data={createFacilitiesMapData([facility])} />
+			<Map data={createFacilitiesMapData([data])} />
 		</div>
 	</div>
 

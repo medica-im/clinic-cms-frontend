@@ -176,7 +176,7 @@
 		<!-- Nav Links -->
 		<section class="p-4 pb-20 space-y-4 overflow-y-auto z-[10000]">
 			{#each filteredMenuNavLinks as { id, title, href, list }, i}
-				{#if list.length > 0}
+				{#if list.filter(e=>e.active!=false).length > 0}
 					<!-- Title -->
 					<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">
 						{title[$language]}
@@ -184,7 +184,7 @@
 					<!-- Navigation List -->
 					<nav class="list-nav">
 						<ul>
-							{#each list as { href, label, badge }}
+							{#each list.filter(e=>e.active!=false) as { href, label, badge }}
 								<li on:click={onListItemClick} on:keypress>
 									<a {href} class={classesActive(href)} data-sveltekit-preload-data="hover">
 										<span class="flex-auto">{@html label}</span>

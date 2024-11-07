@@ -16,8 +16,11 @@
 	import { faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
 	import { createFacilitiesMapData } from '$lib/components/Map/mapData';
 	import { variables } from '$lib/utils/constants';
+	import { facilityOf } from '$lib/store/directoryStore.ts';
+	import { copy } from 'svelte-copy';
 
 	export let facility;
+	export let userData;
 
 	const createFacilityGeoData = (facility) => {
 		let address = facility?.address;
@@ -56,6 +59,14 @@
 						<SoMed data={facility.socialnetworks} appBar={false} />
 					{/if}
 				</span>
+				{#if userData && userData?.is_staff}
+				<div>
+					{facility.uid}
+					<button use:copy={facility.uid}>
+						Copy!
+					</button>			
+			    </div>
+				{/if}
 			</div>
 		{#if facility?.avatar?.raw}
 		<div>

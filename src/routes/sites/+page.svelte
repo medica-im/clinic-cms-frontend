@@ -45,7 +45,7 @@
 			</nav-->
 			<div class="grid lg:grid-cols-2 gap-4">
 				{#each facilities as facility}
-					<FacilityCard {facility} />
+					<FacilityCard data={facility} />
 				{/each}
 			</div>
 			<!--{/await}-->

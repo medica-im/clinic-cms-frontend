@@ -5,7 +5,7 @@
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { page } from '$app/stores';
 	import ProgramNav from '$components/ProgramNav.svelte';
-	import { programsNavLinks } from '$lib/links.ts';
+	import { programsNavLinks, programCount } from '$lib/links.ts';
 </script>
 
 <svelte:head>
@@ -25,7 +25,7 @@
 
 	<section>
 		<div class="section-container">
-			<p>Les professionnels de {$facilityStore.formatted_name_definite_article} vous propose {programsNavLinks.soins.length>1 ? "ces programmes":"ce programme"} de soins.</p>
+			<p>Les professionnels de {$facilityStore.formatted_name_definite_article} vous propose {programCount($page.url.pathname)>1 ? "ces programmes":"ce programme"} de soins.</p>
 		</div>
 	</section>
 

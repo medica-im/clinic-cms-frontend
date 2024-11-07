@@ -25,8 +25,11 @@
 	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import AvatarList from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$components/Directory/Back.svelte';
+	import { copy } from 'svelte-copy';
+	import type { User } from '$lib/interfaces/user.interface.ts';
 
 	export let effector: any;
+	export let userData: User;
 </script>
 
 <svelte:head>
@@ -39,7 +42,22 @@
 	<div class="flex flex-wrap p-2 gap-10">
 		<div class="space-y-2">
 			<h2 class="h2 flex-initial break-words overflow-hidden">{effector.name}</h2>
+			{#if userData && userData?.is_staff}	
+				{effector?.effector_uid}
+				<button use:copy={effector?.effector_uid}>
+					Copy!
+				</button>			
+			{/if}
 			<h3 class="h3 italic">{effector?.effector_type?.label}</h3>
+				{#if userData && userData?.is_staff}
+				
+					{effector?.effector_type?.uid}
+					<button use:copy={effector?.effector_type?.uid}>
+						Copy!
+					</button>			
+			    
+				{/if}
+			
 			<FacilityLink data={effector.facility} />
 		</div>
 		<div class="flex-none">

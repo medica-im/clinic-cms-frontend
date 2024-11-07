@@ -1,10 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
+import { defineConfig } from 'vite';
 import { purgeCss } from 'vite-plugin-tailwind-purgecss';
 import { isoImport } from 'vite-plugin-iso-import';
+import 'vitest/config';
 import * as path from 'path';
 
-const config: UserConfig = {
+export default defineConfig({
 	optimizeDeps: {
 		include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep'],
 		exclude: ['clinic-cms']
@@ -26,6 +27,4 @@ const config: UserConfig = {
 			'/media/profile_images': 'https://dev.sante-gadagne.fr'
 			}
 		}
-};
-
-export default config;
+});

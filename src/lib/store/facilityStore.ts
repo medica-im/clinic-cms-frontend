@@ -1,4 +1,4 @@
-import type { Facility } from '$lib/interfaces/facility.interface';
+import type { Facility } from '$lib/interfaces/facility.interface.ts';
 import { variables } from '$lib/utils/constants';
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import { browser } from "$app/environment";

@@ -79,6 +79,11 @@
         </ul>
 </div>
 </section>
+<section>
+	<div class="section-container">
+		<ProgramNav data={$page.url.pathname} />
+	</div>
+</section>
 
 <style lang="postcss">
 	.section-container {

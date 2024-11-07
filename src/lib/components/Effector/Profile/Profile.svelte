@@ -13,7 +13,7 @@
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import Access from '$lib/components/Access/Access.svelte';
 	import { displayEditor, displayDestroy } from '$lib/utils/permissions';
-	import { userData } from '$lib/store/userStore';
+	import { userData } from '$lib/store/userStore.ts';
 
 	export let data: Profile;
 	export let name: string;
