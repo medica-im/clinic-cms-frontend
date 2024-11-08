@@ -22,7 +22,8 @@
 		faEnvelope,
 		faBlog
 	} from '@fortawesome/free-solid-svg-icons';
-	import Logo from '$lib/components/Logo/Logo.svelte';
+	//import Logo from '$lib/components/Logo/Logo.svelte';
+	import logo from "$lib/assets/images/logo.png";
 
 	export let data;
 </script>
@@ -50,13 +51,13 @@
 										<Fa icon={faLocationDot} size="2x" />
 									</div>
 								</div>
-								<div class="grow ml-6">
+								<div class="ml-6">
 									<p class="font-bold mb-1">Siège social</p>
 									<Address data={$facilityStore.contact} />
 									{#if $facilityStore.contact.emails}
 										<Emails data={$facilityStore.contact.emails} />
 									{/if}
-									<Logo data={64} />
+									<img class="rounded-lg py-4 max-w-80" src={logo} alt="logo de la MSP représentant un stéthoscope en forme de cœur et le profil stylisé de la commune escarpée avec au sommet le clocher de l'église Saint-Jean-Baptiste" />
 								</div>
 							</div>
 						</div>
