@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { selectOccupations, term, workforceOccupation } from '$lib/store/workforceStore';
+	import { selectOccupations, term, workforceOccupation } from '$lib/store/workforceStore.ts';
 	import { selectFacilities } from '$lib/store/selectionStore';
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';

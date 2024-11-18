@@ -22,9 +22,9 @@ const fetchCareHome = async (fetch, uid) => {
     }
 }
 
-export const load: PageLoad = async ({ fetch, params }) => {
-    const url = `${variables.BASE_API_URI}/fulleffector/${params.facility}/${params.type}/${params.effector}/`;
-    let [res, error]= await handleRequestsWithPermissions(fetch,url);
+export const load: PageLoad = async ({ fetch, params, url }) => {
+    const apiUrl = `${variables.BASE_API_URI}/fulleffector/${params.facility}/${params.type}/${params.effector}/`;
+    let [res, error]= await handleRequestsWithPermissions(fetch,apiUrl);
     if (dev) {
         console.log(res);
         console.log(error);
@@ -53,6 +53,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
         //effector: params.effector,
         effector: res,
         //component: component
-        component: "default"
+        component: "default",
     }
 }

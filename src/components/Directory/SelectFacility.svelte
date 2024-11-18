@@ -5,9 +5,12 @@
 	import {
 		selectFacility,
 		selectFacilityValue,
-		facilityOf
-	} from '$lib/store/directoryStore';
-	import LL from '$i18n/i18n-svelte';
+		facilityOf,
+		fullFilteredEffectors,
+		selectCategories,
+		selectCommunes
+	} from '$lib/store/directoryStore.ts';
+	import LL from '$i18n/i18n-svelte.ts';
 	import { get } from '@square/svelte-store';
 
 	const label = 'label';

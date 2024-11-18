@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { page } from '$app/stores';
+	import { beforeUpdate } from 'svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -12,9 +14,14 @@
 		addressFeature,
 		selectFacility,
 	} from '$lib/store/directoryStore';
-</script>
 
-<a href="/annuaire" class="btn variant-filled">
+	let origin = null;
+  beforeUpdate(() => {
+    origin =  $page.url.searchParams.get('origin');
+  });
+</script>
+{#if origin}
+<a href={origin} class="btn variant-filled">
 	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || $addressFeature?.geometry?.coordinates}
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="whitespace-normal text-left">
@@ -27,3 +34,4 @@
 		</span>
 	{/if}
 </a>
+{/if}

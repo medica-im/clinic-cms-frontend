@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { categories, selectCategories, selCatVal, categoryOf } from '$lib/store/directoryStore';
+	import { categories, selectCategories, selCatVal, categoryOf, directoryRedirect } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import { goto } from '$app/navigation';
@@ -54,7 +54,7 @@
 			selectCategories.set([]);
 		}
 		const pageStore = get(page);
-		if (pageStore.params) {
+		if (pageStore.params && $directoryRedirect) {
 			goto('/annuaire');
 		}
 	}
@@ -62,7 +62,7 @@
 	function handleChange(event) {
 		if (event.detail && event.detail.value) {
 			selectCategories.set([event.detail.value]);
-			if ($page.url.pathname != '/annuaire') {
+			if ($page.url.pathname != '/annuaire' && $directoryRedirect) {
 				goto('/annuaire');
 			}
 		}

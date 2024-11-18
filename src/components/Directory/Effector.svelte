@@ -3,24 +3,27 @@
 	import { FacilityLink } from 'clinic-cms';
 	import Address from './Address.svelte';
 	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
-
+    import { page } from '$app/stores';
 	export let effector: any;
+	export let avatar: boolean;
 
-	function effectorPageUrl(effector) {
+	function effectorPageUrl(effector, pathname: string) {
 		let typeSlug = effector.types[0].slug;
 		let facilitySlug = effector.facility.slug;
 		let nameSlug = effector.slug;
 		if (!facilitySlug || !typeSlug || !nameSlug) {
 			return;
 		} else {
-			return `/${facilitySlug}/${typeSlug}/${nameSlug}`;
+			return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}`;
 		}
 	}
 </script>
-<a class="unstyled" href={effectorPageUrl(effector)}>
+<a class="unstyled" href={effectorPageUrl(effector, $page.url.pathname)}>
 
 <div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
+{#if avatar==true}
 		<AvatarList data={effector} />
+		{/if}
 		<div class="p-4 space-y-1">
 			<h3 class="h3">{effector.name}</h3>
 			<!--

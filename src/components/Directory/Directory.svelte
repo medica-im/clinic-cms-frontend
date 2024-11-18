@@ -5,7 +5,10 @@
 		categorizedFilteredEffectors,
 		selectSituation,
 		categorizedCachedEffectors,
-		cardinalCategorizedFilteredEffectors
+		cardinalCategorizedFilteredEffectors,
+		currentOrg,
+		directoryRedirect,
+		limitCategories
 	} from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
@@ -23,8 +26,31 @@
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore.ts';
 	import Clear from '$components/Directory/Clear.svelte';
+	
+	export let data: any = null;
+	export let displayGeocoder: boolean = variables.INPUT_GEOCODER;
+	export let displaySituation: boolean = variables.INPUT_SITUATION;
+	export let displayCommune: boolean = variables.INPUT_COMMUNE;
+	export let displayCategory: boolean = variables.INPUT_CATEGORY;
+	export let displayFacility: boolean = variables.INPUT_FACILITY;
+	export let displaySearch: boolean = variables.INPUT_SEARCH;
+	export let setCurrentOrg: boolean = true;
+	export let setCategories: string[] | null = null;
+	export let setRedirect: boolean = true;
+	export let setLimitCategories: string[] | null = null;
+	export let avatar: boolean = true;
 
-	export let data: any;
+	$: {
+		if ($currentOrg != setCurrentOrg) {
+		    $currentOrg = setCurrentOrg;
+		}
+		if ($directoryRedirect != setRedirect) {
+		    $directoryRedirect = setRedirect;
+		}
+		if ($limitCategories != setLimitCategories) {
+		    $limitCategories = setLimitCategories;
+		}
+	}
 
 	let top: Element;
 	let category = '';
@@ -58,28 +84,28 @@
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
 			<div class="space-y-2">
-				{#if variables.INPUT_GEOCODER}
+				{#if displayGeocoder}
 					<div class="row">
 						<div class="col">
 							<Geocoder />
 						</div>
 					</div>
 				{/if}
-				{#if variables.INPUT_SITUATION}
+				{#if displaySituation}
 					<div class="row">
 						<div class="col">
 							<SelectSituations />
 						</div>
 					</div>
 				{/if}
-				{#if variables.INPUT_COMMUNE}
+				{#if displayCommune}
 					<div class="row">
 						<div class="col">
 							<SelectCommunes />
 						</div>
 					</div>
 				{/if}
-				{#if variables.INPUT_CATEGORY}
+				{#if displayCategory}
 					{#if $selectSituation}
 						<div class="row">
 							<div class="col">
@@ -94,14 +120,14 @@
 						</div>
 					{/if}
 				{/if}
-				{#if variables.INPUT_FACILITY}
+				{#if displayFacility}
 					<div class="row">
 						<div class="col">
 							<SelectFacility />
 						</div>
 					</div>
 				{/if}
-				{#if variables.INPUT_SEARCH}
+				{#if displaySearch}
 					<div class="row">
 						<div class="col">
 							<SearchDirectory />
@@ -109,7 +135,7 @@
 					</div>
 				{/if}
 				{#await cardinalCategorizedFilteredEffectors.load()}
-					{#if data.cardinal && [...data.cardinal]?.length}
+					{#if data?.cardinal && [...data?.cardinal]?.length}
 						<div class="my-2 flex justify-between w-full">
 							<span class="badge variant-ghost-surface">{contactCount(data.cardinal)}</span>
 							<span class="inline-flex items-center space-x-2">
@@ -134,7 +160,7 @@
 								<div class="grid lg:grid-cols-2 gap-4">
 									{#each value as effector}
 										<div class="space-y-4 my-4">
-											<Effector {effector} />
+											<Effector {effector} {avatar} />
 										</div>
 									{/each}
 								</div>
@@ -169,7 +195,7 @@
 							<div class="grid lg:grid-cols-2 gap-4">
 								{#each value as effector}
 									<div class="space-y-4 my-4">
-										<Effector {effector} />
+										<Effector {effector} {avatar} />
 									</div>
 								{/each}
 							</div>
