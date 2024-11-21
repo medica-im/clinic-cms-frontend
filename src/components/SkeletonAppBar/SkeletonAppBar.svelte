@@ -128,7 +128,7 @@
 			</button>
 		</svelte:fragment>
 			<!-- Logo -->
-			<a class="" href="/" title={$LL.NAVBAR.GO_HOME()}>
+			<a data-sveltekit-preload-data="off" href="/" title={$LL.NAVBAR.GO_HOME()}>
 				<div class="flex items-center">
 
 				<div class="w-8 h-8 mx-1 flex-none"><OutpatientClinicLogo /></div>
@@ -166,7 +166,7 @@
 				<nav class="list-nav">
 					<ul>
 						<li>
-							<a href="/">
+							<a data-sveltekit-preload-data="off" href="/">
 								<span class="w-6 text-center"><Fa icon={faHouse} /></span>
 								<span>{$LL.HOME.TITLE()}</span>
 							</a>

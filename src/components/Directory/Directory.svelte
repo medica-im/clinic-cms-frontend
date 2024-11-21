@@ -74,7 +74,6 @@
 	</title>
 </svelte:head>
 
-{#key [$currentOrg, $directoryRedirect, $limitCategories, $page.url]}
 <div>
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
@@ -201,7 +200,7 @@
 		</div>
 	</section>
 </div>
-{/key}
+
 {#if $scrollY > showOnPx}
 	<button type="button" class="back-to-top btn-icon btn-lg variant-filled" on:click={scrollToTop}>
 		<Fa icon={faArrowsUpToLine} size="lg" /></button

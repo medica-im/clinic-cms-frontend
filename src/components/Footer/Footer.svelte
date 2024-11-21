@@ -20,7 +20,7 @@
 		<!-- Row 1 -->
 		<div class="md:flex md:justify-between">
 			<div class="mb-6 md:mb-0">
-				<a href="/" title={$LL.NAVBAR.GO_HOME()}>
+				<a data-sveltekit-preload-data="off" href="/" title={$LL.NAVBAR.GO_HOME()}>
 					<div class="flex items-center space-x-2">
 						<span class="flex w-8 h-8 items-center"><OutpatientClinicLogo /></span>
 
@@ -37,7 +37,7 @@
 					</h6>
 					<ul class="text-gray-600 dark:text-gray-400 font-medium">
 						<li class="mb-4">
-							<a href="/">
+							<a data-sveltekit-preload-data="off" href="/">
 								{$LL.HOME.TITLE()}
 							</a>
 						</li>

@@ -73,6 +73,7 @@
 	<!-- App Rail -->
 	<AppRail background="bg-transparent" border="border-r border-surface-500/30">
 		<AppRailAnchor
+		    data-sveltekit-preload-data="off"
 			href="/"
 			selected={$page.url.pathname == '/' && !currentRailCategory}
 			class="lg:hidden"
