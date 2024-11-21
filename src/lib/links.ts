@@ -148,7 +148,8 @@ export const programsNavLinks: any = {
 				keywords: 'prévention, santé, maladie, vaccin',
 				icon: null,
 				category: 'program',
-				active: true
+				active: true,
+				preload: 'off'
 			},
 			{
 				href: '/prevention/depistage-hypertension-arterielle',

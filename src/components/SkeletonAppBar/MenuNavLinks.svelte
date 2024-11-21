@@ -52,9 +52,9 @@
                     {navGroup.title[$language]}
                 </li>
 				{/if}
-                {#each navGroup.list.filter(e=>e.active != false) as { href, label, icon }}
+                {#each navGroup.list.filter(e=>e.active != false) as { href, label, icon, preload }}
                 <li>
-                    <a {href} class="{classesActive(href)}">
+                    <a data-sveltekit-preload-data={preload ? preload:"hover"} {href} class="{classesActive(href)}">
                         <span class="w-6 text-center">
 							{#if icon}
 							<Fa icon={icon} />

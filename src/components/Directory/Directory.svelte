@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { variables } from '$lib/utils/constants.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import {
@@ -34,22 +35,15 @@
 	export let displayCategory: boolean = variables.INPUT_CATEGORY;
 	export let displayFacility: boolean = variables.INPUT_FACILITY;
 	export let displaySearch: boolean = variables.INPUT_SEARCH;
-	export let setCurrentOrg: boolean = true;
-	export let setCategories: string[] | null = null;
+	export let setCurrentOrg: boolean | null = true;
 	export let setRedirect: boolean = true;
-	export let setLimitCategories: string[] | null = null;
+	export let setLimitCategories:string[] = [];
 	export let avatar: boolean = true;
 
 	$: {
-		if ($currentOrg != setCurrentOrg) {
-		    $currentOrg = setCurrentOrg;
-		}
-		if ($directoryRedirect != setRedirect) {
-		    $directoryRedirect = setRedirect;
-		}
-		if ($limitCategories != setLimitCategories) {
-		    $limitCategories = setLimitCategories;
-		}
+		$currentOrg = setCurrentOrg;
+		$directoryRedirect = setRedirect;
+		$limitCategories = setLimitCategories;
 	}
 
 	let top: Element;
@@ -59,10 +53,10 @@
 		category = c;
 	}
 	let showOnPx = 500;
-	function contactCount(categorizedFilteredEffectors) {
+	function contactCount(_categorizedFilteredEffectors: Map<string,any>) {
 		let count = 0;
-		if (categorizedFilteredEffectors) {
-			count = [...categorizedFilteredEffectors.values()].flat().length;
+		if (_categorizedFilteredEffectors) {
+			count = [..._categorizedFilteredEffectors.values()].flat().length;
 		}
 		return `${count} contact${count > 1 ? 's' : ''}`;
 	}
@@ -80,6 +74,7 @@
 	</title>
 </svelte:head>
 
+{#key [$currentOrg, $directoryRedirect, $limitCategories, $page.url]}
 <div>
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
@@ -206,6 +201,7 @@
 		</div>
 	</section>
 </div>
+{/key}
 {#if $scrollY > showOnPx}
 	<button type="button" class="back-to-top btn-icon btn-lg variant-filled" on:click={scrollToTop}>
 		<Fa icon={faArrowsUpToLine} size="lg" /></button

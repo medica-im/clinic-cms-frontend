@@ -1,10 +1,10 @@
-import { facilityStore, websiteSchema } from '$lib/store/facilityStore';
-import { cardinalCategorizedFilteredEffectors, selectCategories } from '$lib/store/directoryStore';
-import { openGraphStore } from '$lib/store/openGraphStore';
+import { facilityStore, websiteSchema } from '$lib/store/facilityStore.ts';
+import { cardinalCategorizedFilteredEffectors, selectCategories } from '$lib/store/directoryStore.ts';
+import { openGraphStore } from '$lib/store/openGraphStore.ts';
 import type { PageLoad } from './$types';
 import { browser, building, dev, version } from '$app/environment';
 
-export const load: PageLoad = async ({ fetch }) => {
+export const load: PageLoad = async () => {
     if ( !browser ) {
         selectCategories.set([]);
     }

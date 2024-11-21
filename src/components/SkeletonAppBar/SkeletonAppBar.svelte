@@ -172,7 +172,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="/annuaire" on:click={resetDirectory}>
+							<a data-sveltekit-preload-data="tap" href="/annuaire" on:click={resetDirectory}>
 								<span class="w-6 text-center"><Fa icon={faAddressBook} /></span>
 								<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 							</a>

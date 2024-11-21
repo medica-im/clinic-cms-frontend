@@ -13,6 +13,10 @@
 	import { Facility } from 'clinic-cms';
 
 	export let data: PageData;
+
+	let cardinalTypes;
+
+	$: cardinalTypes = data.cardinalTypes;
 </script>
 
 <LDTag schema={data?.websiteSchema} />
@@ -42,7 +46,7 @@
 	<div class="section-container">
 		<Team
 			data={{
-				cardinalTypes: data.cardinalTypes,
+				cardinalTypes: cardinalTypes,
 				teamCarousel: data.teamCarousel
 			}}
 		/>

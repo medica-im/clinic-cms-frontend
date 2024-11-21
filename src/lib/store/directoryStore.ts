@@ -8,13 +8,14 @@ import { replacer, reviver } from '$lib/utils/utils.ts';
 import type { Situation } from '$lib/interfaces/facility.interface.ts';
 import { facilities, facilityStore } from '$lib/store/facilityStore.ts';
 import { shuffle } from '$lib/helpers/random.ts';
+import type { Writable } from '@square/svelte-store';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
 export const selectCommunesValue = writable(null);
 export const selCatVal = writable(null);
 export const selectCategories = writable([]);
-export const limitCategories = writable([]);
+export const limitCategories: Writable<string[]> = writable([]);
 export const selectSituation = writable("");
 export const selectSituationValue = writable(null);
 export const effectors = writable([]);
@@ -22,7 +23,7 @@ export const addressFeature = writable({});
 export const inputAddress = writable("");
 export const selectFacility = writable("");
 export const selectFacilityValue = writable(null);
-export const currentOrg = writable(true);
+export const currentOrg: Writable<boolean|null> = writable(true);
 export const directoryRedirect = writable(true);
 
 const next = writable(null);
