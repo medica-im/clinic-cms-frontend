@@ -1,6 +1,6 @@
 import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
-import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes, selCatVal, categories } from '$lib/store/directoryStore.ts';
+import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes, selCatVal, categories, currentOrg, directoryRedirect, limitCategories} from '$lib/store/directoryStore.ts';
 
 function getValue(selectCategories: string[]) {
     if (!selectCategories?.length) {
@@ -30,16 +30,15 @@ const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
 };
 
 export const load: PageLoad = async ({ params }) => {
+    currentOrg.set(true);
+    directoryRedirect.set(true);
+    limitCategories.set([]);
     const slug = params.slug;
     const _cardinalTypes = await cardinalTypes.load();
     const key = findKeyOfSlug(slug, _cardinalTypes);
     const uid = _cardinalTypes.get(key)["uid"];
     selectCategories.set([uid]);
     selCatVal.set(getValue([uid]));
-    //slugAddressbook.set(params.slug);
-    //const keyOccupation = await keyAddressbook.load();
-    //selectOccupations.set([keyOccupation]);
-    //const sOC = await filteredOccupationsCardinal.load();
     return {
         cardinal: await cardinalCategorizedFilteredEffectors.load()
     };

@@ -483,7 +483,7 @@ export const fullFilteredEffectors = asyncDerived(
 			&& $term == ''
 			&& $distanceEffectors == null
 			&& $currentOrg == null
-			&& $limitCategories == []
+			&& !$limitCategories?.length
 		) {
 			return $getEffectors
 		} else {
@@ -821,7 +821,7 @@ export const categoryOf = derived(
 export const communeOf = asyncDerived(
 	([selectCategories, communes, fullFilteredEffectors, selectFacility, currentOrg, limitCategories]),
 	async ([$selectCategories, $communes, $fullFilteredEffectors, $selectFacility, $currentOrg, $limitCategories]) => {
-		if (!$selectCategories?.length && !$selectFacility && $currentOrg == null && $limitCategories==[]) {
+		if (!$selectCategories?.length && !$selectFacility && $currentOrg == null && !$limitCategories?.length) {
 			return $communes
 		} else {
 			const communes = $fullFilteredEffectors.filter(
@@ -843,7 +843,7 @@ export const communeOf = asyncDerived(
 export const facilityOf = asyncDerived(
 	([selectCategories, facilities, fullFilteredEffectors, selectCommunes, currentOrg, limitCategories]),
 	async ([$selectCategories, $facilities, $fullFilteredEffectors, $selectCommunes, $currentOrg, $limitCategories]) => {
-		if (!$selectCategories?.length && !$selectCommunes?.length && $currentOrg == null && $limitCategories==[]) {
+		if (!$selectCategories?.length && !$selectCommunes?.length && $currentOrg == null && !$limitCategories?.length) {
 			return $facilities.map(x => x.uid)
 		} else {
 			const uids = $fullFilteredEffectors.filter(
