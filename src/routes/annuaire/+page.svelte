@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
@@ -7,7 +8,7 @@
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
 	import Directory from '$components/Directory/Directory.svelte';
-
+	import { currentOrg, limitCategories} from '$lib/store/directoryStore.ts';
 	export let data: PageData;
 </script>
 
@@ -31,7 +32,9 @@
 		</div>
 	</header>
 	<div>
-		<Directory data={data} />
+		{#key [$page.url]}
+		<Directory data={data}/>
+		{/key}
 	</div>
 </div>
 

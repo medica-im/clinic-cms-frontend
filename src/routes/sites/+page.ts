@@ -2,8 +2,6 @@ import { facilities } from '$lib/store/facilityStore';
 import { occupationsCardinal, workforceOccupation, teamCarouselStore } from '$lib/store/workforceStore';
 import { openGraphStore } from '$lib/store/openGraphStore';
 import type { PageLoad } from './$types';
-import { categorizedCachedEffectors } from '$lib/store/directoryStore.js';
-
 
 export const load: PageLoad = async ({ data }) => {
     return {
@@ -14,6 +12,5 @@ export const load: PageLoad = async ({ data }) => {
         //workforceOccupation: await workforceOccupation.load(),
         //teamCarousel: await teamCarouselStore.load(),
         //ghost: data.ghost
-        //effectors: categorizedCachedEffectors()
     };
 }

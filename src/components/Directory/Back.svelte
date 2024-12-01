@@ -1,4 +1,5 @@
 <script lang="ts">
+	import isEmpty from 'lodash.isempty';
     import { page } from '$app/stores';
 	import { beforeUpdate } from 'svelte';
 	import LL from '$i18n/i18n-svelte';
@@ -15,14 +16,14 @@
 		selectFacility,
 	} from '$lib/store/directoryStore';
 
-	let origin = null;
+	let origin: string|null = null;
   beforeUpdate(() => {
     origin =  $page.url.searchParams.get('origin');
   });
 </script>
 {#if origin}
 <a href={origin} class="btn variant-filled">
-	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || $addressFeature?.geometry?.coordinates}
+	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || !isEmpty($addressFeature)}
 		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 		<span class="whitespace-normal text-left">
 			{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}

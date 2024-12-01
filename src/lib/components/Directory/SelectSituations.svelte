@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { getSituations, situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore';
+	import { situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	const label = 'label';
@@ -12,7 +12,7 @@
 		selectSituationValue.set(getValue(_situations));
 	});
 
-	function getValue(situations: any[]) {
+	function getValue(situations) {
 		let sSituation = get(selectSituation);
 		//console.log(`sSituation:${sSituation}`);
 		if (sSituation == '') {

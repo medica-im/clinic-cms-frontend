@@ -1,4 +1,4 @@
-import { facilitiesWithAvatar, facilities, websiteSchema } from '$lib/store/facilityStore.ts';
+import { facilitiesWithAvatar, getFacilities, websiteSchema } from '$lib/store/facilityStore.ts';
 import { getAvatars } from '$lib/store/directoryStore.ts';
 import { openGraphStore } from '$lib/store/openGraphStore.ts';
 import type { PageLoad } from './$types';
@@ -10,8 +10,8 @@ export const load: PageLoad = async ({ data }) => {
     currentOrg.set(true);
     limitCategories.set([]);
     return {
-        facilityCarousel: await facilitiesWithAvatar(),
-        facilities: await facilities.load(),
+        facilityCarousel: await facilitiesWithAvatar.load(),
+        facilities: await getFacilities.load(),
         websiteSchema: await websiteSchema.load(),
         openGraph: await openGraphStore.load(),
         cardinalTypes: await cardinalTypes.load(),

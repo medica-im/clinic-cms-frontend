@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { currentOrg, limitCategories } from '$lib/store/directoryStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import LL from '$i18n/i18n-svelte.ts';
@@ -7,7 +8,7 @@
 	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
 	import vaccines2024v from '$lib/assets/images/vaccines/vaccination_schedule_2024_vertical.png';
 	import Directory from '$components/Directory/Directory.svelte';
-    export let data;
+	export let data;
 	const mobileWidth: number = 1440;
 
 	$: innerWidth = 0;
@@ -58,7 +59,15 @@
 <section>
 	<div class="section-container space-y-4">
 		<h2 class="h2">Centres de vaccination</h2>
-		<Directory {data} setCurrentOrg={null} displayCommune={true} displayCategory={false} setRedirect={false} setLimitCategories={["Centre de vaccination internationale"]} avatar={false}/>
+			<Directory
+				{data}
+				setCurrentOrg={null}
+				displayCommune={true}
+				displayCategory={false}
+				setRedirect={false}
+				setLimitCategories={['centre-vaccination-internationale']}
+				avatar={false}
+			/>
 	</div>
 </section>
 

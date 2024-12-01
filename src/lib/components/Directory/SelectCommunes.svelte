@@ -1,28 +1,37 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { getSituations, situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore';
+	import { communes, selectCommunes, selectCommunesValue, communeOf } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	const label = 'label';
 	const itemId = 'value';
+	//let value = null;
 
-	onMount(async () => {
-		const _situations = await situations();
-		selectSituationValue.set(getValue(_situations));
+	onMount(() => {
+		selectCommunesValue.set(getValue());
 	});
 
-	function getValue(situations: any[]) {
-		let sSituation = get(selectSituation);
-		//console.log(`sSituation:${sSituation}`);
-		if (sSituation == '') {
-			return '';
+    function getItems(communes) {
+        return communes.map(function (x) {
+			let dct = { value: x.uid, label: x.name };
+			return dct;
+		})
+	}
+
+	function getValue() {
+		let sCommunes = get(selectCommunes);
+		if (!sCommunes?.length) {
+			return null;
 		} else {
-			//console.log(`s: ${JSON.stringify(s)}`);
-			//console.log(`typeof s: ${typeof(s)}`);
-			if (situations) {
-				let val = situations.find((x) => sSituation == x.value);
-				//console.log(`getValue(): ${JSON.stringify(val)}`);
+			let c = get(communes);
+			if (c) {
+				let val = c
+					.filter((x) => sCommunes.includes(x.uid))
+					.map(function (x) {
+						let dct = { value: x.uid, label: x.name };
+						return dct;
+					})[0];
 				return val;
 			}
 		}
@@ -30,38 +39,37 @@
 
 	function handleClear(event) {
 		if (event.detail) {
-			selectSituation.set("");
+			selectCommunes.set([]);
 		}
 	}
 
 	function handleChange(event) {
-		//console.log(event);
 		if (event.detail) {
-			//console.log(event.detail);
-			//console.log(event.detail.value);
-			selectSituation.set(event.detail.value);
+			selectCommunes.set([event.detail.value]);
 		}
 	}
 </script>
-<!--
-$selectSituation: {$selectSituation}<br>
-value: {JSON.stringify(value)}
--->
-{#await situations()}
+
+{#await communeOf.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.SITUATIONS.PLACEHOLDER()} />
+		<Select loading={true} placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()} />
 	</div>
-{:then situations}
+{:then}
+<!--
+selectCommunes: {$selectCommunes}<br>
+communes: {$communes} ({$communes.length})<br>
+communeOf: {$communeOf} ({$communeOf.length})
+-->
 	<div class="text-surface-700 theme">
 		<Select
 			{label}
 			{itemId}
-			items={situations}
+			items={getItems($communeOf)}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.SITUATIONS.PLACEHOLDER()}
-			bind:value={$selectSituationValue}
+			placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()}
+			bind:value={$selectCommunesValue}
 		/>
 	</div>
 {/await}

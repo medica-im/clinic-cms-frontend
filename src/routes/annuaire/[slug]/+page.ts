@@ -1,22 +1,9 @@
-import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
-import { categorizedFilteredEffectors, selectSituation, categorizedCachedEffectors, cardinalCategorizedFilteredEffectors, selectCategories, cardinalTypes, selCatVal, categories, currentOrg, directoryRedirect, limitCategories} from '$lib/store/directoryStore.ts';
+import { cardinalCategorizedFilteredEffectors, selectCategories, selCatVal, categories, currentOrg, directoryRedirect, limitCategories } from '$lib/store/directoryStore.ts';
 
-function getValue(selectCategories: string[]) {
-    if (!selectCategories?.length) {
-        return null;
-    } else {
-        let c = get(categories);
-        if (c) {
-            let val = c
-                .filter((x) => selectCategories.includes(x.uid))
-                .map(function (x) {
-                    let dct = { value: x.uid, label: x.name };
-                    return dct;
-                })[0];
-            return val;
-        }
-    }
+function getValue(slug: string, effectorTypes: any[]) {
+    const effectorType = effectorTypes.find((element) => element.slug == slug);
+    return { value: effectorType.uid, label: effectorType.name };
 }
 
 const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
@@ -29,16 +16,21 @@ const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
     return result;
 };
 
+const uidOfSlug = (slug: string, effectorTypes: any[]) => {
+    const effectorType = effectorTypes.find((element) => element.slug = slug);
+    return effectorType.uid;
+};
+
 export const load: PageLoad = async ({ params }) => {
-    currentOrg.set(true);
     directoryRedirect.set(true);
-    limitCategories.set([]);
+    currentOrg.set(true);
     const slug = params.slug;
-    const _cardinalTypes = await cardinalTypes.load();
-    const key = findKeyOfSlug(slug, _cardinalTypes);
-    const uid = _cardinalTypes.get(key)["uid"];
+    limitCategories.set([slug]);
+    const effectorTypes = await categories();
+    const uid = uidOfSlug(slug, effectorTypes);
     selectCategories.set([uid]);
-    selCatVal.set(getValue([uid]));
+    const value = getValue(slug, effectorTypes)
+    selCatVal.set(value);
     return {
         cardinal: await cardinalCategorizedFilteredEffectors.load()
     };

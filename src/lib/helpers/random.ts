@@ -1,7 +1,7 @@
 import {prng_alea} from 'esm-seedrandom';
 import { PUBLIC_HASH } from '$env/static/public';
 
-export const shuffle = (array: []) => {
+export const shuffle = (array: any[]): any[] => {
     let currentIndex = array.length, randomIndex;
     
     // seed with current git hash

@@ -16,7 +16,6 @@
 	import { faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
 	import { createFacilitiesMapData } from '$lib/components/Map/mapData';
 	import { variables } from '$lib/utils/constants';
-	import { facilityOf } from '$lib/store/directoryStore.ts';
 	import { copy } from 'svelte-copy';
 
 	export let facility;

@@ -10,12 +10,15 @@
 	const label = 'label';
 	const itemId = 'value';
 
-	onMount(async () => {
+	onMount(() => {
 		if ($selectCategories) {
-			const cats = await categories();
-			$selCatVal = getValue($selectCategories, cats);
+			$selCatVal = getValue($selectCategories);
 		}
 	});
+
+	$: if ($selCatVal === undefined) {
+		$selCatVal = getValue($selectCategories);
+	}
 
 	function getItems(elements) {
 		return elements
@@ -28,13 +31,14 @@
 			});
 	}
 
-	function getValue(selectCategories: string[], categories) {
+	function getValue(selectCategories: string[]) {
 		let sElements = selectCategories || get(selectCategories);
 		if (!sElements?.length) {
 			return null;
 		} else {
-			if (categories) {
-				let val = categories
+			let c = get(categories);
+			if (c) {
+				let val = c
 					.filter((x) => sElements.includes(x.uid))
 					.map(function (x) {
 						let dct = { value: x.uid, label: x.name };

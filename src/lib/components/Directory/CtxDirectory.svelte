@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
+	import { setTerm, getTerm, setSelectCategories, getSelectCategories, setCurrentOrg, getCurrentOrg, setDirectoryRedirect, getDirectoryRedirect } from './context'
 	import { page } from '$app/stores';
 	import { variables } from '$lib/utils/constants.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
@@ -6,8 +8,6 @@
 		categorizedFilteredEffectors,
 		selectSituation,
 		cardinalCategorizedFilteredEffectors,
-		currentOrg,
-		directoryRedirect,
 		limitCategories,
 		selectCategories,
 		categories,
@@ -16,19 +16,21 @@
 	import LL from '$i18n/i18n-svelte.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { language } from '$lib/store/languageStore.ts';
-	import SearchDirectory from '$components/Directory/SearchDirectory.svelte';
-	import Effector from '$components/Directory/Effector.svelte';
-	import SelectCommunes from './SelectCommunes.svelte';
-	import SelectCategories from './SelectCategories.svelte';
-	import SelectCategoriesChips from './SelectCategoriesChips.svelte';
-	import SelectSituations from './SelectSituations.svelte';
-	import SelectFacility from '$components/Directory/SelectFacility.svelte';
-	import Geocoder from '$components/Geocoder/Geocoder.svelte';
+	import SearchDirectory from '$lib/components/Directory/SearchDirectory.svelte';
+	import Effector from '$lib/components/Directory/Effector.svelte';
+	import SelectCommunes from '$lib/components/Directory/SelectCommunes.svelte';
+	import SelectCategories from '$lib/components/Directory/SelectCategories.svelte';
+	import SelectCategoriesChips from '$lib/components/Directory/SelectCategoriesChips.svelte';
+	import SelectSituations from '$lib/components/Directory/SelectSituations.svelte';
+	import SelectFacility from '$lib/components/Directory/SelectFacility.svelte';
+	import Geocoder from '$lib/components/Geocoder/Geocoder.svelte';
 	import Fa from 'svelte-fa';
 	import { faArrowsUpToLine } from '@fortawesome/free-solid-svg-icons';
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore.ts';
-	import Clear from '$components/Directory/Clear.svelte';
+	import Clear from '$lib/components/Directory/Clear.svelte';
+	import type { CurrentOrg } from '$lib/store/directoryStoreInterface';
+	import type { Writable } from '@square/svelte-store';
 	
 	export let data: any = null;
 	export let displayGeocoder: boolean = variables.INPUT_GEOCODER;
@@ -37,31 +39,27 @@
 	export let displayCategory: boolean = variables.INPUT_CATEGORY;
 	export let displayFacility: boolean = variables.INPUT_FACILITY;
 	export let displaySearch: boolean = variables.INPUT_SEARCH;
-	export let setCurrentOrg: boolean | null = true;
+	export let propCurrentOrg: boolean | null = true;
 	export let setRedirect: boolean = true;
 	export let setLimitCategories:string[] = [];
 	export let avatar: boolean = true;
 
-	function checkCategory(cat, fullEffectors) {
-        return fullEffectors.some(
-			(e) => {
-                return e.types.map((t)=>t.slug).some((e)=>cat.includes(e))
-			}
-		)
-	};
+	setTerm();
+	setSelectCategories();
+	setCurrentOrg();
+	setDirectoryRedirect();
+ 
+	let directoryRedirect = getDirectoryRedirect();
+	let currentOrg = getCurrentOrg();
 
 	$: {
-	$currentOrg=setCurrentOrg;
-	$directoryRedirect=setRedirect;
-	$limitCategories=setLimitCategories;
+		$currentOrg=propCurrentOrg;
+	    $directoryRedirect=setRedirect;
+	    $limitCategories=setLimitCategories;
 	}
 
 	let top: Element;
-	let category = '';
 	let countString = '';
-	function section(c: string): void {
-		category = c;
-	}
 	let showOnPx = 500;
 	function contactCount(_categorizedFilteredEffectors: Map<string,any>) {
 		let count = 0;

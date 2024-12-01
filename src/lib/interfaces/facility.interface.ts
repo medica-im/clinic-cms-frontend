@@ -3,11 +3,6 @@ import type { Website } from '$lib/interfaces/website.interface.js';
 import type { Email } from '$lib/interfaces/email.interface.js';
 import type { Phone } from '$lib/interfaces/phone.interface.js';
 
-export interface Situation {
-    value: string;
-    label: string;
-}
-
 export interface Address {
     building: string|null,
     city: string,
