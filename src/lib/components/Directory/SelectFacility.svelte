@@ -4,12 +4,16 @@
 	import { onMount } from 'svelte';
 	import { getFacilities } from '$lib/store/facilityStore';
 	import {
-		selectFacility,
-		selectFacilityValue,
-		facilityOf,
-	} from '$lib/store/directoryStore.ts';
+		getSelectFacility,
+		getSelectFacilityValue,
+	} from './context.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { get } from '@square/svelte-store';
+
+	export let facilityOf;
+
+	let selectFacility = getSelectFacility();
+	let selectFacilityValue = getSelectFacilityValue();
 
 	const label = 'label';
 	const itemId = 'value';

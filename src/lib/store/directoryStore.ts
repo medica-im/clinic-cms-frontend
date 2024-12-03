@@ -814,7 +814,7 @@ export const categorizedFullFilteredEffectors = asyncDerived(
 	}
 )
 
-export const categoryOfF = (selectCommunes: string[], fullFilteredEffectors: Entry[], selectFacility: string) => {
+export const categoryOfF = (selectCommunes: string[], fullFilteredEffectors: Entry[], selectFacility: string): Type[] => {
 	if (!Array.isArray(fullFilteredEffectors)) {
 		return []
 	}
@@ -877,7 +877,7 @@ export const communeOf = asyncDerived(
 	}
 );
 
-const facilityOfF = (selectCategories: String[], fullFilteredEffectors: Entry[], selectCommunes: String[], currentOrg: boolean | null, limitCategories: String[], getFacilities: Facility[]) => {
+export const facilityOfF = (selectCategories: String[], fullFilteredEffectors: Entry[], selectCommunes: String[], currentOrg: boolean | null, limitCategories: String[], getFacilities: Facility[]) => {
 	if (!selectCategories?.length && !selectCommunes?.length && currentOrg == null && !limitCategories?.length) {
 		return getFacilities.map(x => x.uid)
 	} else {

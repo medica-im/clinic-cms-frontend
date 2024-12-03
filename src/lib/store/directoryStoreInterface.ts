@@ -129,3 +129,13 @@ export interface DistanceEffectors {
 }
 
 export type CategorizedEntries = Map<string, Entry[]>;
+
+interface CommuneValue {
+    label: string,
+    value: string,
+
+}
+
+export type CommunesValue = CommuneValue[];
+
+export type CommunesValueStore = Writable<CommunesValue>;

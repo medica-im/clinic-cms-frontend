@@ -1,17 +1,47 @@
 <script lang="ts">
-	import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
-	import { setTerm, getTerm, setSelectCategories, getSelectCategories, setCurrentOrg, getCurrentOrg, setDirectoryRedirect, getDirectoryRedirect } from './context'
-	import { page } from '$app/stores';
-	import { variables } from '$lib/utils/constants.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import {
-		categorizedFilteredEffectors,
-		selectSituation,
-		cardinalCategorizedFilteredEffectors,
-		limitCategories,
-		selectCategories,
-		categories,
-		fullFilteredEffectors
+		writable,
+		derived,
+		readable,
+		get,
+		asyncReadable,
+		asyncDerived
+	} from '@square/svelte-store';
+	import {
+		setTerm,
+		getTerm,
+		setSelectCategories,
+		getSelectCategories,
+		setLimitCategories,
+		getLimitCategories,
+		setSelectCommunes,
+		getSelectCommunes,
+		setSelectCommunesValue,
+		getSelectCommunesValue,
+		setSelectSituation,
+		getSelectSituation,
+		setSelectFacility,
+		getSelectFacility,
+		setSelectFacilityValue,
+		setCurrentOrg,
+		getCurrentOrg,
+		setDirectoryRedirect,
+		getDirectoryRedirect,
+		setAddressFeature,
+		getAddressFeature
+	} from './context';
+	import { variables } from '$lib/utils/constants.ts';
+	import { facilityStore, getFacilities } from '$lib/store/facilityStore.ts';
+	import {
+		distanceEffectorsF,
+		fullFilteredEffectorsF,
+		filteredEffectorsF,
+		categorizedFilteredEffectorsF,
+		cardinalCategorizedFilteredEffectorsF,
+		categoryOfF,
+		communeOfF,
+		facilityOfF,
+		categories
 	} from '$lib/store/directoryStore.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
@@ -29,9 +59,10 @@
 	import Spinner from '$components/Spinner.svelte';
 	import { scrollY } from '$lib/store/scrollStore.ts';
 	import Clear from '$lib/components/Directory/Clear.svelte';
+	import { getContext, setContext } from 'svelte';
 	import type { CurrentOrg } from '$lib/store/directoryStoreInterface';
 	import type { Writable } from '@square/svelte-store';
-	
+
 	export let data: any = null;
 	export let displayGeocoder: boolean = variables.INPUT_GEOCODER;
 	export let displaySituation: boolean = variables.INPUT_SITUATION;
@@ -41,34 +72,124 @@
 	export let displaySearch: boolean = variables.INPUT_SEARCH;
 	export let propCurrentOrg: boolean | null = true;
 	export let setRedirect: boolean = true;
-	export let setLimitCategories:string[] = [];
+	export let propLimitCategories: string[] = [];
 	export let avatar: boolean = true;
 
 	setTerm();
 	setSelectCategories();
+	setLimitCategories();
 	setCurrentOrg();
 	setDirectoryRedirect();
- 
+	setSelectCommunes();
+	setSelectCommunesValue();
+	setSelectSituation();
+	setAddressFeature();
+	setSelectFacility();
+	setSelectFacilityValue();
+
+	let term = getTerm();
+	let selectCategories = getSelectCategories();
+	let selectSituation = getSelectSituation();
+	let selectCommunes = getSelectCommunes();
+	let addressFeature = getAddressFeature();
+	let selectFacility = getSelectFacility();
 	let directoryRedirect = getDirectoryRedirect();
 	let currentOrg = getCurrentOrg();
+	let limitCategories = getLimitCategories();
+
+	const distanceEffectors = asyncDerived([addressFeature], async ([$addressFeature]) => {
+		return distanceEffectorsF($addressFeature);
+	});
+
+	const fullFilteredEffectors = asyncDerived(
+		[term, selectSituation, distanceEffectors, currentOrg, facilityStore, limitCategories],
+		async ([
+			$term,
+			$selectSituation,
+			$distanceEffectors,
+			$currentOrg,
+			$facilityStore,
+			$limitCategories
+		]) => {
+			return await fullFilteredEffectorsF(
+				$term,
+				$selectSituation,
+				$distanceEffectors,
+				$currentOrg,
+				$facilityStore,
+				$limitCategories
+			);
+		}
+	);
+
+	const filteredEffectors = asyncDerived(
+		[fullFilteredEffectors, selectCategories, selectCommunes, selectFacility],
+		async ([$fullFilteredEffectors, $selectCategories, $selectCommunes, $selectFacility]) => {
+			return filteredEffectorsF(
+				$fullFilteredEffectors,
+				$selectCategories,
+				$selectCommunes,
+				$selectFacility
+			);
+		}
+	);
+
+	const categorizedFilteredEffectors = asyncDerived(
+		[filteredEffectors, distanceEffectors, selectSituation],
+		async ([$filteredEffectors, $distanceEffectors, $selectSituation]) => {
+			return categorizedFilteredEffectorsF(
+				$filteredEffectors,
+				$distanceEffectors,
+				$selectSituation
+			);
+		}
+	);
+
+	const cardinalCategorizedFilteredEffectors = asyncDerived(
+		[categorizedFilteredEffectors, filteredEffectors],
+		async ([$categorizedFilteredEffectors, $filteredEffectors]) => {
+			return cardinalCategorizedFilteredEffectorsF($categorizedFilteredEffectors);
+		}
+	);
+
+	const categoryOf = asyncDerived(
+		[selectCommunes, fullFilteredEffectors, selectFacility],
+		async ([$selectCommunes, $fullFilteredEffectors, $selectFacility]) => {
+			return categoryOfF($selectCommunes, $fullFilteredEffectors, $selectFacility);
+		}
+	);
+
+	const communeOf = asyncDerived(
+	([selectCategories, fullFilteredEffectors, selectFacility, currentOrg, limitCategories]),
+	async ([$selectCategories, $fullFilteredEffectors, $selectFacility, $currentOrg, $limitCategories]) => {
+		return communeOfF($selectCategories, $fullFilteredEffectors, $selectFacility, $currentOrg, $limitCategories)
+	}
+    );
+
+	const facilityOf = asyncDerived(
+	([selectCategories, fullFilteredEffectors, selectCommunes, currentOrg, limitCategories, getFacilities]),
+	async ([$selectCategories, $fullFilteredEffectors, $selectCommunes, $currentOrg, $limitCategories, $getFacilities]) => {
+		return facilityOfF($selectCategories, $fullFilteredEffectors, $selectCommunes, $currentOrg, $limitCategories, $getFacilities)
+	}
+)
 
 	$: {
-		$currentOrg=propCurrentOrg;
-	    $directoryRedirect=setRedirect;
-	    $limitCategories=setLimitCategories;
+		$currentOrg = propCurrentOrg;
+		$directoryRedirect = setRedirect;
+		$limitCategories = propLimitCategories;
 	}
 
 	let top: Element;
 	let countString = '';
 	let showOnPx = 500;
-	function contactCount(_categorizedFilteredEffectors: Map<string,any>) {
+	function contactCount(_categorizedFilteredEffectors: Map<string, any>) {
 		let count = 0;
 		if (_categorizedFilteredEffectors) {
 			count = [..._categorizedFilteredEffectors.values()].flat().length;
 		}
 		return `${count} contact${count > 1 ? 's' : ''}`;
 	}
-	$: countString = contactCount($categorizedFilteredEffectors);
+	$: countString = contactCount($cardinalCategorizedFilteredEffectors);
 	const scrollToTop = () => {
 		top.scrollIntoView();
 	};
@@ -103,7 +224,7 @@
 				{#if displayCommune}
 					<div class="row">
 						<div class="col">
-							<SelectCommunes />
+							<SelectCommunes {communeOf} />
 						</div>
 					</div>
 				{/if}
@@ -117,7 +238,7 @@
 					{:else}
 						<div class="row">
 							<div class="col">
-								<SelectCategories />
+								<SelectCategories {categoryOf} />
 							</div>
 						</div>
 					{/if}
@@ -125,7 +246,7 @@
 				{#if displayFacility}
 					<div class="row">
 						<div class="col">
-							<SelectFacility />
+							<SelectFacility {facilityOf} />
 						</div>
 					</div>
 				{/if}
@@ -220,7 +341,7 @@
 		scroll-margin-top: 1rem;
 	}
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-8;
+		@apply mx-auto w-full max-w-7xl p-4 py-4 md:py-8;
 		scroll-padding-top: 4rem;
 	}
 	.programs-gradient {

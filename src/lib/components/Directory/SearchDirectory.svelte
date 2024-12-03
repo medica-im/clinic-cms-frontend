@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { getTerm } from '$lib/components/Directory/context';
-	import { onMount } from 'svelte';
-	import { get } from '@square/svelte-store';
-    //import { term } from '$lib/store/directoryStore'  
     import {
 		faMagnifyingGlass,
 	} from '@fortawesome/free-solid-svg-icons';

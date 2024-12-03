@@ -70,7 +70,7 @@
 		}
 		return `${count} contact${count > 1 ? 's' : ''}`;
 	}
-	$: countString = contactCount($categorizedFilteredEffectors);
+	$: countString = contactCount($cardinalCategorizedFilteredEffectors);
 	const scrollToTop = () => {
 		top.scrollIntoView();
 	};

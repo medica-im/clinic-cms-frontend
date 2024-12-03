@@ -1,15 +1,22 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { communes, selectCommunes, selectCommunesValue, communeOf } from '$lib/store/directoryStore';
+	import { communes } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
+	import { getSelectCommunes, getSelectCommunesValue } from './context';
+
+	export let communeOf;
+	
 	const label = 'label';
 	const itemId = 'value';
-	//let value = null;
+	
+    let selectCommunes = getSelectCommunes();
+	let selectCommunesValue = getSelectCommunesValue();
 
-	onMount(() => {
-		selectCommunesValue.set(getValue());
+	onMount(async () => {
+		let _communes = await communes();
+		selectCommunesValue.set(getValue(_communes));
 	});
 
     function getItems(communes) {
@@ -19,14 +26,13 @@
 		})
 	}
 
-	function getValue() {
+	function getValue(communes) {
 		let sCommunes = get(selectCommunes);
 		if (!sCommunes?.length) {
 			return null;
 		} else {
-			let c = get(communes);
-			if (c) {
-				let val = c
+			if (communes) {
+				let val = communes
 					.filter((x) => sCommunes.includes(x.uid))
 					.map(function (x) {
 						let dct = { value: x.uid, label: x.name };

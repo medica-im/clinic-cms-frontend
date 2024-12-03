@@ -1,7 +1,7 @@
 import { getContext, setContext } from 'svelte';
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import type { Writable } from '@square/svelte-store';
-import type { LimitCategoriesStore, AddressFeature, CurrentOrgStore } from '$lib/store/directoryStoreInterface';
+import type { LimitCategoriesStore, AddressFeature, CurrentOrgStore, CommunesValueStore, Type } from '$lib/store/directoryStoreInterface';
 
 export function setTerm() {
 	let term = writable<string>("");
@@ -26,7 +26,7 @@ export function setLimitCategories() {
 }
 
 export function getLimitCategories() {
-    return getContext('limitCategories');
+    return getContext<Writable<string[]>>('limitCategories');
 }
 
 export function setSelectCommunes() {
@@ -35,7 +35,7 @@ export function setSelectCommunes() {
 }
 
 export function getSelectCommunes() {
-    return getContext('selectCommunes');
+    return getContext<Writable<string[]>>('selectCommunes');
 }
 
 export function setSelectCommunesValue() {
@@ -44,16 +44,16 @@ export function setSelectCommunesValue() {
 }
 
 export function getSelectCommunesValue() {
-    return getContext('selectCommunesValue');
+    return getContext<CommunesValueStore>('selectCommunesValue');
 }
 
 export function setSelCatVal() {
-    let selCatVal = writable(null);
+    let selCatVal: Writable<string|null> = writable(null);
     setContext('selCatVal', selCatVal);
 }
 
 export function getSelCatVal() {
-    return getContext('selCatVal');
+    return getContext<Writable<string|null>>('selCatVal');
 }
 
 export function setSelectSituation() {
@@ -62,7 +62,7 @@ export function setSelectSituation() {
 }
 
 export function getSelectSituation() {
-    return getContext('selectSituation');
+    return getContext<Writable<string>>('selectSituation');
 }
 
 export function setSelectSituationValue() {
@@ -80,7 +80,7 @@ export function setAddressFeature() {
 }
 
 export function getAddressFeature() {
-    return getContext('addressFeature');
+    return getContext<Writable<AddressFeature>>('addressFeature');
 }
 
 export function setInputAddress() {
@@ -98,7 +98,7 @@ export function setSelectFacility() {
 }
 
 export function getSelectFacility() {
-    return getContext('selectFacility');
+    return getContext<Writable<string>>('selectFacility');
 }
 
 export function setSelectFacilityValue() {
@@ -107,7 +107,7 @@ export function setSelectFacilityValue() {
 }
 
 export function getSelectFacilityValue() {
-    return getContext('selectFacilityValue');
+    return getContext<Writable<string | null>>('selectFacilityValue');
 }
 
 export function setCurrentOrg() {

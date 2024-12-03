@@ -1,14 +1,21 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { categories, selectCategories, selCatVal, categoryOf, directoryRedirect } from '$lib/store/directoryStore';
+	import { categories } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { getSelectCategories, getSelCatVal, getDirectoryRedirect } from '$lib/components/Directory/context';
+
+	export let categoryOf;
 
 	const label = 'label';
 	const itemId = 'value';
+
+	let selectCategories = getSelectCategories();
+	let selCatVal = getSelCatVal();
+	let directoryRedirect = getDirectoryRedirect();
 
 	onMount(() => {
 		if ($selectCategories) {
@@ -69,7 +76,7 @@
 	}
 </script>
 
-{#await categoryOf.load()}
+{#await $categoryOf.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
 	</div>
