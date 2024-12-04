@@ -726,7 +726,6 @@ const categorizedEffectors = asyncDerived(
 			return a[0].localeCompare(b[0]);
 		});
 		const effectorsMap = new Map(sortedEffectorsObj);
-		console.table(effectorsMap);
 		return effectorsMap as CategorizedEntries;
 	}
 );

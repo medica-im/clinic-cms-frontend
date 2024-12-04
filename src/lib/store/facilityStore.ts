@@ -8,6 +8,7 @@ import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
 import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
 import { shuffle } from '$lib/helpers/random';
+import type { Writable, AsyncWritable} from '@square/svelte-store';
 
 
 export const getFacilities = asyncReadable(
@@ -32,12 +33,13 @@ export const getFacilities = asyncReadable(
 		}
 	}
 	if (cachedData && !expired && !empty) {
-		return cachedData.data as Facility[];
+		const facilities = cachedData.data;
+		return facilities;
 	} else {
 		const url = `${variables.BASE_API_URI}/facilities`;
 		const [response, err] = await handleRequestsWithPermissions(fetch, url);
 		if (response) {
-			let data: Facility[] = response?.facilities;
+			let data = response?.facilities;
 			data = data.sort(function (a, b) {
 				return a.name.localeCompare(b.name);
 			})
@@ -45,10 +47,10 @@ export const getFacilities = asyncReadable(
 				var json = { data: data, cachetime: Date.now() / 1000 }
 				localStorage.setItem(`${cacheName}`, JSON.stringify(json));
 			}
-			//console.log(data);
-			return data as Facility[];
+			return data;
 		} else if (err) {
 			console.error(err);
+			throw(err)
 		}
 	}
 });
