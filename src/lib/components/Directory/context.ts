@@ -53,7 +53,7 @@ export function setSelCatVal() {
 }
 
 export function getSelCatVal() {
-    return getContext<Writable<string|null>>('selCatVal');
+    return getContext<Writable<{label: string, value: string}|null>>('selCatVal');
 }
 
 export function setSelectSituation() {
@@ -71,7 +71,7 @@ export function setSelectSituationValue() {
 }
 
 export function getSelectSituationValue() {
-    return getContext('selectSituationValue');
+    return getContext<Writable<string|null>>('selectSituationValue');
 }
 
 export function setAddressFeature() {
@@ -89,7 +89,7 @@ export function setInputAddress() {
 }
 
 export function getInputAddress() {
-    return getContext('inputAddress');
+    return getContext<Writable<string>>('inputAddress');
 }
 
 export function setSelectFacility() {
@@ -107,7 +107,7 @@ export function setSelectFacilityValue() {
 }
 
 export function getSelectFacilityValue() {
-    return getContext<Writable<string | null>>('selectFacilityValue');
+    return getContext<Writable<{label: string, value: string}|null>>('selectFacilityValue');
 }
 
 export function setCurrentOrg() {

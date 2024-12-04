@@ -3,22 +3,32 @@
 	import { FacilityLink } from 'clinic-cms';
 	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
     import { page } from '$app/stores';
+	import { getSelectFacility, getSelectCategories, getTerm, getSelectCommunes } from "./context";
 	import type { Entry } from '$lib/store/directoryStoreInterface';
 	export let effector: any;
 	export let avatar: boolean;
 
-	function entryPageUrl(entry: Entry, pathname: string) {
+	let selectFacility = getSelectFacility();
+	let selectCategories = getSelectCategories();
+	let selectCommunes = getSelectCommunes();
+	let term = getTerm();
+
+	function entryPageUrl(entry: Entry, pathname: string, facility: string, types: string[], term: string, communes: string[]) {
 		let typeSlug = entry.types[0].slug;
 		let facilitySlug = entry.facility.slug;
 		let nameSlug = entry.slug;
+		let facilityParam = facility ? `&facility=${encodeURIComponent(facility)}` : "";
+		let typesParam = types.length ? `&types=${encodeURIComponent(JSON.stringify(types))}` : "";
+		let termParam = term ? `&term=${encodeURIComponent(term)}` : "";
+		let communesParam = communes.length ? `&communes=${encodeURIComponent(JSON.stringify(communes))}` : "";
 		if (!facilitySlug || !typeSlug || !nameSlug) {
 			return;
 		} else {
-			return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}`;
+			return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}${facilityParam}${typesParam}${termParam}${communesParam}`;
 		}
 	}
 </script>
-<a class="unstyled" href={entryPageUrl(effector, $page.url.pathname)}>
+<a class="unstyled" href={entryPageUrl(effector, $page.url.pathname, $selectFacility, $selectCategories, $term, $selectCommunes)}>
 
 <div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
 {#if avatar==true}

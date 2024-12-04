@@ -14,7 +14,7 @@ import type { Contact, Entry, Facility, CurrentOrg, CurrentOrgStore, LimitCatego
 export const term: Writable<string> = writable("");
 export const selectCommunes: Writable<string[]> = writable([]);
 export const selectCommunesValue = writable(null);
-export const selCatVal = writable(null);
+export const selCatVal: Writable<{label:string,value:string}|null> = writable(null);
 export const selectCategories: Writable<string[]> = writable([]);
 export const limitCategories: LimitCategoriesStore = writable([]);
 export const selectSituation: Writable<string> = writable("");
@@ -22,7 +22,7 @@ export const selectSituationValue: Writable<string | null> = writable(null);
 export const addressFeature: Writable<AddressFeature> = writable({});
 export const inputAddress = writable("");
 export const selectFacility = writable("");
-export const selectFacilityValue: Writable<string | null> = writable(null);
+export const selectFacilityValue: Writable<string|null> = writable(null);
 export const currentOrg: CurrentOrgStore = writable(true);
 export const directoryRedirect = writable(true);
 

@@ -138,4 +138,4 @@ interface CommuneValue {
 
 export type CommunesValue = CommuneValue[];
 
-export type CommunesValueStore = Writable<CommunesValue>;
+export type CommunesValueStore = Writable<CommunesValue|null>;

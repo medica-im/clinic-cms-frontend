@@ -17,7 +17,7 @@ const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
 };
 
 const uidOfSlug = (slug: string, effectorTypes: any[]) => {
-    const effectorType = effectorTypes.find((element) => element.slug = slug);
+    const effectorType = effectorTypes.find((element) => element.slug == slug);
     return effectorType.uid;
 };
 
@@ -25,11 +25,11 @@ export const load: PageLoad = async ({ params }) => {
     directoryRedirect.set(true);
     currentOrg.set(true);
     const slug = params.slug;
-    limitCategories.set([slug]);
+    //limitCategories.set([slug]);
     const effectorTypes = await categories();
     const uid = uidOfSlug(slug, effectorTypes);
     selectCategories.set([uid]);
-    const value = getValue(slug, effectorTypes)
+    const value = getValue(slug, effectorTypes);
     selCatVal.set(value);
     return {
         cardinal: await cardinalCategorizedFilteredEffectors.load()

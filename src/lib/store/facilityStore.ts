@@ -32,7 +32,7 @@ export const getFacilities = asyncReadable(
 		}
 	}
 	if (cachedData && !expired && !empty) {
-		return cachedData.data;
+		return cachedData.data as Facility[];
 	} else {
 		const url = `${variables.BASE_API_URI}/facilities`;
 		const [response, err] = await handleRequestsWithPermissions(fetch, url);
@@ -46,7 +46,7 @@ export const getFacilities = asyncReadable(
 				localStorage.setItem(`${cacheName}`, JSON.stringify(json));
 			}
 			//console.log(data);
-			return data;
+			return data as Facility[];
 		} else if (err) {
 			console.error(err);
 		}

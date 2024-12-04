@@ -28,7 +28,16 @@
 		setDirectoryRedirect,
 		getDirectoryRedirect,
 		setAddressFeature,
-		getAddressFeature
+		getAddressFeature,
+
+		setSelCatVal,
+
+		setSelectSituationValue,
+
+		setInputAddress
+
+
+
 	} from './context';
 	import { variables } from '$lib/utils/constants.ts';
 	import { facilityStore, getFacilities } from '$lib/store/facilityStore.ts';
@@ -83,9 +92,12 @@
 	setSelectCommunes();
 	setSelectCommunesValue();
 	setSelectSituation();
+	setSelectSituationValue();
 	setAddressFeature();
 	setSelectFacility();
 	setSelectFacilityValue();
+	setSelCatVal();
+	setInputAddress();
 
 	let term = getTerm();
 	let selectCategories = getSelectCategories();

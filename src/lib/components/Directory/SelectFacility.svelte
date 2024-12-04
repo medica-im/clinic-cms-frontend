@@ -1,12 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { Facility } from '$lib/store/directoryStoreInterface.ts';
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { getFacilities } from '$lib/store/facilityStore';
-	import {
-		getSelectFacility,
-		getSelectFacilityValue,
-	} from './context.ts';
+	import { getSelectFacility, getSelectFacilityValue } from './context.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { get } from '@square/svelte-store';
 
@@ -18,10 +16,26 @@
 	const label = 'label';
 	const itemId = 'value';
 
-	onMount(() => {
-		const facility = get(selectFacility);
-		selectFacilityValue.set(facility);
+	let facilityParam: string | null = null;
+
+	onMount(async () => {
+		facilityParam = $page.url.searchParams.get('facility');
+		if (facilityParam) {
+			selectFacility.set(facilityParam);
+			const facilities = await getFacilities.load();
+			if (facilities) {
+			const value=getValue(facilityParam,facilities);
+			selectFacilityValue.set(value);
+			}
+		}
 	});
+
+	function getValue(facilityUid: string, facilities: Facility[]) {
+		if (facilities != undefined) {
+		const label = facilities.find(e=>e.uid==facilityUid)?.name;
+		return {label: label, value: facilityUid}
+		}
+	}
 
 	function getItems(_facilitiesOf: string[], facilities: Facility[]) {
 		return facilities
@@ -54,10 +68,10 @@
 	</div>
 {:then}
 <!--
-selectFacility: {$selectFacility}<br>
-selectFacilityValue: {JSON.stringify($selectFacilityValue)}<br>
-facilities: {$getFacilities} ({$getFacilities.length})<br>
-facilityOf: {$facilityOf} ({$facilityOf.length})
+	selectFacility: {$selectFacility}<br />
+	selectFacilityValue: {JSON.stringify($selectFacilityValue)}<br />
+	facilities: {$getFacilities} ({$getFacilities.length})<br />
+	facilityOf: {$facilityOf} ({$facilityOf.length})
 -->
 	<div class="text-surface-700 theme">
 		<Select

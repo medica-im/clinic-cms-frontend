@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { communes } from '$lib/store/directoryStore';
@@ -7,39 +8,42 @@
 	import { getSelectCommunes, getSelectCommunesValue } from './context';
 
 	export let communeOf;
-	
+
 	const label = 'label';
 	const itemId = 'value';
-	
-    let selectCommunes = getSelectCommunes();
+
+	let communesParam: string | null = null;
+
+	let selectCommunes = getSelectCommunes();
 	let selectCommunesValue = getSelectCommunesValue();
 
 	onMount(async () => {
-		let _communes = await communes();
-		selectCommunesValue.set(getValue(_communes));
+		communesParam = $page.url.searchParams.get('communes');
+		if (!communesParam) return;
+		const communeUids: string[] = JSON.parse(communesParam);
+		selectCommunes.set(communeUids);
+		let allCommunes = await communes();
+		console.log(JSON.stringify(allCommunes));
+		const communesVal = getValue(communeUids, allCommunes);
+		if (communesVal) selectCommunesValue.set(communesVal);
 	});
 
-    function getItems(communes) {
-        return communes.map(function (x) {
+	function getItems(communes) {
+		return communes.map(function (x) {
 			let dct = { value: x.uid, label: x.name };
 			return dct;
-		})
+		});
 	}
 
-	function getValue(communes) {
-		let sCommunes = get(selectCommunes);
-		if (!sCommunes?.length) {
-			return null;
-		} else {
-			if (communes) {
-				let val = communes
-					.filter((x) => sCommunes.includes(x.uid))
-					.map(function (x) {
-						let dct = { value: x.uid, label: x.name };
-						return dct;
-					})[0];
-				return val;
-			}
+	function getValue(communeUids, allCommunes) {
+		if (allCommunes) {
+			let val = allCommunes
+				.filter((x) => communeUids.includes(x.uid))
+				.map(function (x) {
+					let dct = { value: x.uid, label: x.name };
+					return dct;
+				})[0];
+			return val;
 		}
 	}
 
@@ -63,7 +67,7 @@
 {:then}
 <!--
 selectCommunes: {$selectCommunes}<br>
-communes: {$communes} ({$communes.length})<br>
+selectCommunesValue: {$selectCommunesValue}<br>
 communeOf: {$communeOf} ({$communeOf.length})
 -->
 	<div class="text-surface-700 theme">

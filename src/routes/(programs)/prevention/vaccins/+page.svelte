@@ -7,7 +7,7 @@
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
 	import vaccines2024v from '$lib/assets/images/vaccines/vaccination_schedule_2024_vertical.png';
-	import Directory from '$components/Directory/Directory.svelte';
+	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	export let data;
 	const mobileWidth: number = 1440;
 
@@ -61,11 +61,11 @@
 		<h2 class="h2">Centres de vaccination</h2>
 			<Directory
 				{data}
-				setCurrentOrg={null}
+				propCurrentOrg={null}
 				displayCommune={true}
 				displayCategory={false}
 				setRedirect={false}
-				setLimitCategories={['centre-vaccination-internationale']}
+				propLimitCategories={['centre-vaccination-internationale']}
 				avatar={false}
 			/>
 	</div>

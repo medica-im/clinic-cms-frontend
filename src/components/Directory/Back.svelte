@@ -1,6 +1,6 @@
 <script lang="ts">
 	import isEmpty from 'lodash.isempty';
-    import { page } from '$app/stores';
+	import { page } from '$app/stores';
 	import { beforeUpdate } from 'svelte';
 	import LL from '$i18n/i18n-svelte';
 	import { language } from '$lib/store/languageStore';
@@ -13,26 +13,28 @@
 		selectCategories,
 		selectSituation,
 		addressFeature,
-		selectFacility,
+		selectFacility
 	} from '$lib/store/directoryStore';
 
-	let origin: string|null = null;
-  beforeUpdate(() => {
-    origin =  $page.url.searchParams.get('origin');
-  });
+	let origin: string | null = null;
+
+	beforeUpdate(() => {
+		origin = $page.url.searchParams.get('origin');
+	});
 </script>
+
 {#if origin}
-<a href={origin} class="btn variant-filled">
-	{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || !isEmpty($addressFeature)}
-		<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
-		<span class="whitespace-normal text-left">
-			{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}
-		</span>
-	{:else}
-		<span class="badge variant-filled-primary"> <Fa icon={faArrowRight} /></span>
-		<span class="whitespace-normal text-left">
-			{capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK())}
-		</span>
-	{/if}
-</a>
+	<a href={origin} class="btn variant-filled">
+		{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || !isEmpty($addressFeature)}
+			<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
+			<span class="whitespace-normal text-left">
+				{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}
+			</span>
+		{:else}
+			<span class="badge variant-filled-primary"> <Fa icon={faArrowRight} /></span>
+			<span class="whitespace-normal text-left">
+				{capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK())}
+			</span>
+		{/if}
+	</a>
 {/if}

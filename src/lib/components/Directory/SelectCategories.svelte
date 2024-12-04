@@ -1,12 +1,17 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
-	import { categories } from '$lib/store/directoryStore';
+	import { categories, selectFacilityValue } from '$lib/store/directoryStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { getSelectCategories, getSelCatVal, getDirectoryRedirect } from '$lib/components/Directory/context';
+	import {
+		getSelectCategories,
+		getSelCatVal,
+		getDirectoryRedirect
+	} from '$lib/components/Directory/context';
+	import type { Type } from '$lib/store/directoryStoreInterface';
 
 	export let categoryOf;
 
@@ -17,15 +22,17 @@
 	let selCatVal = getSelCatVal();
 	let directoryRedirect = getDirectoryRedirect();
 
-	onMount(() => {
-		if ($selectCategories) {
-			$selCatVal = getValue($selectCategories);
+	onMount(async () => {
+		const typesParam: string | null = $page.url.searchParams.get('types');
+		if (!typesParam) return;
+		const types: string[] = JSON.parse(typesParam);
+		selectCategories.set(types);
+		const _categories = await categories();
+		const typesVal = getValue(types, _categories);
+		if (typesVal) {
+			selCatVal.set(typesVal);
 		}
 	});
-
-	$: if ($selCatVal === undefined) {
-		$selCatVal = getValue($selectCategories);
-	}
 
 	function getItems(elements) {
 		return elements
@@ -38,25 +45,19 @@
 			});
 	}
 
-	function getValue(selectCategories: string[]) {
-		let sElements = selectCategories || get(selectCategories);
-		if (!sElements?.length) {
-			return null;
-		} else {
-			let c = get(categories);
-			if (c) {
-				let val = c
-					.filter((x) => sElements.includes(x.uid))
-					.map(function (x) {
-						let dct = { value: x.uid, label: x.name };
-						return dct;
-					})[0];
-				return val;
-			}
+	function getValue(selectCategories: string[], categories: Type[]) {
+		if (categories) {
+			let val = categories
+				.filter((x) => selectCategories.includes(x.uid))
+				.map(function (x) {
+					let dct = { value: x.uid, label: x.name };
+					return dct;
+				})[0];
+			return val;
 		}
 	}
 
-	function handleClear(event) {
+	function handleClear(event: CustomEvent) {
 		if (event.detail) {
 			selectCategories.set([]);
 		}
@@ -66,7 +67,7 @@
 		}
 	}
 
-	function handleChange(event) {
+	function handleChange(event: CustomEvent) {
 		if (event.detail && event.detail.value) {
 			selectCategories.set([event.detail.value]);
 			if ($page.url.pathname != '/annuaire' && $directoryRedirect) {
@@ -76,16 +77,14 @@
 	}
 </script>
 
-{#await $categoryOf.load()}
+{#await categoryOf.load()}
 	<div class="text-surface-700 theme">
 		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
 	</div>
 {:then}
-	<!--
-categories: {$categories} ({$categories.length})<br>
-categoryOf: {$categoryOf} ({$categoryOf.length})
-$selCatVal: {$selCatVal}<br>
-$selectCategories: {JSON.stringify($selectCategories)}
+<!--
+	categoryOf: {$categoryOf} ({$categoryOf.length}) $selCatVal: {JSON.stringify($selCatVal)}<br />
+	$selectCategories: {JSON.stringify($selectCategories)}
 -->
 	<div class="text-surface-700 z-auto theme">
 		<Select

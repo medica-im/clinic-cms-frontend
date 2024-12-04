@@ -24,7 +24,7 @@
 	import { FacilityLink } from 'clinic-cms';
 	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import AvatarList from '$lib/components/Effector/Avatar/Avatar.svelte';
-	import Back from '$components/Directory/Back.svelte';
+	import Back from '$lib/components/Directory/Back.svelte';
 	import { copy } from 'svelte-copy';
 	import type { User } from '$lib/interfaces/user.interface.ts';
 
