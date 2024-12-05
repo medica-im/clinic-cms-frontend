@@ -8,62 +8,62 @@ import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
 import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
 import { shuffle } from '$lib/helpers/random';
-import type { Writable, AsyncWritable} from '@square/svelte-store';
+import type { Writable, AsyncWritable, Loadable } from '@square/svelte-store';
 
 
 export const getFacilities = asyncReadable(
 	{},
 	async () => {
-	var cachelife = parseInt(PUBLIC_FACILITIES_TTL);
-	const cacheName = "facilities";
-	let cachedData;
-	let expired: boolean = true;
-	let empty: boolean = true;
-	if (browser) {
-		cachedData = localStorage.getItem(`${cacheName}`);
-	}
-	if (cachedData) {
-		cachedData = JSON.parse(cachedData);
-		let elapsed = (Date.now() / 1000) - cachedData.cachetime;
-		expired = elapsed > cachelife;
-		if ('data' in cachedData) {
-			if (cachedData.data?.length) {
-				empty = false;
+		var cachelife = parseInt(PUBLIC_FACILITIES_TTL);
+		const cacheName = "facilities";
+		let cachedData;
+		let expired: boolean = true;
+		let empty: boolean = true;
+		if (browser) {
+			cachedData = localStorage.getItem(`${cacheName}`);
+		}
+		if (cachedData) {
+			cachedData = JSON.parse(cachedData);
+			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			expired = elapsed > cachelife;
+			if ('data' in cachedData) {
+				if (cachedData.data?.length) {
+					empty = false;
+				}
 			}
 		}
-	}
-	if (cachedData && !expired && !empty) {
-		const facilities = cachedData.data;
-		return facilities;
-	} else {
-		const url = `${variables.BASE_API_URI}/facilities`;
-		const [response, err] = await handleRequestsWithPermissions(fetch, url);
-		if (response) {
-			let data = response?.facilities;
-			data = data.sort(function (a, b) {
-				return a.name.localeCompare(b.name);
-			})
-			if (browser) {
-				var json = { data: data, cachetime: Date.now() / 1000 }
-				localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+		if (cachedData && !expired && !empty) {
+			const facilities = cachedData.data;
+			return facilities;
+		} else {
+			const url = `${variables.BASE_API_URI}/facilities`;
+			const [response, err] = await handleRequestsWithPermissions(fetch, url);
+			if (response) {
+				let data = response?.facilities;
+				data = data.sort(function (a, b) {
+					return a.name.localeCompare(b.name);
+				})
+				if (browser) {
+					var json = { data: data, cachetime: Date.now() / 1000 }
+					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
+				}
+				return data;
+			} else if (err) {
+				console.error(err);
+				throw (err)
 			}
-			return data;
-		} else if (err) {
-			console.error(err);
-			throw(err)
 		}
-	}
-});
+	});
 
 export const facilitiesWithAvatar = asyncDerived(
 	(getFacilities),
 	($getFacilities) => {
-	let carousel = $getFacilities.filter(function (item: any) {
-		return item?.avatar?.raw
+		let carousel = $getFacilities.filter(function (item: any) {
+			return item?.avatar?.raw
+		});
+		shuffle(carousel);
+		return carousel
 	});
-	shuffle(carousel);
-	return carousel
-});
 
 export const facilityStore = asyncDerived(
 	(locale),
@@ -224,16 +224,12 @@ export const occupationOfFacilityStore = asyncDerived(
 );
 
 export const siteCount = asyncDerived(
-	(facilityStore),
-	async ($facilityStore) => {
-		const facilities: Facility[] = await getFacilities();
-		try {
-			return facilities.filter((facility) =>
-				facility.organizations.includes($facilityStore.uid)
-			).length;
-		} catch (err) {
-			console.error(err);
-		}
+	([facilityStore, getFacilities]),
+	async ([$facilityStore, $getFacilities]) => {
+		const facilities: Facility[] = $getFacilities;
+		return facilities.filter((facility) =>
+			facility.organizations.includes($facilityStore.uid)
+		).length;
 	}
 );
 
