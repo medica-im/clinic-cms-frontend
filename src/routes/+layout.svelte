@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { autoModeWatcher } from '@skeletonlabs/skeleton';
 	import { initializeStores } from '@skeletonlabs/skeleton';
     import { facilityStore } from '$lib/store/facilityStore';
     import '../app.postcss';
@@ -132,6 +133,7 @@
 </script>
 
 <svelte:head>
+	{@html '<script>(' + autoModeWatcher.toString() + ')();</script>'}
 	<link rel="icon" href="{favIcon}">
 	<link rel="mask-icon" href="{maskIcon}" color="#000000">
 	<link rel="apple-touch-icon" href="{appleTouchIcon}">

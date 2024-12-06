@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte.ts';
+	import { modeCurrent } from '@skeletonlabs/skeleton';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
@@ -13,7 +14,8 @@
 	import PhoneReceptionSchedule from '$lib/Schedule/PhoneReceptionSchedule.svelte';
 	import MobileSchedule from '$lib/Schedule/MobileSchedule.svelte';
 	import secretariat from '$lib/assets/images/parcours/secretariat.png';
-	import sms from '$lib/assets/images/parcours/sms.png';
+	import smsLight from '$lib/assets/images/parcours/sms_light.png';
+	import smsDark from '$lib/assets/images/parcours/sms_dark.png';
 
 	const formatter = new Intl.DateTimeFormat('fr', {
 		dateStyle: 'full',
@@ -76,14 +78,14 @@
 		<p>Je n'ai pas rendez-vous. Je suis malade.</p>
 		<div class="py-2 xl:px-6 xl:float-left max-w-96">
 			<img
-				src={sms}
+				src={$modeCurrent ? smsLight : smsDark}
 				alt="Un patient ayant rendez-vous avec un médecin annonce son arrivée à la secrétaire."
 			/>
 	</div>
 		<div class="flex flex-wrap">
 		<div class="p-2">Comment organiser une consultation pour des soins non programmés aujourd'hui le {formatter.format($dateTime)}?</div>
-		<div class="p-2"><PhoneReceptionSchedule data={data.organization}/></div>
-		<div class="p-2"><MobileSchedule data={data.organization}/></div>
+		<div class="p-2 grow"><PhoneReceptionSchedule data={data.organization}/></div>
+		<div class="p-2 grow"><MobileSchedule data={data.organization}/></div>
 	</div>
 	</div>
 </section>
@@ -93,7 +95,7 @@
 		<h2 class="h2">Informations utiles</h2>
 		<p>Le secrétariat est ouvert du lundi au vendredi de 8h00 à 12h00 et de 
 			14h00 à 16h00. Vous pouvez nous joindre dans ces créneaux horaires au <a class="anchor" rel="external" href="tel:0490223637">0490223637</a>.</p>
-			<p>En cas d'urgence en dehors de ces horaires, merci de contacter le <a class="anchor" rel="external" href="tel:15">15</a>.</p> 
+			<p>En cas d'urgence, en dehors de ces horaires, merci de contacter le <a class="anchor" rel="external" href="tel:15">15</a>.</p> 
 			<p>Vous souhaitez communiquer avec les représentants des usagers? 
 			<a class="anchor" rel="external" href="mailto:usager.msp.gadagne@gmail.com">usager.msp.gadagne@gmail.com</a><p>
 	</div>

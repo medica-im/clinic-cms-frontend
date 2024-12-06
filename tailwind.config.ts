@@ -7,7 +7,7 @@ import typography from '@tailwindcss/typography';
 import forms from '@tailwindcss/forms';
 
 const config = {
-	darkMode: 'class',
+	darkMode: 'media',
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
 		join(require.resolve(
