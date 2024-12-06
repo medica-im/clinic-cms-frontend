@@ -21,7 +21,7 @@
 	export let data;
 </script>
 
-<div class="card overflow-hidden">
+<div class="card h-full">
 	<header class="card-header">
 		<h3 class="h3">SMS</h3>
 	</header>

@@ -10,12 +10,9 @@
 	import OutpatientClinicLogo from '$components/Logos/OutpatientClinicLogo.svelte';
 	import { programsNavLinks } from '../../lib/links';
 	import { resetDirectory } from '$components/Directory/utils';
-
-	const cBase =
-		'bg-surface-50 dark:bg-surface-900 border-t border-surface-500/10 text-xs md:text-base';
 </script>
 
-<footer class="page-footer {cBase}">
+<footer class="page-footer text-xs md:text-base">
 	<div class="w-full max-w-7xl mx-auto p-4 py-16 md:py-24 space-y-10">
 		<!-- Row 1 -->
 		<div class="md:flex md:justify-between">

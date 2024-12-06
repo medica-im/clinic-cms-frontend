@@ -5,6 +5,7 @@
 	import Fa from 'svelte-fa';
 	import {
 		faSync,
+    faHeadset,
 		faMobileScreen,
 		faPhone,
 		faFax,
@@ -19,7 +20,7 @@
 	export let data;
 </script>
 
-<div class="card overflow-hidden">
+<div class="card h-full">
 	<header class="card-header">
 		<h3 class="h3">Accueil téléphonique</h3>
 	</header>
@@ -42,7 +43,7 @@
 	</div>
 	<hr class="opacity-50" />
 	<footer class="p-4 flex justify-start items-center space-x-4">
-		<Avatar src={secretary} width="w-8" />
+		<Fa icon={faHeadset} />
 		<div class="flex-auto flex justify-between items-center">
 			<h6 class="font-bold" data-toc-ignore>Secrétariat</h6>
 			<small>{$dateTime.toLocaleString("fr-FR")}</small>
