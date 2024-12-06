@@ -4,6 +4,7 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import {
+		faSync,
 		faMobileScreen,
 		faPhone,
 		faSms,
@@ -15,6 +16,7 @@
 	import { isServiceAvailable } from '$lib/Schedule/available.ts';
 	import { publicHolidays } from '$lib/store/publicHolidaysStore.ts';
 	import { loadAll } from '@square/svelte-store';
+	import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
 
 	export let data;
 </script>
@@ -25,25 +27,27 @@
 	</header>
 	<div class="p-4 space-y-4">
     <a href="sms:0749693238" class="btn variant-filled"><span><Fa icon={faSms} /></span><span>0749693238</span></a>
-		<div class="flex flex-wrap">
-			<div class="whitespace-pre-wrap">La prise de rendez-vous par SMS est&nbsp;</div>
+			<p>
+				La prise de rendez-vous par SMS est&nbsp;
+			<span class="inline-flex items-baseline">
 			{#await loadAll([dateTime, publicHolidays])}
-				<div class="placeholder w-12 animate-pulse self-end" />
+			<Fa icon={faSync} size="3x" spin />
 			{:then}
-				<div>
-					{isServiceAvailable('phoneAppointment', $dateTime, $publicHolidays)
+			<span>
+				{isServiceAvailable('phoneAppointment', $dateTime, $publicHolidays)
 						? 'ouverte'
 						: 'fermée'}
-				</div>
+			</span>
 			{/await}.
-		</div>
+			</span>
+		</p>
 	</div>
 	<hr class="opacity-50" />
 	<footer class="p-4 flex justify-start items-center space-x-4">
 		<Fa icon={faSms} />
 		<div class="flex-auto flex justify-between items-center">
 			<h6 class="font-bold" data-toc-ignore>RDV SMS</h6>
-			<small>{$dateTime.toLocaleString()}</small>
+			<small>{$dateTime.toLocaleString("fr-FR")}</small>
 		</div>
 	</footer>
 </div>

@@ -90,15 +90,21 @@
 
 <section>
 	<div class="section-container">
+		<h2 class="h2">Informations utiles</h2>
+		<p>Le secrétariat est ouvert du lundi au vendredi de 8h00 à 12h00 et de 
+			14h00 à 16h00. Vous pouvez nous joindre dans ces créneaux horaires au <a class="anchor" rel="external" href="tel:0490223637">0490223637</a>.</p>
+			<p>En cas d'urgence en dehors de ces horaires, merci de contacter le <a class="anchor" rel="external" href="tel:15">15</a>.</p> 
+			<p>Vous souhaitez communiquer avec les représentants des usagers? 
+			<a class="anchor" rel="external" href="mailto:usager.msp.gadagne@gmail.com">usager.msp.gadagne@gmail.com</a><p>
 	</div>
 </section>
 
-<section>
+<!--section>
 	<div class="section-container">
 		<h2 class="h2">...</h2>
         <p>...</p>
 </div>
-</section>
+</section-->
 
 <section>
 	<div class="section-container">

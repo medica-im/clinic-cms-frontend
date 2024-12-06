@@ -209,12 +209,6 @@
 
 <svelte:window bind:scrollY={$scrollY} />
 
-<svelte:head>
-	<title>
-		{$LL.ADDRESSBOOK.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
-	</title>
-</svelte:head>
-
 <div>
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>

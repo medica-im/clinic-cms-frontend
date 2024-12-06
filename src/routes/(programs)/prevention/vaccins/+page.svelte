@@ -7,7 +7,37 @@
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
 	import vaccines2024v from '$lib/assets/images/vaccines/vaccination_schedule_2024_vertical.png';
+	import vaccinsATousLesAges2024 from '$lib/assets/pdf/vaccines/vaccins_a_tous_les_ages_2024.pdf';
+	import calendrierSimplifieVaccinations2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
 	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
+	import { Fa, FaLayers } from 'svelte-fa';
+	import { faCalendarCheck }from '@fortawesome/free-regular-svg-icons';
+	import {
+		faImage,
+		faFilePdf,
+		faHouse,
+		faTimes,
+		faTimeline,
+		faBookMedical,
+		faHouseMedical,
+		faUserNurse,
+		faPrescriptionBottleMedical,
+		faMapLocationDot,
+		faAddressBook,
+		faEnvelope,
+		faBlog,
+		faUserPlus,
+		faUser,
+		faCircleNodes,
+		faMapPin,
+		faNetworkWired,
+		faHandshake,
+		faPeopleGroup,
+		faArrowRight,
+
+		faDownload
+
+	} from '@fortawesome/free-solid-svg-icons';
 	export let data;
 	const mobileWidth: number = 1440;
 
@@ -46,13 +76,68 @@
 
 <section>
 	<div class="section-container">
-		<h2 class="h2">Calendrier vaccinal 2024</h2>
-
+		<h2 class="h2">Les vaccins à tous les âges</h2>
+		<p>Calendrier 2024</p>
 		{#if innerWidth <= mobileWidth}
 			<img src={vaccines2024v} alt="calendrier vaccinal 2024" />
+			<a href={vaccines2024v} class="btn variant-filled" download="calendrier_vaccinal_2024">
+				<span><Fa icon={faDownload}/></span>
+				<span>Télécharger</span>
+				<span><Fa icon={faImage}/></span>
+			</a>
 		{:else}
 			<img src={vaccines2024h} alt="calendrier vaccinal 2024" />
+			<a href={vaccines2024h} class="btn variant-filled" download="calendrier_vaccinal_2024">
+				<span><Fa icon={faDownload}/></span>
+				<span>Télécharger</span>
+				<span><Fa icon={faImage}/></span></a>
 		{/if}
+		<a href={vaccinsATousLesAges2024} class="btn variant-filled" download="vaccins_a_tous_les_ages_2024">
+			<span><Fa icon={faDownload}/></span>
+			<span>Télécharger</span>
+			<span><Fa icon={faFilePdf}/></span></a>
+		
+	</div>
+</section>
+
+<section>
+	<div class="section-container">
+		<h2 class="h2">Vaccination contre la grippe et le Covid-19</h2>
+        <p>Avec la MSP de Gadagne, trois possibilités.</p>
+		<div class="flex flex-wrap p-2 m-2 content-evenly">
+			<a href="/annuaire/medecin-generaliste" class="card variant-ringed-primary p-4 m-2 space-y-2 justify-items-center grow">
+				<div><Fa icon={faHouseMedical} size={"lg"} /></div>
+				<div class="text-lg">Maison de santé</div>
+				<div class="flex flex-wrap gap-2">
+					<div><Fa icon={faCalendarCheck}/></div>
+				  <div>Sur RDV</div>
+				</div>
+				<div>Médecins</div>
+			</a>
+			
+			<a href="/sites/pharmacie-des-felibres" class="card variant-ringed-primary p-4 m-2 space-y-2 justify-items-center grow">
+				<div><Fa icon={faPrescriptionBottleMedical} size={"lg"} /></div>
+				<div class="text-lg">Pharmacie</div>
+				<div class="flex flex-wrap gap-2">
+					<FaLayers style="background: mistyrose">
+						<Fa icon={faCalendarCheck}/>
+						<Fa icon={faTimes} scale={2}/>
+					  </FaLayers>
+					  Sans RDV
+					
+				</div>
+				<div>Pharmaciennes</div>
+			</a>
+			<a href="/annuaire/infirmiere" class="card variant-ringed-primary p-4 m-2 space-y-2 justify-items-center grow">
+				<div><Fa icon={faHouse} size={"lg"} /></div>
+				<div class="text-lg">À domicile</div>
+				<div class="flex flex-wrap gap-2">
+					<span><Fa icon={faCalendarCheck}/></span>
+				  <span>Sur RDV</span>
+				</div>
+				<div>Infimières</div>
+			</a>
+		</div>
 	</div>
 </section>
 
@@ -68,6 +153,26 @@
 				propLimitCategories={['centre-vaccination-internationale']}
 				avatar={false}
 			/>
+	</div>
+</section>
+
+<section>
+	<div class="section-container">
+		<h2 class="h2">Ressources utiles</h2>
+		<h3 class="h3">Pages web</h3>
+		<div class="pl-5">
+			<ul class="list-disc space-y-4 p-4">
+				<li><a href="https://vaccination-info-service.fr/" rel="external" class="anchor">Vaccination Info Service</a></li>
+				<li><a href="https://www.pasteur.fr/fr/centre-medical/preparer-son-voyage" rel="external" class="anchor">Préparez votre voyage</a> avec l'Institut Pasteur: connaître les vaccinations recommandées et les précautions sanitaires, en particulier pour le paludisme</li>
+			</ul>
+		</div>
+		<h3 class="h3">Calendrier simplifié des vaccinations</h3>
+		<p>Ce document est également disponible au format carte postale à l'accueil de la maison de santé.</p>
+		<iframe
+		src={calendrierSimplifieVaccinations2024}
+		title="Calendrier simplifié des vaccinations 2024"
+		class="w-full aspect-square"
+	/>
 	</div>
 </section>
 
