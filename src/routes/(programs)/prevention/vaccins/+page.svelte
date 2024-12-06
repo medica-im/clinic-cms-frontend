@@ -135,7 +135,7 @@
 					<span><Fa icon={faCalendarCheck}/></span>
 				  <span>Sur RDV</span>
 				</div>
-				<div>Infimières</div>
+				<div>Infirmières</div>
 			</a>
 		</div>
 	</div>
