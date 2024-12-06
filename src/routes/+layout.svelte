@@ -109,7 +109,7 @@
 	});
 
     function matchList(pageUrlPath: string): boolean {
-		const url = ['maison-de-sante', 'education-therapeutique', 'education-sante', 'prevention', 'soins'];
+		const url = ['maison-de-sante/', 'education-therapeutique', 'education-sante', 'prevention', 'soins'];
 		let match = url.filter(function (e) {
 			let m: bool;
 			try {
