@@ -8,7 +8,8 @@
 	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
 	import vaccines2024v from '$lib/assets/images/vaccines/vaccination_schedule_2024_vertical.png';
 	import vaccinsATousLesAges2024 from '$lib/assets/pdf/vaccines/vaccins_a_tous_les_ages_2024.pdf';
-	import calendrierSimplifieVaccinations2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
+	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
+	import calendrierSimplifieVaccinationsJpg2024 from '$lib/assets/images/vaccines/calendrier_simplifie_des_vaccinations_2024.jpg';
 	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	import { Fa, FaLayers } from 'svelte-fa';
 	import { faCalendarCheck }from '@fortawesome/free-regular-svg-icons';
@@ -104,7 +105,7 @@
 	<div class="section-container">
 		<h2 class="h2">Vaccination contre la grippe et le Covid-19</h2>
         <p>Avec la MSP de Gadagne, trois possibilités.</p>
-		<div class="flex flex-wrap p-2 m-2 content-evenly">
+		<div class="grid grid-cols-1 lg:grid-cols-3 p-2 m-2 content-evenly">
 			<a href="/annuaire/medecin-generaliste" class="card variant-ringed-primary p-4 m-2 space-y-2 justify-items-center grow">
 				<div><Fa icon={faHouseMedical} size={"lg"} /></div>
 				<div class="text-lg">Maison de santé</div>
@@ -119,7 +120,7 @@
 				<div><Fa icon={faPrescriptionBottleMedical} size={"lg"} /></div>
 				<div class="text-lg">Pharmacie</div>
 				<div class="flex flex-wrap gap-2">
-					<FaLayers style="background: mistyrose">
+					<FaLayers>
 						<Fa icon={faCalendarCheck}/>
 						<Fa icon={faTimes} scale={2}/>
 					  </FaLayers>
@@ -168,11 +169,12 @@
 		</div>
 		<h3 class="h3">Calendrier simplifié des vaccinations</h3>
 		<p>Ce document est également disponible au format carte postale à l'accueil de la maison de santé.</p>
-		<iframe
-		src={calendrierSimplifieVaccinations2024}
-		title="Calendrier simplifié des vaccinations 2024"
-		class="w-full aspect-square"
-	/>
+		<img src={calendrierSimplifieVaccinationsJpg2024} alt="calendrier simplifié des vaccinations 2024" />
+		<p><a class="anchor" href="/prevention/vaccins/calendrier">Version accessible du calendrier simplifié des vaccinations</a> au format web.</p>
+		<a href={vaccines2024h} class="btn variant-filled" download="calendrier_simplifie_des_vaccinations_2024">
+			<span><Fa icon={faDownload}/></span>
+			<span>Télécharger</span>
+			<span><Fa icon={faFilePdf}/></span></a>
 	</div>
 </section>
 
