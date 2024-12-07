@@ -10,9 +10,20 @@
 	function isSearchParamsEmpty(searchParams: URLSearchParams): boolean {
 		const params: string[] = ['term', 'situation', 'facility', 'types', 'communes'];
 		for (let param of params) {
-			if (searchParams.get(param)!=null) return false;
+			if (searchParams.get(param) != null) return false;
 		}
 		return true;
+	}
+
+	function getLabel(searchParams: URLSearchParams) {
+		if (searchParams.get('origin') == '/') {
+			return capitalizeFirstLetter($LL.HOME.TITLE());
+		}
+		if (isSearchParamsEmpty(searchParams)) {
+			return capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK());
+		} else {
+			return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH());
+		}
 	}
 
 	function buildUrl(searchParams: URLSearchParams): string {
@@ -47,23 +58,14 @@
 		}
 		const parameters = params.join('&');
 		let url = `${origin}`;
-		if (params.length) url+=`?${parameters}`;
+		if (params.length) url += `?${parameters}`;
 		return url;
 	}
 </script>
 
 {#if $page.url.searchParams.get('origin')}
-	<a href={buildUrl($page.url.searchParams)} class="btn variant-filled">
-		{#if isSearchParamsEmpty($page.url.searchParams)}
-			<span class="badge variant-filled-primary"> <Fa icon={faArrowRight} /></span>
-			<span class="whitespace-normal text-left">
-				{capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK())}
-			</span>
-		{:else}
-			<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
-			<span class="whitespace-normal text-left">
-				{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}
-			</span>
-		{/if}
+	<a href={buildUrl($page.url.searchParams)} class="btn variant-ghost-primary">
+		<span class="badge variant-filled-primary"><Fa icon={faArrowLeft} /></span>
+		<span class="whitespace-normal text-left">{getLabel($page.url.searchParams)}</span>
 	</a>
 {/if}
