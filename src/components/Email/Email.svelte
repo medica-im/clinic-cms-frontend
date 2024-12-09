@@ -6,10 +6,6 @@
 	import { faAddressBook, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 	export let data;
-
-	function removeHttp(url) {
-		return url.replace(/^https?:\/\//, '');
-	}
 </script>
 
 <div class="flex content-start space-x-2 items-center">

@@ -4,7 +4,7 @@ import { variables } from '$lib/utils/constants.ts';
 const isMSP: boolean = variables.ORGANIZATION_CATEGORY == "msp"
 
 import {
-	faBars,
+	faUsers,
 	faCaretDown,
 	faInfo,
 	faTimeline,
@@ -252,12 +252,12 @@ const outpatientClinicLinks: any = {
 				keywords: 'santé, msp, pluripro',
 				icon: faInfo
 			},
-			/*{
-				href: '/maison-de-sante/chronologie',
-				label: 'Chronologie',
-				keywords: 'chronologie, historique, histoire, chronologique',
-				icon: faTimeline
-			},*/
+			{
+				href: '/maison-de-sante/usagers',
+				label: 'Usagers',
+				keywords: 'usagers, patients',
+				icon: faUsers
+			},
 			{
 				href: '/maison-de-sante/projet-de-sante',
 				label: 'Projet de santé',
