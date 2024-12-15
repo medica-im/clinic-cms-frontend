@@ -5,38 +5,26 @@
     import '../app.postcss';
     import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
     import { storePopup } from '@skeletonlabs/skeleton';
-    import { storeCurrentUrl, storeTheme } from '$lib/store/skeletonStores';
     import Sidebar from '$components/Sidebar/Sidebar.svelte';
     import { userData } from '$lib/store/userStore';
-    import { navigating } from '$app/stores';
     import { afterNavigate } from '$app/navigation';
-    import { loading } from '$lib/store/loadingStore';
-    import { i18nNotificationData, notificationData } from '$lib/store/notificationStore';
+    import { notificationData } from '$lib/store/notificationStore';
     import { fly } from 'svelte/transition';
     import { afterUpdate, onMount } from 'svelte';
-    import type { Load } from '@sveltejs/kit';
-    import type { Locales } from '$i18n/i18n-types';
-    import type { Facility } from '$lib/interfaces/facility.interface';
-    import { baseLocale, locales } from '$i18n/i18n-util';
-    import { loadLocaleAsync } from '$i18n/i18n-util.async';
-    import LL from '$i18n/i18n-svelte';
-    import { setLocale } from '$i18n/i18n-svelte';
     import { page } from '$app/stores';
     import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
     import { variables } from '$lib/utils/constants';
-    import { language } from '$lib/store/languageStore';
     import favIcon from '$lib/assets/favicon/favicon.svg';
     import maskIcon from '$lib/assets/favicon/mask-icon.svg';
     import appleTouchIcon from '$lib/assets/favicon/apple-touch-icon.png';
     import { AppShell } from '@skeletonlabs/skeleton';
     import { Modal } from '@skeletonlabs/skeleton';
     import { Toast } from '@skeletonlabs/skeleton';
-    import type { ToastSettings } from '@skeletonlabs/skeleton';
     // Modal Components
     import Search from '$modals/Search/Search.svelte';
 
     // Types
-    import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+    import type { ModalComponent } from '@skeletonlabs/skeleton';
     // components
     import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
     import Drawer from '$components/Drawer/Drawer.svelte';
@@ -45,17 +33,14 @@
     // Theme stylesheet is loaded from LayoutServerData
     import type { LayoutServerData } from './$types';
     import { QueryClientProvider } from '@tanstack/svelte-query'
-    import type { LayoutData } from './$types'
     import type { ComponentEvents } from 'svelte';
     import { scrollY } from '$lib/store/scrollStore';
+	import type { UserResponse } from '$lib/interfaces/user.interface';
+	import type { CustomError } from '$lib/interfaces/error.interface';
 
     export let data: LayoutServerData;
 
 	initializeStores();
-
-
-    $: loading.setNavigate(!!$navigating);
-    $: loading.setLoading(!!$navigating, 'Loading, please wait...');
 
     function scrollHandler(event: ComponentEvents<AppShell>['scroll']) {
 	scrollY.set(event.currentTarget.scrollTop);
@@ -65,7 +50,7 @@
 
     onMount(async () => {
 		if (browserGet('refreshToken')) {
-			const [response, errs] = await getCurrentUser(
+			const [response, errs]: [UserResponse, CustomError[]] = await getCurrentUser(
 				fetch,
 				`${variables.BASE_API_URI}/accounts/token/refresh/`,
 				`${variables.BASE_API_URI}/accounts/user/`
@@ -98,8 +83,6 @@
 	});
 
     afterNavigate((params: any) => {
-		// Store current page route URL
-		storeCurrentUrl.set($page.url.pathname);
 		// Scroll to top
 		const isNewPage: boolean =
 			params.from && params.to && params.from.route.id !== params.to.route.id;
@@ -112,7 +95,7 @@
     function matchList(pageUrlPath: string): boolean {
 		const url = ['maison-de-sante/', 'education-therapeutique', 'education-sante', 'prevention', 'soins'];
 		let match = url.filter(function (e) {
-			let m: bool;
+			let m: boolean;
 			try {
 				m = pageUrlPath.includes(e);
 			} catch (err) {

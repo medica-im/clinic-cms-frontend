@@ -8,8 +8,6 @@
 	import { AppRail, AppRailTile, AppRailAnchor, getDrawerStore } from '@skeletonlabs/skeleton';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import { resetDirectory } from '$components/Directory/utils.ts';
-	// Stores
-	import { storeCurrentUrl } from '$lib/store/skeletonStores.ts';
 	import Fa from 'svelte-fa';
 	import { faBlog } from '@fortawesome/free-solid-svg-icons';
 
@@ -62,7 +60,7 @@
 	// Reactive
 	$: filteredMenuNavLinks = Object.values(menuNavLinks).filter((e) => e.id == currentRailCategory);
 	$: classesActive = (href: string) => {
-		return $storeCurrentUrl == href ? 'variant-ringed-primary' : '';
+		return $page.url.pathname == href ? 'variant-ringed-primary' : '';
 	};
 </script>
 

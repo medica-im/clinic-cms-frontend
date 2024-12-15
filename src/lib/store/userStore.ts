@@ -3,4 +3,4 @@ import { writable, derived, readable, get, asyncReadable, asyncWritable, asyncDe
 import type { User } from '$lib/interfaces/user.interface';
 
 
-export const userData = writable<User>({});
+export const userData = writable<User|{}>({});

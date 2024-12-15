@@ -7,7 +7,7 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: [
-		vitePreprocess(),
+		vitePreprocess({ script: true }),
 		sveltePreprocess({
 			postcss: true,
 			scss: { includePaths: ['src', 'node_modules'] },

@@ -29,7 +29,9 @@
 
 	onMount(() => {
 		if ( data.length>1 ) {
+			if (leafletMap) {
 		    leafletMap.getMap().fitBounds(getPoints());
+			}
 		}
 	});
 </script>
