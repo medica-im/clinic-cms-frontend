@@ -1,46 +1,54 @@
 <script lang="ts">
 	import Phones from './Phones.svelte';
 	import { FacilityLink } from 'clinic-cms';
-	import Address from './Address.svelte';
+	import { goto } from '$app/navigation';
 	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
-    import { page } from '$app/stores';
-	export let effector: any;
+	import { page } from '$app/stores';
+	import type { Entry } from '$lib/store/directoryStoreInterface.ts';
+
+	export let effector: Entry;
 	export let avatar: boolean;
 
-	function effectorPageUrl(effector, pathname: string) {
+	function effectorPageUrl(pathname: string) {
 		let typeSlug = effector.types[0].slug;
 		let facilitySlug = effector.facility.slug;
 		let nameSlug = effector.slug;
-		if (!facilitySlug || !typeSlug || !nameSlug) {
-			return;
-		} else {
-			return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}`;
-		}
+		return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}`;
+	}
+
+	const goTo = (pathname: string) => {
+		const url = effectorPageUrl(pathname);
+		goto(url, { replaceState: true });
 	}
 </script>
-<a class="unstyled" href={effectorPageUrl(effector, $page.url.pathname)}>
 
-<div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
-{#if avatar==true}
-		<AvatarList data={effector} />
-		{/if}
-		<div class="p-4 space-y-1">
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+<button on:click={()=>{goTo($page.url.pathname)}} style="all: unset; cursor: pointer;">
+	<div class="flex flex-col items-top rounded-lg lg:flex-row variant-soft-surface m-4">
+	{#if avatar == true}
+		<a class="unstyled" href={effectorPageUrl($page.url.pathname)}>
+			<AvatarList data={effector} />
+		</a>
+	{/if}
+	<div class="p-4 space-y-1">
+		<a class="unstyled" href={effectorPageUrl($page.url.pathname)}>
 			<h3 class="h3">{effector.name}</h3>
-			<!--
-			{#if (import.meta.env.VITE_DEV == 'true')}
-			<p class="text-xs">{effector.effector_uid}</p>
-			{/if}
-			-->
-			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
+		</a>
 
-			{#if effector.phones?.length}
-				<Phones data={effector.phones} />
+		{#if import.meta.env.VITE_DEV == 'true'}
+			<p class="text-xs">{effector.effector_uid}</p>
+		{/if}
+
+		<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
+
+		{#if effector.phones?.length}
+			<Phones data={effector.phones} />
+		{/if}
+		<div class="space-y-1">
+			{#if effector.facility}
+				<div><FacilityLink data={effector.facility} /></div>
 			{/if}
-			<div class="space-y-1">
-				{#if effector.facility}
-					<div><FacilityLink data={effector.facility} /></div>
-				{/if}
-				<!--
+			<!--
 				{#if effector.address}
 					<div><Address data={effector.address} /></div>
 				{/if}
@@ -48,7 +56,7 @@
 					<div><Addresses data={effector.other_addresses} /></div>
 				{/if}
 				-->
-			</div>
 		</div>
-</div>
-</a>
+	</div>
+	</div>
+</button>
