@@ -10,8 +10,10 @@ export const load: PageLoad = async ({ fetch, params }) => {
         console.log(res);
         console.log(error);
     }
+    const canonicalUrl = `${variables.BASE_URI}/${params.facility}/${params.type}/${params.effector}`;
     return {
         effector: res,
         component: "default",
+        canonicalUrl: canonicalUrl
     }
 }
