@@ -18,21 +18,24 @@
 		<div class="md:flex md:justify-between">
 			<div class="mb-6 md:mb-0">
 				<a data-sveltekit-preload-data="off" href="/" title={$LL.NAVBAR.GO_HOME()}>
-					<div class="flex items-center space-x-2">
-						<span class="flex w-8 h-8 items-center"><OutpatientClinicLogo /></span>
-
-						<h3 class="h3">
+					<div class="flex space-x-2 lg:space-x-4">
+						<span class="flex w-8 h-8 lg:w-12 lg:h-12"><OutpatientClinicLogo /></span>
+                        <div>
+						<h4 class="h4">
 							{capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
-						</h3>
+						</h4>
+						<p>{$facilityStore.contact.address.street}</p>
+						<p>{$facilityStore.city.name}</p>
+					</div>
 					</div>
 				</a>
 			</div>
 			<div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
 				<div>
-					<h6 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+					<h6 class="mb-6 text-sm font-semibold uppercase">
 						{capitalizeFirstLetter($LL.RESOURCES(), $locale)}
 					</h6>
-					<ul class="text-gray-600 dark:text-gray-400 font-medium">
+					<ul class="font-medium">
 						<li class="mb-4">
 							<a data-sveltekit-preload-data="off" href="/">
 								{$LL.HOME.TITLE()}
@@ -52,10 +55,10 @@
 				</div>
 				{#if variables.ORGANIZATION_CATEGORY=="msp"}
 				<div>
-					<h6 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+					<h6 class="mb-6 text-sm font-semibold uppercase">
 						{$LL.OUTPATIENT_CLINIC.PROGRAMS()}
 					</h6>
-					<ul class="text-gray-600 dark:text-gray-400 font-medium">
+					<ul class="font-medium">
 						{#each Object.values(programsNavLinks) as navLink}
 							<li class="mb-4">
 								<a href={navLink.href} class="hover:underline ">{navLink.title[$language]}</a>
@@ -65,10 +68,10 @@
 				</div>
 				{/if}
 				<div>
-					<h6 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+					<h6 class="mb-6 text-sm font-semibold uppercase">
 						{capitalizeFirstLetter($LL.LEGAL(), $language)}
 					</h6>
-					<ul class="text-gray-600 dark:text-gray-400 font-medium">
+					<ul class="font-medium">
 						<!--li class="mb-4">
 							<a href="/politique-de-confidentialite" class="hover:underline"
 								>{capitalizeFirstLetter($LL.PRIVACY_POLICY(), $language)}</a
@@ -83,13 +86,13 @@
 				</div>
 			</div>
 		</div>
-		<hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+		<hr class="my-6 sm:mx-auto lg:my-8 !border-t-2" />
 		<!-- Row 2 -->
-		<div class="sm:flex sm:items-center sm:justify-between">
-			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				>© 2024 <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
-			</span>
-			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+		<div class="flex justify-between items-center">
+			<div class="text-sm"
+				>© {new Date().getFullYear()} <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
+		</div>
+			<div class="flex space-x-6 justify-center">
 				{#if $facilityStore?.contact?.socialnetworks}
 				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />
 				{/if}
@@ -98,10 +101,10 @@
 				{/if}
 			</div>
 		</div>
-		<hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+		<hr class="my-6 sm:mx-auto lg:my-8 !border-t-2" />
 		<!-- Row 3 -->
 		<div class="sm:flex sm:items-center sm:justify-between">
-			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
+			<span class="text-sm sm:text-center"
 				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="anchor">Médecine Libre</a>.
 			</span>
 			<!--div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">

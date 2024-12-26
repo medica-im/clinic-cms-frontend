@@ -14,6 +14,10 @@
 	let component = componentSelect[data.component];
 </script>
 
+<svelte:head>
+	<link rel="canonical" href={data.canonicalUrl} />
+</svelte:head>
+
 <section id="programs" class="bg-surface-100-800-token programs-gradient">
 	<div class="section-container">
 		<svelte:component this={component} effector={data.effector} userData={$userData} />
