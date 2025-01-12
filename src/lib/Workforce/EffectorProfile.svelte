@@ -8,7 +8,6 @@
 	import Fa from 'svelte-fa';
 	import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 	import { invalidateAll, invalidate } from '$app/navigation';
-	import { workerData } from '$lib/Workforce/rest';
 	import { capitalizeFirstLetter as cFL } from '$lib/helpers/stringHelpers';
 	import { popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
@@ -119,12 +118,6 @@
 			invalidateAll();
 		}
 	}
-
-	async function refresh() {
-		const slug = data.slug;
-		res = await workerData({ fetch, slug });
-	}
-
 	function handleClose() {
 		if (databaseHtml == null || databaseHtml == '') {
 			html = '';

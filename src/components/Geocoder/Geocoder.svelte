@@ -37,7 +37,6 @@
 
 	onMount(async () => {
 		let _addressFeature = get(addressFeature);
-		//console.log(JSON.stringify(_addressFeature));
 		if (!isEmpty(_addressFeature)) {
 			inputAddress.set(normalize(_addressFeature?.properties?.label));
 		}

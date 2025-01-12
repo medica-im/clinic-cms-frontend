@@ -24,7 +24,7 @@ export const getFacilities = asyncReadable(
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
-			let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+			let elapsed = Date.now() - cachedData.cachetime;
 			expired = elapsed > cachelife;
 			if ('data' in cachedData) {
 				if (cachedData.data?.length) {
@@ -44,7 +44,7 @@ export const getFacilities = asyncReadable(
 					return a.name.localeCompare(b.name);
 				})
 				if (browser) {
-					var json = { data: data, cachetime: Date.now() / 1000 }
+					var json = { data: data, cachetime: Date.now() }
 					localStorage.setItem(`${cacheName}`, JSON.stringify(json));
 				}
 				return data;
@@ -79,7 +79,7 @@ export const facilityStore = asyncDerived(
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
-			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
+			expired = Date.now() - cachedData.cachetime > cachelife;
 			if ('data' in cachedData) {
 				if (cachedData.data) {
 					empty = false;
@@ -97,7 +97,7 @@ export const facilityStore = asyncDerived(
 					return a.contact.formatted_name.localeCompare(b.contact.formatted_name);
 				})
 				if (browser) {
-					var json = { data: data, cachetime: Date.now() / 1000 }
+					var json = { data: data, cachetime: Date.now() }
 					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
 				return data as Facility[];

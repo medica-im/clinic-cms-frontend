@@ -7,7 +7,6 @@ import type { PageLoad } from './$types';
 export const load: PageLoad = async ({ fetch, params }) => {
     const [userRes, errs] = await getCurrentUser(
         fetch,
-        `${variables.BASE_API_URI}/accounts/token/refresh/`,
         `${variables.BASE_API_URI}/accounts/user/`
     );
     const userResponse: User = userRes;

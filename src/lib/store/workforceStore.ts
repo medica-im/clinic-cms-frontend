@@ -145,8 +145,7 @@ export const workforceDataCached = asyncDerived(
 				console.error(err);
 			}
 		}
-	},
-	true
+	}
 );
 
 export const teamCarouselStore = asyncDerived(
@@ -325,8 +324,7 @@ export const occupationsCardinal = asyncDerived(
 			}
 		});
 		return occupationsCardinalObject
-	},
-	true
+	}
 );
 
 export const filteredOccupationsCardinal = asyncDerived(
@@ -385,16 +383,5 @@ export const filteredOccupationsCardinal = asyncDerived(
 			}
 		});
 		return occupationsCardinalObject
-	},
-	true
-);
-
-export const workerData = asyncDerived(
-	([workerSlug, workforceDataCached,]),
-	async ([$workerSlug, $workforceDataCached]) => {
-		if ($workerSlug && $workforceDataCached && $workforceDataCached.length) {
-			return workerTitleFormattedName($workforceDataCached.find((element) => element.slug == $workerSlug))
-		} else { return '' }
-	},
-	true
+	}
 );

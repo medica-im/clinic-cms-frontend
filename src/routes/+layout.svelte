@@ -52,9 +52,9 @@
 		if (browserGet('refreshToken')) {
 			const [response, errs]: [UserResponse, CustomError[]] = await getCurrentUser(
 				fetch,
-				`${variables.BASE_API_URI}/accounts/token/refresh/`,
 				`${variables.BASE_API_URI}/accounts/user/`
 			);
+			console.log(`User: ${JSON.stringify(response)}`);
 			if (errs.length <= 0) {
 				userData.set(response);
 			} else {
@@ -75,7 +75,6 @@
 		if (browserGet('refreshToken')) {
 			const [response, _] = await getCurrentUser(
 				fetch,
-				`${variables.BASE_API_URI}/accounts/token/refresh/`,
 				`${variables.BASE_API_URI}/accounts/user/`
 			);
 			userData.update(() => response);

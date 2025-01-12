@@ -18,7 +18,7 @@ export const ghost = asyncReadable(
 		}
 		if (cachedData) {
 			cachedData = JSON.parse(cachedData);
-			expired = (Date.now() / 1000) - cachedData.cachetime > cachelife;
+			expired = Date.now() - cachedData.cachetime > cachelife;
 			if ('data' in cachedData) {
 				if (cachedData.data) {
 					empty = false;
@@ -33,7 +33,7 @@ export const ghost = asyncReadable(
 			    if (response?.ok) {
 				    const articles = await response.json();
 				    if (browser) {
-					    var json = { data: articles, cachetime: Date.now() / 1000 }
+					    var json = { data: articles, cachetime: Date.now() }
 					    localStorage.setItem(`${cacheName}`, JSON.stringify(json));
 				    }
 				    return articles;

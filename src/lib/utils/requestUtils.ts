@@ -6,7 +6,6 @@ import { notificationData } from '$lib/store/notificationStore';
 import { userData } from '$lib/store/userStore';
 import { variables } from '$lib/utils/constants';
 import { formatText } from '$lib/formats/formatString';
-import type { Workforce } from '$lib/interfaces/workforce.interface';
 import { get } from 'svelte/store';
 import { locales } from '$i18n/i18n-util';
 import { language } from '$lib/store/languageStore';
@@ -16,6 +15,8 @@ import LL from '$i18n/i18n-svelte';
 import { isAuth } from '$lib/store/authStore';
 import { dev } from '$app/environment';
 
+const refreshUrl = `${variables.BASE_API_URI}/accounts/token/refresh/`;
+
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
 		const item = localStorage.getItem(key);
@@ -23,7 +24,7 @@ export const browserGet = (key: string): string | undefined => {
 			return item;
 		}
 	}
-	return null;
+	return;
 };
 
 export const browserSet = (key: string, value: string): void => {
@@ -68,11 +69,8 @@ export const post = async (
 	}
 };
 
-export const getCurrentUser = async (
-	fetch,
-	refreshUrl: string,
-	userUrl: string
-): Promise<[object, Array<CustomError>]> => {
+const accessRefresh = async () => {
+
 	const jsonRes = await fetch(refreshUrl, {
 		method: 'POST',
 		mode: 'cors',
@@ -83,11 +81,19 @@ export const getCurrentUser = async (
 			refresh: `${browserGet('refreshToken')}`
 		})
 	});
-	const accessRefresh: Token = await jsonRes.json();
-	if (accessRefresh.access) {
+	const _accessRefresh: Token = await jsonRes.json();
+	return _accessRefresh;
+};
+
+export const getCurrentUser = async (
+	fetch,
+	userUrl: string
+): Promise<[object, Array<CustomError>]> => {
+	const _accessRefresh = await accessRefresh();
+	if (_accessRefresh.access) {
 		const res = await fetch(userUrl, {
 			headers: {
-				Authorization: `Bearer ${accessRefresh.access}`
+				Authorization: `Bearer ${_accessRefresh.access}`
 			}
 		});
 		if (res.status === 400) {
@@ -121,22 +127,12 @@ export const emptyLocaleStorage = () => {
 };
 
 export const logOutUser = async (): Promise<void> => {
-	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
-		method: 'POST',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			refresh: `${browserGet('refreshToken')}`
-		})
-	});
-	const accessRefresh = await res.json();
+	const _accessRefresh = await accessRefresh();
 	const jres = await fetch(`${variables.BASE_API_URI}/accounts/logout/`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
-			Authorization: `Bearer ${accessRefresh.access}`,
+			Authorization: `Bearer ${_accessRefresh.access}`,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
@@ -163,24 +159,14 @@ export const handlePostRequestsWithPermissions = async (
 	body: unknown,
 	method = 'POST'
 ): Promise<[any, Array<CustomError>]> => {
-	const res = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
-		method: 'POST',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			refresh: `${browserGet('refreshToken')}`
-		})
-	});
-	const accessRefresh = await res.json();
+	const _accessRefresh = await accessRefresh();
 	let fetchDict;
 	if (method == 'GET') {
 		fetchDict = {
 			method: method,
 			mode: 'cors',
 			headers: {
-				Authorization: `Bearer ${accessRefresh.access}`,
+				Authorization: `Bearer ${_accessRefresh.access}`,
 				'Content-Type': 'application/json'
 			},
 		}
@@ -189,7 +175,7 @@ export const handlePostRequestsWithPermissions = async (
 			method: method,
 			mode: 'cors',
 			headers: {
-				Authorization: `Bearer ${accessRefresh.access}`,
+				Authorization: `Bearer ${_accessRefresh.access}`,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(body)
@@ -233,36 +219,17 @@ export const handleRequestsWithPermissions = async (
 	if (browser) {
 		refreshToken = browserGet('refreshToken')
 	}
-	let accessRefresh;
+	let _accessRefresh;
 	if (refreshToken) {
-		accessRefresh = await fetch(`${variables.BASE_API_URI}/accounts/token/refresh/`, {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				refresh: `${browserGet('refreshToken')}`
-			})
-		}).then(function (response: Promise<any>) {
-			if (response.ok) {
-				return response.json();
-			} else {
-				return Promise.reject(response);
-			}
-		}).catch(function (err: Error) {
-			if (dev) {
-			console.warn(`Could not get new token. error: ${JSON.stringify(err)}`)};
-		}
-		)
+		_accessRefresh = await accessRefresh();
 	}
 	let fetchDict;
-	if (accessRefresh) {
+	if (_accessRefresh) {
 		fetchDict = {
 			method: 'GET',
 			mode: 'cors',
 			headers: {
-				Authorization: `Bearer ${accessRefresh.access}`,
+				Authorization: `Bearer ${_accessRefresh.access}`,
 				'Content-Type': 'application/json',
 			},
 		};

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { language } from '$lib/store/languageStore.ts';
     import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-    import Directory from '$components/Directory/Directory.svelte';
+    import Directory from '$lib/components/Directory/CtxDirectory.svelte';
     import { page } from '$app/stores';
     import LL from '$i18n/i18n-svelte.ts';
     export let data;
@@ -22,7 +22,14 @@
     </div>
 </header>
 <div>
-    <Directory data={data} />
+    <Directory
+    {data}
+    propCurrentOrg={true}
+    displayCommune={false}
+    displayCategory={true}
+    setRedirect={true}
+    propLimitCategories={[data.slug]}
+    avatar={true} />
 </div>
 
 <style lang="postcss">

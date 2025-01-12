@@ -22,22 +22,14 @@
 
 	async function downloadRecords() {
 		let records = [];
-
-		//const res = await fetch(url);
-		//const data = await res.json();
-		//console.log(`first ${data}`)
-		//records.push(...data.effector_types);
 		let next = '';
 		do {
 			const url = `${baseUrl}${next}`;
-			//console.log(url);
 			const res = await fetch(url);
 			const data = await res.json();
 			records.push(...data.effector_types);
 			next = data.meta.next;
-			//console.log(next);
 		} while (next);
-		//console.log(`effector_types: ${JSON.stringify(records)}`);
 		return records;
 	}
 

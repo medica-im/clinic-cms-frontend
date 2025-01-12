@@ -2,7 +2,7 @@ import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@
 import { variables } from '$lib/utils/constants.ts';
 import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils.ts';
-import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL } from '$env/static/public';
+import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_ENTRIES_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL, PUBLIC_CACHE_CONTACTS } from '$env/static/public';
 import haversine from 'haversine-distance';
 import { replacer, reviver } from '$lib/utils/utils.ts';
 import type { Situation } from '$lib/store/directoryStoreInterface.ts';
@@ -46,7 +46,7 @@ export const effectorTypeLabels = async () => {
 	}
 	if (cachedData) {
 		cachedData = JSON.parse(cachedData);
-		let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+		let elapsed = Date.now() - cachedData.cachetime;
 		expired = elapsed > cachelife;
 		if ('data' in cachedData) {
 			if (cachedData.data?.length) {
@@ -62,7 +62,7 @@ export const effectorTypeLabels = async () => {
 		if (response) {
 			let data = response;
 			if (browser) {
-				var json = { data: data, cachetime: Date.now() / 1000 }
+				var json = { data: data, cachetime: Date.now() }
 				localStorage.setItem(`${cacheName}`, JSON.stringify(json));
 			}
 			return data;
@@ -73,12 +73,12 @@ export const effectorTypeLabels = async () => {
 };
 
 export async function fetchElements(path: string, next: string) {
-	const effectorsUrl = `${variables.BASE_API_URI}/${path}/${next || ""}`;
-	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	const url = `${variables.BASE_API_URI}/${path}/${next || ""}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, url);
 	if (response) {
 		let data: any = response;
 		next = data.meta.next;
-		return [data.effectors, next]
+		return [data[path], next]
 	}
 }
 
@@ -98,35 +98,9 @@ export async function downloadElements(path: string) {
 	return data
 }
 
-async function fetchContacts(next) {
-	const url = `${variables.BASE_API_URI}/contacts/${next || ""}`;
-	const [response, err] = await handleRequestsWithPermissions(fetch, url);
-	if (response) {
-		let data: any = response;
-		next = data.meta.next;
-		return [data.contacts, next]
-	}
-};
-
-async function downloadContacts() {
-	let hasMore = true;
-	let contacts: Contact[] = [];
-	let next = "";
-	while (hasMore) {
-		const [_contacts, _next] = await fetchContacts(next);
-		contacts = [...contacts, ..._contacts];
-		if (_next === null) {
-			hasMore = false;
-		} else {
-			next = _next
-		}
-	}
-	return contacts
-}
-
 async function fetchEntries(next) {
-	const effectorsUrl = `${variables.BASE_API_URI}/entries/${next || ""}`;
-	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	const url = `${variables.BASE_API_URI}/entries/${next || ""}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, url);
 	if (response) {
 		let data: any = response;
 		next = data.meta.next;
@@ -206,7 +180,7 @@ async function downloadAllEntries() {
 
 function setLocalStorage(key: string, data: Array<Object>): void {
 	if (browser) {
-		var json = { data: data, cachetime: Date.now() / 1000 }
+		var json = { data: data, cachetime: Date.now() }
 		localStorage.setItem(key, JSON.stringify(json))
 	}
 }
@@ -268,44 +242,42 @@ async function processCachedEntries(changedObj: ChangedObj) {
 }
 
 export const getEntries = async () => {
-	//let contacts = getLocalStorage("contacts")?.data;
-	//if (!import.meta.env.DEV && PUBLIC_CACHE_CONTACTS=="false" || contacts==null) {
-	let contacts = await downloadContacts();
-	//}
-	let localContacts;
-	let localContactsObj = getLocalStorage('contacts');
-	localContacts = localContactsObj?.data;
-	setLocalStorage('contacts', contacts)
-	if (localContacts === null || localContacts === undefined) {
-		let entries = await downloadAllEntries();
-		setLocalStorage('entries', entries);
-		return entries;
+	let contacts = getLocalStorage("contacts")?.data;
+	const refreshContacts = (!import.meta.env.DEV && PUBLIC_CACHE_CONTACTS=="false" || contacts==null);
+	if ( refreshContacts ) {
+	    contacts = await downloadElements("contacts");
+		setLocalStorage('contacts', contacts)
 	}
-
-	var cachelife = parseInt(PUBLIC_EFFECTORS_TTL);
+	var cachelife = parseInt(PUBLIC_ENTRIES_TTL);
 	let expired: boolean = true;
 	let empty: boolean = true;
 	const cachedEffectorsObj = getLocalStorage('entries');
 	let changedObj;
 	if (cachedEffectorsObj) {
-		let elapsed = (Date.now() / 1000) - cachedEffectorsObj.cachetime;
+		let elapsed = Date.now() - cachedEffectorsObj.cachetime;
 		expired = elapsed > cachelife;
 		if ('data' in cachedEffectorsObj) {
 			if (cachedEffectorsObj.data?.length) {
 				empty = false;
 			}
 		}
-		changedObj = changedContacts(contacts, cachedEffectorsObj.data);
 	}
-	if (!expired && !empty && changedObj && isUnchanged(changedObj)) {
-		return cachedEffectorsObj.data;
-	} else if (expired || empty) {
+	if ( empty ) {
 		const allEffectors = await downloadAllEntries();
 		return allEffectors;
-	} else {
-		const effectors = await processCachedEntries(changedObj);
-		return effectors;
 	}
+	if ( expired ) {
+		contacts = await downloadElements("contacts");
+		setLocalStorage('contacts', contacts);
+		changedObj = changedContacts(contacts, cachedEffectorsObj.data);
+		if (isUnchanged(changedObj)) {
+		    return cachedEffectorsObj.data;
+		} else {
+			const effectors = await processCachedEntries(changedObj);
+			return effectors;	
+		}
+	}
+	return cachedEffectorsObj.data;
 };
 
 export const getAvatars = async () => {
@@ -393,7 +365,7 @@ export const getSituations = async (): Promise<Situation[]> => {
 	}
 	if (cachedData) {
 		cachedData = JSON.parse(cachedData);
-		let elapsed = (Date.now() / 1000) - cachedData.cachetime;
+		let elapsed = Date.now() - cachedData.cachetime;
 		expired = elapsed > cachelife;
 		if ('data' in cachedData) {
 			if (cachedData.data?.length) {
@@ -409,7 +381,7 @@ export const getSituations = async (): Promise<Situation[]> => {
 		if (response) {
 			situations = response?.situations;
 			if (browser) {
-				var json = { data: situations, cachetime: Date.now() / 1000 }
+				var json = { data: situations, cachetime: Date.now() }
 				localStorage.setItem(`${cacheName}`, JSON.stringify(json));
 			}
 		} else if (err) {
@@ -608,8 +580,6 @@ export const categorizedFilteredEffectorsF = (filteredEffectors: Entry[], distan
 	if (distanceEffectors) {
 		effectorsMap.forEach((value: any) => value.sort((a, b) => compareEffectorDistance(a, b, distanceEffectors)))
 	}
-	//console.log('effectorsMap:');
-	//console.table(effectorsMap);
 	return effectorsMap as CategorizedEntries;
 };
 
