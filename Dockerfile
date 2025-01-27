@@ -1,15 +1,20 @@
-FROM node:18-alpine AS build
+FROM node:20-slim AS base
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+COPY . /app
 WORKDIR /app
-COPY . .
-RUN npm ci --force
-RUN npm run build --verbose
 
-FROM node:18-alpine AS deploy-node
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
-WORKDIR /app
-RUN rm -rf ./*
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/build .
-RUN npm ci --force
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
+
+FROM base
+
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/build /app/build
 CMD ["node", "index.js"]
