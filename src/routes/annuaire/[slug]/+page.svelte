@@ -28,7 +28,6 @@
     displayCommune={false}
     displayCategory={true}
     setRedirect={true}
-    propLimitCategories={[data.slug]}
     avatar={true} />
 </div>
 

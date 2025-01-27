@@ -244,7 +244,7 @@
 					{:else}
 						<div class="row">
 							<div class="col">
-								<SelectCategories {categoryOf} />
+								<SelectCategories {categoryOf} types={data?.types} />
 							</div>
 						</div>
 					{/if}

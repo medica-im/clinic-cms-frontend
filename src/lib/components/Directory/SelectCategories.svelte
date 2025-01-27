@@ -14,6 +14,7 @@
 	import type { Type } from '$lib/store/directoryStoreInterface';
 
 	export let categoryOf;
+	export let types: string[]|null;
 
 	const label = 'label';
 	const itemId = 'value';
@@ -23,12 +24,21 @@
 	let directoryRedirect = getDirectoryRedirect();
 
 	onMount(async () => {
-		const typesParam: string | null = $page.url.searchParams.get('types');
-		if (!typesParam) return;
-		const types: string[] = JSON.parse(typesParam);
-		selectCategories.set(types);
+		let _types: string[]|null = null;
+		if (types) {
+            _types = types;
+		} else {
+		    const typesParam: string | null = $page.url.searchParams.get('types');
+			if (typesParam) {
+		        _types = JSON.parse(typesParam);
+			}
+		}
+		if (!_types) {
+			return;
+		}
+		selectCategories.set(_types);
 		const _categories = await categories();
-		const typesVal = getValue(types, _categories);
+		const typesVal = getValue(_types, _categories);
 		if (typesVal) {
 			selCatVal.set(typesVal);
 		}
@@ -60,9 +70,9 @@
 	function handleClear(event: CustomEvent) {
 		if (event.detail) {
 			selectCategories.set([]);
+			selCatVal.set(null);
 		}
-		const pageStore = get(page);
-		if (pageStore.params && $directoryRedirect) {
+		if ($page.params && $directoryRedirect) {
 			goto('/annuaire');
 		}
 	}

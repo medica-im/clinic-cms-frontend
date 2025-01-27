@@ -1,40 +1,30 @@
 import type { PageLoad } from './$types';
-import { cardinalCategorizedFilteredEffectors, selectCategories, selCatVal, categories, currentOrg, directoryRedirect, limitCategories, selectFacility, selectFacilityValue } from '$lib/store/directoryStore.ts';
+import { cardinalCategorizedFilteredEffectors, selectCategories, selCatVal, categories, currentOrg, directoryRedirect, selectFacility, selectFacilityValue } from '$lib/store/directoryStore.ts';
 
 function getValue(slug: string, effectorTypes: any[]) {
     const effectorType = effectorTypes.find((element) => element.slug == slug);
     return { value: effectorType.uid, label: effectorType.name };
 }
 
-const findKeyOfSlug = (slug: string, map: Map<string, any>) => {
-    let result = null;
-    for (const [key, value] of map) {
-        if (value.slug == slug) {
-            result = key;
-        }
-    }
-    return result;
-};
-
 const uidOfSlug = (slug: string, effectorTypes: any[]) => {
     const effectorType = effectorTypes.find((element) => element.slug == slug);
     return effectorType.uid;
 };
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = async ({params}) => {
     directoryRedirect.set(true);
     currentOrg.set(true);
     const slug = params.slug;
-    limitCategories.set([slug]);
     selectFacility.set("");
     selectFacilityValue.set(null);
     const effectorTypes = await categories();
-    const uid = uidOfSlug(slug, effectorTypes);
+    const uid: string = uidOfSlug(slug, effectorTypes);
     selectCategories.set([uid]);
     const value = getValue(slug, effectorTypes);
     selCatVal.set(value);
     return {
         cardinal: await cardinalCategorizedFilteredEffectors.load(),
-        slug: slug
+        slug: slug,
+        types: [uid]
     };
 }

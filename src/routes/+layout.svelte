@@ -54,7 +54,7 @@
 				fetch,
 				`${variables.BASE_API_URI}/accounts/user/`
 			);
-			console.log(`User: ${JSON.stringify(response)}`);
+			//console.log(`User: ${JSON.stringify(response)}`);
 			if (errs.length <= 0) {
 				userData.set(response);
 			} else {

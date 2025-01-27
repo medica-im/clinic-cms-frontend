@@ -22,9 +22,7 @@
 		let profile = await refresh();
 		let roles = profile.roles;
 		if (roles.length) {
-			console.log(roles);
 			roles.sort((a, b) => a - b);
-			console.log(roles);
 			selected = roles.toString();
 		} else {
 			selected = '1,2,3,4,5';

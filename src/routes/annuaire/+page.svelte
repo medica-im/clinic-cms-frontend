@@ -7,7 +7,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
-	import Directory from '$components/Directory/Directory.svelte';
+	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	import { currentOrg, limitCategories} from '$lib/store/directoryStore.ts';
 	export let data: PageData;
 </script>
@@ -33,7 +33,12 @@
 	</header>
 	<div>
 		{#key [$page.url]}
-		<Directory data={data}/>
+		<Directory
+		{data}
+		propCurrentOrg={true}
+		displayCommune={false}
+		displayCategory={true}
+		avatar={true} />
 		{/key}
 	</div>
 </div>

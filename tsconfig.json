@@ -1,11 +1,7 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"target": "esnext",
 		"plugins": [
 			{ "name": "vite-plugin-iso-import"},
 			{"name": "typescript-svelte-plugin"}
@@ -19,6 +15,5 @@
 		"sourceMap": true,
 		"strict": true,
 		"allowImportingTsExtensions": true,
-		"rootDirs": ["..", "./types"]
 	}
 }

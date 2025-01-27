@@ -23,7 +23,6 @@
 		const communeUids: string[] = JSON.parse(communesParam);
 		selectCommunes.set(communeUids);
 		let allCommunes = await communes();
-		console.log(JSON.stringify(allCommunes));
 		const communesVal = getValue(communeUids, allCommunes);
 		if (communesVal) selectCommunesValue.set(communesVal);
 	});

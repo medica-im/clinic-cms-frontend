@@ -28,9 +28,6 @@
 
 	function buildUrl(searchParams: URLSearchParams): string {
 		let origin = searchParams.get('origin');
-		if (origin == '/annuaire') {
-			return origin;
-		}
 		let params: string[] = [];
 		const situationParam = searchParams.get('situation');
 		if (situationParam) {
