@@ -2,8 +2,9 @@
 	import Phones from './Phones.svelte';
 	import { FacilityLink } from 'clinic-cms';
 	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
 	import { getSelectFacility, getSelectCategories, getTerm, getSelectCommunes } from "./context";
+	import { goto } from '$app/navigation';
 	import type { Entry } from '$lib/store/directoryStoreInterface';
 	export let effector: any;
 	export let avatar: boolean;
@@ -21,16 +22,19 @@
 		let typesParam = types.length ? `&types=${encodeURIComponent(JSON.stringify(types))}` : "";
 		let termParam = term ? `&term=${encodeURIComponent(term)}` : "";
 		let communesParam = communes.length ? `&communes=${encodeURIComponent(JSON.stringify(communes))}` : "";
-		if (!facilitySlug || !typeSlug || !nameSlug) {
-			return;
-		} else {
-			return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}${facilityParam}${typesParam}${termParam}${communesParam}`;
-		}
+		return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}${facilityParam}${typesParam}${termParam}${communesParam}`;
+	}
+
+	const goTo = () => {
+		const url = entryPageUrl(effector, page.url.pathname, $selectFacility, $selectCategories, $term, $selectCommunes);
+		goto(url, { replaceState: false });
 	}
 </script>
-<a class="unstyled" href={entryPageUrl(effector, $page.url.pathname, $selectFacility, $selectCategories, $term, $selectCommunes)}>
 
-<div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4">
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+<button on:click={()=>{goTo()}} style="all: unset; cursor: pointer;">
+
+<div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4 w-full">
 {#if avatar==true}
 		<AvatarList data={effector} />
 		{/if}
@@ -61,4 +65,4 @@
 			</div>
 		</div>
 </div>
-</a>
+</button>

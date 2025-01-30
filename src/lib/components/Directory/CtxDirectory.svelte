@@ -29,15 +29,9 @@
 		getDirectoryRedirect,
 		setAddressFeature,
 		getAddressFeature,
-
 		setSelCatVal,
-
 		setSelectSituationValue,
-
 		setInputAddress
-
-
-
 	} from './context';
 	import { variables } from '$lib/utils/constants.ts';
 	import { facilityStore, getFacilities } from '$lib/store/facilityStore.ts';
@@ -172,18 +166,51 @@
 	);
 
 	const communeOf = asyncDerived(
-	([selectCategories, fullFilteredEffectors, selectFacility, currentOrg, limitCategories]),
-	async ([$selectCategories, $fullFilteredEffectors, $selectFacility, $currentOrg, $limitCategories]) => {
-		return communeOfF($selectCategories, $fullFilteredEffectors, $selectFacility, $currentOrg, $limitCategories)
-	}
-    );
+		[selectCategories, fullFilteredEffectors, selectFacility, currentOrg, limitCategories],
+		async ([
+			$selectCategories,
+			$fullFilteredEffectors,
+			$selectFacility,
+			$currentOrg,
+			$limitCategories
+		]) => {
+			return communeOfF(
+				$selectCategories,
+				$fullFilteredEffectors,
+				$selectFacility,
+				$currentOrg,
+				$limitCategories
+			);
+		}
+	);
 
 	const facilityOf = asyncDerived(
-	([selectCategories, fullFilteredEffectors, selectCommunes, currentOrg, limitCategories, getFacilities]),
-	async ([$selectCategories, $fullFilteredEffectors, $selectCommunes, $currentOrg, $limitCategories, $getFacilities]) => {
-		return facilityOfF($selectCategories, $fullFilteredEffectors, $selectCommunes, $currentOrg, $limitCategories, $getFacilities)
-	}
-)
+		[
+			selectCategories,
+			fullFilteredEffectors,
+			selectCommunes,
+			currentOrg,
+			limitCategories,
+			getFacilities
+		],
+		async ([
+			$selectCategories,
+			$fullFilteredEffectors,
+			$selectCommunes,
+			$currentOrg,
+			$limitCategories,
+			$getFacilities
+		]) => {
+			return facilityOfF(
+				$selectCategories,
+				$fullFilteredEffectors,
+				$selectCommunes,
+				$currentOrg,
+				$limitCategories,
+				$getFacilities
+			);
+		}
+	);
 
 	$: {
 		$currentOrg = propCurrentOrg;
@@ -244,7 +271,7 @@
 					{:else}
 						<div class="row">
 							<div class="col">
-								<SelectCategories {categoryOf} types={data?.types} />
+								<SelectCategories {categoryOf} types={data.types} />
 							</div>
 						</div>
 					{/if}
@@ -264,43 +291,43 @@
 					</div>
 				{/if}
 				{#await cardinalCategorizedFilteredEffectors.load()}
-					{#if data?.cardinal && [...data?.cardinal]?.length}
-						<div class="my-2 flex justify-between w-full">
-							<span class="badge variant-ghost-surface">{contactCount(data.cardinal)}</span>
-							<span class="inline-flex items-center space-x-2">
-								<Spinner w={4} h={4} />
-								<span>Mise à jour...</span>
-							</span>
-							<Clear />
-						</div>
-						<div class="my-4 space-y-4">
-							{#each [...data.cardinal] as [key, value]}
-								<div class="space-y-4 my-4 anchordiv" id={key}>
-									<div class="relative inline-block">
-										<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
-											{value.length}
-										</span>
+					<div class="my-4 space-y-4">
+						{#if data?.cardinal && [...data?.cardinal]?.length}
+							<div class="flex justify-between w-full">
+								<span class="badge variant-ghost-surface">{contactCount(data.cardinal)}</span>
+								<div class="inline-flex items-center space-x-2 m-0 p-0">
+									<Spinner w={3} h={3} />
+									<span>Mise à jour...</span>
+								</div>
+								<Clear />
+							</div>
+							<div class="my-4 space-y-4">
+								{#each [...data.cardinal] as [key, value]}
+									<div class="space-y-6 my-6 anchordiv" id={key}>
+										<div class="relative inline-block">
+											<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
+												{value.length}
+											</span>
 
-										<span class="badge variant-filled"
-											><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
-										>
-									</div>
-								</div>
-								<div class="grid lg:grid-cols-2 gap-4">
-									{#each value as effector}
-										<div class="space-y-4 my-4">
-											<Effector {effector} {avatar} />
+											<span class="badge variant-filled"
+												><h4 class="h4">{capitalizeFirstLetter(key)}</h4></span
+											>
 										</div>
-									{/each}
-								</div>
-							{/each}
-						</div>
-					{:else}
-						<div class="flex justify-center m-4 space-x-2 items-center">
-							<Spinner w={4} h={4} />
-							<p>Chargement...</p>
-						</div>
-					{/if}
+									</div>
+									<div class="grid lg:grid-cols-2 gap-x-16 gap-y-8 space-y-4">
+										{#each value as effector}
+											<Effector {effector} {avatar} />
+										{/each}
+									</div>
+								{/each}
+							</div>
+						{:else}
+							<div class="flex justify-center m-2 space-x-2 items-center">
+								<Spinner w={4} h={4} />
+								<p>Chargement...</p>
+							</div>
+						{/if}
+					</div>
 				{:then}
 					<div class="my-4 space-y-4">
 						<div class="my-2 flex justify-between w-full">
@@ -310,7 +337,7 @@
 							<Clear />
 						</div>
 						{#each [...$cardinalCategorizedFilteredEffectors] as [key, value]}
-							<div class="space-y-4 my-4 anchordiv" id={key}>
+							<div class="space-y-6 my-6 anchordiv" id={key}>
 								<div class="relative inline-block">
 									<span class="badge-icon variant-filled-primary absolute -top-2 -right-3 z-5">
 										{value.length}
@@ -321,11 +348,9 @@
 									>
 								</div>
 							</div>
-							<div class="grid lg:grid-cols-2 gap-4">
+							<div class="grid lg:grid-cols-2 gap-x-16 gap-y-8 space-y-4">
 								{#each value as effector}
-									<div class="space-y-4 my-4">
-										<Effector {effector} {avatar} />
-									</div>
+									<Effector {effector} {avatar} />
 								{/each}
 							</div>
 						{/each}
