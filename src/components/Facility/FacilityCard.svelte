@@ -36,9 +36,9 @@
 				<a href="/sites/{data.slug}" class="anchor" data-sveltekit-preload-data="hover">
 					<h4 class="h4">{data.name}</h4>
 				</a>
-				<p class="space-x-2">
+				<div class="space-x-2">
 					<Address {data} />
-				</p>
+				</div>
 				{#if data?.emails}
 					<ul class="list">
 						{#each data?.emails as email}
