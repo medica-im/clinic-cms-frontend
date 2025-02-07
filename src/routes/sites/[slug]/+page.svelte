@@ -1,9 +1,21 @@
 <script lang="ts">
+	import { language } from '$lib/store/languageStore.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import FacilityPage from '$components/Facility/FacilityPage.svelte';
 	import SitesLink from '$lib/components/Sites/SitesLink.svelte';
 	import { userData } from '$lib/store/userStore.ts';
+	import { page } from '$app/state';
+	import type { Facility } from '$lib/store/directoryStoreInterface.ts';
+
 	export let data;
 </script>
+
+<svelte:head>
+	<title>
+		{data.facility.name} - {capitalizeFirstLetter(page.data.organization.formatted_name, $language)}
+	</title>
+</svelte:head>
+
 
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
     <div class="mx-0 flex flex-col items-center justify-center p-4 py-6">
@@ -15,7 +27,7 @@
 <div class="mx-0 flex flex-col items-center justify-center p-4 py-6">
 <div class="grid grid-cols-1 gap-4">
 	<div>
-		<FacilityPage facility={data.facility} userData={$userData} />
+		<FacilityPage facility={data.facility} userData={$userData} entries={data.entries} />
 	</div>
 	<div>
 		<SitesLink />

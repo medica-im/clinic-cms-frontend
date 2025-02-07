@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	import Map from '$lib/components/Map/Map.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import Navigation from '$components/Navigation/Navigation.svelte';
@@ -20,6 +21,7 @@
 
 	export let facility;
 	export let userData;
+	export let entries;
 
 	const createFacilityGeoData = (facility) => {
 		let address = facility?.address;
@@ -66,6 +68,14 @@
 					</button>			
 			    </div>
 				{/if}
+				<div>
+				<Directory
+				    data={entries}
+				    types={true}
+					propSelectFacility={facility.uid}
+					displayEntries={true}
+				/>
+			</div>
 			</div>
 		{#if facility?.avatar?.raw}
 		<div>

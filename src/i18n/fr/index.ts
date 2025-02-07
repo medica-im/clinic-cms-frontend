@@ -58,6 +58,7 @@ const fr: Translation = {
     },
     GOTOADDRESSBOOK: "Retourner vers l'annuaire",
     GOTOSEARCH: "Retourner aux résultats de recherche",
+    GOTOSITE: "Retourner au site",
     APPOINTMENT: {
       LABEL: "Prendre rendez-vous"
     },

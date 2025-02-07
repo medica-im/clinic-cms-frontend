@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	import Map from '$lib/components/Map/Map.svelte';
 	import Address from '$lib/Address/Address.svelte';
 	import Navigation from '$components/Navigation/Navigation.svelte';
@@ -9,8 +10,10 @@
 	import { isMobile } from '$lib/helpers/deviceDetector.ts';
 	import { createFacilitiesMapData } from '$lib/components/Map/mapData.ts';
 	import type { Facility } from '$lib/interfaces/facility.interface.ts';
+	import type { Entry } from '$lib/store/directoryStoreInterface';
 
 	export let data: Facility;
+	export let entries;
 
 	const createFacilityGeoData = (facility: Facility) => {
 		let address = facility?.address;
@@ -24,7 +27,7 @@
 	};
 </script>
 
-<div id="{data.name}_anchor" class="card variant-soft p-2 lg:scroll-mt-12">
+<div id="{data.name}_anchor" class="card variant-soft px-4 py-2 lg:scroll-mt-12">
 	<div class="grid grid-cols-1 md:grid-cols-2">
 		<div class="overflow-hidden m-1 p-1">
 			<!-- Header -->
@@ -46,13 +49,13 @@
 						{/each}
 					</ul>
 				{/if}
-				<p>
-					{#if browser}
-						{#if isMobile(window)}
-							<Navigation geoData={createFacilityGeoData(data)} />
-						{/if}
+
+				{#if browser}
+					{#if isMobile(window)}
+						<Navigation geoData={createFacilityGeoData(data)} />
 					{/if}
-				</p>
+				{/if}
+
 				<span class="inline-block align-middle space-x-1">
 					{#if data?.websites}
 						{#each data.websites as website}
@@ -63,7 +66,9 @@
 						<SoMed data={data.socialnetworks} appBar={false} />
 					{/if}
 				</span>
-				<div></div>
+			</div>
+			<div>
+				<Directory data={entries} types={true} propSelectFacility={data.uid} displayEntries={false} />
 			</div>
 			<!-- Footer -->
 			<!--footer class="p-4 flex justify-start items-center space-x-4">

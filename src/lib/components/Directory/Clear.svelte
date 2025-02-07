@@ -16,7 +16,7 @@
 		getAddressFeature
 	} from './context.ts';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let term = getTerm();
 	let selectCommunesValue = getSelectCommunesValue();
@@ -58,13 +58,19 @@
 
 	function erase() {
 		resetDirectory();
-		if ($page.url.pathname != '/annuaire' && $directoryRedirect) {
+		let query = new URLSearchParams(page.url.searchParams.toString());
+		page.url.searchParams.forEach((value, key) => {
+			query.delete(key);
+		});
+		goto(`?${query.toString()}`);
+		if (page.url.pathname != '/annuaire' && $directoryRedirect) {
 			goto('/annuaire');
 		}
 	}
 </script>
 
-<button class="btn variant-filled-error" type="reset" on:click={erase} disabled={isDisabled}>
+<button class="btn variant-filled-error" type="reset" on:click={erase} disabled={isDisabled}
+	>page
 	<span><Fa icon={faEraser} size="lg" /></span>
 	<span>Tout effacer</span>
 </button>

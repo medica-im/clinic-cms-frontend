@@ -34,7 +34,7 @@
 	<div>
 		{#key [$page.url]}
 		<Directory
-		{data}
+		data={data?.cardinal}
 		propCurrentOrg={true}
 		displayCommune={false}
 		displayCategory={true}

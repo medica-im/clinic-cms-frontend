@@ -4,7 +4,7 @@
 	import { faDeleteLeft, faEraser } from '@fortawesome/free-solid-svg-icons';
 	import { term, selectCommunes, selectCommunesValue, selectCategories, selCatVal, selectSituation, selectSituationValue, inputAddress, selectFacility, selectFacilityValue, directoryRedirect } from '$lib/store/directoryStore';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let isDisabled = true;
 
@@ -12,7 +12,7 @@
 
 	function erase() {
 		resetDirectory();
-		if ($page.url.pathname != '/annuaire' && $directoryRedirect) {
+		if (page.url.pathname != '/annuaire' && $directoryRedirect) {
 				goto('/annuaire');
 			}
 	}

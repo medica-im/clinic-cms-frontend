@@ -91,7 +91,7 @@ importers:
         specifier: ^1.45.1
         version: 1.50.0
       '@skeletonlabs/skeleton':
-        specifier: ^2.10.4
+        specifier: ^2.11.0
         version: 2.11.0(svelte@5.19.3)
       '@skeletonlabs/tw-plugin':
         specifier: ^0.4.0

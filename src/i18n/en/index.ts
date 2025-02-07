@@ -57,6 +57,7 @@ const en: BaseTranslation = {
 		},
 		GOTOADDRESSBOOK: "Go back to addressbook",
 		GOTOSEARCH: "Go back to search results",
+		GOTOSITE: "Go back to site",
 		APPOINTMENT: {
 			LABEL: "Book an appointment"
 		},

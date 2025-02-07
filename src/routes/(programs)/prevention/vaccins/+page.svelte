@@ -146,7 +146,7 @@
 	<div class="section-container space-y-4">
 		<h2 class="h2">Centres de vaccination</h2>
 			<Directory
-				{data}
+				data={data?.cardinal}
 				propCurrentOrg={null}
 				displayCommune={true}
 				displayCategory={false}

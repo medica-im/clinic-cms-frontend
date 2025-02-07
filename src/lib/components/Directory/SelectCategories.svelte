@@ -5,7 +5,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import {
 		getSelectCategories,
 		getSelCatVal,
@@ -28,7 +28,7 @@
 		if (types) {
             _types = types;
 		} else {
-		    const typesParam: string | null = $page.url.searchParams.get('types');
+		    const typesParam: string | null = page.url.searchParams.get('types');
 			if (typesParam) {
 		        _types = JSON.parse(typesParam);
 			}
@@ -67,12 +67,21 @@
 		}
 	}
 
+	/*function buildUrl() {
+		//const searchParams = page.url.searchParams.get()
+        //const parameters = page.url.searchParams.join('&');
+		//let url = `${origin}`;
+		//if (params.length) url += `?${parameters}`;
+	};*/
+
 	function handleClear(event: CustomEvent) {
 		if (event.detail) {
 			selectCategories.set([]);
 			selCatVal.set(null);
 		}
-		if ($page.params && $directoryRedirect) {
+		page.url.searchParams.delete('types');
+		goto(page.url.pathname+"?"+page.url.searchParams);
+		if (page.url.pathname != '/annuaire' && $directoryRedirect) {
 			goto('/annuaire');
 		}
 	}
@@ -80,7 +89,7 @@
 	function handleChange(event: CustomEvent) {
 		if (event.detail && event.detail.value) {
 			selectCategories.set([event.detail.value]);
-			if ($page.url.pathname != '/annuaire' && $directoryRedirect) {
+			if (page.url.pathname != '/annuaire' && $directoryRedirect) {
 				goto('/annuaire');
 			}
 		}

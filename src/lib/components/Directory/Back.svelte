@@ -1,6 +1,6 @@
 <script lang="ts">
 	import isEmpty from 'lodash.isempty';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import Fa from 'svelte-fa';
@@ -18,6 +18,9 @@
 	function getLabel(searchParams: URLSearchParams) {
 		if (searchParams.get('origin') == '/') {
 			return capitalizeFirstLetter($LL.HOME.TITLE());
+		}
+		if (searchParams.get('origin')?.indexOf('sites')==1) {
+			return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSITE());
 		}
 		if (isSearchParamsEmpty(searchParams)) {
 			return capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK());
@@ -60,9 +63,9 @@
 	}
 </script>
 
-{#if $page.url.searchParams.get('origin')}
-	<a href={buildUrl($page.url.searchParams)} class="btn variant-ghost-primary">
+{#if page.url.searchParams.get('origin')}
+	<a href={buildUrl(page.url.searchParams)} class="btn variant-ghost-primary">
 		<span class="badge variant-filled-primary"><Fa icon={faArrowLeft} /></span>
-		<span class="whitespace-normal text-left">{getLabel($page.url.searchParams)}</span>
+		<span class="whitespace-normal text-left">{getLabel(page.url.searchParams)}</span>
 	</a>
 {/if}

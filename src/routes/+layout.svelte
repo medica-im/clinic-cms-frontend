@@ -11,7 +11,7 @@
     import { notificationData } from '$lib/store/notificationStore';
     import { fly } from 'svelte/transition';
     import { afterUpdate, onMount } from 'svelte';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
     import { variables } from '$lib/utils/constants';
     import favIcon from '$lib/assets/favicon/favicon.svg';
@@ -111,7 +111,7 @@
 	};
 
     // Disable left sidebar on homepage
-    $: slotSidebarLeft = matchList($page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto z-auto' : 'w-0';
+    $: slotSidebarLeft = matchList(page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto z-auto' : 'w-0';
 </script>
 
 <svelte:head>

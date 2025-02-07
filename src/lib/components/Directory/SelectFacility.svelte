@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 	import type { Facility } from '$lib/store/directoryStoreInterface.ts';
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { getFacilities } from '$lib/store/facilityStore';
 	import { getSelectFacility, getSelectFacilityValue } from './context.ts';
 	import LL from '$i18n/i18n-svelte.ts';
-	import { get } from '@square/svelte-store';
 
 	export let facilityOf;
 
@@ -19,7 +19,7 @@
 	let facilityParam: string | null = null;
 
 	onMount(async () => {
-		facilityParam = $page.url.searchParams.get('facility');
+		facilityParam = page.url.searchParams.get('facility');
 		if (facilityParam) {
 			selectFacility.set(facilityParam);
 			const facilities = await getFacilities.load();
@@ -52,6 +52,8 @@
 	function handleClear(event: CustomEvent) {
 		if (event.detail) {
 			selectFacility.set('');
+			page.url.searchParams.delete('facility');
+		    goto(page.url.pathname+"?"+page.url.searchParams);
 		}
 	}
 

@@ -2,14 +2,22 @@
     import { language } from '$lib/store/languageStore.ts';
     import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
     import Directory from '$lib/components/Directory/CtxDirectory.svelte';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import LL from '$i18n/i18n-svelte.ts';
+	import { title } from 'process';
     export let data;
+
+    const getTitle = () => {
+        const firstValue = data.cardinal.entries().next().value; 
+        if (firstValue) {
+            return capitalizeFirstLetter(firstValue[0]);
+        }
+    };
 </script>
 
 <svelte:head>
 <title>
-    Annuaire - {capitalizeFirstLetter($page.data.organization.formatted_name, $language)}
+    {getTitle()} - Annuaire - {capitalizeFirstLetter(page.data.organization.formatted_name, $language)}
 </title>
 </svelte:head>
 
@@ -23,7 +31,7 @@
 </header>
 <div>
     <Directory
-    {data}
+    data={data?.cardinal}
     propCurrentOrg={true}
     displayCommune={false}
     displayCategory={true}

@@ -1,31 +1,30 @@
 <script lang="ts">
-	import { facilityStore } from '$lib/store/facilityStore';
-	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import FacilityCard from '$components/Facility/FacilityCard.svelte';
+	import type { Facility } from '$lib/interfaces/facility.interface.ts';
 
 	export let data;
-	function filterFacilities(facilities) {
+	function filterFacilities(facilities: Facility[]) {
 		const f = facilities.filter((facility) =>
 			facility.organizations.includes(data.organization.uid)
 		);
 		return f;
-	}
+	};
 	const facilities = filterFacilities(data.facilities);
 
 	const getHeader = () => {
         return (facilities.length < 2) ? "Notre établissement" : `Nos ${facilities.length} établissements`
 	}
 	const getTitle = () => {
-        return facilities.length ? 'Établissement' : 'Établissements'
+        return (facilities.length < 2) ? 'Établissement' : 'Établissements'
 	}
 </script>
 
 <svelte:head>
 	<title>
-		{getTitle()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{getTitle()} - {capitalizeFirstLetter(page.data.organization.formatted_name, $language)}
 	</title>
 </svelte:head>
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
@@ -45,7 +44,7 @@
 			</nav-->
 			<div class="grid lg:grid-cols-2 gap-4">
 				{#each facilities as facility}
-					<FacilityCard data={facility} />
+					<FacilityCard data={facility} entries={data.entries.get(facility.uid)} />
 				{/each}
 			</div>
 			<!--{/await}-->
