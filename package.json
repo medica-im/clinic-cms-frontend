@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"type": "module",
 	"private": true,
-	"packageManager": "pnpm@9.15.4",
+	"packageManager": "pnpm@10.2.1",
 	"scripts": {
 		"dev": "npm-run-all --parallel typesafe-i18n sveltekit",
 		"sveltekit": "vite --host --port 3000",
