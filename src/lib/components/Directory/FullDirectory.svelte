@@ -48,7 +48,6 @@
 
 <svelte:window bind:scrollY={$scrollY} />
 
-<div>
 	<section class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container" bind:this={top}>
 			<div class="space-y-2">
@@ -119,7 +118,6 @@
 			</div>
 		</div>
 	</section>
-</div>
 
 {#if $scrollY > showOnPx}
 	<button type="button" class="back-to-top btn-icon btn-lg variant-filled" on:click={scrollToTop}>
@@ -132,7 +130,7 @@
 		scroll-margin-top: 1rem;
 	}
 	.section-container {
-		@apply mx-auto w-full max-w-7xl p-4 py-4 md:py-8;
+		@apply mx-auto w-full max-w-7xl p-4 md:py-8;
 		scroll-padding-top: 4rem;
 	}
 	.programs-gradient {

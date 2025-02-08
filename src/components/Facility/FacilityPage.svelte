@@ -49,7 +49,7 @@
 							<Navigation geoData={createFacilityGeoData(facility)} />
 						{/if}
 					{/if}
-				
+				<div>
 				<span class="inline-block align-middle space-x-1">
 					{#if facility?.websites}
 						{#each facility.websites as website}
@@ -60,6 +60,7 @@
 						<SoMed data={facility.socialnetworks} appBar={false} />
 					{/if}
 				</span>
+			</div>
 				{#if userData && userData?.is_staff}
 				<div>
 					{facility.uid}

@@ -77,7 +77,7 @@
                 </a>
             </footer-->
 		</div>
-		<div class="m-1 p-1 h-64 lg:w-full z-0">
+		<div class="mx-2 p-1 h-64 lg:w-full z-0">
 			<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
 			<Map data={createFacilitiesMapData([data])} />
 		</div>

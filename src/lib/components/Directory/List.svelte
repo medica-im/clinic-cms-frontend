@@ -27,7 +27,7 @@
     </div>
     <Clear />
 </div>
-<div class="my-4 space-y-4">
+<div class="m-4 space-y-4">
     {#each [...data] as [key, value]}
         <div class="space-y-6 my-6 anchordiv" id={key}>
             <div class="relative inline-block">
@@ -40,7 +40,7 @@
                 >
             </div>
         </div>
-        <div class="grid lg:grid-cols-2 gap-x-16 gap-y-8 space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-8 space-y-4">
             {#each value as effector}
                 <Effector {effector} {avatar} />
             {/each}

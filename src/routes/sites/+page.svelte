@@ -42,7 +42,7 @@
 			<!--nav class="top-0 p-2 m-2">
 				<FacilityList data={data.facilities}/>
 			</nav-->
-			<div class="grid lg:grid-cols-2 gap-4">
+			<div class="grid lg:grid-cols-2 gap-6">
 				{#each facilities as facility}
 					<FacilityCard data={facility} entries={data.entries.get(facility.uid)} />
 				{/each}
