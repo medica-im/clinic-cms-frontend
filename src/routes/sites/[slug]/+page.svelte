@@ -19,8 +19,7 @@
 
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
     <div class="mx-0 flex flex-col items-center justify-center p-4 py-6">
-	
-    <h1 class="h2">{data.facility.name}</h1>
+    <h2 class="h2">{data.facility.name}</h2>
 </div>
 </header>
 

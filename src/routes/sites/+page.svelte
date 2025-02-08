@@ -39,9 +39,11 @@
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			<!--nav class="top-0 p-2 m-2">
-				<FacilityList data={data.facilities}/>
-			</nav-->
+			<div class="lg:hidden logo-cloud grid-cols-1 gap-0.5">
+				{#each facilities as facility}
+				<a href="#{facility.name}_anchor" class="logo-item p-2">{facility.name}</a>
+				{/each}
+			</div>
 			<div class="grid lg:grid-cols-2 gap-6">
 				{#each facilities as facility}
 					<FacilityCard data={facility} entries={data.entries.get(facility.uid)} />
@@ -55,7 +57,7 @@
 <!--{JSON.stringify($facilities)}-->
 <style lang="postcss">
 	.section-container {
-		@apply mx-auto w-full max-w-7xl p-4 py-8 md:py-12;
+		@apply mx-auto w-full max-w-7xl px-6 py-6 md:py-8 space-y-6;
 	}
 	/* Hero Gradient */
 	/* prettier-ignore */
