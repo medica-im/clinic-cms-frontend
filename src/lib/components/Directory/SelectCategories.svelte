@@ -9,7 +9,8 @@
 	import {
 		getSelectCategories,
 		getSelCatVal,
-		getDirectoryRedirect
+		getDirectoryRedirect,
+		getSelectFacility,
 	} from '$lib/components/Directory/context';
 	import type { Type } from '$lib/store/directoryStoreInterface';
 
@@ -20,6 +21,7 @@
 	const itemId = 'value';
 
 	let selectCategories = getSelectCategories();
+	let selectFacility = getSelectFacility();
 	let selCatVal = getSelCatVal();
 	let directoryRedirect = getDirectoryRedirect();
 
@@ -78,19 +80,28 @@
 		if (event.detail) {
 			selectCategories.set([]);
 			selCatVal.set(null);
-		}
-		page.url.searchParams.delete('types');
-		goto(page.url.pathname+"?"+page.url.searchParams);
-		if (page.url.pathname != '/annuaire' && $directoryRedirect) {
-			goto('/annuaire');
+			page.url.searchParams.delete('types');
+		    goto(page.url.pathname+"?"+page.url.searchParams);
+		    if (page.url.pathname != '/annuaire' && $directoryRedirect) {
+				let url = '/annuaire';
+				if ( $selectFacility ) {
+					url += `?facility=${$selectFacility}`
+				}
+			    goto(url);
+		    }
 		}
 	}
 
 	function handleChange(event: CustomEvent) {
 		if (event.detail && event.detail.value) {
 			selectCategories.set([event.detail.value]);
+			const typesParam = JSON.stringify(`[${event.detail.value}]`)
+			let urlParams = `?types=${typesParam}`;
+			if ( $selectFacility ) {
+                urlParams += `&facility=${$selectFacility}`
+			}
 			if (page.url.pathname != '/annuaire' && $directoryRedirect) {
-				goto('/annuaire');
+				goto(`/annuaire${urlParams}`);
 			}
 		}
 	}

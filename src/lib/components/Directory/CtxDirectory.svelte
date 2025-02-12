@@ -55,8 +55,9 @@
 	export let propLimitCategories: string[] = [];
 	export let propSelectFacility: string = "";
 	export let avatar: boolean = true;
-	export let types: boolean = false;
+	export let typesView: boolean = false;
 	export let displayEntries: boolean = false;
+	export let types: string[]|null=null;
 
 	setTerm();
 	setSelectCategories();
@@ -200,18 +201,8 @@
 		$limitCategories = propLimitCategories;
 		$selectFacility = propSelectFacility;
 	}
-
-	let countString = '';
-	function contactCount(_categorizedFilteredEffectors: Map<string, any>) {
-		let count = 0;
-		if (_categorizedFilteredEffectors) {
-			count = [..._categorizedFilteredEffectors.values()].flat().length;
-		}
-		return `${count} contact${count > 1 ? 's' : ''}`;
-	}
-	$: countString = contactCount($cardinalCategorizedFilteredEffectors);
 </script>
-{#if types}
+{#if typesView}
 <Types
     {data}
 	{displayEntries}
@@ -229,5 +220,6 @@
 	{communeOf}
 	{categoryOf}
 	{facilityOf}
+	{types}
 />
 {/if}

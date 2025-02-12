@@ -27,6 +27,7 @@
     export let communeOf;
     export let categoryOf;
     export let facilityOf;
+	export let types: string[]|null=null;
 
     const cCFE = getContext<Loadable<Map<any,any>>>('cardinalCategorizedFilteredEffectors');
     const selectSituation = getSelectSituation();
@@ -82,7 +83,7 @@
 					{:else}
 						<div class="row">
 							<div class="col">
-								<SelectCategories {categoryOf} types={data.types} />
+								<SelectCategories {categoryOf} {types} />
 							</div>
 						</div>
 					{/if}
