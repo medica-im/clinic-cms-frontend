@@ -77,7 +77,7 @@
 		<div>
 			<Directory
 				data={entries}
-				types={true}
+				typesView={true}
 				propSelectFacility={facility.uid}
 				displayEntries={true}
 			/>

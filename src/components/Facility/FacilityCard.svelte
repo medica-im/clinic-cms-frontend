@@ -68,7 +68,7 @@
 				</span>
 			</div>
 			<div>
-				<Directory data={entries} types={true} propSelectFacility={data.uid} displayEntries={false} />
+				<Directory data={entries} typesView={true} propSelectFacility={data.uid} displayEntries={false} />
 			</div>
 			<!-- Footer -->
 			<!--footer class="p-4 flex justify-start items-center space-x-4">
