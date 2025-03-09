@@ -68,7 +68,7 @@
 									<div class="{cHashtag}"><i class="fa-solid fa-hashtag"></i></div>
 									<strong class="block text-lg">{link.label}</strong>
 									<small class="text-xs opacity-50">{link.href}</small>
-									<i class="fa-solid fa-angle-right text-xs opacity-30" />
+									<i class="fa-solid fa-angle-right text-xs opacity-30"></i>
 								</a>
 							</li>
 						{/each}

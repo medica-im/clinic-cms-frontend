@@ -118,12 +118,12 @@
 				>
 				<span>Maison de santé</span>
 			</AppRailTile>
-			<!--AppRailTile bind:group={$storeCategory} name={'education'} value={'education'}>
+			<AppRailTile bind:group={currentRailCategory} name={'education'} value={'education'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" /></svelte:fragment
 				>
 				<span>Éducation</span>
-			</AppRailTile-->
+			</AppRailTile>
 			<AppRailTile bind:group={currentRailCategory} name="soins" value={'soins'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faHandHoldingMedical" width="w-6" height="h-6" /></svelte:fragment

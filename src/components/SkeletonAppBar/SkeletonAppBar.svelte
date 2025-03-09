@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { resetDirectory } from '$components/Directory/utils';
 	import { browser } from '$app/environment';
-	import type { SubmitFunction } from '$app/forms';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { variables } from '$lib/utils/constants';
 	import SkeletonLocaleSwitcher from '$components/LocaleSwitcher/SkeletonLocaleSwitcher.svelte';
 	import Fa from 'svelte-fa';
@@ -94,6 +95,7 @@
 
 	const themes = [
 		{ type: 'skeleton', name: 'Skeleton', icon: '💀' },
+		{ type: 'wintry', name: 'Wintry', icon: '🌨️' },
 		{ type: 'modern', name: 'Modern', icon: '🤖' },
 		{ type: 'rocket', name: 'Rocket', icon: '🚀' },
 		{ type: 'seafoam', name: 'Seafoam', icon: '🧜‍♀️' },
@@ -106,14 +108,13 @@
 		// { type: 'test', name: 'Test', icon: '🚧' },
 	];
 
-	const setTheme: SubmitFunction = () => {
-		return async ({ result, update }) => {
-			await update();
-			if (result.type === 'success') {
-				const theme = result.data?.theme as string;
-				storeTheme.set(theme);
-			}
-		};
+	const setTheme: SubmitFunction = ({ formData }) => {
+		const theme = formData.get('theme')?.toString();
+
+		if (theme) {
+			document.body.setAttribute('data-theme', theme);
+			$storeTheme = theme;
+		}
 	};
 </script>
 
@@ -253,7 +254,7 @@
 					<h6 class="h6">Mode</h6>
 					<LightSwitch />
 				</section>
-				<!--hr class="my-4" />
+				<hr class="my-4" />
 					<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
 						<form action="/?/setTheme" method="POST" use:enhance={setTheme}>
 							<ul>
@@ -267,29 +268,26 @@
 											class:bg-primary-active-token={$storeTheme === type}
 										>
 											<span>{icon}</span>
-											<span>{name}</span>
+											<span class="flex-auto text-left">{name}</span>
 										</button>
 									</li>
 								{/each}
 							</ul>
 						</form>
 					</nav>
-					<hr class="my-4" />
-					<div>
-						<a class="btn variant-ghost-surface w-full" href="/docs/generator">Theme Generator</a>
-					</div>
-				</div-->
 			</div>
 
 			<!-- Social -->
 			<!-- prettier-ignore -->
 			<div class="relative hidden xl:block">
 			{#if facility?.contact?.socialnetworks}
-            <SocialNetworks data={facility.contact.socialnetworks} appBar=true />
+            <SocialNetworks data={facility.contact.socialnetworks} appBar={true} />
 			{/if}
 			{#if variables.BLOG_URI}
-			<a href={variables.BLOG_URI} title={'blog'} class="btn-icon btn-icon-sm hover:variant-soft-secondary" target="_blank" rel="noreferrer">
+
+			<a href={variables.BLOG_URI} title={'blog'} class="btn hover:variant-soft-primary" target="_blank" rel="noreferrer">
 				<span><Fa icon={faBlog} size="lg" /></span>
+				<span class="hidden 2xl:inline-block">Blog</span>
 			</a>
 			{/if}
         </div>

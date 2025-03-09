@@ -39,11 +39,11 @@
 		<h1 class="h1">Mieux vivre avec vos maladies chroniques</h1>
 		<p>
 			Le programme d'éducation thérapeutique du patient - polypathologie (ET3P) est un programme
-			d'éducation thérapeutique collective pour des patients polypathologiques.
+			d'éducation thérapeutique collective pour des patients atteints de plusieurs maladies.
 		</p>
 		<p>
-			Il a été développé avec des professionnels de soins primaires partenaires de la MSA (Mutualité
-			sociale agricole), avec des patients et avec des chercheurs.
+			Il a été développé avec des professionnels de <a href="https://fr.wikipedia.org/wiki/Soins_de_sant%C3%A9_primaires" class="anchor">soins primaires</a> (soins de proximité) partenaires de la MSA (<a href="https://fr.wikipedia.org/wiki/Mutualit%C3%A9_sociale_agricole" class="anchor">Mutualité
+			sociale agricole</a>), avec des patients et avec des chercheurs.
 		</p>
 		<p>
 			Les résultats favorables du modèle expérimental<a href="#cite_note-1" class="anchor"

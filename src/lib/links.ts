@@ -66,7 +66,7 @@ export const programsNavLinks: any = {
 			}
 		]
 	},
-	/*'education-therapeutique': {
+	'education-therapeutique': {
 		id: 'education-therapeutique',
 		title: {
 			en: 'Therapeutic education',
@@ -84,22 +84,32 @@ export const programsNavLinks: any = {
 				category: 'definition'
 			},
 			{
+				href: '/education-therapeutique/polypathologie',
+				label: 'Polypathologie',
+				keywords: 'patient, ETP, diabète, éducation, thérapeutique,bronchite chronique, HTA, maladie cardio-vasculaire',
+				icon: null,
+				category: 'program',
+				active: true,
+			},
+			{
 				href: '/education-therapeutique/diabete',
 				label: 'Diabète',
 				keywords: 'patient, ETP, diabète, éducation, thérapeutique',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false,
 			},
 			{
 				href: '/education-therapeutique/cancer',
 				label: 'Accompagnement cancer',
 				keywords: 'patient, ETP, cancer, éducation, thérapeutique',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				active: false,
 			}
 		]
 	},
-	'education-sante': {
+    /*'education-sante': {
 		id: 'education-sante',
 		title: {
 			en: 'Health education',
@@ -181,7 +191,7 @@ export const programsNavLinks: any = {
 				keywords: 'prévention, cancer, colon, rectum, activité, physique, diététique, surpoids, obésité, alcool, tabac, sédentarité',
 				icon: null,
 				category: 'program',
-				active: false
+				active: true
 			},
 			{
 				href: '/prevention/depistage-cancer-col-uterus',
@@ -302,14 +312,14 @@ export const menuNavCats: any = [
 		list: ['msp']
 	},
 	// programs
-	/*{
+	{
 		id: 'education',
 		title: {
 			en: 'Education',
 			fr: 'Éducation'
 		},
 		list: ['education-therapeutique', 'education-sante']
-	},*/
+	},
 	{
 		id: 'prevention',
 		title: {

@@ -2,7 +2,7 @@
 	import { language } from '$lib/store/languageStore.ts';
     import { popup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import {
 		faBars,
 		faCaretDown,
@@ -31,7 +31,7 @@
     }
 	// Reactive
 	$: classesActive = (href: string) => {
-		return $page.url.pathname === href ? 'variant-ringed-primary' : '';
+		return page.url.pathname === href ? 'variant-ringed-primary' : '';
 	}
 </script>
 

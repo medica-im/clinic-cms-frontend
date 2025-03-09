@@ -13,7 +13,7 @@
 		faAppleWhole,
 		faBurger
 	} from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import colonRectum from '$lib/assets/images/colorectal_cancer/colon-rectum.jpg';
 	import VideoPlayer from '$lib/components/Video/VideoPlayer.svelte';
@@ -112,22 +112,16 @@
 					Chez votre <a href="/annuaire/medecin-generaliste/" class="anchor">médecin généraliste</a>
 				</li>
 				<li>Chez votre gynécologue</li>
-				<li>En <a href="/sites/pharmacie-saint-esprit/" class="anchor"> pharmacie</a></li>
+				<li>En <a href="/sites/pharmacie-des-felibres/" class="anchor"> pharmacie</a></li>
 				<li>Chez votre gastro-entérologue</li>
 				<li>
 					Via <a href="https://monkit.depistage-colorectal.fr" class="anchor" rel="external"
 						>monkit.depistage-colorectal.fr</a
 					>
 				</li>
-				<li>
-					Par le <a href="https://www.depistagecancer-na.fr/contact/" class="anchor" rel="external"
-						>centre régional de coordination des dépistages des cancers Nouvelle-Aquitaine</a
-					>
-				</li>
 			</ul>
 			<p>
-				Chez votre médecin ou chez votre pharmacien, le test peut être retiré avec ou sans
-				invitation. Des questions vous seront posées sur vos antécédents personnels et familiaux
+				Chez votre médecin ou chez votre pharmacien, le test peut être retiré avec ou sans lettre d'invitation. Des questions vous seront posées sur vos antécédents personnels et familiaux
 				afin de déterminer si ce test vous concerne.
 			</p>
 		</div>
@@ -303,9 +297,8 @@
 			<ul class="list-disc space-y-4 p-4">
 				<li>
 					<a
-						href="https://www.depistagecancer-na.fr/depistage-cancer-colorectal/
-					"
-						class="anchor">Dépistage des cancers. Centre de coordination Nouvelle-Aquitaine.</a
+						href="https://depistage-cancers-sud.org/pourquoi-qui-quels-examens-cancer-colorectal/"
+						class="anchor">Dépistage des cancers. Centre de coordination SUD Provence-Alpes-Côte d'Azur.</a
 					>
 				</li>
 				<li>
@@ -340,7 +333,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav data={page.url.pathname} />
 	</div>
 </section>
 
