@@ -22,7 +22,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import { menuNavLinks, menuNavCats } from '$lib/links.ts';
 
-    function getNavGroups(id: Number) {
+    function getNavGroups(id: string) {
         let cat = menuNavCats.find(obj => {
             return obj.id === id
         })

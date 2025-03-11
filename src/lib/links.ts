@@ -248,7 +248,7 @@ export const getAllPrograms = () => {
 const outpatientClinicLinks: any = {
 	// outpatient clinic
 	'msp': {
-		id: 'msp',
+		id: 'maison-de-sante',
 		title: {
 			en: 'Outpatient clinic',
 			fr: 'Maison de santé'
@@ -301,7 +301,7 @@ export const menuNavLinks: any = {
 	...programsNavLinks
 };
 
-export const menuNavCats: any = [
+export const menuNavCats: any[] = [
 	// outpatient clinic
 	{
 		id: 'msp',
@@ -309,7 +309,7 @@ export const menuNavCats: any = [
 			en: 'Outpatient clinic',
 			fr: 'Maison de santé'
 		},
-		list: ['msp']
+		list: ['maison-de-sante']
 	},
 	// programs
 	{

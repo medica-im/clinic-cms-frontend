@@ -218,11 +218,11 @@
 	</div>
 </section>
 
-<!--section>
+<section>
 	<div class="section-container">
 		<ProgramNav data={page.url.pathname} />
 	</div>
-</section-->
+</section>
 
 <style lang="postcss">
 	.section-container {

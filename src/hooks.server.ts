@@ -3,7 +3,6 @@ import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors'
 import { variables } from '$lib/utils/constants.ts';
 import { detectLocale, i18n, isLocale } from '$i18n/i18n-util.ts'
 import { loadAllLocales } from '$i18n/i18n-util.sync.ts'
-import type { Handle } from '@sveltejs/kit';
 
 loadAllLocales()
 const L = i18n()
@@ -58,8 +57,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (cookieTheme) {
 		theme = cookieTheme;
 	} else {
-		event.cookies.set('theme', 'skeleton', { path: '/' });
-		theme = 'skeleton';
+		event.cookies.set('theme', 'wintry', { path: '/' });
+		theme = 'wintry';
 	}
 
 	return await resolve(event, {

@@ -17,7 +17,7 @@
 	export let data;
 
 	// Local
-	let currentRailCategory: keyof typeof menuNavLinks | undefined = undefined;
+	let currentRailCategory: string | undefined = undefined;
 
 	function onClickAnchor(): void {
 		currentRailCategory = undefined;
@@ -34,17 +34,51 @@
 	}
 	// Lifecycle
 	page.subscribe((page) => {
-		let path: string = page.url.pathname;
+		console.log("lifecycle");
+		let pathname: string = page.url.pathname;
+		console.log(`pathname: ${pathname}`);
+		let basePath: string = page.url.pathname.split('/')[1];
+		console.log(`basePath: ${basePath}`);
+		let menuNavCat = menuNavCats.find(e=>e.list.includes(basePath));
+		console.log(`menuNavCat: ${JSON.stringify(menuNavCat)}`);
+		if (menuNavCat) {
+		    currentRailCategory = menuNavCat.id;
+		}
+	});
+	// Lifecycle
+	function setCurrentCategory(page) {
+		// ex: /basePath/...
+		//let path = page.url.pathname;
+		//if (!path || path == '/') return;
+		let basePath: string = page.url.pathname.split('/')[0];
+		if (!basePath) return;
+		console.log(`basePath: ${basePath}`);
+		let menuNavCat = menuNavCats.find(e=>e.list.includes(basePath));
+		console.log(`menuNavCat: ${menuNavCat}`);
+		if (menuNavCat) {
+		    return menuNavCat.id;
+		}
+	};
+
+	function getMenuNavLinks(currentRailCategory: string|undefined) {
+		if (!currentRailCategory) return;
+		let path: string = $page.url.pathname;
+		//console.log(`path: ${path}`);
+		//console.log(`currentRailCategory: ${currentRailCategory}`);
 		//let basePath: string = page.url.pathname.split('/')[1];
 
-		if (!path || path == '/') return;
+		//if (!path || path == '/') return;
 		// Translate path to menuNavCats id
-		filteredMenuNavLinks = Object.values(menuNavLinks).filter((linkSet: any) => {
-			return linkSet.list.some((e: any) => e.href == path);
+		const cat = menuNavCats.find(cat=>cat.id==currentRailCategory);
+		//console.log(`cat: ${JSON.stringify(cat)}`);
+		const list = cat.list;
+		//console.log(`list: ${JSON.stringify(list)}`);
+		let _filteredMenuNavLinks = Object.values(menuNavLinks).filter((linkSet: any) => {
+			return list.some((e: any) => e == linkSet.id);
 		});
 		//console.log(filteredMenuNavLinks);
-		if (filteredMenuNavLinks.length) {
-			let menuNavLinkId = filteredMenuNavLinks[0].id;
+		if (_filteredMenuNavLinks.length) {
+			let menuNavLinkId = _filteredMenuNavLinks[0].id;
 			let selectNavCats = menuNavCats.filter((navCat: any) => {
 				return navCat.list.some((e: any) => e == menuNavLinkId);
 			});
@@ -55,10 +89,13 @@
 				//console.log(`currentRailCategory: ${currentRailCategory}`)
 			}
 		}
-	});
+		//console.log(`_filteredMenuNavLinks: ${JSON.stringify(_filteredMenuNavLinks)}`);
+		return _filteredMenuNavLinks
+	};
 
 	// Reactive
-	$: filteredMenuNavLinks = Object.values(menuNavLinks).filter((e) => e.id == currentRailCategory);
+	//$: filteredMenuNavLinks = Object.values(menuNavLinks).filter((e) => e.id == currentRailCategory);
+	$: filteredMenuNavLinks = getMenuNavLinks(currentRailCategory);
 	$: classesActive = (href: string) => {
 		return $page.url.pathname == href ? 'variant-ringed-primary' : '';
 	};
@@ -69,7 +106,7 @@
 		''}"
 >
 	<!-- App Rail -->
-	<AppRail background="bg-transparent" border="border-r border-surface-500/30">
+	<AppRail background="bg-transparent" border="border-r border-surface-500/30" regionLead="z-[90000]" regionDefault="z-[90000]" regionTrail="z-[90000]">
 		<AppRailAnchor
 		    data-sveltekit-preload-data="off"
 			href="/"
@@ -118,7 +155,7 @@
 				>
 				<span>Maison de santé</span>
 			</AppRailTile>
-			<AppRailTile bind:group={currentRailCategory} name={'education'} value={'education'}>
+			<AppRailTile bind:group={currentRailCategory} name="education" value={'education'}>
 				<svelte:fragment slot="lead"
 					><DocsIcon name="faPersonChalkboard" width="w-6" height="h-6" /></svelte:fragment
 				>
