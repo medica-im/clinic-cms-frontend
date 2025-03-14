@@ -9,7 +9,7 @@
 	import { get } from '@square/svelte-store';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
-	import { useQueryClient, createQuery } from '@tanstack/svelte-query';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { variables } from '$lib/utils/constants';
 
 	const label = 'label';

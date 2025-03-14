@@ -34,32 +34,13 @@
 	}
 	// Lifecycle
 	page.subscribe((page) => {
-		console.log("lifecycle");
 		let pathname: string = page.url.pathname;
-		console.log(`pathname: ${pathname}`);
 		let basePath: string = page.url.pathname.split('/')[1];
-		console.log(`basePath: ${basePath}`);
 		let menuNavCat = menuNavCats.find(e=>e.list.includes(basePath));
-		console.log(`menuNavCat: ${JSON.stringify(menuNavCat)}`);
 		if (menuNavCat) {
 		    currentRailCategory = menuNavCat.id;
 		}
 	});
-	// Lifecycle
-	function setCurrentCategory(page) {
-		// ex: /basePath/...
-		//let path = page.url.pathname;
-		//if (!path || path == '/') return;
-		let basePath: string = page.url.pathname.split('/')[0];
-		if (!basePath) return;
-		console.log(`basePath: ${basePath}`);
-		let menuNavCat = menuNavCats.find(e=>e.list.includes(basePath));
-		console.log(`menuNavCat: ${menuNavCat}`);
-		if (menuNavCat) {
-		    return menuNavCat.id;
-		}
-	};
-
 	function getMenuNavLinks(currentRailCategory: string|undefined) {
 		if (!currentRailCategory) return;
 		let path: string = $page.url.pathname;

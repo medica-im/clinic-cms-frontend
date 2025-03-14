@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Map from '$lib/components/Map/Map.svelte';
+	import { MapLibre as Map } from 'clinic-cms';
+
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
@@ -37,8 +38,8 @@
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
 		<div class="section-container">
-			<div class="flex flex-wrap">
-				<div class="grow-0 shrink-0 basis-auto lg:w-6/12 xl:w-8/12">
+			<div class="grid lg:grid-cols-2">
+				<div class="grow-0 basis-auto lg:w-6/12 xl:w-8/12">
 					<div class="flex flex-wrap pt-12 lg:pt-0">
 						<div
 							class="mb-12 grow-0 shrink-0 basis-auto w-full md:w-6/12 lg:w-full xl:w-6/12 px-3 md:px-6 xl:px-12"
@@ -81,10 +82,9 @@
 							</div-->
 					</div>
 				</div>
-				<div class="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
-					<div class="map-container-2 w-full p-4">
-						<Map data={createMapData(data?.facility?.contact?.address)} />
-					</div>
+				<div class="justify-stretch justify-items-stretch h-80 lg:h-full p-2">
+						<Map data={createMapData(data?.facility?.contact?.address, data?.facility?.formatted_name)} />
+					
 				</div>
 			</div>
 		</div>
@@ -121,8 +121,5 @@
 		background-image:
 			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
 			radial-gradient(at 100% 0%,  rgba(var(--color-primary-500) / 0.33) 0px, transparent 50%);
-	}
-	.map-container-2 {
-		height: 500px;
 	}
 </style>

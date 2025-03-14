@@ -9,7 +9,7 @@
 	import { get } from '@square/svelte-store';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
-	import { useQueryClient, createQuery } from '@tanstack/svelte-query';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { variables } from '$lib/utils/constants';
 
 	const label = 'label';
@@ -102,10 +102,10 @@
 
 <div class="text-surface-700 theme space-x-2 space-y-2">
 	{#await categorizedFullFilteredEffectors.load()}
-		<div class="placeholder" />
+		<div class="placeholder"></div>
 	{:then}
 		{#if $query.status === 'pending'}
-			<div class="placeholder" />
+			<div class="placeholder"></div>
 		{:else if $query.error}
 			<p>Error: {$query.error.message}</p>
 		{:else}

@@ -99,7 +99,7 @@
 			</figure>
 		</div>
 	{/if}
-	<div class="h-64 w-64 lg:w-96 lg:h-96">
+	<div class="h-64 w-64 lg:w-96 lg:h-96 z-0">
 		<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
 		<Map data={createFacilitiesMapData([facility])} />
 	</div>
