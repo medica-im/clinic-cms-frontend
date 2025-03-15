@@ -1,15 +1,20 @@
 <script lang="ts">
 import { getDrawerStore, Drawer } from '@skeletonlabs/skeleton';
 import Sidebar from '$components/Sidebar/Sidebar.svelte';
+import { setContext } from 'svelte';
 
+let classesDrawer = $state();
+let widthSetting = $state({width: 'w-[80]'});
+setContext('widthSetting', widthSetting);
 const drawerStore = getDrawerStore();
 
-$: classesDrawer = $drawerStore.id === 'doc-sidenav' ? 'lg:hidden' : '';
+$effect(()=>{classesDrawer = $drawerStore.id === 'doc-sidenav' ? 'lg:hidden' : '';}
+);
 
-export let data;
+let data = $props();
 </script>
 
-<Drawer class={classesDrawer}>
+<Drawer class={classesDrawer} width={widthSetting.width}>
 	{#if $drawerStore.id === 'doc-sidenav'}
 		<!-- Sidebar -->
 		<Sidebar {data} embedded={true} />

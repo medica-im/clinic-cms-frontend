@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
 	import { language } from '$lib/store/languageStore.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { page } from '$app/stores';
@@ -10,6 +11,8 @@
 	import { resetDirectory } from '$components/Directory/utils.ts';
 	import Fa from 'svelte-fa';
 	import { faBlog } from '@fortawesome/free-solid-svg-icons';
+
+	const widthSetting: {width: string} = getContext('widthSetting');
 
 	const drawerStore = getDrawerStore();
 	// Props
@@ -34,7 +37,6 @@
 	}
 	// Lifecycle
 	page.subscribe((page) => {
-		let pathname: string = page.url.pathname;
 		let basePath: string = page.url.pathname.split('/')[1];
 		let menuNavCat = menuNavCats.find(e=>e.list.includes(basePath));
 		if (menuNavCat) {
@@ -80,6 +82,14 @@
 	$: classesActive = (href: string) => {
 		return $page.url.pathname == href ? 'variant-ringed-primary' : '';
 	};
+	// Set the width of the Drawer component to hide empty space.
+	$: if (widthSetting) {
+		if (!filteredMenuNavLinks?.length) {
+			widthSetting.width="w-[80]"
+		} else {
+			widthSetting.width=""
+		};
+	};
 </script>
 
 <div
@@ -87,7 +97,7 @@
 		''}"
 >
 	<!-- App Rail -->
-	<AppRail background="bg-transparent" border="border-r border-surface-500/30" regionLead="z-[90000]" regionDefault="z-[90000]" regionTrail="z-[90000]">
+	<AppRail background="!bg-transparent" border="border-r border-surface-500/30">
 		<AppRailAnchor
 		    data-sveltekit-preload-data="off"
 			href="/"
@@ -191,7 +201,7 @@
 	</AppRail>
 	{#if filteredMenuNavLinks?.length}
 		<!-- Nav Links -->
-		<section class="p-4 pb-20 space-y-4 overflow-y-auto z-[10000]">
+		<section class="p-4 pb-20 space-y-4 overflow-y-auto">
 			{#each filteredMenuNavLinks as { id, title, href, list }, i}
 				{#if list.filter(e=>e.active!=false).length > 0}
 					<!-- Title -->
