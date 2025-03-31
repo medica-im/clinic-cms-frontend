@@ -168,9 +168,11 @@
 						<FacilityLink data={effector.facility} />
 						<Address data={effector.address} />
 					</div>
+					{#if effector.address.longitude && effector.address.latitude}
 					<div class="h-56 w-64 lg:h-64 lg:w-96 p-2 z-0">
 						<Map data={createMapData(effector.address, effector.facility.name)} />
 					</div>
+					{/if}
 				</div>
 			</div>
 		</div>

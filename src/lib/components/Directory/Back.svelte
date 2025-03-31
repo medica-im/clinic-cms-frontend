@@ -19,14 +19,17 @@
 		if (searchParams.get('origin') == '/') {
 			return capitalizeFirstLetter($LL.HOME.TITLE());
 		}
-		if (searchParams.get('origin')?.indexOf('sites')==1) {
+		if (searchParams.get('origin')?.indexOf('sites') == 1) {
 			return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSITE());
 		}
-		if (isSearchParamsEmpty(searchParams)) {
-			return capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK());
-		} else {
-			return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH());
+		if (searchParams.get('origin')?.indexOf('annuaire') == 1) {
+			if (isSearchParamsEmpty(searchParams)) {
+				return capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK());
+			} else {
+				return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH());
+			}
 		}
+		return capitalizeFirstLetter($LL.ERROR404.BACK());
 	}
 
 	function buildUrl(searchParams: URLSearchParams): string {

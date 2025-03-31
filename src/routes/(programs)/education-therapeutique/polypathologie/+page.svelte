@@ -13,8 +13,12 @@
 		faChevronDown,
 		faChevronRight,
 		faPeopleArrows,
-		faPeopleGroup
+		faPeopleGroup,
+		faStopwatch,
 	} from '@fortawesome/free-solid-svg-icons';
+	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
+
+	export let data;
 	const mobileWidth: number = 1440;
 
 	$: innerWidth = 0;
@@ -92,9 +96,9 @@
 		</p>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
-				<li>maladie cardiovasculaire</li>
-				<li>diabète</li>
-				<li>bronchite chronique</li>
+				<li>hypertension artérielle (HTA)</li>
+				<li>diabète type 1 et type 2</li>
+				<li>bronchite chronique (BPCO)</li>
 			</ul>
 		</div>
 	</div>
@@ -104,6 +108,20 @@
 	<div class="section-container">
 		<h2 class="h2">Comment se déroulent les ateliers ?</h2>
 		<p>Un parcours sur mesure avec des objectifs éducatifs personnels.</p>
+		<div class="pl-5">
+			<ul class="list-disc space-y-4 p-4">
+				<li>
+					Les accompagnants sont chaleureusement invités.
+				</li>
+				<li>
+					Dix personnes maximum par atelier.
+					</li>
+					<li>
+						<div class="flex items-baseline gap-1">
+							<Fa icon={faStopwatch} size={'sm'} /><span>Durée d'une séance: une demi-journée.</span></div>
+					</li>
+			</ul>
+		</div>
 		<div class="grid grid-cols-1 lg:flex lg:flex-rows p-2 m-2 justify-items-center items-center">
 			<div class="card variant-ringed-primary p-4 m-4 space-y-2 justify-items-center">
 				<div class="flex flex-wrap gap-2">
@@ -163,8 +181,17 @@
 				<li>Adapter votre alimentation.</li>
 				<li>Trouver une activité physique qui vous convient.</li>
 				<li>Apprendre à gérer vos signaux d'alerte.</li>
-				<li>Comprendre votre traitement.eux vivre avec votre ou vos maladies.</li>
+				<li>Comprendre votre traitement.</li>
 			</ul>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div class="section-container">
+		<h2 class="h2">Notre équipe</h2>
+		<div class="pl-5">
+			<EntryUl data={data.team}/>
 		</div>
 	</div>
 </section>

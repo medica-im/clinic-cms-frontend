@@ -109,8 +109,8 @@ async function fetchEntries(next) {
 }
 
 async function fetchEntry(uid) {
-	const effectorsUrl = `${variables.BASE_API_URI}/entries/${uid}`;
-	const [response, err] = await handleRequestsWithPermissions(fetch, effectorsUrl);
+	const entriesUrl = `${variables.BASE_API_URI}/entries/${uid}`;
+	const [response, err] = await handleRequestsWithPermissions(fetch, entriesUrl);
 	if (err) {
 		console.error(JSON.stringify(err));
 	}

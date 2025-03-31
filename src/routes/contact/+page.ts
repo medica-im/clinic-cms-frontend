@@ -1,6 +1,5 @@
 import { facilityStore, websiteSchema } from '$lib/store/facilityStore';
 import { openGraphStore } from '$lib/store/openGraphStore';
-import { variables } from '$lib/utils/constants';
 import type { PageLoad } from './$types';
 
 export const prerender = true;

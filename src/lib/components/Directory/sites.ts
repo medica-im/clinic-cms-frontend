@@ -28,7 +28,8 @@ export const facilityEntries = async (uid:string) => {
             JSON.stringify(toStore)
         )
     }
-
+    console.log(`sites.ts _facilitiesEntries:${JSON.stringify([..._facilityEntries])}`)
+    return _facilityEntries;
 };
 
 export const allFacilityEntries = async (orgUid: string) =>  {

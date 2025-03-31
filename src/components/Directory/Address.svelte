@@ -16,14 +16,18 @@
 		{#if data.building}
 			<li>{data.building}</li>
 		{/if}
-		<li>{data.street || 'MISSING ADDRESS FIELD: STREET'}</li>
+		{#if data.street}
+		<li>{data.street}</li>
+		{/if}
 		{#if data.geographical_complement}
 			<li>({data.geographical_complement})</li>
 		{/if}
 		<li>
 			<div class="flex">
+				{#if data.zip}
 				<div>{data.zip || 'MISSING ADDRESS FIELD: ZIP'}</div>
 				<div>&nbsp;</div>
+				{/if}
 				<div><b>{data.city || 'MISSING ADDRESS FIELD: CITY'}</b></div>
 			</div>
 		</li>

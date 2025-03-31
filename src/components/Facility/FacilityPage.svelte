@@ -48,10 +48,12 @@
 				<Email data={email} />
 			{/each}
 		{/if}
+		{#if facility.address.longitude && facility.address.latitude}
 		{#if browser}
 			{#if isMobile(window)}
 				<Navigation geoData={createFacilityGeoData(facility)} />
 			{/if}
+		{/if}
 		{/if}
 	    </div>
 		{#if facility?.websites || facility?.socialnetworks }
@@ -74,6 +76,7 @@
 				<button use:copy={facility.uid}> Copy! </button>
 			</div>
 		{/if}
+		{#if entries && [...entries]?.length}
 		<div>
 			<Directory
 				data={entries}
@@ -82,6 +85,7 @@
 				displayEntries={true}
 			/>
 		</div>
+		{/if}
 	</div>
 	{#if facility?.avatar?.raw}
 		<div>
@@ -99,8 +103,10 @@
 			</figure>
 		</div>
 	{/if}
+	{#if facility.address.longitude && facility.address.latitude}
 	<div class="h-64 w-64 lg:w-96 lg:h-96 z-0">
 		<!--LeafletMap geoData={createFacilityGeoData(facility)} /-->
 		<Map data={createFacilitiesMapData([facility])} />
 	</div>
+	{/if}
 </div>

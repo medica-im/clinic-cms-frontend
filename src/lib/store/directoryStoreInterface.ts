@@ -28,9 +28,9 @@ export interface Address {
 }
 
 export interface Avatar {
-    fb: string | null,
-    lt: string | null,
-    raw: string | null
+    fb: string,
+    lt: string,
+    raw: string
 }
 
 export interface Facility {
@@ -66,7 +66,7 @@ export interface Type {
 
 export interface Entry {
     address: Address,
-    avatar: Avatar | null,
+    avatar: Avatar,
     commune: Commune,
     effector_uid: string,
     facility: Facility,

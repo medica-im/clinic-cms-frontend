@@ -9,9 +9,12 @@ export const load: PageLoad = async ({ fetch, params }) => {
     const url = `${variables.BASE_API_URI}/facilities/${slug}`;
     const response = await fetch(url);
     const facility: Facility = await response.json();
+    console.log(`facility: ${JSON.stringify(facility)}`);
     selectFacility.set(facility.uid);
+    const entries = await facilityEntries(facility.uid);
+    console.log(`entries: ${JSON.stringify([...entries])}`);
     return {
         facility: facility,
-        entries: await facilityEntries(facility.uid)
+        entries: entries
     };
 }
