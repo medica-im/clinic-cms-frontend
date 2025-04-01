@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import LL from '$i18n/i18n-svelte';
-	import useAssets from '$lib/composables/useAssets.js';
 	import Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 	import { variables } from '$lib/utils/constants';

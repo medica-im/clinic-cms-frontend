@@ -280,18 +280,20 @@ export const getEntries = async () => {
 	return cachedEffectorsObj.data;
 };
 
-export const getAvatars = async () => {
+export const getAvatars = asyncDerived(
+	([facilityStore]),
+	async([$facilityStore]) => {
 	const cachedEffectorsObj = getLocalStorage('entries');
 	let cachedEffectors = cachedEffectorsObj?.data;
 	if (!cachedEffectors) {
 		cachedEffectors = await getEntries();
 	}
-	let carousel = cachedEffectors.filter(function (item: any) {
-		return item?.avatar?.lt
+	let carousel = cachedEffectors.filter(function (item: Entry) {
+		return (item?.avatar?.lt && item?.organizations.includes($facilityStore.uid))
 	});
 	shuffle(carousel);
 	return carousel
-};
+});
 
 export const distanceEffectorsF = async (addressFeature: AddressFeature) => {
 	const targetGeoJSON = addressFeature?.geometry?.coordinates;

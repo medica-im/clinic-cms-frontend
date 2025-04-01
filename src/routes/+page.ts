@@ -15,7 +15,7 @@ export const load: PageLoad = async ({ data }) => {
         websiteSchema: await websiteSchema.load(),
         openGraph: await openGraphStore.load(),
         cardinalTypes: await cardinalTypes.load(),
-        teamCarousel: await getAvatars(),
+        teamCarousel: await getAvatars.load(),
         ghost: data.ghost
     };
 }

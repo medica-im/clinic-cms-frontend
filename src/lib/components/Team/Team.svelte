@@ -2,12 +2,9 @@
 	import { page } from '$app/stores';
 	import Occupations from '$lib/Organization/Occupations.svelte';
 	import LL from '$i18n/i18n-svelte.ts';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { language } from '$lib/store/languageStore.ts';
 	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 	import TeamCarousel from '$components/Carousel/TeamCarousel.svelte';
-	import { resetDirectory } from '$components/Directory/utils.ts';
 	import { currentOrg, limitCategories} from '$lib/store/directoryStore.ts';
 	export let data: any;
 </script>
@@ -28,7 +25,7 @@
 			<Occupations data={data.cardinalTypes}/>
 			{/key}
 		</div>
-		<a href="/annuaire" on:click={resetDirectory} class="btn variant-ghost-surface" data-sveltekit-preload-data="hover">
+		<a href="/annuaire" class="btn variant-ghost-surface" data-sveltekit-preload-data="hover">
 			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
 		</a>
 		
