@@ -139,6 +139,11 @@ const en: BaseTranslation = {
 		DIABETES: 'diabetes',
 		CANCER: 'cancer'
 	},
+	SCREENING: {
+		HYPERTENSION: 'hypertension screening',
+		COLORECTAL_CANCER: 'colorectal cancer',
+		CERVICAL_CANCER: 'cervical cancer'
+	},
 	WEBSITE: 'website',
 	LEARN_MORE: 'Learn more',
 	LEXICON: 'lexicon',

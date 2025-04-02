@@ -139,6 +139,11 @@ const fr: Translation = {
 		DIABETES: 'diabète',
     CANCER: 'cancer'
 	},
+  SCREENING: {
+    HYPERTENSION: 'dépistage de l\'hypertension artérielle',
+    COLORECTAL_CANCER: 'cancer colorectal',
+    CERVICAL_CANCER: 'cancer du col de l\'utérus'
+  },
 	WEBSITE: 'site web',
   LEARN_MORE: 'En savoir plus',
   LEXICON: 'lexique',

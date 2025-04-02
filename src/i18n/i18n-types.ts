@@ -426,6 +426,20 @@ type RootTranslation = {
 		 */
 		CANCER: string
 	}
+	SCREENING: {
+		/**
+		 * d​é​p​i​s​t​a​g​e​ ​d​e​ ​l​'​h​y​p​e​r​t​e​n​s​i​o​n​ ​a​r​t​é​r​i​e​l​l​e
+		 */
+		HYPERTENSION: string
+		/**
+		 * c​a​n​c​e​r​ ​c​o​l​o​r​e​c​t​a​l
+		 */
+		COLORECTAL_CANCER: string
+		/**
+		 * c​a​n​c​e​r​ ​d​u​ ​c​o​l​ ​d​e​ ​l​'​u​t​é​r​u​s
+		 */
+		CERVICAL_CANCER: string
+	}
 	/**
 	 * s​i​t​e​ ​w​e​b
 	 */
@@ -972,6 +986,20 @@ export type TranslationFunctions = {
 		 * cancer
 		 */
 		CANCER: () => LocalizedString
+	}
+	SCREENING: {
+		/**
+		 * dépistage de l'hypertension artérielle
+		 */
+		HYPERTENSION: () => LocalizedString
+		/**
+		 * cancer colorectal
+		 */
+		COLORECTAL_CANCER: () => LocalizedString
+		/**
+		 * cancer du col de l'utérus
+		 */
+		CERVICAL_CANCER: () => LocalizedString
 	}
 	/**
 	 * site web
