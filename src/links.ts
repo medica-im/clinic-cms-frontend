@@ -115,6 +115,14 @@ export const programsNavLinks: any = [
 				keywords: 'prévention, alimentation, forme, corps, activité, physique, diététique',
 				icon: null,
 				category: 'program'
+			},
+			{
+				href: '/prevention/depistage-cancer-colorectal',
+				label: 'Cancer colorectal',
+				keywords: 'prévention, cancer, colon, rectum, activité, physique, diététique, surpoids, obésité, alcool, tabac, sédentarité',
+				icon: null,
+				category: 'program',
+				active: true
 			}
 		]
 	}
