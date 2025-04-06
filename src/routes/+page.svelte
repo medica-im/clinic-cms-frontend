@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import Welcome from '$lib/components/Welcome/Welcome.svelte';
-	import Team from '$lib/components/Team/Team.svelte';
-	import { Ghost } from 'clinic-cms';
+	import { Welcome } from '$lib';
+    import { Team } from '$lib';
+	import { Ghost } from '$lib';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
-	import { Facility } from 'clinic-cms';
+	import { Facility } from '$lib';
 
 	export let data: PageData;
 
@@ -19,7 +19,7 @@
 	$: cardinalTypes = data.cardinalTypes;
 </script>
 
-<LDTag schema={data?.websiteSchema} />
+<!--LDTag schema={data?.websiteSchema} /-->
 <svelte:head>
 	{#if data?.openGraph}
 		<OpenGraph opengraph={data.openGraph} />

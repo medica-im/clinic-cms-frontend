@@ -2,8 +2,7 @@
 	import { page } from '$app/state';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import * as m from "$msgs";	import ProgramNav from '$components/ProgramNav.svelte';
 	import et3p from '$lib/assets/pdf/et3p/msa_education_therapeutique_patient_polypathologique.pdf';
 	import crozetEtAl2017 from '$lib/assets/pdf/et3p/crozet_et_al_2017.pdf';
 	import { Fa } from 'svelte-fa';
@@ -28,7 +27,7 @@
 
 <svelte:head>
 	<title>
-		Polypathologie - {capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE())} - {capitalizeFirstLetter(
+		Polypathologie - {capitalizeFirstLetter(m.OUTPATIENT_CLINIC_TPE())} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name
 		)}
 	</title>
@@ -37,7 +36,7 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE())}</span
+			>{capitalizeFirstLetter(m.OUTPATIENT_CLINIC_TPE())}</span
 		>
 
 		<h1 class="h1">Mieux vivre avec vos maladies chroniques</h1>

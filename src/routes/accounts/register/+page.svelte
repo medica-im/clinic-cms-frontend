@@ -7,6 +7,7 @@
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import { changeText } from '$lib/helpers/buttonText';
+	import * as m from "$msgs";
 
 	let email: string,
 		fullName: string,
@@ -30,11 +31,10 @@
 		if (err.length > 0) {
 			errors = err;
 		} else if (response.user) {
-			notificationData.update(() => 'Registration successful. Login now...');
+			notificationData.update(() => m.REGISTRATION_SUCCESSFUL());
 			await goto('/accounts/login');
 		}
 	};
-	console.error(errors);
 	const passwordConfirm = () => (password !== confirmPassword ? false : true);
 </script>
 

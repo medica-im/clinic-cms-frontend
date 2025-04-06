@@ -4,7 +4,6 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { variables } from '$lib/utils/constants';
-	import SkeletonLocaleSwitcher from '$components/LocaleSwitcher/SkeletonLocaleSwitcher.svelte';
 	import Fa from 'svelte-fa';
 	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 	import {
@@ -47,7 +46,7 @@
 	import { storeTheme } from '$lib/store/skeletonStores';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
 
-	import LL from '$i18n/i18n-svelte';
+	import * as m from "$msgs";
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import { userData } from '$lib/store/userStore';
@@ -129,7 +128,7 @@
 			</button>
 		</svelte:fragment>
 			<!-- Logo -->
-			<a data-sveltekit-preload-data="off" href="/" title={$LL.NAVBAR.GO_HOME()}>
+			<a data-sveltekit-preload-data="off" href="/" title={m.NAVBAR_GO_HOME()}>
 				<div class="flex items-center">
 
 				<div class="w-8 h-8 mx-1 flex-none"><OutpatientClinicLogo /></div>
@@ -158,7 +157,7 @@
 					class="btn hover:variant-soft-primary"
 					use:popup={{ event: 'click', target: 'features' }}
 				>
-					<span>{$LL.NAVBAR.NAVIGATE()}</span>
+					<span>{m.NAVBAR_NAVIGATE()}</span>
 					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 				</button>
 				<!-- popup -->
@@ -169,13 +168,13 @@
 						<li>
 							<a data-sveltekit-preload-data="off" href="/">
 								<span class="w-6 text-center"><Fa icon={faHouse} /></span>
-								<span>{$LL.HOME.TITLE()}</span>
+								<span>{m.HOME_TITLE()}</span>
 							</a>
 						</li>
 						<li>
 							<a data-sveltekit-preload-data="tap" href="/annuaire" on:click={resetDirectory}>
 								<span class="w-6 text-center"><Fa icon={faAddressBook} /></span>
-								<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
+								<span>{m.NAVBAR_ADDRESSBOOK()}</span>
 							</a>
 						</li>
 						<li>
@@ -201,7 +200,7 @@
 					class="btn hover:variant-soft-primary"
 					use:popup={{ event: 'click', target: 'facility' }}
 				>
-					<span>{$LL.FACILITY.OUTPATIENT_CLINIC()}</span>
+					<span>{m.OUTPATIENT_CLINIC()}</span>
 					<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 				</button>
 				<!-- popup -->
@@ -214,18 +213,18 @@
 						<li>
 							<a href="/{ facility.category.slug }/a-propos">
 								<span class="w-6 text-center"><Fa icon={faInfo} /></span>
-								<span>{$LL.NAVBAR.ABOUT()}</span>
+								<span>{m.NAVBAR_ABOUT()}</span>
 							</a>
 							{#if variables.TIMELINE}
 							<a href="/{ facility.category.slug }/chronologie">
 								<span class="w-6 text-center"><Fa icon={faTimeline} /></span>
-								<span>{$LL.NAVBAR.TIMELINE()}</span>
+								<span>{m.NAVBAR_TIMELINE()}</span>
 							</a>
 							{/if}
 							<!--hr class="my-4"-->
 							<a href="/{ facility.category.slug }/projet-de-sante">
 								<span class="w-6 text-center"><Fa icon={faBookMedical} /></span>
-								<span>{$LL.NAVBAR.HEALTH_PROJECT()}</span>
+								<span>{m.NAVBAR_HEALTH_PROJECT()}</span>
 							</a>
 						</li>
 					{/if}
@@ -245,7 +244,7 @@
 				<span class="2xl:hidden">
 					<Fa icon={faPalette} />
 				</span>
-				<span class="hidden 2xl:inline-block">{$LL.NAVBAR.THEME()}</span>
+				<span class="hidden 2xl:inline-block">{m.NAVBAR_THEME()}</span>
 				<span class="opacity-50"><Fa icon={faCaretDown} /></span>
 			</button>
 			<!-- popup -->

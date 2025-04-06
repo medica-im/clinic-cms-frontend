@@ -33,16 +33,17 @@
     // Theme stylesheet is loaded from LayoutServerData
     import type { LayoutServerData } from './$types';
     import { QueryClientProvider } from '@tanstack/svelte-query'
-    import type { ComponentEvents } from 'svelte';
+    import type { ComponentProps } from 'svelte';
     import { scrollY } from '$lib/store/scrollStore';
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
+	import { locales, localizeHref } from '$prgld/runtime.js';
 
     export let data: LayoutServerData;
 
 	initializeStores();
 
-    function scrollHandler(event: ComponentEvents<AppShell>['scroll']) {
+    function scrollHandler(event: ComponentProps<AppShell>['scroll']) {
 	scrollY.set(event.currentTarget.scrollTop);
 }
 
@@ -120,7 +121,6 @@
 	<link rel="mask-icon" href="{maskIcon}" color="#000000">
 	<link rel="apple-touch-icon" href="{appleTouchIcon}">
 	<script defer data-domain="sante-gadagne.fr" src="https://plausible.medica.im/js/script.js"></script>
-
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
 	<meta name="robots" content="noindex">
@@ -152,3 +152,8 @@
 		</QueryClientProvider>
 		<svelte:fragment slot="pageFooter"><Footer></Footer></svelte:fragment>
 	</AppShell>
+	<div style="display:none">
+		{#each locales as locale}
+			<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
+		{/each}
+	</div>

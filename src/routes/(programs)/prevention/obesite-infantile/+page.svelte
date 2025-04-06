@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import Fa from 'svelte-fa';
@@ -27,7 +26,7 @@
 
 <svelte:head>
 	<title>
-		Hypertension - {capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
+		Hypertension - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
@@ -36,10 +35,10 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
+			>{capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1 class="h1">{capitalizeFirstLetter($LL.DISEASE.CHILDHOOD_OBESITY(), $language)}</h1>
+		<h1 class="h1">{capitalizeFirstLetter(m.CHILDHOOD_OBESITY(), $language)}</h1>
 		<p>« Mission: retrouve ton cap », prévention du surpoids et de l’obésité infantile.</p>
 	</div>
 </header>

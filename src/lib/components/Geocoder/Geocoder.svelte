@@ -1,8 +1,7 @@
 <script lang="ts">
 	import isEmpty from 'lodash.isempty';
 	import { onMount } from 'svelte';
-	import LL from '$i18n/i18n-svelte';
-	import { Autocomplete } from '@skeletonlabs/skeleton';
+	import * as m from "$msgs";	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption } from '@skeletonlabs/skeleton';
 	import { normalize } from '$lib/helpers/stringHelpers';
 	import { addressFeature, inputAddress } from '$lib/store/directoryStore';
@@ -171,14 +170,14 @@
 		name="geocoder"
 		autocomplete="off"
 		on:input={onInput}
-		placeholder={$LL.ADDRESSBOOK.GEOCODER.PLACEHOLDER()}
+		placeholder={m.ADDRESSBOOK_GEOCODER_PLACEHOLDER()}
 		bind:value={$inputAddress}
-		aria-label={$LL.ADDRESSBOOK.GEOCODER.ARIA_LABEL()}
+		aria-label={m.ADDRESSBOOK_GEOCODER_ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
 		on:click={handleClear}
-		aria-label={$LL.ADDRESSBOOK.CLEAR()}
+		aria-label={m.ADDRESSBOOK_CLEAR()}
 		disabled={!$inputAddress}
 	>
 		<DocsIcon name="clear" width="w-5" height="h-5" />
@@ -190,7 +189,7 @@
 			bind:input={normalizedInputAddress}
 			options={getAddressOptions(response)}
 			on:selection={onAddressSelection}
-			emptyState={$LL.SKELETON.AUTOCOMPLETE.EMPTY_STATE()}
+			emptyState={m.SKELETON_AUTOCOMPLETE_EMPTY_STATE()}
 		/>
 	</div>
 {/if}

@@ -6,8 +6,7 @@
 	import { term } from '$lib/store/workforceStore';
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	let val = '';
-	import LL from '$i18n/i18n-svelte';
-	$: term.set(val);
+	import * as m from "$msgs";	$: term.set(val);
 	const noop = () => {};
 </script>
 
@@ -16,16 +15,16 @@
 	<input
 	type="search"
 	autocomplete="off"
-	placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()}
+	placeholder={m.ADDRESSBOOK_SEARCH_PLACEHOLDER()}
 	bind:value={val}
-	aria-label={$LL.ADDRESSBOOK.SEARCH.ARIA_LABEL()}
+	aria-label={m.ADDRESSBOOK_SEARCH_ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
 		on:click={() => {
 			val = '';
 		}}
-		aria-label={$LL.ADDRESSBOOK.CLEAR()}
+		aria-label={m.ADDRESSBOOK_CLEAR()}
 		disabled={!val}
 	>
 	<DocsIcon name="clear" width="w-5" height="h-5" />

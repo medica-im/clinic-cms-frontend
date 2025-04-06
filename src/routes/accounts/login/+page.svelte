@@ -4,16 +4,15 @@
 	import { goto } from '$app/navigation';
 	import { variables } from '$lib/utils/constants';
 	import { fly } from 'svelte/transition';
-	import { emptyLocaleStorage } from '$lib/utils/requestUtils';
 	import { toggleAuth } from '$lib/store/authStore';
 
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { changeText } from '$lib/helpers/buttonText';
-	import LL from '$i18n/i18n-svelte';
+	import * as m from "$msgs";
 	import { afterUpdate, onMount } from 'svelte';
 	let submitButton;
-	let submitButtonInnerHTML: string = $LL.LOGIN.TOLOGIN();
+	let submitButtonInnerHTML: string = m.TOLOGIN();
 	let response: UserResponse;
 	let emailWarn = false;
 	let passwordWarn = false;
@@ -22,11 +21,11 @@
 		errors: Array<CustomError>;
 
 	onMount(() => {
-		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+		submitButtonInnerHTML = m.TOLOGIN();
 	});
 
 	$: if (response && response.user && response.user.error) {
-		submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+		submitButtonInnerHTML = m.TOLOGIN();
 		emailWarn = true;
 		passwordWarn = true;
 	}
@@ -46,29 +45,28 @@
 		if (err.length > 0) {
 			errors = err;
 			console.error(`errors: ${errors}`);
-			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+			submitButtonInnerHTML = m.TOLOGIN();
 		} else if (response.user && response.user.error) {
 			errors = response.user.error[0];
 			console.error(`errors: ${errors}`);
-			submitButtonInnerHTML = $LL.LOGIN.TOLOGIN();
+			submitButtonInnerHTML = m.TOLOGIN();
 		} else if (response.user && response.user.tokens) {
-			emptyLocaleStorage();
 			browserSet('refreshToken', response.user.tokens.refresh);
 			toggleAuth();
-			notificationData.update(() => `${$LL.LOGIN.SUCCESSFUL()}`);
+			notificationData.update(() => `${m.LOGIN_SUCCESSFUL()}`);
 			await goto('/');
 		}
 	};
 </script>
 
 <svelte:head>
-	<title>{$LL.LOGIN.LOGIN()}</title>
+	<title>{m.LOGIN()}</title>
 </svelte:head>
 
 <div>
 	<header>
 		<div class="section-container">
-			<h1 class="h1">{$LL.LOGIN.LOGIN()}</h1>
+			<h1 class="h1">{m.LOGIN()}</h1>
 		</div>
 	</header>
 
@@ -93,8 +91,8 @@
 					type="email"
 					bind:value={email}
 					hideLabel
-					labelText={$LL.EMAILADDRESS()}
-					placeholder="{$LL.EMAILADDRESS()}..."
+					labelText={m.EMAILADDRESS()}
+					placeholder="{m.EMAILADDRESS()}..."
 					required
 					warn={emailWarn}
 				/>
@@ -103,8 +101,8 @@
 					bind:value={password}
 					required
 					type="password"
-					labelText={$LL.PASSWORD()}
-					placeholder="{$LL.PASSWORD()}..."
+					labelText={m.PASSWORD()}
+					placeholder="{m.PASSWORD()}..."
 					warn={passwordWarn}
 				/>
 				<button
@@ -112,7 +110,7 @@
 					bind:this={submitButton}
 					type="submit"
 					on:click={() => {
-						submitButtonInnerHTML = $LL.LOGIN.SIGNINGIN();
+						submitButtonInnerHTML = m.SIGNINGIN();
 					}}>{submitButtonInnerHTML}</button
 				>
 			</form>

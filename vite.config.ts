@@ -1,3 +1,4 @@
+import { paraglideVitePlugin } from '@inlang/paraglide-js'
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { purgeCss } from 'vite-plugin-tailwind-purgecss';
@@ -8,23 +9,23 @@ import * as path from 'path';
 export default defineConfig({
 	optimizeDeps: {
 		include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep'],
-		exclude: ['clinic-cms']
 	},
-	plugins: [sveltekit(), isoImport() /*, purgeCss()*/],
+	plugins: [
+		paraglideVitePlugin(
+			{ project: './project.inlang', outdir: './src/paraglide',			strategy: ['url', 'cookie', 'baseLocale'],
+			}), sveltekit(), isoImport() /*, purgeCss()*/],
 	resolve: {
 		alias: {
 			'$': path.resolve(__dirname, 'src'),
-			'$i18n': path.resolve('./src/i18n/'),
+			'$msgs': path.resolve('./src/paraglide/messages.js'),
+			'$prgld': path.resolve('./src/paraglide/'),
 			'$components': path.resolve('./src/components/'),
 			'$modals': path.resolve('./src/modals/')
 		}
 	},
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	},
 	server: {
 		proxy: {
 			'/media/profile_images': 'https://sante-gadagne.fr'
-			}
 		}
+	}
 });

@@ -1,10 +1,9 @@
-import type { Facility } from './directoryStoreInterface.ts';
+import type { Facility } from '$lib/interfaces/facility.interface.ts';
 import { variables } from '$lib/utils/constants';
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
 import { browser } from "$app/environment";
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { occupations, workforceDataCached, selectOccupations, workforceDict } from '$lib/store/workforceStore';
-import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
 import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
 import { shuffle } from '$lib/helpers/random';
@@ -65,15 +64,15 @@ export const facilitiesWithAvatar = asyncDerived(
 		return carousel
 	});
 
-export const facilityStore = asyncDerived(
-	(locale),
-	async ($locale) => {
+export const facilityStore = asyncReadable(
+	{},
+	async () => {
 		var cachelife = 600;
 		const cacheName = "facility";
 		let cachedData;
 		let expired = true;
 		let empty: boolean = true;
-		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
+		let lang = variables.DEFAULT_LANGUAGE;
 		if (browser) {
 			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
 		}
@@ -107,8 +106,8 @@ export const facilityStore = asyncDerived(
 );
 
 export const facilityWithOccupationStore = asyncDerived(
-	([facilityStore, workforceDataCached, selectOccupations, locale]),
-	async ([$facilityStore, $workforceDataCached, $selectOccupations, $locale]) => {
+	([facilityStore, workforceDataCached, selectOccupations]),
+	async ([$facilityStore, $workforceDataCached, $selectOccupations]) => {
 		const okFacilities = new Set();
 		$workforceDataCached.forEach(
 			function (item) {
@@ -151,8 +150,8 @@ function workerCount(obj) {
 }
 
 export const occupationOfFacilityStore = asyncDerived(
-	([occupations, workforceDataCached, selectFacilities, workforceDict, locale]),
-	async ([$occupations, $workforceDataCached, $selectFacilities, $workforceDict, $locale]) => {
+	([occupations, workforceDataCached, selectFacilities, workforceDict]),
+	async ([$occupations, $workforceDataCached, $selectFacilities, $workforceDict]) => {
 		if (get(selectFacilities).length == 0) {
 			return get(occupations).map(
 				function (x) {

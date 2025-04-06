@@ -1,8 +1,6 @@
-import type { SocialNetwork } from '$lib/interfaces/socialnetwork.interface.ts';
-import type { Website } from '$lib/interfaces/website.interface.js';
-import type { Email } from '$lib/interfaces/email.interface.js';
 import type { Phone } from '$lib/interfaces/phone.interface.js';
 import type { Writable } from '@square/svelte-store';
+import type { Facility } from '$lib/interfaces/facility.interface.ts';
 
 export interface Situation {
     value: string;
@@ -31,21 +29,6 @@ export interface Avatar {
     fb: string,
     lt: string,
     raw: string
-}
-
-export interface Facility {
-    address: Address,
-    commune: string,
-    name: string,
-    organizations: any[],
-    resource_uri: string | null,
-    slug: string,
-    uid: string,
-    socialnetworks: SocialNetwork[] | null,
-    websites: Website[] | null,
-    avatar: Avatar,
-    emails: Email[],
-    phones: Phone[],
 }
 
 export interface Commune {

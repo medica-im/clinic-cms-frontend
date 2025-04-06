@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
-	import LL from '$i18n/i18n-svelte';
-	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
+	import * as m from "$msgs";	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 
 	export let data;
 
@@ -23,6 +22,6 @@
 
     <img
         src={getUrl(data)}
-        alt="{$LL.ADDRESSBOOK.A11Y.PROFILE_PIC_OF()}  {workerTitleFormattedName(data)}"
+        alt="{m.ADDRESSBOOK_A11Y_PROFILE_PIC_OF()}  {workerTitleFormattedName(data)}"
         class="w-44 h-44 shrink-0 rounded-none rounded-tl-lg lg:rounded-l-lg"
     />

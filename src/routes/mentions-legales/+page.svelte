@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import LegalEntity from '../../lib/components/LegalEntity/LegalEntity.svelte';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
@@ -15,7 +14,7 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($LL.LEGAL_NOTICES(), $language)} - {capitalizeFirstLetter(
+		{capitalizeFirstLetter(m.LEGAL_NOTICES(), $language)} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
@@ -25,7 +24,7 @@
 <div>
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
 		<div class="section-container">
-			<h2 class="h2">{capitalizeFirstLetter($LL.LEGAL_NOTICES(), $language)}</h2>
+			<h2 class="h2">{capitalizeFirstLetter(m.LEGAL_NOTICES(), $language)}</h2>
 		</div>
 	</header>
 	<!-- programs -->

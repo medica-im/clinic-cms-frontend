@@ -1,19 +1,18 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 </script>
 
 <svelte:head>
 	<title>
-		{$LL.NAVBAR.HEALTH_PROJECT()} -{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.NAVBAR_HEALTH_PROJECT()} -{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <div>
 <header>
 	<div class="section-container">
-		<h1 class="h1">{$LL.NAVBAR.HEALTH_PROJECT()}</h1>
+		<h1 class="h1">{m.NAVBAR_HEALTH_PROJECT()}</h1>
 	</div>
 </header>
 
@@ -44,7 +43,7 @@
 	<div class="section-container">
 		<iframe
 			src={healthProjectPdf}
-			title={$LL.NAVBAR.HEALTH_PROJECT()}
+			title={m.NAVBAR_HEALTH_PROJECT()}
 			class="w-full aspect-square"
 		/>
 	</div>

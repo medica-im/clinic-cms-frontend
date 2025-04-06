@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { Profile } from '$lib/interfaces/profile.interface';
 	import { variables } from '$lib/utils/constants';
-	import LL from '$i18n/i18n-svelte';
-	import Editor from '@tinymce/tinymce-svelte';
+	import * as m from "$msgs";	import Editor from '@tinymce/tinymce-svelte';
 	import { handlePostRequestsWithPermissions } from '$lib/utils/requestUtils';
 	import Fa from 'svelte-fa';
 	import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -146,7 +145,7 @@
 	{#if !editorSwitch}
 		{#if databaseHtml}
 			<div class="card p-2 variant-filled-secondary" data-popup="popupHover">
-				<p>{cFL($LL.EDIT())}</p>
+				<p>{cFL(m.EDIT())}</p>
 				<div class="arrow variant-filled-secondary" />
 			</div>
 			<button
@@ -159,7 +158,7 @@
 			</button>
 		{:else}
 			<button type="button" class="btn variant-filled" on:click={() => (editorSwitch = true)}>
-				{cFL($LL.CREATE())}
+				{cFL(m.CREATE())}
 				{name}
 			</button>
 		{/if}
@@ -174,7 +173,7 @@
 				/>
 			{/if}
 			<div class="card p-2 space-y-2">
-				<h4 class="h4">{cFL($LL.PREVIEW())}</h4>
+				<h4 class="h4">{cFL(m.PREVIEW())}</h4>
 				<div class="p-2 variant-ghost-secondary">
 					{@html html}
 				</div>
@@ -186,16 +185,16 @@
 				<div class="float-left">
 					{#if dirty}
 						<button type="button" class="btn variant-filled" on:click={handleCloseWithoutSaving}>
-							{cFL($LL.CLOSE_NO_SAVE())}
+							{cFL(m.CLOSE_NO_SAVE())}
 						</button>
 					{:else}
 						<button type="button" class="btn variant-filled" on:click={handleClose}>
-							{cFL($LL.CLOSE())}
+							{cFL(m.CLOSE())}
 						</button>
 					{/if}
 					{#if dirty}
 						<button type="button" class="btn variant-filled" on:click={async () => post()}>
-							{cFL($LL.SAVE())}
+							{cFL(m.SAVE())}
 						</button>
 					{/if}
 				</div>
@@ -207,7 +206,7 @@
 							class="btn variant-filled-warning"
 							on:click={() => (html = '')}
 						>
-							{cFL($LL.DELETE())}
+							{cFL(m.DELETE())}
 						</button>
 					{/if}
 					{#if $userData?.is_superuser && databaseHtml}
@@ -216,7 +215,7 @@
 							class="btn variant-filled-error"
 							on:click={async () => restDelete()}
 						>
-							{cFL($LL.DESTROY())}
+							{cFL(m.DESTROY())}
 						</button>
 					{/if}
 				</div>

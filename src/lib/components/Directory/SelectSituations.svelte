@@ -2,8 +2,7 @@
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { situations, selectSituation, selectSituationValue } from '$lib/store/directoryStore';
-	import LL from '$i18n/i18n-svelte';
-	import { get } from '@square/svelte-store';
+	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 	const label = 'label';
 	const itemId = 'value';
 
@@ -49,7 +48,7 @@ value: {JSON.stringify(value)}
 -->
 {#await situations()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.SITUATIONS.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_SITUATIONS_PLACEHOLDER()} />
 	</div>
 {:then situations}
 	<div class="text-surface-700 theme">
@@ -60,7 +59,7 @@ value: {JSON.stringify(value)}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.SITUATIONS.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_SITUATIONS_PLACEHOLDER()}
 			bind:value={$selectSituationValue}
 		/>
 	</div>

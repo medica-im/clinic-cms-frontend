@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import Fa from 'svelte-fa';
@@ -17,8 +16,8 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($LL.DISEASE.APNEA(), $language)} - {capitalizeFirstLetter(
-			$LL.PREVENTIVE_HEALTHCARE(),
+		{capitalizeFirstLetter(m.APNEA(), $language)} - {capitalizeFirstLetter(
+			m.PREVENTIVE_HEALTHCARE(),
 			$language
 		)} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
@@ -27,10 +26,10 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
+			>{capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1 class="h1">{capitalizeFirstLetter($LL.DISEASE.APNEA(), $language)}</h1>
+		<h1 class="h1">{capitalizeFirstLetter(m.APNEA(), $language)}</h1>
 		<p>
 			Ronflements, sommeil agité, troubles de la respiration nocturne, somnolence dans la journée,
 			fatigue, sont des symptômes évocateurs d’apnées du sommeil. Le diagnostic est confirmé par un

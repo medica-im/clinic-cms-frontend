@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte.ts';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import Fa from 'svelte-fa';
@@ -12,7 +11,7 @@
 
 <svelte:head>
 	<title>
-		Hypertension - {capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
+		Hypertension - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
@@ -21,10 +20,10 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)}</span
+			>{capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)}</span
 		>
 
-		<h1 class="h1">{capitalizeFirstLetter($LL.SCREENING.HYPERTENSION(), $language)}</h1>
+		<h1 class="h1">{capitalizeFirstLetter(m.SCREENING_HYPERTENSION(), $language)}</h1>
 		<p>
 			Dépistage et suivi de l'hypertension artérielle (HTA) par l'automesure tensionnelle à
 			domicile.
@@ -159,7 +158,7 @@
 	<div class="section-container">
 		<iframe
 			src={bloodPressureSelfMeasurementPdf}
-			title={$LL.NAVBAR.HEALTH_PROJECT()}
+			title={m.NAVBAR_HEALTH_PROJECT()}
 			class="w-full aspect-square"
 		/>
 	</div>

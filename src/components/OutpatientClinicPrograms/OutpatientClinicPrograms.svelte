@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { language } from '$lib/store/languageStore.ts';
     import { facilityStore } from '$lib/store/facilityStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import Fa from 'svelte-fa';
+	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import { faPills, faShieldHeart, faPersonChalkboard, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import ProgramNav from '$components/ProgramNav.svelte';

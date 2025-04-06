@@ -3,14 +3,13 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import LL from '$i18n/i18n-svelte';
-
+	import * as m from "$msgs";
 	export let data;
 </script>
 
 <svelte:head>
 	<title>
-		{$LL.TIMELINE.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.TIMELINE_TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <TimeLine data={data.timeline} />

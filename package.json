@@ -5,7 +5,7 @@
 	"private": true,
 	"packageManager": "pnpm@10.4.0",
 	"scripts": {
-		"dev": "npm-run-all --parallel typesafe-i18n sveltekit",
+		"dev": "npm-run-all --parallel sveltekit",
 		"sveltekit": "vite --host --port 3000",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -14,8 +14,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"typesafe-i18n": "typesafe-i18n"
+		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.50.1",
@@ -23,7 +22,7 @@
 		"@skeletonlabs/tw-plugin": "^0.4.1",
 		"@square/svelte-store": "^1.0.18",
 		"@sveltejs/adapter-node": "^5.2.12",
-		"@sveltejs/kit": "^2.19.0",
+		"@sveltejs/kit": "^2.20.4",
 		"@tailwindcss/forms": "^0.5.3",
 		"@types/leaflet": "^1.9.4",
 		"@types/lodash.isempty": "^4.4.9",
@@ -49,10 +48,11 @@
 		"tailwindcss": "^3.4.9",
 		"tslib": "^2.4.1",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.3",
+		"vite": "^6.2.5",
 		"vite-plugin-iso-import": "^1.1.0",
 		"vite-plugin-tailwind-purgecss": "^0.3.5",
-		"vitest": "^1.6.0"
+		"vitest": "^1.6.0",
+		"@inlang/paraglide-js": "2.0.10"
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.6.12",
@@ -69,21 +69,20 @@
 		"@tinymce/tinymce-svelte": "^2.0.1",
 		"@zerodevx/svelte-json-view": "^1.0.7",
 		"cl-editor": "^2.3.0",
-		"clinic-cms": "^1.6.0",
 		"esm-seedrandom": "^3.0.5",
 		"geojson": "^0.5.0",
 		"haversine-distance": "^1.2.1",
 		"i": "^0.3.7",
 		"lodash.isempty": "^4.4.0",
 		"svelte-fa": "^4.0.3",
-		"svelte-i18n": "^4.0.0",
 		"svelte-leafletjs": "^2.0.0",
 		"svelte-select": "^5.8.3",
-		"typesafe-i18n": "^5.26.0",
-		"video.js": "^8.10.0"
+		"video.js": "^8.10.0",
+		"@turf/bbox": "^7.2.0",
+		"@turf/helpers": "^7.2.0",
+		"svelte-maplibre": "1.0.0-next.12"
 	},
 	"pnpm": {
-		"overrides": {
-		}
+		"overrides": {}
 	}
 }

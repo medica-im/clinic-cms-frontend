@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import LL from '$i18n/i18n-svelte';
+	import * as m from "$msgs";
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import type { PageData } from './$types';
-	import LDTag from '$components/Schema/LDTag.svelte';
+	//import LDTag from '$components/Schema/LDTag.svelte';
 	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
-	import { currentOrg, limitCategories} from '$lib/store/directoryStore.ts';
 	export let data: PageData;
 </script>
 
@@ -27,12 +26,12 @@
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
 		<div class="section-container">
 			<h2 class="h2">
-				{$LL.ADDRESSBOOK.TITLE()}
+				{m.ADDRESSBOOK_TITLE()}
 			</h2>
 		</div>
 	</header>
 	<div>
-		{#key [$page.url]}
+		{#key [page.url]}
 		<Directory
 		data={data?.cardinal}
 		propCurrentOrg={true}

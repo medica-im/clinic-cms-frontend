@@ -7,12 +7,7 @@ import { userData } from '$lib/store/userStore';
 import { variables } from '$lib/utils/constants';
 import { formatText } from '$lib/formats/formatString';
 import { get } from 'svelte/store';
-import { locales } from '$i18n/i18n-util';
-import { language } from '$lib/store/languageStore';
-import { setLocale } from '$i18n/i18n-svelte';
-import type { Locales } from '$i18n/i18n-types'
-import LL from '$i18n/i18n-svelte';
-import { isAuth } from '$lib/store/authStore';
+import * as m from "$msgs";import { isAuth } from '$lib/store/authStore';
 import { dev } from '$app/environment';
 
 const refreshUrl = `${variables.BASE_API_URI}/accounts/token/refresh/`;
@@ -112,20 +107,6 @@ function removeRefreshToken() {
 	localStorage.removeItem('refreshToken');
 }
 
-export const emptyLocaleStorage = () => {
-	const itemsToDelete: string[] = [];
-	let storedItemsRoot = ["facility_", "wfd_", "wfo_", "workforceDict_"];
-	locales.forEach(
-		(locale) => {
-			let items = storedItemsRoot.map((value) => value + locale)
-			itemsToDelete.push(...items);
-		}
-	);
-	itemsToDelete.forEach(
-		(value) => localStorage.removeItem(value)
-	);
-};
-
 export const logOutUser = async (): Promise<void> => {
 	const _accessRefresh = await accessRefresh();
 	const jres = await fetch(`${variables.BASE_API_URI}/accounts/logout/`, {
@@ -147,9 +128,8 @@ export const logOutUser = async (): Promise<void> => {
 	}
 	userData.set({});
 	removeRefreshToken();
-	emptyLocaleStorage();
 	isAuth.set(false);
-	notificationData.update(() => get(LL).LOGIN.LOGOUT());
+	notificationData.update(() => m.LOGOUT_SUCCESSFUL());
 	//await goto('/accounts/login');
 };
 
@@ -214,7 +194,7 @@ export const handlePostRequestsWithPermissions = async (
 
 export const handleRequestsWithPermissions = async (
 	fetch,
-	targetUrl: string): Promise<[{}, CustomError]> => {
+	targetUrl: string): Promise<[any, CustomError]> => {
 	let refreshToken;
 	if (browser) {
 		refreshToken = browserGet('refreshToken')
@@ -250,7 +230,7 @@ export const handleRequestsWithPermissions = async (
 			return [{}, res.status as CustomError];
 		}
 	} catch (error) {
-		console.error(`handleRequestsWithPermissions: error while fetching ${targetUrl}: `, error);
+		console.error(`handleRequestsWithPermissions: error while fetching ${targetUrl} : `, error);
 		return [{}, error as CustomError]
 	}
 };
@@ -274,6 +254,6 @@ export const UpdateField = async (
 		console.error(err);
 		return [{}, err];
 	}
-	notificationData.update(() => `${formatText(fieldName)} has been updated successfully.`);
+	notificationData.update(() => m.FIELD_UPDATE_SUCCESS({fieldName: fieldName}));
 	return [response, []];
 };

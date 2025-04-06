@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { MapLibre as Map } from 'clinic-cms';
+	import { MapLibre as Map } from '$lib';
 
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import LL from '$i18n/i18n-svelte';
-	import Fa from 'svelte-fa';
+	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import Address from '$lib/Address/Address.svelte';
 	import { createMapData } from '$lib/components/Map/mapData';
 	import Emails from '$components/Email/Emails.svelte';
@@ -31,7 +30,7 @@
 
 <svelte:head>
 	<title>
-		{$LL.CONTACT.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.CONTACT_TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <div>
@@ -74,7 +73,7 @@
 										</div>
 									</div>
 									<div class="grow ml-6">
-										<p class="font-bold mb-1">{capitalizeFirstLetter($LL.PHONE(), $language)}</p>
+										<p class="font-bold mb-1">{capitalizeFirstLetter(m.PHONE(), $language)}</p>
 										<p>Secrétariat</p>
 										<a href="tel:+33490163675">0490163675</a>
 									</div>

@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Occupations from '$lib/Organization/Occupations.svelte';
-	import LL from '$i18n/i18n-svelte.ts';
-	import Fa from 'svelte-fa';
+	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 	import TeamCarousel from '$components/Carousel/TeamCarousel.svelte';
 	import { currentOrg, limitCategories} from '$lib/store/directoryStore.ts';
@@ -16,9 +15,9 @@
 	</div>
 	{/if}
 	<div class="col-span-2 p-0 space-y-4 text-center self-center">
-		<h2 class="h2">{$LL.HOME.TEAM.TITLE()}</h2>
+		<h2 class="h2">{m.HOME_TEAM_TITLE()}</h2>
 		<p>
-			{$LL.HOME.TEAM.TEXT()}
+			{m.HOME_TEAM_TEXT()}
 		</p>
 		<div class="p-0 text-left">
 			{#key [$currentOrg, $limitCategories, $page.url]}
@@ -26,7 +25,7 @@
 			{/key}
 		</div>
 		<a href="/annuaire" class="btn variant-ghost-surface" data-sveltekit-preload-data="hover">
-			<span><Fa icon={faAddressBook} /></span><span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
+			<span><Fa icon={faAddressBook} /></span><span>{m.NAVBAR_ADDRESSBOOK()}</span>
 		</a>
 		
 	</div>

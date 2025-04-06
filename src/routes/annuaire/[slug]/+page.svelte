@@ -3,8 +3,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	import { page } from '$app/state';
-	import LL from '$i18n/i18n-svelte.ts';
-	import { title } from 'process';
+	import * as m from "$msgs";
 	export let data;
 
 	const getTitle = () => {
@@ -28,7 +27,7 @@
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
 	<div class="section-container">
 		<h2 class="h2">
-			{$LL.ADDRESSBOOK.TITLE()}
+			{m.ADDRESSBOOK_TITLE()}
 		</h2>
 	</div>
 </header>

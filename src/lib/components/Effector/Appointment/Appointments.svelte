@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import Fa from 'svelte-fa';
+	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 	import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 	import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
@@ -13,7 +12,7 @@
 <div class="flex items-center p-1">
 	<div class="w-9"><Fa icon={faCalendarCheck} size="sm" /></div>
 	<div>
-		<h3 class="h3">{$LL.ADDRESSBOOK.APPOINTMENT.LABEL()}</h3>
+		<h3 class="h3">{m.ADDRESSBOOK_APPOINTMENT_LABEL()}</h3>
 	</div>
 </div>
 <div class="flex items-center p-1">

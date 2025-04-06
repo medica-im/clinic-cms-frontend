@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Facility } from '$lib/store/directoryStoreInterface.ts';
+	import type { Facility } from '$lib/interfaces/facility.interface.ts';
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { getFacilities } from '$lib/store/facilityStore';
@@ -8,8 +8,7 @@
 		selectFacilityValue,
 		facilityOf,
 	} from '$lib/store/directoryStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import { get } from '@square/svelte-store';
+	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 
 	const label = 'label';
 	const itemId = 'value';
@@ -46,7 +45,7 @@
 
 {#await facilityOf.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_FACILITIES_PLACEHOLDER()} />
 	</div>
 {:then}
 <!--
@@ -63,7 +62,7 @@ facilityOf: {$facilityOf} ({$facilityOf.length})
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_FACILITIES_PLACEHOLDER()}
 			bind:value={$selectFacilityValue}
 		/>
 	</div>

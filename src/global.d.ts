@@ -1,6 +1,3 @@
-type Locales = import('$i18n/i18n-types').Locales
-type TranslationFunctions = import('$i18n/i18n-types').TranslationFunctions
-
 interface ImportMetaEnv {
     readonly VITE_BASE_API_URI_PROD: string,
     readonly VITE_BASE_API_URI_DEV: string,

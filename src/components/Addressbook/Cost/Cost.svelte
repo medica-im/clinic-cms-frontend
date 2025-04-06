@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
+	import * as m from "$msgs";
 	import Fa from 'svelte-fa';
 	import { faEuroSign } from '@fortawesome/free-solid-svg-icons';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -11,13 +11,13 @@
 		<div class="w-9"><Fa icon={faEuroSign} /></div>
 		<div>
 			<h3 class="h3">
-				{$LL.ADDRESSBOOK.COSTS_AND_REIMBURSEMENTS()}
+				{m.ADDRESSBOOK_COSTS_AND_REIMBURSEMENTS()}
 			</h3>
 		</div>
 	</div>
 	{#if data.conventionnement != null}
 		<div class="flex p-1">
-			<div class="w-9" />
+			<div class="w-9"></div>
 			<div>
 				Conventionnement: {data.conventionnement.label}.
 			</div>
@@ -28,7 +28,7 @@
 		<div class="flex p-1">
 			<div class="w-9" />
 			<div>
-				Carte Vitale: {data.carte_vitale ? $LL.YES() : $LL.NO()}.
+				Carte Vitale: {data.carte_vitale ? m.YES() : m.NO()}.
 			</div>
 		</div>
 	{/if}
@@ -37,10 +37,10 @@
 		<div class="flex p-1">
 			<div class="w-9" />
 			<div>
-				{$LL.ADDRESSBOOK.THIRD_PARTY_PAYER()}:
+				{m.ADDRESSBOOK_THIRD_PARTY_PAYER()}:
 				{#each data.third_party_payer as p, i}
 					{#if i > 0}{' '}{/if}{p.label}{#if i < data.length - 2},
-					{:else if i == data.length - 2}{' '}{$LL.AND()}{:else}.{/if}
+					{:else if i == data.length - 2}{' '}{m.AND()}{:else}.{/if}
 				{/each}
 			</div>
 		</div>

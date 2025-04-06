@@ -1,0 +1,15 @@
+{
+  "$schema": "https://inlang.com/schema/project-settings",
+  "baseLocale": "fr",
+  "locales": [
+    "en",
+    "fr"
+  ],
+  "modules": [
+    "https://cdn.jsdelivr.net/npm/plugin-message-format-hjson-toml@latest/dist/index.js",
+    "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@latest/dist/index.js"
+  ],
+  "plugin.inlang.messageFormat.hjson.toml": {
+        "pathPattern": "./messages/{locale}.json"
+  }
+}

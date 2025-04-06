@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import type { Facility } from '$lib/store/directoryStoreInterface.ts';
+	import type { Facility } from '$lib/interfaces/facility.interface.ts';
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { getFacilities } from '$lib/store/facilityStore';
 	import { getSelectFacility, getSelectFacilityValue } from './context.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-
+	import * as m from "$msgs";
 	export let facilityOf;
 
 	let selectFacility = getSelectFacility();
@@ -25,15 +24,20 @@
 			const facilities = await getFacilities.load();
 			if (facilities) {
 			const value=getValue(facilityParam,facilities);
-			selectFacilityValue.set(value);
+			if (value) {
+			    selectFacilityValue.set(value);
+			}
 			}
 		}
 	});
 
 	function getValue(facilityUid: string, facilities: Facility[]) {
 		if (facilities != undefined) {
-		const label = facilities.find(e=>e.uid==facilityUid)?.name;
+		const facility = facilities.find(e=>e.uid==facilityUid)
+		if (facility) {
+		const label = facility.name;
 		return {label: label, value: facilityUid}
+		}
 		}
 	}
 
@@ -66,7 +70,7 @@
 
 {#await facilityOf.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_FACILITIES_PLACEHOLDER()} />
 	</div>
 {:then}
 <!--
@@ -83,7 +87,7 @@
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_FACILITIES_PLACEHOLDER()}
 			bind:value={$selectFacilityValue}
 		/>
 	</div>

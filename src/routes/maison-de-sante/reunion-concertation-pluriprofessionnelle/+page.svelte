@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	//import Carousel from '$components/Carousel/Carousel.svelte';
@@ -9,7 +8,7 @@
 <svelte:head>
 	<title>
 		{capitalizeFirstLetter(
-			$LL.OUTPATIENT_CLINIC.MDT_MEETING(),
+			m.OUTPATIENT_CLINIC_MDT_MEETING(),
 			$language
 		)} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
@@ -18,7 +17,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1 class="h1">{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.MDT_MEETING(), $language)}</h1>
+			<h1 class="h1">{capitalizeFirstLetter(m.OUTPATIENT_CLINIC_MDT_MEETING(), $language)}</h1>
 		</div>
 	</header>
 
@@ -42,7 +41,7 @@
 			<Carousel
 				count={6}
 				path={'reunion-concertation-pluriprofessionnelle-0.jpg'}
-				alt={capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.MDT_MEETING(), $language)}
+				alt={capitalizeFirstLetter(m.OUTPATIENT_CLINIC_MDT_MEETING(), $language)}
 			/>
 			</div>
 		</div>

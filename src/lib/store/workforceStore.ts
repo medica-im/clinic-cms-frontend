@@ -5,7 +5,6 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { language } from '$lib/store/languageStore';
 import { browser } from "$app/environment"
 import type { OccupationCardinal, OccupationCardinalObject, Occupation, Count, Worker } from '$lib/interfaces/workforce.interface';
-import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
 import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 import { isAuth } from '$lib/store/authStore';
@@ -17,14 +16,14 @@ export const workerSlug = writable('');
 export const slugAddressbook = writable('');
 
 export const workforceDict = asyncDerived(
-	([locale, isAuth]),
-	async ([$locale, $isAuth]) => {
+	([isAuth]),
+	async ([$isAuth]) => {
 		var cachelife = 3600;
 		const cacheName = "workforceDict";
 		let cachedData;
 		let expired: boolean = true;
 		let empty: boolean = true;
-		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
+		let lang = variables.DEFAULT_LANGUAGE;
 		if (browser) {
 			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
 		}
@@ -81,7 +80,7 @@ export const workforceOccupation = asyncReadable(
 			return cachedData.data;
 		} else {
 			const workforceOccupationUrl = `${variables.BASE_API_URI}/workforce/occupation/?lang=${variables.DEFAULT_LANGUAGE}`;
-			const [occupations, err]: [occupations: any, err: CustomError[]] = await handleRequestsWithPermissions(fetch, workforceOccupationUrl);
+			const [occupations, err]: [occupations: any, err: CustomError] = await handleRequestsWithPermissions(fetch, workforceOccupationUrl);
 			if (occupations) {
 				const occupationsDict = occupations.reduce((result, occupation) => {
 					result[occupation.name] = occupation.slug;
@@ -101,20 +100,20 @@ export const workforceOccupation = asyncReadable(
 );
 
 export const keyAddressbook = asyncDerived(
-	([slugAddressbook, workforceOccupation, locale]),
-	async ([$slugAddressbook, $workforceOccupation, $locale]) => {
+	([slugAddressbook, workforceOccupation]),
+	async ([$slugAddressbook, $workforceOccupation]) => {
 		return Object.keys($workforceOccupation).find(k => $workforceOccupation[k] === $slugAddressbook);
 	}
 );
 
 export const workforceDataCached = asyncDerived(
-	([locale, isAuth]),
-	async ([$locale, $isAuth]) => {
+	([isAuth]),
+	async ([$isAuth]) => {
 		var cachelife = 600;
 		const cacheName = "wfd";
 		let cachedData;
 		let expired: boolean = true;
-		let lang = $locale ?? variables.DEFAULT_LANGUAGE;
+		let lang = variables.DEFAULT_LANGUAGE;
 		let empty: boolean = true;
 		if (browser) {
 			cachedData = localStorage.getItem(`${cacheName}_${lang}`);
@@ -276,8 +275,8 @@ export const filteredWorkforceDataCached = asyncDerived(
 );
 
 export const occupationsCardinal = asyncDerived(
-	([workforceDataCached, workforceDict, locale]),
-	async ([$workforceDataCached, $workforceDict, $locale]) => {
+	([workforceDataCached, workforceDict]),
+	async ([$workforceDataCached, $workforceDict]) => {
 		let occupationArray: Occupation[] = $workforceDataCached.map(mapWorkforceData).flat(2).sort(function (a, b) {
 			return a.label.localeCompare(b.label);
 		});
@@ -328,8 +327,8 @@ export const occupationsCardinal = asyncDerived(
 );
 
 export const filteredOccupationsCardinal = asyncDerived(
-	([filteredWorkforceDataCached, selectOccupations, workforceDict, locale]),
-	async ([$filteredWorkforceDataCached, $selectOccupations, $workforceDict, $locale]) => {
+	([filteredWorkforceDataCached, selectOccupations, workforceDict]),
+	async ([$filteredWorkforceDataCached, $selectOccupations, $workforceDict]) => {
 		let occupationArray: Occupation[] = ($filteredWorkforceDataCached.map(mapWorkforceData).flat(2));
 		let filteredOccupationArray: Occupation[] = occupationArray.filter(
 			function (x) {

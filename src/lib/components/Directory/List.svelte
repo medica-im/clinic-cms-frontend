@@ -41,8 +41,8 @@
             </div>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-8 space-y-4">
-            {#each value as effector}
-                <Effector {effector} {avatar} />
+            {#each value as entry}
+                <Effector {entry} {avatar} />
             {/each}
         </div>
     {/each}

@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { getGhostData } from 'clinic-cms';
+import { getGhostData } from '$lib';
 import { GHOST_API_KEY, GHOST_POST_COUNT } from '$env/static/private';
 import { PUBLIC_BLOG_URI } from '$env/static/public';
 import type { Actions } from './$types';

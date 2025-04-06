@@ -3,8 +3,7 @@
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { communes } from '$lib/store/directoryStore';
-	import LL from '$i18n/i18n-svelte';
-	import { get } from '@square/svelte-store';
+	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 	import { getSelectCommunes, getSelectCommunesValue } from './context';
 
 	export let communeOf;
@@ -61,7 +60,7 @@
 
 {#await communeOf.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_COMMUNES_PLACEHOLDER()} />
 	</div>
 {:then}
 <!--
@@ -77,7 +76,7 @@ communeOf: {$communeOf} ({$communeOf.length})
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.COMMUNES.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_COMMUNES_PLACEHOLDER()}
 			bind:value={$selectCommunesValue}
 		/>
 	</div>

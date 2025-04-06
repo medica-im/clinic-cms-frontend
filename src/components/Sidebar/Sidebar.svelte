@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import { language } from '$lib/store/languageStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import { page } from '$app/stores';
+	import * as m from "$msgs";	import { page } from '$app/stores';
 	import { variables } from '$lib/utils/constants.ts';
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	import { menuNavLinks, menuNavCats } from '$lib/links.ts';
@@ -110,7 +109,7 @@
 			<svelte:fragment slot="lead"
 				><DocsIcon name="home" width="w-6" height="h-6" /></svelte:fragment
 			>
-			<span>{$LL.HOME.TITLE()}</span>
+			<span>{m.HOME_TITLE()}</span>
 		</AppRailAnchor>
 		<AppRailAnchor
 			href="/annuaire"
@@ -124,7 +123,7 @@
 			<svelte:fragment slot="lead"
 				><DocsIcon name="addressBook" width="w-6" height="h-6" /></svelte:fragment
 			>
-			<span>{$LL.NAVBAR.ADDRESSBOOK()}</span>
+			<span>{m.NAVBAR_ADDRESSBOOK()}</span>
 		</AppRailAnchor>
 		<AppRailAnchor
 			href="/sites"

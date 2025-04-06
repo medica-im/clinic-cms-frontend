@@ -5,8 +5,7 @@
 	import { facilityStore, facilityWithOccupationStore } from '$lib/store/facilityStore';
 	import { selectFacilities } from '$lib/store/selectionStore';
 	import { selectOccupations, workforceDataCached } from '$lib/store/workforceStore';
-	import LL from '$i18n/i18n-svelte';
-	import { get_store_value } from 'svelte/internal';
+	import * as m from "$msgs";	import { get_store_value } from 'svelte/internal';
 	const label = 'label';
 	const itemId = 'value';
 	let value;
@@ -52,7 +51,7 @@
 </script>
 {#await facilityWithOccupationStore.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_FACILITIES_PLACEHOLDER()} />
 	</div>
 {:then}
 	<div class="text-surface-700 theme">
@@ -65,7 +64,7 @@
 			hideEmptyState={true}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.FACILITIES.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_FACILITIES_PLACEHOLDER()}
 		/>
 	</div>
 {/await}

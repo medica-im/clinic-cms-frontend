@@ -9,7 +9,8 @@ import type { Situation } from '$lib/store/directoryStoreInterface.ts';
 import { getFacilities, facilityStore } from '$lib/store/facilityStore.ts';
 import { shuffle } from '$lib/helpers/random.ts';
 import type { Writable, AsyncWritable } from '@square/svelte-store';
-import type { Contact, Entry, Facility, CurrentOrg, CurrentOrgStore, LimitCategoriesStore, AddressFeature, DistanceEffectors, CategorizedEntries, Type } from './directoryStoreInterface.ts';
+import type { Contact, Entry, CurrentOrg, CurrentOrgStore, LimitCategoriesStore, AddressFeature, DistanceEffectors, CategorizedEntries, Type } from './directoryStoreInterface.ts';
+import type { Facility } from '$lib/interfaces/facility.interface.ts';
 
 export const term: Writable<string> = writable("");
 export const selectCommunes: Writable<string[]> = writable([]);

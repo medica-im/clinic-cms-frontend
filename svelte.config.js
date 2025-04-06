@@ -16,7 +16,8 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$i18n: './src/i18n',
+			$msgs: './src/paraglide/messages.js',
+			$prgld: './src/paraglide/',
 			$components: './src/components',
 			$modals: './src/modals'
 		}

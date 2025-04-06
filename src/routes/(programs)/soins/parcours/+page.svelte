@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte.ts';
-	import { modeCurrent } from '@skeletonlabs/skeleton';
+	import * as m from "$msgs";	import { modeCurrent } from '@skeletonlabs/skeleton';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
@@ -27,7 +26,7 @@
 
 <svelte:head>
 	<title>
-		Parcours de soins - {capitalizeFirstLetter($LL.HEALTH_SERVICES(), $language)} - {capitalizeFirstLetter(
+		Parcours de soins - {capitalizeFirstLetter(m.HEALTH_SERVICES(), $language)} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
@@ -36,7 +35,7 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.HEALTH_SERVICES(), $language)}</span
+			>{capitalizeFirstLetter(m.HEALTH_SERVICES(), $language)}</span
 		>
 
 		<h1 class="h1"><span class="gradient-heading">Parcours de soins</span></h1>

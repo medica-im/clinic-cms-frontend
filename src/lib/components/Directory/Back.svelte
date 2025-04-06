@@ -1,7 +1,7 @@
 <script lang="ts">
 	import isEmpty from 'lodash.isempty';
 	import { page } from '$app/state';
-	import LL from '$i18n/i18n-svelte';
+	import * as m from "$msgs";
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import Fa from 'svelte-fa';
 	import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -17,19 +17,19 @@
 
 	function getLabel(searchParams: URLSearchParams) {
 		if (searchParams.get('origin') == '/') {
-			return capitalizeFirstLetter($LL.HOME.TITLE());
+			return capitalizeFirstLetter(m.HOME_TITLE());
 		}
 		if (searchParams.get('origin')?.indexOf('sites') == 1) {
-			return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSITE());
+			return capitalizeFirstLetter(m.ADDRESSBOOK_GOTOSITE());
 		}
 		if (searchParams.get('origin')?.indexOf('annuaire') == 1) {
 			if (isSearchParamsEmpty(searchParams)) {
-				return capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK());
+				return capitalizeFirstLetter(m.NAVBAR_ADDRESSBOOK());
 			} else {
-				return capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH());
+				return capitalizeFirstLetter(m.ADDRESSBOOK_GOTOSEARCH());
 			}
 		}
-		return capitalizeFirstLetter($LL.ERROR404.BACK());
+		return capitalizeFirstLetter(m.ERROR404_BACK());
 	}
 
 	function buildUrl(searchParams: URLSearchParams): string {

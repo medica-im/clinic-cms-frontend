@@ -1,6 +1,5 @@
 <script lang="ts">
-    import LL from '$i18n/i18n-svelte';
-    import { page } from '$app/stores';
+    import * as m from "$msgs";    import { page } from '$app/stores';
     import { logOutUser } from '$lib/utils/requestUtils';
 	export let user;
     export let facility;
@@ -18,7 +17,7 @@
 				class="nav-link {$page.url.pathname === '/accounts/login'
 					? 'active aria-current="page"'
 					: ''} "
-				href="/accounts/login">{$LL.NAVBAR.LOGIN()}</a
+				href="/accounts/login">{m.NAVBAR_LOGIN()}</a
 			>
 		</li>
 		{#if facility.registration === true}
@@ -27,7 +26,7 @@
 					class="nav-link {$page.url.pathname === '/accounts/register'
 						? 'active aria-current="page"'
 						: ''}"
-					href="/accounts/register">{$LL.NAVBAR.REGISTER()}</a
+					href="/accounts/register">{m.NAVBAR_REGISTER()}</a
 				>
 			</li>
 		{/if}
@@ -37,13 +36,13 @@
 			<a
 				href="/accounts/user/{user.username}-{user.id}"
 				class="nav-link {$page.url.pathname === `/accounts/user/${user.username}-${user.id}` ? 'active aria-crruent="page"' : ''}"
-				>{$LL.NAVBAR.HI()} {user.username}</a
+				>{m.NAVBAR_HI()} {user.username}</a
 			>
 		</li>
 		<li class="nav-item">
-            <button class="btn btn-sm btn-outline-danger" type="button" on:click={async () => await logOutUser()}>{$LL.NAVBAR.LOGOUT()}</button>
+            <button class="btn btn-sm btn-outline-danger" type="button" on:click={async () => await logOutUser()}>{m.NAVBAR_LOGOUT()}</button>
 			<!--a class="nav-link" href="#" on:click={async () => await logOutUser()}
-				>{$LL.NAVBAR.LOGOUT()}</a
+				>{m.NAVBAR_LOGOUT()}</a
             -->
 		</li>
 	{/if}

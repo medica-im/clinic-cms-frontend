@@ -1,16 +1,7 @@
 <script lang="ts">
-	import { occupationsCardinal, selectOccupations, term } from '$lib/store/workforceStore';
 	import { cardinalTypes } from '$lib/store/directoryStore';
-	import { selectFacilities } from '$lib/store/selectionStore';
-	import { afterUpdate, onMount, beforeUpdate } from 'svelte';
 
 	export let data;
-
-	onMount(() => {
-		selectOccupations.set([]);
-		selectFacilities.set([]);
-		term.set('');
-	});
 </script>
 
 {#await cardinalTypes.load()}

@@ -3,8 +3,7 @@
 	import { onMount } from 'svelte';
 	import { occupations, selectOccupations, workforceOccupation } from '$lib/store/workforceStore';
 	import { occupationOfFacilityStore } from '$lib/store/facilityStore';
-	import LL from '$i18n/i18n-svelte';
-	import { get } from '@square/svelte-store';
+	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	const label = 'label';
@@ -64,7 +63,7 @@
 
 {#await occupations.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_OCCUPATIONS_PLACEHOLDER()} />
 	</div>
 {:then}
 	<div class="text-surface-700 theme">
@@ -75,7 +74,7 @@
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.OCCUPATIONS.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_OCCUPATIONS_PLACEHOLDER()}
 			bind:value
 		/>
 	</div>

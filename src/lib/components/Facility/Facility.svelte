@@ -1,11 +1,13 @@
 <script lang="ts">
 	import FacilityCarousel from '$lib/components/Facility/FacilityCarousel.svelte';
-	import { Map, createFacilitiesMapData } from 'clinic-cms';
+	import { Map, createFacilitiesMapData } from '$lib';
 	import { scale } from 'svelte/transition';
+	import type { Facility } from '$lib/interfaces/facility.interface.ts';
+	import type Fa from 'svelte-fa';
 
 	export let data: any;
 
-	function filterFacilities(facilities) {
+	function filterFacilities(facilities: Facility[]) {
 		const f = facilities.filter((facility) =>
 			facility.organizations.includes(data.organization.uid)
 		);
@@ -19,7 +21,7 @@
 		const title = data?.facilities?.length > 1 ? 'Sites' : 'Site';
 		return title;
 	}
-	function compareFn(a, b) {
+	function compareFn(a: Facility, b: Facility) {
 		return b.effectors.length - a.effectors.length;
 	}
 </script>

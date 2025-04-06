@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
+	import * as m from "$msgs";	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
 	import { Fa } from 'svelte-fa';
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <svelte:head>
 	<title>
-		Calendrier des vaccinations - {capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())} - {capitalizeFirstLetter(
+		Calendrier des vaccinations - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE())} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name
 		)}
 	</title>
@@ -17,7 +16,7 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())}</span
+			>{capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE())}</span
 		>
 
 		<h1 class="h1">Calendrier simplifié des vaccinations</h1>

@@ -5,8 +5,7 @@
 		selectCategories,
 		categorizedFullFilteredEffectors
 	} from '$lib/store/directoryStore';
-	import LL from '$i18n/i18n-svelte';
-	import { get } from '@square/svelte-store';
+	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
 	import { createQuery } from '@tanstack/svelte-query';
@@ -132,7 +131,7 @@
 					on:keypress
 				>
 					{#if category === ''}<span><Fa icon={faCheck} /></span>{/if}
-					<span>{$LL.ADDRESSBOOK.CATEGORIES.ALL()}</span>
+					<span>{m.ADDRESSBOOK_CATEGORIES.ALL()}</span>
 				</span>
 				{/if}
 			{/key}

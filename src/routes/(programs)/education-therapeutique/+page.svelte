@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { page } from '$app/stores';
@@ -9,7 +8,7 @@
 
 <svelte:head>
 	<title>
-		{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)} - {capitalizeFirstLetter(
+		{capitalizeFirstLetter(m.OUTPATIENT_CLINIC_TPE(), $language)} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
@@ -18,7 +17,7 @@
 <div>
 	<header>
 		<div class="section-container">
-			<h1 class="h1">{capitalizeFirstLetter($LL.OUTPATIENT_CLINIC.TPE(), $language)}</h1>
+			<h1 class="h1">{capitalizeFirstLetter(m.OUTPATIENT_CLINIC_TPE(), $language)}</h1>
 		</div>
 	</header>
 

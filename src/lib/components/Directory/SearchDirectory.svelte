@@ -5,8 +5,7 @@
 	import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
 	import DocsIcon from '$components/Icon/Icon.svelte';
-	import LL from '$i18n/i18n-svelte';
-
+	import * as m from "$msgs";
 	const term = getTerm();
 	let termParam: string | null = null;
 
@@ -23,16 +22,16 @@
 	<input
 		type="search"
 		autocomplete="off"
-		placeholder={$LL.ADDRESSBOOK.SEARCH.PLACEHOLDER()}
+		placeholder={m.ADDRESSBOOK_SEARCH_PLACEHOLDER()}
 		bind:value={$term}
-		aria-label={$LL.ADDRESSBOOK.SEARCH.ARIA_LABEL()}
+		aria-label={m.ADDRESSBOOK_SEARCH_ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
 		on:click={() => {
 			$term = '';
 		}}
-		aria-label={$LL.ADDRESSBOOK.CLEAR()}
+		aria-label={m.ADDRESSBOOK_CLEAR()}
 		disabled={!$term}
 	>
 		<DocsIcon name="clear" width="w-5" height="h-5" />

@@ -10,18 +10,17 @@
 		faPhone,
 		faMapLocationDot
 	} from '@fortawesome/free-solid-svg-icons';
-	import LL from '$i18n/i18n-svelte';
-	import Emails from '$components/Email/Emails.svelte';
+	import * as m from "$msgs";	import Emails from '$components/Email/Emails.svelte';
 	import Phones from './Phones.svelte';
 	import Address from './Address.svelte';
 	import Websites from '$components/Website/Websites.svelte';
-	import { Map } from 'clinic-cms';
-	import { createMapData } from 'clinic-cms';
+	import { Map } from '$lib';
+	import { createMapData } from '$lib';
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Appointment from '$lib/components/Effector/Appointment/Appointments.svelte';
 	import Cost from '$lib/components/Effector/Cost/Cost.svelte';
 	import Payment from '$components/Addressbook/Payment/Payment.svelte';
-	import { FacilityLink } from 'clinic-cms';
+	import { FacilityLink } from '$lib';
 	import Info from '$lib/components/Effector/Info/Info.svelte';
 	import AvatarList from '$lib/components/Effector/Avatar/Avatar.svelte';
 	import Back from '$lib/components/Directory/Back.svelte';
@@ -77,7 +76,7 @@
 				<div class="flex items-center py-2">
 					<div class="w-9"><Fa icon={faPhone} size="sm" /></div>
 					<div>
-						<h3 class="h3">{capitalizeFirstLetter($LL.PHONE())}</h3>
+						<h3 class="h3">{capitalizeFirstLetter(m.PHONE())}</h3>
 					</div>
 				</div>
 				<div class="flex items-center p-1">
@@ -136,7 +135,7 @@
 				<div class="flex items-center p-1">
 					<div class="w-9"><Fa icon={faCircleNodes} /></div>
 					<div>
-						<h3 class="h3">{$LL.ADDRESSBOOK.SOMED()}</h3>
+						<h3 class="h3">{m.ADDRESSBOOK_SOMED()}</h3>
 					</div>
 				</div>
 				<div class="flex p-1">
@@ -158,7 +157,7 @@
 			<div class="flex items-center p-1">
 				<div class="w-9"><Fa icon={faMapLocationDot} size="sm" /></div>
 				<div>
-					<h3 class="h3">{capitalizeFirstLetter($LL.ADDRESSBOOK.LOCATION())}</h3>
+					<h3 class="h3">{capitalizeFirstLetter(m.ADDRESSBOOK_LOCATION())}</h3>
 				</div>
 			</div>
 			<div class="flex p-1">

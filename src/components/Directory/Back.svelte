@@ -2,8 +2,7 @@
 	import isEmpty from 'lodash.isempty';
 	import { page } from '$app/stores';
 	import { beforeUpdate } from 'svelte';
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import Fa from 'svelte-fa';
 	import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -28,12 +27,12 @@
 		{#if $term.length || $selectCommunes.length || $selectCategories.length || $selectSituation.length || $selectFacility || !isEmpty($addressFeature)}
 			<span class="badge variant-filled-primary"> <Fa icon={faArrowLeft} /></span>
 			<span class="whitespace-normal text-left">
-				{capitalizeFirstLetter($LL.ADDRESSBOOK.GOTOSEARCH())}
+				{capitalizeFirstLetter(m.ADDRESSBOOK_GOTOSEARCH())}
 			</span>
 		{:else}
 			<span class="badge variant-filled-primary"> <Fa icon={faArrowRight} /></span>
 			<span class="whitespace-normal text-left">
-				{capitalizeFirstLetter($LL.NAVBAR.ADDRESSBOOK())}
+				{capitalizeFirstLetter(m.NAVBAR_ADDRESSBOOK())}
 			</span>
 		{/if}
 	</a>

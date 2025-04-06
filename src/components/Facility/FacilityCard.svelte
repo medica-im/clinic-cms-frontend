@@ -70,12 +70,6 @@
 			<div>
 				<Directory data={entries} typesView={true} propSelectFacility={data.uid} displayEntries={false} />
 			</div>
-			<!-- Footer -->
-			<!--footer class="p-4 flex justify-start items-center space-x-4">
-                <a href={url} class="btn bg-primary-500" data-sveltekit-preload-data="hover">
-                    <span><Fa icon={faReadme} /></span><span>{$LL.BLOG.READMORE()}</span>
-                </a>
-            </footer-->
 		</div>
 		<div class="mx-2 p-1 h-64 lg:w-full z-0">
 			<Map data={createFacilitiesMapData([data])} />

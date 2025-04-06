@@ -2,8 +2,7 @@
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { categories, selectFacilityValue } from '$lib/store/directoryStore';
-	import LL from '$i18n/i18n-svelte';
-	import { get } from '@square/svelte-store';
+	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import {
@@ -109,7 +108,7 @@
 
 {#await categoryOf.load()}
 	<div class="text-surface-700 theme">
-		<Select loading={true} placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()} />
+		<Select loading={true} placeholder={m.ADDRESSBOOK_CATEGORIES_PLACEHOLDER()} />
 	</div>
 {:then}
 <!--
@@ -124,7 +123,7 @@
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}
-			placeholder={$LL.ADDRESSBOOK.CATEGORIES.PLACEHOLDER()}
+			placeholder={m.ADDRESSBOOK_CATEGORIES_PLACEHOLDER()}
 			bind:value={$selCatVal}
 		/>
 	</div>

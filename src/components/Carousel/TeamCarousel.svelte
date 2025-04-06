@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import LL from '$i18n/i18n-svelte';
+	import * as m from "$msgs";
 	import Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 	import { variables } from '$lib/utils/constants';
@@ -13,7 +13,7 @@
 			labels.push(occupation.label);
 		}
 		return [labels.slice(0, -1).join(', '), labels.slice(-1)[0]].join(
-			labels.length < 2 ? '' : ` ${$LL.AND()} `
+			labels.length < 2 ? '' : ` ${m.AND()} `
 		);
 	}
 	function getLink(entry: Entry, pathname: string) {

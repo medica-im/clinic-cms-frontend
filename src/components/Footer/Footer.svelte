@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { locale } from '$i18n/i18n-svelte';
-	import LL from '$i18n/i18n-svelte';
+	import { getLocale } from "$prgld/runtime.js";
+	import * as m from "$msgs";
 	import { variables } from '$lib/utils/constants';
 	import SocialNetworks from '../SoMed/SoMed.svelte';
 	import BlogIconLink from '$components/Blog/BlogIconLink.svelte';
@@ -17,12 +17,12 @@
 		<!-- Row 1 -->
 		<div class="md:flex md:justify-between">
 			<div class="mb-6 md:mb-0">
-				<a data-sveltekit-preload-data="off" href="/" title={$LL.NAVBAR.GO_HOME()}>
+				<a data-sveltekit-preload-data="off" href="/" title={m.NAVBAR_GO_HOME()}>
 					<div class="flex space-x-2 lg:space-x-4">
 						<span class="flex w-8 h-8 lg:w-12 lg:h-12"><OutpatientClinicLogo /></span>
                         <div>
 						<h4 class="h4">
-							{capitalizeFirstLetter($facilityStore.formatted_name, $locale)}
+							{capitalizeFirstLetter($facilityStore.formatted_name, getLocale())}
 						</h4>
 						<p>{$facilityStore.contact.address.street}</p>
 						<p>{$facilityStore.city.name}</p>
@@ -33,12 +33,12 @@
 			<div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
 				<div>
 					<h6 class="mb-6 text-sm font-semibold uppercase">
-						{capitalizeFirstLetter($LL.RESOURCES(), $locale)}
+						{capitalizeFirstLetter(m.RESOURCES(), getLocale())}
 					</h6>
 					<ul class="font-medium">
 						<li class="mb-4">
 							<a data-sveltekit-preload-data="off" href="/">
-								{$LL.HOME.TITLE()}
+								{m.HOME_TITLE()}
 							</a>
 						</li>
 						<li class="mb-4">
@@ -56,7 +56,7 @@
 				{#if variables.ORGANIZATION_CATEGORY=="msp"}
 				<div>
 					<h6 class="mb-6 text-sm font-semibold uppercase">
-						{$LL.OUTPATIENT_CLINIC.PROGRAMS()}
+						{m.OUTPATIENT_CLINIC_PROGRAMS()}
 					</h6>
 					<ul class="font-medium">
 						{#each Object.values(programsNavLinks) as navLink}
@@ -69,17 +69,17 @@
 				{/if}
 				<div>
 					<h6 class="mb-6 text-sm font-semibold uppercase">
-						{capitalizeFirstLetter($LL.LEGAL(), $language)}
+						{capitalizeFirstLetter(m.LEGAL(), $language)}
 					</h6>
 					<ul class="font-medium">
 						<!--li class="mb-4">
 							<a href="/politique-de-confidentialite" class="hover:underline"
-								>{capitalizeFirstLetter($LL.PRIVACY_POLICY(), $language)}</a
+								>{capitalizeFirstLetter(m.PRIVACY_POLICY(), $language)}</a
 							>
 						</li-->
 						<li class="mb-4">
 							<a href="/mentions-legales" class="hover:underline"
-								>{capitalizeFirstLetter($LL.LEGAL_NOTICES(), $language)}</a
+								>{capitalizeFirstLetter(m.LEGAL_NOTICES(), $language)}</a
 							>
 						</li>
 					</ul>

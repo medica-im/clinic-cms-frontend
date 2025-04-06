@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import Fa from 'svelte-fa';
+	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import { faInfo } from '@fortawesome/free-solid-svg-icons';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import Languages from './Languages.svelte';
@@ -11,7 +10,7 @@
 		<div class="w-9"><Fa icon={faInfo} /></div>
 		<div>
 			<h3 class="h3">
-				{capitalizeFirstLetter($LL.ADDRESSBOOK.INFORMATIONS())}
+				{capitalizeFirstLetter(m.ADDRESSBOOK_INFORMATIONS())}
 			</h3>
 		</div>
 	</div>

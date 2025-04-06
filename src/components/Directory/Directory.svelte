@@ -13,8 +13,7 @@
 		categories,
 		fullFilteredEffectors
 	} from '$lib/store/directoryStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import * as m from "$msgs";	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { language } from '$lib/store/languageStore.ts';
 	import SearchDirectory from '$components/Directory/SearchDirectory.svelte';
 	import Effector from '$components/Directory/Effector.svelte';
@@ -80,7 +79,7 @@
 
 <svelte:head>
 	<title>
-		{$LL.ADDRESSBOOK.TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.ADDRESSBOOK_TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 

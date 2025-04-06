@@ -4,7 +4,6 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
     import { PUBLIC_BLOG_URI } from '$env/static/public';
-	import LL from '$i18n/i18n-svelte.ts';
 	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
 	import { Fa } from 'svelte-fa';
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';

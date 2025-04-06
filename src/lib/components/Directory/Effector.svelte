@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Phones from './Phones.svelte';
-	import { FacilityLink } from 'clinic-cms';
+	import { FacilityLink } from '$lib';
 	import AvatarList from '$lib/components/Effector/Avatar/AvatarList.svelte';
     import { page } from '$app/state';
 	import { getSelectFacility, getSelectCategories, getTerm, getSelectCommunes } from "./context";
 	import { goto } from '$app/navigation';
 	import type { Entry } from '$lib/store/directoryStoreInterface';
-	export let effector: any;
+	export let entry: Entry;
 	export let avatar: boolean;
 
 	let selectFacility = getSelectFacility();
@@ -26,7 +26,7 @@
 	}
 
 	const goTo = () => {
-		const url = entryPageUrl(effector, page.url.pathname, $selectFacility, $selectCategories, $term, $selectCommunes);
+		const url = entryPageUrl(entry, page.url.pathname, $selectFacility, $selectCategories, $term, $selectCommunes);
 		goto(url, { replaceState: false });
 	}
 </script>
@@ -36,30 +36,30 @@
 
 <div class="flex flex-col items-top rounded-lg lg:flex-row  variant-soft-surface m-4 w-full">
 {#if avatar==true}
-		<AvatarList data={effector} />
+		<AvatarList data={entry} />
 		{/if}
 		<div class="p-4 space-y-1">
-			<h3 class="h3">{effector.name}</h3>
+			<h3 class="h3">{entry.name}</h3>
 			<!--
 			{#if (import.meta.env.VITE_DEV == 'true')}
-			<p class="text-xs">{effector.effector_uid}</p>
+			<p class="text-xs">{entry.effector_uid}</p>
 			{/if}
 			-->
-			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
+			<h4 class="h4"><i>{entry.types.map((type) => type.label)}</i></h4>
 
-			{#if effector.phones?.length}
-				<Phones data={effector.phones} />
+			{#if entry.phones?.length}
+				<Phones data={entry.phones} />
 			{/if}
 			<div class="space-y-1">
-				{#if effector.facility}
-					<div><FacilityLink data={effector.facility} /></div>
+				{#if entry.facility}
+					<div><FacilityLink data={entry.facility} /></div>
 				{/if}
 				<!--
-				{#if effector.address}
-					<div><Address data={effector.address} /></div>
+				{#if entry.address}
+					<div><Address data={entry.address} /></div>
 				{/if}
-				{#if effector.other_addresses?.length}
-					<div><Addresses data={effector.other_addresses} /></div>
+				{#if entry.other_addresses?.length}
+					<div><Addresses data={entry.other_addresses} /></div>
 				{/if}
 				-->
 			</div>

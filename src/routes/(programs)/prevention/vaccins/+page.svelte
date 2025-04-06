@@ -3,8 +3,7 @@
 	import { currentOrg, limitCategories } from '$lib/store/directoryStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import LL from '$i18n/i18n-svelte.ts';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import * as m from "$msgs";	import ProgramNav from '$components/ProgramNav.svelte';
 	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
 	import vaccines2024v from '$lib/assets/images/vaccines/vaccination_schedule_2024_vertical.png';
 	import vaccinsATousLesAges2024 from '$lib/assets/pdf/vaccines/vaccins_a_tous_les_ages_2024.pdf';
@@ -49,7 +48,7 @@
 
 <svelte:head>
 	<title>
-		Vaccins - {capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())} - {capitalizeFirstLetter(
+		Vaccins - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE())} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name
 		)}
 	</title>
@@ -58,7 +57,7 @@
 <header>
 	<div class="section-container">
 		<span class="badge variant-filled-surface"
-			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())}</span
+			>{capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE())}</span
 		>
 
 		<h1 class="h1">Vaccins</h1>

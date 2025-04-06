@@ -1,9 +1,8 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte.ts';
+	import * as m from "$msgs";
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter, lowercaseFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { getProgram, getIsOther } from '../lib/links.ts';
-	import type { LocalizedString } from 'typesafe-i18n';
 	export let data;
 
 	const program = getProgram(data);
@@ -19,7 +18,7 @@
 		}
 	}
 
-	function programOf(program: LocalizedString, language: string, isOther: boolean, count: number) {
+	function programOf(program: any, language: string, isOther: boolean, count: number) {
 		program = lowercaseFirstLetter(program[language]);
         if (language == 'fr') {
             if (count==1) {

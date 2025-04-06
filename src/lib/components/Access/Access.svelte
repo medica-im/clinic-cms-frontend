@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import LL from '$i18n/i18n-svelte';
-	import { handlePostRequestsWithPermissions } from '$lib/utils/requestUtils';
+	import * as m from "$msgs";	import { handlePostRequestsWithPermissions } from '$lib/utils/requestUtils';
 	import Fa from 'svelte-fa';
 	import { faMask, faPeopleGroup, faGlobe } from '@fortawesome/free-solid-svg-icons';
 	export let roles: number[];
@@ -63,21 +62,21 @@ const [data, error] = await handlePostRequestsWithPermissions(
 
 	const choices: { [key: string]: { label: object; icon: object; summary: object } } = {
 		'1,2,3,4,5': {
-			label: $LL.ACCESS.CHOICES.PUBLIC(),
+			label: m.ACCESS.CHOICES.PUBLIC(),
 			icon: faGlobe,
-			summary: $LL.ACCESS.SUMMARY.PUBLIC()
+			summary: m.ACCESS.SUMMARY.PUBLIC()
 		},
 		'3,4,5': {
-			label: $LL.ACCESS.CHOICES.TEAM(),
+			label: m.ACCESS.CHOICES.TEAM(),
 			icon: faPeopleGroup,
-			summary: $LL.ACCESS.SUMMARY.TEAM()
+			summary: m.ACCESS.SUMMARY.TEAM()
 		},
-		'4,5': { label: $LL.ACCESS.CHOICES.ADMIN(), icon: faMask, summary: $LL.ACCESS.SUMMARY.ADMIN() }
+		'4,5': { label: m.ACCESS.CHOICES.ADMIN(), icon: faMask, summary: m.ACCESS.SUMMARY.ADMIN() }
 	};
 </script>
 
 <div class="card variant-ghost p-2 space-y-2">
-	<h4 class="h4">{$LL.ACCESS.ACCESS_CONTROL()}</h4>
+	<h4 class="h4">{m.ACCESS.ACCESS_CONTROL()}</h4>
 	<select class="select" on:change={onChange} bind:value={selected}>
 		{#each Object.keys(choices) as k}
 			<option value={k}>{choices[k].label}</option>

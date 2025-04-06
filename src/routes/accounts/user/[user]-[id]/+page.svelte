@@ -4,8 +4,7 @@
 	import { variables } from '$lib/utils/constants';
 	import { nodeBefore } from '$lib/helpers/whitespacesHelper';
 	import type { User, UserResponse } from '$lib/interfaces/user.interface';
-	import LL from '$i18n/i18n-svelte';
-	import type { PageData } from './$types';
+	import * as m from "$msgs";	import type { PageData } from './$types';
 
 
 	export let data: PageData;
@@ -30,11 +29,11 @@
 
 {#if currentUserData && currentUserData.id}
 
-		<h1 class="h1">{$LL.USER.PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
+		<h1 class="h1">{m.USER_PROFILE({ userName: currentUserData.full_name ? currentUserData.full_name : currentUserData.username })}
 		</h1>
 
 		<div class="card">
-			<header class="card-header">{$LL.USER.ROLE()}</header>
+			<header class="card-header">{m.USER_ROLE()}</header>
 			<section class="p-4">{currentUserData.role.label}</section>
 			<footer class="card-footer">{currentUserData.role.description}</footer>
 		</div>
@@ -107,7 +106,7 @@
 	
     <div class="card" style="width: 18rem;">
 		<div class="card-header">
-			{$LL.USER.ROLE()}
+			{m.USER_ROLE()}
 		  </div>
 		<div class="card-body">
 		  <h5 class="card-title">{currentUserData.role.label}</h5>

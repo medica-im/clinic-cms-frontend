@@ -1,6 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { popup } from '@skeletonlabs/skeleton';
+	import * as m from "$msgs";	import { popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
     import dict from './lexicon.js';
 	import Fa from 'svelte-fa';
@@ -38,7 +37,7 @@
 			<br>
 			{dict[dict[w][0]][0]}
 			{#if dict[dict[w][0]][1]}
-		<br><a data-sveltekit-reload href="/maison-de-sante/lexique#{removeSpaces(dict[w][0])}">{$LL.LEARN_MORE()}</a>
+		<br><a data-sveltekit-reload href="/maison-de-sante/lexique#{removeSpaces(dict[w][0])}">{m.LEARN_MORE()}</a>
 		{/if}
 		</h4>
 	{:else}
@@ -47,7 +46,7 @@
 		<br>
 	    {dict[w][0]}
 		{#if dict[w][1]}
-		<br><a data-sveltekit-reload href="/maison-de-sante/lexique#{removeSpaces(w)}">{$LL.LEARN_MORE()}</a>
+		<br><a data-sveltekit-reload href="/maison-de-sante/lexique#{removeSpaces(w)}">{m.LEARN_MORE()}</a>
 		{/if}
 	</h4>
 	{/if}
