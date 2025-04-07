@@ -1,8 +1,7 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
-	import { capitalizeFirstLetter, lowercaseFirstLetter } from '$lib/helpers/stringHelpers';
-	import { getProgram, getIsOther } from '../links';
+	import { language } from '$lib/store/languageStore.ts';
+	import { capitalizeFirstLetter, lowercaseFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import { getProgram, getIsOther } from '../links.ts';
 	import type { LocalizedString } from 'typesafe-i18n';
 	export let data;
 

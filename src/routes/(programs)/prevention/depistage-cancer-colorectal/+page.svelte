@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { variables } from '$lib/utils/constants.ts';
 	import LL from '$i18n/i18n-svelte.ts';
+	import { page } from '$app/stores';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
@@ -13,11 +15,38 @@
 		faAppleWhole,
 		faBurger
 	} from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import colonRectum from '$lib/assets/images/colorectal_cancer/colon-rectum.jpg';
 	import VideoPlayer from '$lib/components/Video/VideoPlayer.svelte';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
+    import type { OpenGraph as OG } from  '$lib/interfaces/openGraph.interface.ts'; 
+	export let data;
+
+	const getTitle = () => {
+		return `Cancer colorectal - ${capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)} - ${capitalizeFirstLetter(data.facility.formatted_name, $language)}`;
+	};
+
+	const modOpenGraph = {
+		title: getTitle(),
+		image_url: `${variables.BASE_URI}/images/opengraph/colorectal_cancer_throne.jpg`,
+		image_alt: "Un homme assis sur un fauteuil bleu roi doré tient l'enveloppe qui contient le kit de dépistage du cancer colorectal. Slogan: 'Il est temps de monter sur le trône.'",
+		description: "Le dépistage du cancer colorectal, à partir de 50 ans et jusqu'à 74 ans, peut être réalisé quand vous le souhaitez: il est toujours temps de monter sur le trône! La cérémonie doit avoir lieu tous les deux ans.",
+		twitter_description: '',
+		username: ''
+	};
+
+	console.log(getTitle());
+
+	const getOpenGraph = (og: OG, mod: OG) => {
+		for (const [key, value] of Object.entries(mod)) {
+            console.log(`${key}: ${value}`);
+			if (value) {
+				og[key as keyof OG]=value;
+			}
+        }
+		return og;
+	};
 
 	let videos = [
 		{
@@ -42,6 +71,9 @@
 			$language
 		)}
 	</title>
+	{#if data.openGraph}
+	<OpenGraph opengraph={getOpenGraph(data.openGraph, modOpenGraph)} />
+	{/if}
 </svelte:head>
 <header>
 	<div class="section-container">
