@@ -20,11 +20,6 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
 	// if you need to output a localized string in a `load` function,
 	// you always need to call `setLocale` right before you access the `LL` store
 	setLocale(locale)
-	// get the translation functions value from the store
-	//const $LL = get(LL)
-
-  const fData = await facilityStore.load();
-
   let user: User | null = null;
   let errs: any;
   if (browserGet('refreshToken')) {
@@ -45,7 +40,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
 
   return {
       locale: locale,
-      facility: fData,
+      facility: await facilityStore.load(),
       sections: [
         { slug: 'profile', title: 'Profile' },
         { slug: 'notifications', title: 'Notifications' }
