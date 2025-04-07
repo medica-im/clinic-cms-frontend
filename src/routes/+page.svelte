@@ -1,29 +1,24 @@
 <script lang="ts">
-	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
-	import { facilityStore } from '$lib/store/facilityStore';
-	import { fly } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
-	import LL from '$i18n/i18n-svelte';
 	//import Ghost from '$lib/Ghost/Ghost.svelte';
 	import { Ghost } from 'clinic-cms';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
-	import { language } from '$lib/store/languageStore';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
+	import { language } from '$lib/store/languageStore.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import {
 		occupationsCardinal,
 		selectOccupations,
-		term,
-		workforceOccupation
-	} from '$lib/store/workforceStore';
-	import { selectFacilities } from '$lib/store/selectionStore';
+		term
+	} from '$lib/store/workforceStore.ts';
+	import { selectFacilities } from '$lib/store/selectionStore.ts';
 	import { onMount } from 'svelte';
-	import { invalidate } from '$app/navigation';
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
-	import type { PageData } from './$types';
 	import LDTag from '$components/Schema/LDTag.svelte';
 
-	export let data: PageData;
+	export let data;
 
 	onMount(() => {
 		selectOccupations.set([]);
@@ -36,9 +31,8 @@
 <LDTag schema={data.websiteSchema} />
 <svelte:head>
 	{#if data.openGraph}
-	<OpenGraph opengraph={data.openGraph} />
+	<OpenGraph defaultOpenGraph={data.openGraph} url={$page.url.href} />
 	{/if}
-
 	<title>
 		{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>

@@ -1,4 +1,5 @@
 import { facilityStore } from '$lib/store/facilityStore';
+import { openGraphStore } from '$lib/store/openGraphStore';
 import type { LayoutLoad } from './$types'
 import type { Locales } from '$i18n/i18n-types'
 import { loadLocaleAsync } from '$i18n/i18n-util.async'
@@ -49,6 +50,7 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
         { slug: 'profile', title: 'Profile' },
         { slug: 'notifications', title: 'Notifications' }
       ],
-      userData: userData
+      userData: userData,
+      openGraph: await openGraphStore.load()
     };
   }

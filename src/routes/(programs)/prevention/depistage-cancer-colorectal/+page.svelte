@@ -20,7 +20,6 @@
 	import VideoPlayer from '$lib/components/Video/VideoPlayer.svelte';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
-    import type { OpenGraph as OG } from  '$lib/interfaces/openGraph.interface.ts'; 
 	export let data;
 
 	const getTitle = () => {
@@ -30,23 +29,13 @@
 	const modOpenGraph = {
 		title: getTitle(),
 		image_url: `${variables.BASE_URI}/images/opengraph/colorectal_cancer_throne.jpg`,
-		image_alt: "Un homme assis sur un fauteuil bleu roi doré tient l'enveloppe qui contient le kit de dépistage du cancer colorectal. Slogan: 'Il est temps de monter sur le trône.'",
-		description: "Le dépistage du cancer colorectal, à partir de 50 ans et jusqu'à 74 ans, peut être réalisé quand vous le souhaitez: il est toujours temps de monter sur le trône! La cérémonie doit avoir lieu tous les deux ans.",
-		twitter_description: '',
-		username: ''
+		image_alt:
+			"Un homme assis sur un fauteuil bleu roi doré tient l'enveloppe qui contient le kit de dépistage du cancer colorectal. Slogan: 'Il est temps de monter sur le trône.'",
+		description:
+			"Le dépistage du cancer colorectal, à partir de 50 ans et jusqu'à 74 ans, peut être réalisé quand vous le souhaitez: il est toujours temps de monter sur le trône! La cérémonie doit avoir lieu tous les deux ans."
 	};
 
 	console.log(getTitle());
-
-	const getOpenGraph = (og: OG, mod: OG) => {
-		for (const [key, value] of Object.entries(mod)) {
-            console.log(`${key}: ${value}`);
-			if (value) {
-				og[key as keyof OG]=value;
-			}
-        }
-		return og;
-	};
 
 	let videos = [
 		{
@@ -72,7 +61,7 @@
 		)}
 	</title>
 	{#if data.openGraph}
-	<OpenGraph opengraph={getOpenGraph(data.openGraph, modOpenGraph)} />
+		<OpenGraph defaultOpenGraph={$page.data.openGraph} {modOpenGraph} url={$page.url.href} />
 	{/if}
 </svelte:head>
 <header>
@@ -153,7 +142,8 @@
 				</li>
 			</ul>
 			<p>
-				Chez votre médecin ou chez votre pharmacien, le test peut être retiré avec ou sans lettre d'invitation. Des questions vous seront posées sur vos antécédents personnels et familiaux
+				Chez votre médecin ou chez votre pharmacien, le test peut être retiré avec ou sans lettre
+				d'invitation. Des questions vous seront posées sur vos antécédents personnels et familiaux
 				afin de déterminer si ce test vous concerne.
 			</p>
 		</div>
@@ -330,7 +320,8 @@
 				<li>
 					<a
 						href="https://depistage-cancers-sud.org/pourquoi-qui-quels-examens-cancer-colorectal/"
-						class="anchor">Dépistage des cancers. Centre de coordination SUD Provence-Alpes-Côte d'Azur.</a
+						class="anchor"
+						>Dépistage des cancers. Centre de coordination SUD Provence-Alpes-Côte d'Azur.</a
 					>
 				</li>
 				<li>
