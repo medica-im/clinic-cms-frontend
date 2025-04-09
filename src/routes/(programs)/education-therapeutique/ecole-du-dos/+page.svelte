@@ -1,45 +1,23 @@
 <script lang="ts">
-	import type { PopupSettings } from '@skeletonlabs/skeleton';
-	export let data;
-	import { facilityStore } from '$lib/store/facilityStore';
-	import LL from '$i18n/i18n-svelte';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { language } from '$lib/store/languageStore';
-	import OccupationsComma from '$lib/Organization/OccupationsComma.svelte';
-	import Def from '$lib/components/TooltipDefinition/Def.svelte';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import { language } from '$lib/store/languageStore.ts';
 	import Fa from 'svelte-fa';
-	import Icon from '$components/Icon/Icon.svelte';
-	import Alert from '$/routes/(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
+	import Alert from './Alert.svelte';
 	import {
-		faInfo,
-		faTimeline,
-		faBookMedical,
-		faHouse,
-		faMapLocationDot,
-		faAddressBook,
 		faEnvelope,
 		faGlobe,
-		faBlog,
-		faUserPlus,
-		faUser,
-		faCircleNodes,
-		faMapPin,
-		faNetworkWired,
-		faHandshake,
-		faPeopleGroup,
-		faArrowRight,
-		faMobileScreen,
-		faXmark
+		faMobileScreen
 	} from '@fortawesome/free-solid-svg-icons';
 	import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
 	import DayGrid from '@event-calendar/day-grid';
 	import List from '@event-calendar/list';
+	import { getDate as d } from '$lib/helpers/dateTime.ts';
 
-	const firstEventDate = new Date('2024-09-02T19:00:00.000+02:00');
-	const lastEventDate = new Date('2024-10-16T20:00:00.000+02:00');
-	let visible: boolean = new Date().getTime() < firstEventDate.getTime();
+	const firstEventDate = d('2025-04-22','19:00');
+	const lastEventDate = d('2025-06-26','20:00');
 	let startStr = new Intl.DateTimeFormat('fr-FR', {
 		dateStyle: 'medium',
 		timeZone: 'Europe/Paris'
@@ -53,11 +31,11 @@
 	let options = {
 		view: 'listYear', //'dayGridMonth',
 		headerToolbar: { start: 'title', center: '', end: 'listYear dayGridMonth prev,next' },
-		date: new Date('2024-09-02T19:00:00.000+02:00'),
-		currentStart: new Date('2024-09-02T19:00:00.000+02:00'),
-		activeStart: new Date('2024-09-02T19:00:00.000+02:00'),
-		currentEnd: new Date('2024-10-16T20:00:00.000+02:00'),
-		activeEnd: new Date('2024-10-16T20:00:00.000+02:00'),
+		date: d('2025-04-22','19:00'),
+		currentStart: d('2025-04-22','19:00'),
+		activeStart: d('2025-04-22','19:00'),
+		currentEnd: d('2025-06-26','20:00'),
+		activeEnd: d('2025-06-26','20:00'),
 		views: {
 			listYear: {
 				titleFormat: function (start: Date, end: Date) {
@@ -124,6 +102,66 @@
 				id: 10,
 				start: new Date('2024-10-16T19:00:00.000+02:00'),
 				end: new Date('2024-10-16T20:00:00.000+02:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°10</p>' }
+			},
+			{
+				id: 11,
+				start: d('2025-04-22','19:00'),
+				end: d('2025-04-22','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°1</p>' }
+			},
+			{
+				id: 12,
+				start: d('2025-04-24','19:00'),
+				end: d('2025-04-24','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°2</p>' }
+			},
+			{
+				id: 13,
+				start: d('2025-04-28','19:00'),
+				end: d('2025-04-28','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°3</p>' }
+			},
+			{
+				id: 14,
+				start: d('2025-05-06','19:00'),
+				end: d('2025-05-06','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°4</p>' }
+			},
+			{
+				id: 15,
+				start: d('2025-05-15','19:00'),
+				end: d('2025-05-15','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°5</p>' }
+			},
+			{
+				id: 16,
+				start: d('2025-05-22','19:00'),
+				end: d('2025-05-22','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°6</p>' }
+			},
+			{
+				id: 17,
+				start: d('2025-06-05','19:00'),
+				end: d('2025-06-05','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°7</p>' }
+			},
+			{
+				id: 18,
+				start: d('2025-06-12','19:00'),
+				end: d('2025-06-12','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°8</p>' }
+			},
+			{
+				id: 19,
+				start: d('2025-06-19','19:00'),
+				end: d('2025-06-19','20:00'),
+				title: { html: '<p class="text-sm px-2">Atelier n°9</p>' }
+			},
+			{
+				id: 18,
+				start: d('2025-06-26','19:00'),
+				end: d('2025-06-26','20:00'),
 				title: { html: '<p class="text-sm px-2">Atelier n°10</p>' }
 			}
 		]
@@ -202,7 +240,7 @@
 			<p>
 				Les ateliers ont lieu au <a class="anchor" href="/sites#pole_sante_vedene_anchor"
 					>pôle médico-social Jean Jaurès</a
-				>.
+				>. Porte C.
 			</p>
 			<div class="py-2">
 				<Calendar {plugins} {options} />
