@@ -29,9 +29,24 @@
 
 	let plugins = [TimeGrid, DayGrid, List];
 	let options = {
+		locale: 'fr-FR',
+		buttonText: function (text) {
+			text.dayGridMonth = 'mois'
+			text.next = 'Mois suivant'
+			text.listDay = 'liste'
+			text.listWeek = 'liste'
+			text.listMonth = 'liste'
+			text.listYear = 'liste'
+			//text.listMonth.next = 'Mois suivant'
+			text.prev = 'Mois précédent'
+			return text
+		},
 		view: 'listYear', //'dayGridMonth',
 		headerToolbar: { start: 'title', center: '', end: 'listYear dayGridMonth prev,next' },
-		date: d('2025-04-22','19:00'),
+		validRange: {
+            start: firstEventDate,
+			end: lastEventDate
+		},
 		currentStart: d('2025-04-22','19:00'),
 		activeStart: d('2025-04-22','19:00'),
 		currentEnd: d('2025-06-26','20:00'),
@@ -43,8 +58,9 @@
 				}
 			}
 		},
+		noEventsContent: "Pas d'évènements",
 		events: [
-			{
+			/*{
 				id: 1,
 				start: new Date('2024-09-02T19:00:00.000+02:00'),
 				end: new Date('2024-09-02T20:00:00.000+02:00'),
@@ -103,7 +119,7 @@
 				start: new Date('2024-10-16T19:00:00.000+02:00'),
 				end: new Date('2024-10-16T20:00:00.000+02:00'),
 				title: { html: '<p class="text-sm px-2">Atelier n°10</p>' }
-			},
+			},*/
 			{
 				id: 11,
 				start: d('2025-04-22','19:00'),
@@ -192,7 +208,7 @@
 		<h2 class="h2">Qui peut bénéficier de l'école du dos?</h2>
 		<div class="md:px-4">
 			<p>Toute personne</p>
-			<div class="pl-5">
+			<div class="md:px-4">
 				<ul class="list-disc space-y-4 p-4">
 					<li>souffrant du dos</li>
 					<li>n’ayant pas de douleur et qui ne veut pas en avoir</li>
@@ -204,8 +220,8 @@
 <section>
 	<div class="section-container">
 		<h2 class="h2">L'école du dos en pratique</h2>
-		<div class="md:px-4 space-y-2 md:space-y-4">
-			<ul class="list-disc space-y-4 md:px-4">
+		<div class="md:px-4">
+			<ul class="list-disc space-y-4 p-4">
 				<li>1 bilan d’entrée</li>
 				<li>
 					3 ateliers théoriques pour comprendre le fonctionnement de la colonne et en prendre soin
