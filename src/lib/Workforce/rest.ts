@@ -1,7 +1,7 @@
-import { variables } from '$lib/utils/constants';
-import { language } from '$lib/store/languageStore';
-import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-import { workforceDataCached } from '$lib/store/workforceStore';
+import { variables } from '$lib/utils/constants.ts';
+import { language } from '$lib/store/languageStore.ts';
+import { handleRequestsWithPermissions } from '$lib/utils/requestUtils.ts';
+import { workforceDataCached } from '$lib/store/workforceStore.ts';
 import { error } from '@sveltejs/kit';
 
 export const workerData: any = async ({ fetch, slug }) => {

@@ -1,19 +1,12 @@
-import { error } from '@sveltejs/kit';
-import { variables } from '$lib/utils/constants';
-import { facilityStore } from '$lib/store/facilityStore';
-import { language } from '$lib/store/languageStore';
-import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
-import { workforceDataCached } from '$lib/store/workforceStore';
+import { facilityStore } from '$lib/store/facilityStore.ts';
 import type { PageLoad } from './$types';
-import { workerData } from '$lib/Workforce/rest';
+import { workerData } from '$lib/Workforce/rest.ts';
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const slug = params.slug;
-	const wD = await workerData({ fetch, slug });
-	const fData = await facilityStore.load();
 	return {
 		slug: params.slug,
-		workerData: wD,
-		facility: fData,
+		workerData: await workerData({ fetch, slug }),
+		facility: await facilityStore.load()
 	};
 };

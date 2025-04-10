@@ -22,7 +22,8 @@ const config: UserConfig = {
 	},
 	server: {
 		proxy: {
-			'/blog': 'https://msp-vedene.fr'
+			'/blog': 'https://msp-vedene.fr',
+			'/media/profile_images': 'https://msp-vedene.fr'
 			}
 		}
 };

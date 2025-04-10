@@ -15,6 +15,9 @@
 	import DayGrid from '@event-calendar/day-grid';
 	import List from '@event-calendar/list';
 	import { getDate as d } from '$lib/helpers/dateTime.ts';
+	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
+
+	export let data;
 
 	const firstEventDate = d('2025-04-22','19:00');
 	const lastEventDate = d('2025-06-26','20:00');
@@ -194,7 +197,7 @@
 	<div class="section-container">
 		<h1 class="h1">L'école du dos</h1>
 		<p>
-			Les soignants de la maison de santé de Vedène et les enseignantes en activité physique adaptée
+			Les soignants de la maison de santé de Vedène et les enseignantes en activité physique adaptée de
 			l'association KAPA Vedène vous apprendront à prendre soin de votre dos, pour augmenter votre
 			mobilité et prévenir ou réduire les douleurs.
 		</p>
@@ -240,11 +243,9 @@
 	<div class="section-container">
 		<h2 class="h2">Intervenants</h2>
 		<div class="md:px-4">
-			<ul class="list-disc space-y-4 p-4">
-				<li>1 enseignante en activité physique adaptée</li>
-				<li>1 kinésithérapeute</li>
-				<li>1 médecin généraliste</li>
-			</ul>
+			<div class="pl-5">
+				<EntryUl data={data.team}/>
+			</div>
 		</div>
 	</div>
 </section>
