@@ -6,8 +6,8 @@
 		faXmark
 	} from '@fortawesome/free-solid-svg-icons';
 
-	const firstEventDate = new Date('2024-09-02T19:00:00.000+02:00');
-	const lastEventDate = new Date('2024-10-16T20:00:00.000+02:00');
+	const firstEventDate = new Date('2025-04-22T19:00:00.000+02:00');
+	const lastEventDate = new Date('2025-06-26T20:00:00.000+02:00');
 	let visible: boolean = new Date().getTime() < firstEventDate.getTime();
 let startStr = new Intl.DateTimeFormat('fr-FR', {
     dateStyle: 'medium',
@@ -26,7 +26,7 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 			<Icon name="bodyHealthicons" width={"w-6 md:w-10"} height={"h-6 md:h-10"}/>
 			<!-- Message -->
 			<div class="alert-message">
-				<h3 class="h3">École du dos 2024</h3>
+				<h3 class="h3">École du dos 2025</h3>
 				<p>L'inscription pour la session du {startStr} au {endStr} est ouverte!</p>
 			</div>
 			<!-- Actions -->

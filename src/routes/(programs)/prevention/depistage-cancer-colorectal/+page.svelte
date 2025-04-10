@@ -35,8 +35,6 @@
 			"Le dépistage du cancer colorectal, à partir de 50 ans et jusqu'à 74 ans, peut être réalisé quand vous le souhaitez: il est toujours temps de monter sur le trône! La cérémonie doit avoir lieu tous les deux ans."
 	};
 
-	console.log(getTitle());
-
 	let videos = [
 		{
 			src: '/videos/depistage-cancer-colorectal-1080.mp4',
