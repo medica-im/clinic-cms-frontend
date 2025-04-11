@@ -30,7 +30,7 @@
 		faMobileScreen
 	} from '@fortawesome/free-solid-svg-icons';
 	import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-	import Alert from '$/routes/(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
+	import Alert from '../(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
 </script>
 
 <svelte:head>
@@ -44,24 +44,29 @@
 
 <header>
 	<div class="section-container">
-		
 		<h1 class="h1">
-{capitalizeFirstLetter($LL.ADAPTED_PHYSICAL_EDUCATION(), $language)} (APA)</h1>
+			{capitalizeFirstLetter($LL.ADAPTED_PHYSICAL_EDUCATION(), $language)} (APA)
+		</h1>
+		<div class="md:w-3/4">
+			<Alert />
+		</div>
 	</div>
 </header>
-
-<Alert/>
-
 <section>
 	<div class="section-container">
 		<h2 class="h2">Qu'est-ce que l'APA?</h2>
 		<p>
-			L’Activité Physique Adaptée (APA) est un moyen qui permet la mise en mouvement des personnes qui, en raison de leur état physique, mental ou social, ne peuvent pratiquer une activité
-			physique dans des conditions ordinaires. L’APA est une activité physique adaptée aux pathologies, aux capacités fonctionnelles et aux limites d’activité du patient.
+			L’Activité Physique Adaptée (APA) est un moyen qui permet la mise en mouvement des personnes
+			qui, en raison de leur état physique, mental ou social, ne peuvent pratiquer une activité
+			physique dans des conditions ordinaires. L’APA est une activité physique adaptée aux
+			pathologies, aux capacités fonctionnelles et aux limites d’activité du patient.
 		</p>
 		<p>
 			L’APA est une activité physique prescrite par un médecin et encadrée par un professionnel de
-			l'activité physique adaptée (<a class="anchor" href="/annuaire/enseignant-activite-physique-adaptee">enseignant en activité physique adaptée</a
+			l'activité physique adaptée (<a
+				class="anchor"
+				href="/annuaire/enseignant-activite-physique-adaptee"
+				>enseignant en activité physique adaptée</a
 			>
 			ou <a class="anchor" href="/annuaire/kinesitherapeute">kinésithérapeute</a>).
 		</p>
@@ -101,7 +106,8 @@
 		</p>
 		<p>
 			L’APA permet d’accompagner des patients malades chroniques qui ne se sentent pas capables de
-			pratiquer une activité sportive en autonomie et qui nécessitent un accompagnement personnalisé.
+			pratiquer une activité sportive en autonomie et qui nécessitent un accompagnement
+			personnalisé.
 		</p>
 	</div>
 </section>
@@ -109,16 +115,15 @@
 	<div class="section-container">
 		<h2 class="h2">Association KAPA Vedène: l'APA à Vedène!</h2>
 		<div class="py-2 xl:px-6 xl:float-right">
-			<img
-						src={logoKapaVedene}
-						alt="logo de l'association KAPA Vedène"
-					/>
-        </div>
+			<img src={logoKapaVedene} alt="logo de l'association KAPA Vedène" />
+		</div>
 		<h3 class="h3">Présentation</h3>
 		<p>
-			L'association KAPA Vedène a été créée en mai 2021 au sein du cabinet de kinésithérapie de la maison de santé de Vedène pour promouvoir et proposer des activités
-			physiques adaptées dans un projet de sport santé et de sport bien-être.
-			KAPA Vedène est une passerelle entre la kinésithérapie et la reprise d'une activité physique dans une association sportive ou un club de sport.
+			L'association KAPA Vedène a été créée en mai 2021 au sein du cabinet de kinésithérapie de la
+			maison de santé de Vedène pour promouvoir et proposer des activités physiques adaptées dans un
+			projet de sport santé et de sport bien-être. KAPA Vedène est une passerelle entre la
+			kinésithérapie et la reprise d'une activité physique dans une association sportive ou un club
+			de sport.
 		</p>
 		<h3 class="h3">Objectifs</h3>
 		<h4 class="h4">Informer et sensibiliser</h4>
@@ -137,10 +142,9 @@
 		</p>
 		<p>
 			La sédentarité augmente la mortalité et le risque de développer de nombreuses maladies<sup
-			><a class="anchor" href="#cite_note-1">1</a></sup
-		>:
-			maladie cardiovasculaire, diabète de type 2, cancer du colon, cancer de l'endomètre, cancer du
-			poumon, obésité, dépression.
+				><a class="anchor" href="#cite_note-1">1</a></sup
+			>: maladie cardiovasculaire, diabète de type 2, cancer du colon, cancer de l'endomètre, cancer
+			du poumon, obésité, dépression.
 		</p>
 		<h4 class="h4">Favoriser la reprise de l'activité physique</h4>
 		<p>
@@ -222,9 +226,8 @@
 		<div class="pl-5">
 			<ol class="list-decimal space-y-4 p-4">
 				<li id="cite_note-1">
-					<a
-						href="https://doi.org/10.1007/s00125-012-2677-z"
-						class="anchor">Wilmot, E.G., Edwardson, C.L., Achana, F.A. et al. Sedentary time in adults and the
+					<a href="https://doi.org/10.1007/s00125-012-2677-z" class="anchor"
+						>Wilmot, E.G., Edwardson, C.L., Achana, F.A. et al. Sedentary time in adults and the
 						association with diabetes, cardiovascular disease and death: systematic review and
 						meta-analysis. Diabetologia 55, 2895–2905 (2012).</a
 					>

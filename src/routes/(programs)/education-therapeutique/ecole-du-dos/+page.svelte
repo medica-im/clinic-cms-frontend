@@ -197,14 +197,14 @@
 	<div class="section-container">
 		<h1 class="h1">L'école du dos</h1>
 		<p>
-			Les soignants de la maison de santé de Vedène et les enseignantes en activité physique adaptée de
-			l'association KAPA Vedène vous apprendront à prendre soin de votre dos, pour augmenter votre
+			Les soignants de la maison de santé de Vedène et les enseignantes en activité physique adaptée de l'association KAPA Vedène vous apprendront à prendre soin de votre dos, pour augmenter votre
 			mobilité et prévenir ou réduire les douleurs.
 		</p>
+		<div class="md:w-3/4">
+			<Alert/>
+		</div>
 	</div>
 </header>
-
-<Alert/>
 
 <section>
 	<div class="section-container">

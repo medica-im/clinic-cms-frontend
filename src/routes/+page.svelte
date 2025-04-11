@@ -8,15 +8,12 @@
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import {
-		occupationsCardinal,
-		selectOccupations,
-		term
-	} from '$lib/store/workforceStore.ts';
+	import { occupationsCardinal, selectOccupations, term } from '$lib/store/workforceStore.ts';
 	import { selectFacilities } from '$lib/store/selectionStore.ts';
 	import { onMount } from 'svelte';
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import LDTag from '$components/Schema/LDTag.svelte';
+	import Alert from './(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
 
 	export let data;
 
@@ -25,13 +22,12 @@
 		selectFacilities.set([]);
 		term.set('');
 	});
-
 </script>
 
 <LDTag schema={data.websiteSchema} />
 <svelte:head>
 	{#if data.openGraph}
-	<OpenGraph defaultOpenGraph={data.openGraph} url={$page.url.href} />
+		<OpenGraph defaultOpenGraph={data.openGraph} url={$page.url.href} />
 	{/if}
 	<title>
 		{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
@@ -42,7 +38,13 @@
 	<!-- hero -->
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
 		<div class="section-container">
-			<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
+			<div class="grid grid-cols-1 place-items-center">
+			<div>
+				<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
+			</div>
+			<div class="md:w-2/3 mx-auto">
+				<Alert />
+			</div>
 		</div>
 	</header>
 	<!-- team -->
@@ -61,10 +63,10 @@
 		</div>
 	</section>
 	{#await data.ghost then ghost}
-	<!-- blog -->
-	<section id="blog" class="bg-surface-100-800-token blog-gradient">
-		<div class="section-container"><Ghost data={ghost} /></div>
-	</section>
+		<!-- blog -->
+		<section id="blog" class="bg-surface-100-800-token blog-gradient">
+			<div class="section-container"><Ghost data={ghost} /></div>
+		</section>
 	{/await}
 	<!-- programs -->
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
@@ -74,7 +76,7 @@
 
 <style lang="postcss">
 	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-8 md:py-10;
+		@apply w-full max-w-7xl mx-auto px-4 py-6 lg:py-8;
 	}
 	/* Hero Gradient */
 	/* prettier-ignore */

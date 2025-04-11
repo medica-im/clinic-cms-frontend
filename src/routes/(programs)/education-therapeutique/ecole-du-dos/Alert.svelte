@@ -20,20 +20,23 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 </script>
 
 {#if visible}
-	<div class="section-container">
-		<aside class="alert variant-ghost-success">
+<div class="py-8 lg:py-10">
+		<aside class="alert variant-ghost-tertiary">
 			<!-- Icon -->
+			<div class="hidden lg:block">
 			<Icon name="bodyHealthicons" width={"w-6 md:w-10"} height={"h-6 md:h-10"}/>
+		</div>
 			<!-- Message -->
 			<div class="alert-message">
-				<h3 class="h3">École du dos 2025</h3>
+				<h3 class="h3"><span class="inline-block lg:hidden"><Icon name="bodyHealthicons" width={"w-6"} height={"h-6"}/></span>
+					École du dos 2025</h3>
 				<p>L'inscription pour la session du {startStr} au {endStr} est ouverte!</p>
 			</div>
 			<!-- Actions -->
 			<div class="alert-actions"><a href="/education-therapeutique/ecole-du-dos#inscription" class="btn variant-ghost"><span><Fa icon={faArrowRight}/></span><span>Je m'inscris</span></a>
 			<button on:click={()=>visible=false} class="btn variant-ghost"><span><Fa icon={faXmark}/></span></div>
 		</aside>
-	</div>
+</div>
 {/if}
 
 <style lang="postcss">
