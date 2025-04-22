@@ -7,7 +7,7 @@
 	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import Address from '$lib/Address/Address.svelte';
 	import { createMapData } from '$lib/components/Map/mapData';
-	import Emails from '$components/Email/Emails.svelte';
+	import Emails from '$lib/Email/Emails.svelte';
 	import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 	import {
 		faBuilding,

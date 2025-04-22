@@ -65,7 +65,7 @@ export interface Entry {
     updatedAt: number
 }
 
-export type AddressFeature = {
+export interface AddressFeature {
     type: string,
     geometry: {
         type: string,
@@ -87,7 +87,7 @@ export type AddressFeature = {
         importance: number,
         street: string
     }
-} | {}
+}
 
 export interface Contact {
     resource_uri: string,

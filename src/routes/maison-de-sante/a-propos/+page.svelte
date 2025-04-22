@@ -8,7 +8,7 @@
 	import OccupationsComma from '$lib/Organization/OccupationsComma.svelte';
 	import Def from '$lib/components/TooltipDefinition/Def.svelte';
 	import Fa from 'svelte-fa';
-	import { programsNavLinks } from '$lib/links';
+	import { programsNavLinks } from '$var/variables.ts';
 	import {
 		faInfo,
 		faTimeline,

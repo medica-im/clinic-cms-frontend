@@ -5,8 +5,9 @@
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import VideoPlayer from '$lib/components/Video/VideoPlayer.svelte';
+	import { programsNavLinks } from "$var/variables.ts";
 
 	let videos = [
 		{
@@ -147,7 +148,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
 	</div>
 </section>
 

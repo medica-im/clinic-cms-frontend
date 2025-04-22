@@ -4,7 +4,7 @@
 	import { getTerm } from '$lib/components/Directory/context';
 	import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
-	import DocsIcon from '$components/Icon/Icon.svelte';
+	import DocsIcon from '$lib/Icon/Icon.svelte';
 	import * as m from "$msgs";
 	const term = getTerm();
 	let termParam: string | null = null;

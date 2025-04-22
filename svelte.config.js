@@ -18,8 +18,7 @@ const config = {
 		alias: {
 			$msgs: './src/paraglide/messages.js',
 			$prgld: './src/paraglide/',
-			$components: './src/components',
-			$modals: './src/modals'
+			$var: './src/var'
 		}
 	}
 };

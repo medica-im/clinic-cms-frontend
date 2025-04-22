@@ -16,27 +16,7 @@ export const replaceLocaleInUrl = (url: URL, locale: string, full = false): stri
 	return newUrl.toString()
 }
 
-export const isObjectEmpty = (obj) => {
+export const isObjectEmpty = (obj: Object) => {
 	for (var i in obj) return false;
 	return true;
 }
-
-export const replacer = (key, value) => {
-	if(value instanceof Map) {
-	  return {
-		dataType: 'Map',
-		value: Array.from(value.entries()), // or with spread: value: [...value]
-	  };
-	} else {
-	  return value;
-	}
-  }
-
-export const reviver = (key, value) => {
-	if(typeof value === 'object' && value !== null) {
-	  if (value.dataType === 'Map') {
-		return new Map(value.value);
-	  }
-	}
-	return value;
-  }

@@ -12,11 +12,10 @@
 		faMapLocationDot,
 		faLocationDot
 	} from '@fortawesome/free-solid-svg-icons';
-	import Phones from '$components/Directory/Phones.svelte';
 	import { isServiceAvailable } from '$lib/Schedule/available.ts';
 	import { publicHolidays } from '$lib/store/publicHolidaysStore.ts';
 	import { loadAll } from '@square/svelte-store';
-	import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
+	import SkeletonAppBar from '$lib/SkeletonAppBar/SkeletonAppBar.svelte';
 
 	export let data;
 </script>

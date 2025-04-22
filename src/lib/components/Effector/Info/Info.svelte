@@ -16,7 +16,7 @@
 	</div>
 	{#if data.spoken_languages && data?.spoken_languages.length}
 		<div class="flex p-1">
-			<div class="w-9" />
+			<div class="w-9"></div>
 			<div>
 				<Languages data={data.spoken_languages} />
 			</div>
@@ -24,7 +24,7 @@
 	{/if}
 	{#if data.rpps}
 		<div class="flex p-1">
-			<div class="w-9" />
+			<div class="w-9"></div>
 			<div>
 				N° RPPS: {data.rpps}
 			</div>
@@ -32,7 +32,7 @@
 	{/if}
 	{#if data.adeli}
 	<div class="flex">
-		<div class="w-9" />
+		<div class="w-9"></div>
 		<div>
 			N° ADELI: {data.adeli}
 		</div>

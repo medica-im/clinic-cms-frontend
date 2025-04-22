@@ -8,7 +8,7 @@
 	import { get } from '@square/svelte-store';
 	import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 	import Fa from 'svelte-fa';
-	import DocsIcon from '$components/Icon/Icon.svelte';
+	import DocsIcon from '$lib/Icon/Icon.svelte';
 	import { variables } from '$lib/utils/constants';
 	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 	import { PUBLIC_DIRECTORY_TTL } from '$env/static/public';
@@ -36,7 +36,6 @@
 
 	onMount(async () => {
 		const _addressFeature = get(addressFeature);
-		//console.log(JSON.stringify(_addressFeature));
 		if (!isEmpty(_addressFeature)) {
 			inputAddress.set(normalize(_addressFeature?.properties?.label));
 		}
@@ -52,13 +51,13 @@
 
 	const getDirectory = async () => {
 		let expired;
-		var cacheddata = localStorage.getItem('directory');
+		var cacheddata: string|null = localStorage.getItem('directory');
 		if (cacheddata) {
-			cacheddata = JSON.parse(cacheddata);
-			expired = Math.trunc(Date.now() / 1000) - cacheddata.cachetime > cachelife;
-		}
-		if (cacheddata && !expired) {
-			return cacheddata.data;
+			const cachedDataObj = JSON.parse(cacheddata);
+			expired = Math.trunc(Date.now() / 1000) - cachedDataObj.cachetime > cachelife;
+		    if (!expired) {
+			return cachedDataObj.data;
+			}
 		} else {
 			const url = `${variables.BASE_API_URI}/directory/`;
 			const [directory, err] = await handleRequestsWithPermissions(fetch, url);

@@ -1,5 +1,0 @@
-/* For rubber band selection, override maxGraph defaults */
-div.mxRubberband {
-    border-color: #b18426;
-    background: #db9b0b;
-}

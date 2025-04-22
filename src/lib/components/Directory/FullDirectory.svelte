@@ -3,7 +3,7 @@
     import { getSelectSituation } from './context.ts';
    	import { scrollY } from '$lib/store/scrollStore.ts';
     import { variables } from '$lib/utils/constants.ts';
-    import Spinner from '$components/Spinner.svelte';
+    import Spinner from '$lib/Spinner/Spinner.svelte';
     import SearchDirectory from '$lib/components/Directory/SearchDirectory.svelte';
 	import SelectCommunes from '$lib/components/Directory/SelectCommunes.svelte';
 	import SelectCategories from '$lib/components/Directory/SelectCategories.svelte';

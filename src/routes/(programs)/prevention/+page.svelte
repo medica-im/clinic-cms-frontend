@@ -3,7 +3,8 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { page } from '$app/stores';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
+	import { programsNavLinks } from "$var/variables.ts";
 </script>
 
 <svelte:head>
@@ -37,7 +38,7 @@
 
 	<section>
 		<div class="section-container">
-			<ProgramNav data={$page.url.pathname} />
+			<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
 		</div>
 	</section>
 

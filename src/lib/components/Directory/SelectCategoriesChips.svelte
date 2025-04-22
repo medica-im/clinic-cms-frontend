@@ -11,8 +11,6 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import { variables } from '$lib/utils/constants';
 
-	const label = 'label';
-	const itemId = 'value';
 	let value = null;
 
 	let category = '';
@@ -109,9 +107,11 @@
 			<p>Error: {$query.error.message}</p>
 		{:else}
 			{#key category}
-				{#each [...$categorizedFullFilteredEffectors] as [c, value]}
+				{#each [...$categorizedFullFilteredEffectors] as [c, value], index}
 					<!-- prettier-ignore -->
 					<span
+					role="button"
+					tabindex="{index}"
 					class="chip {category === c ? 'variant-filled' : 'variant-soft'}"
 					on:click={() => {
 						select(c, $query.data);
@@ -124,6 +124,8 @@
 				{/each}
 				{#if $categorizedFullFilteredEffectors.size>1}
 				<span
+ 				    role="button"
+                    tabindex="{$categorizedFullFilteredEffectors.size}"
 					class="chip {category === '' ? 'variant-filled' : 'variant-soft'}"
 					on:click={() => {
 						select('', $query.data);
@@ -131,7 +133,7 @@
 					on:keypress
 				>
 					{#if category === ''}<span><Fa icon={faCheck} /></span>{/if}
-					<span>{m.ADDRESSBOOK_CATEGORIES.ALL()}</span>
+					<span>{m.ADDRESSBOOK_CATEGORIES_ALL()}</span>
 				</span>
 				{/if}
 			{/key}

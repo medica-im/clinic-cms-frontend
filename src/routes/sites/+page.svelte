@@ -2,7 +2,7 @@
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import { page } from '$app/state';
-	import FacilityCard from '$components/Facility/FacilityCard.svelte';
+	import FacilityCard from '$lib/Facility/FacilityCard.svelte';
 	import type { Facility } from '$lib/interfaces/facility.interface.ts';
 
 	export let data;

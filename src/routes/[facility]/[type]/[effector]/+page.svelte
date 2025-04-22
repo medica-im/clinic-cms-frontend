@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type PageData from '$types';
-	import EffectorContact from '$components/Directory/EffectorContact.svelte';
-	import CareHomePage from '$components/Directory/CareHomePage.svelte';
-	import UsldPage from '$components/Directory/UsldPage.svelte';
+	import EffectorContact from '$lib/Directory/EffectorContact.svelte';
+	import CareHomePage from '$lib/Directory/CareHomePage.svelte';
+	import UsldPage from '$lib/Directory/UsldPage.svelte';
 	import { userData } from '$lib/store/userStore.ts';
 	export let data: PageData;
 

@@ -12,7 +12,7 @@ const team: string[] = [
 ];
 
 
-export const load: PageLoad = async ({ fetch, params }) => {
+export const load: PageLoad = async ({ fetch }) => {
     return {
         team: await Promise.all([...getEntryPromises(team, fetch)])
     };

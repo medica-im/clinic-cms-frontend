@@ -4,7 +4,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
 	import { term } from '$lib/store/workforceStore';
-	import DocsIcon from '$components/Icon/Icon.svelte';
+	import DocsIcon from '$lib/Icon/Icon.svelte';
 	let val = '';
 	import * as m from "$msgs";	$: term.set(val);
 	const noop = () => {};

@@ -12,7 +12,7 @@
 		faSquareXmark
 	} from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import autoQuestionnaire_18_25 from '$lib/assets/pdf/auto_questionnaire_18_25_ans.pdf';
 	import autoQuestionnaire_45_50 from '$lib/assets/pdf/auto_questionnaire_45_50_ans.pdf';
 	import autoQuestionnaire_60_65 from '$lib/assets/pdf/auto_questionnaire_60_65_ans.pdf';
@@ -21,6 +21,7 @@
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import { RangeSlider } from '@skeletonlabs/skeleton';
 	import Appointment from '$lib/components/Effector/Appointment/Appointment.svelte';
+	import { programsNavLinks } from "$var/variables.ts";
 
 	let value: number;
 	let max = 100;
@@ -254,7 +255,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
 	</div>
 </section>
 

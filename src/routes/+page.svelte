@@ -7,9 +7,10 @@
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
+	import OutpatientClinicPrograms from '$lib/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
+	import { programsNavLinks } from '$var/variables.ts';
 	import type { PageData } from './$types';
-	import LDTag from '$components/Schema/LDTag.svelte';
+	import LDTag from '$lib/Schema/LDTag.svelte';
 	import { Facility } from '$lib';
 
 	export let data: PageData;
@@ -67,7 +68,7 @@
 <!-- programs -->
 {#if variables.ORGANIZATION_CATEGORY == 'msp'}
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">
-		<div class="section-container"><OutpatientClinicPrograms /></div>
+		<div class="section-container"><OutpatientClinicPrograms {programsNavLinks} /></div>
 	</section>
 {/if}
 

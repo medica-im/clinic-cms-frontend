@@ -1,6 +1,6 @@
 
 <script lang="ts">
-    import Email from '$components/Email/Email.svelte';
+    import Email from '$lib/Email/Email.svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
     import { PUBLIC_BLOG_URI } from '$env/static/public';

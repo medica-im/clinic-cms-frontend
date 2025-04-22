@@ -4,13 +4,14 @@ import { browser } from "$app/environment"
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils.ts';
 import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_ENTRIES_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL, PUBLIC_CACHE_CONTACTS } from '$env/static/public';
 import haversine from 'haversine-distance';
-import { replacer, reviver } from '$lib/utils/utils.ts';
 import type { Situation } from '$lib/store/directoryStoreInterface.ts';
 import { getFacilities, facilityStore } from '$lib/store/facilityStore.ts';
 import { shuffle } from '$lib/helpers/random.ts';
-import type { Writable, AsyncWritable } from '@square/svelte-store';
+import type { Writable } from '@square/svelte-store';
 import type { Contact, Entry, CurrentOrg, CurrentOrgStore, LimitCategoriesStore, AddressFeature, DistanceEffectors, CategorizedEntries, Type } from './directoryStoreInterface.ts';
 import type { Facility } from '$lib/interfaces/facility.interface.ts';
+import type { Tastypie } from '$lib/interfaces/api.interface.ts';
+import type { CustomError } from '$lib/interfaces/error.interface.ts';
 
 export const term: Writable<string> = writable("");
 export const selectCommunes: Writable<string[]> = writable([]);
@@ -20,7 +21,7 @@ export const selectCategories: Writable<string[]> = writable([]);
 export const limitCategories: LimitCategoriesStore = writable([]);
 export const selectSituation: Writable<string> = writable("");
 export const selectSituationValue: Writable<string | null> = writable(null);
-export const addressFeature: Writable<AddressFeature> = writable({});
+export const addressFeature: Writable<AddressFeature | null> = writable(null);
 export const inputAddress = writable("");
 export const selectFacility = writable("");
 export const selectFacilityValue: Writable<string|null> = writable(null);
@@ -73,15 +74,13 @@ export const effectorTypeLabels = async () => {
 	}
 };
 
-export async function fetchElements(path: string, next: string) {
+export async function fetchElements(path: string, next: string): Promise<[any[], string|null]> {
 	const url = `${variables.BASE_API_URI}/${path}/${next || ""}`;
-	const [response, err] = await handleRequestsWithPermissions(fetch, url);
-	if (response) {
-		let data: any = response;
-		next = data.meta.next;
-		return [data[path], next]
-	}
-}
+	const [data, err]: [Tastypie, CustomError] = await handleRequestsWithPermissions(fetch, url);
+	const _next = data.meta.next;
+	const objects = data[path] as any[];
+	return [objects, _next]
+};
 
 export async function downloadElements(path: string) {
 	let hasMore = true;
@@ -99,7 +98,7 @@ export async function downloadElements(path: string) {
 	return data
 }
 
-async function fetchEntries(next) {
+async function fetchEntries(next: string) {
 	const url = `${variables.BASE_API_URI}/entries/${next || ""}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, url);
 	if (response) {
@@ -109,7 +108,7 @@ async function fetchEntries(next) {
 	}
 }
 
-async function fetchEntry(uid) {
+async function fetchEntry(uid: string) {
 	const entriesUrl = `${variables.BASE_API_URI}/entries/${uid}`;
 	const [response, err] = await handleRequestsWithPermissions(fetch, entriesUrl);
 	if (err) {
@@ -442,7 +441,7 @@ function compareEffectorDistance(a, b, distEffectors) {
 	}
 }
 
-export const fullFilteredEffectorsF = async (term: string, selectSituation: string, distanceEffectors: DistanceEffectors, currentOrg: Boolean | null, facilityStore: Facility, limitCategories: String[]) => {
+export const fullFilteredEffectorsF = async (term: string, selectSituation: string, distanceEffectors: DistanceEffectors | null, currentOrg: Boolean | null, facilityStore: Facility, limitCategories: String[]) => {
 	const entries: Entry[] = await getEntries();
 	if (
 		selectSituation == ''
@@ -561,7 +560,7 @@ export const categorizedCachedEffectors =
 	};
 */
 
-export const categorizedFilteredEffectorsF = (filteredEffectors: Entry[], distanceEffectors: DistanceEffectors, selectSituation: string) => {
+export const categorizedFilteredEffectorsF = (filteredEffectors: Entry[], distanceEffectors: DistanceEffectors|null, selectSituation: string) => {
 	let categorySet = new Set();
 	for (let effector of filteredEffectors) {
 		effector.types.forEach(x => categorySet.add(x.name))

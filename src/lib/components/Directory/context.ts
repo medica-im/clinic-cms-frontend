@@ -75,12 +75,12 @@ export function getSelectSituationValue() {
 }
 
 export function setAddressFeature() {
-    let addressFeature: Writable<AddressFeature> = writable({});
+    let addressFeature: Writable<AddressFeature|null> = writable(null);
     setContext('addressFeature', addressFeature);
 }
 
 export function getAddressFeature() {
-    return getContext<Writable<AddressFeature>>('addressFeature');
+    return getContext<Writable<AddressFeature|null>>('addressFeature');
 }
 
 export function setInputAddress() {

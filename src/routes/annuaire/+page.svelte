@@ -6,7 +6,7 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import type { PageData } from './$types';
-	//import LDTag from '$components/Schema/LDTag.svelte';
+	//import LDTag from '$lib/Schema/LDTag.svelte';
 	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
 	export let data: PageData;
 </script>

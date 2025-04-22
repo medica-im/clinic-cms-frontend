@@ -10,10 +10,11 @@
 		faCirclePlus
 	} from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import parcoursCancerCol from '$lib/assets/images/cervical_cancer/parcours-doccu.png';
 	import VideoPlayer from '$lib/components/Video/VideoPlayer.svelte';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import { programsNavLinks } from "$var/variables.ts";
 
 	let videos = [
 		{
@@ -290,7 +291,7 @@ Selon l’âge au moment du dépistage, les techniques de dépistage diffèrent 
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
 	</div>
 </section>
 

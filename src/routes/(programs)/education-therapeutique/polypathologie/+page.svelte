@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import * as m from "$msgs";	import ProgramNav from '$components/ProgramNav.svelte';
+	import * as m from "$msgs";	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import et3p from '$lib/assets/pdf/et3p/msa_education_therapeutique_patient_polypathologique.pdf';
 	import crozetEtAl2017 from '$lib/assets/pdf/et3p/crozet_et_al_2017.pdf';
 	import { Fa } from 'svelte-fa';
@@ -16,6 +16,7 @@
 		faStopwatch,
 	} from '@fortawesome/free-solid-svg-icons';
 	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
+	import { programsNavLinks } from "$var/variables.ts";
 
 	export let data;
 	const mobileWidth: number = 1440;
@@ -246,7 +247,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={page.url.pathname} />
+		<ProgramNav pathname={page.url.pathname} {programsNavLinks} />
 	</div>
 </section>
 

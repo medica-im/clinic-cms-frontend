@@ -5,7 +5,7 @@
     import '../app.postcss';
     import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
     import { storePopup } from '@skeletonlabs/skeleton';
-    import Sidebar from '$components/Sidebar/Sidebar.svelte';
+    import Sidebar from '$lib/SkeletonAppBar/Sidebar.svelte';
     import { userData } from '$lib/store/userStore';
     import { afterNavigate } from '$app/navigation';
     import { notificationData } from '$lib/store/notificationStore';
@@ -21,25 +21,26 @@
     import { Modal } from '@skeletonlabs/skeleton';
     import { Toast } from '@skeletonlabs/skeleton';
     // Modal Components
-    import Search from '$modals/Search/Search.svelte';
+    import Search from '$lib/Search/Search.svelte';
 
     // Types
     import type { ModalComponent } from '@skeletonlabs/skeleton';
     // components
-    import SkeletonAppBar from '$components/SkeletonAppBar/SkeletonAppBar.svelte';
-    import Drawer from '$components/Drawer/Drawer.svelte';
-    import Footer from '$components/Footer/Footer.svelte';
+    import SkeletonAppBar from '$lib/SkeletonAppBar/SkeletonAppBar.svelte';
+    import Drawer from '$lib/Drawer/Drawer.svelte';
+    import Footer from '$lib/Footer/Footer.svelte';
 
     // Theme stylesheet is loaded from LayoutServerData
-    import type { LayoutServerData } from './$types';
+    import type { LayoutData } from './$types';
     import { QueryClientProvider } from '@tanstack/svelte-query'
     import type { ComponentProps } from 'svelte';
     import { scrollY } from '$lib/store/scrollStore';
 	import type { UserResponse } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { locales, localizeHref } from '$prgld/runtime.js';
+	import { programsNavLinks } from '$var/variables.ts';
 
-    export let data: LayoutServerData;
+    export let data: LayoutData;
 
 	initializeStores();
 
@@ -147,10 +148,10 @@
 			{/if}
 		</svelte:fragment>
 		<!-- Page Content -->
-		<QueryClientProvider client="{data.queryClient}">
+		<QueryClientProvider client={data?.queryClient}>
 			<slot></slot>
 		</QueryClientProvider>
-		<svelte:fragment slot="pageFooter"><Footer></Footer></svelte:fragment>
+		<svelte:fragment slot="pageFooter"><Footer {programsNavLinks}/></svelte:fragment>
 	</AppShell>
 	<div style="display:none">
 		{#each locales as locale}

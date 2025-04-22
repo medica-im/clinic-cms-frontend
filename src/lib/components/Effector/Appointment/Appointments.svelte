@@ -1,7 +1,5 @@
 <script lang="ts">
 	import * as m from "$msgs";	import Fa from 'svelte-fa';
-	import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
-	import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 	import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
 	import Appointment from './Appointment.svelte';
 	import type { Appointment as AppointmentType } from '$lib/interfaces/appointment.interface';
@@ -16,7 +14,7 @@
 	</div>
 </div>
 <div class="flex items-center p-1">
-	<div class="w-9" />
+	<div class="w-9"></div>
 		{#if appointments.some((a) => a.house_call)}
 			<div class="flex flex-wrap gap-8">
 				<div class="p-2">

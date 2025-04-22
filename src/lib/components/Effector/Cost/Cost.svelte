@@ -15,7 +15,7 @@
 	</div>
 	{#if data?.convention != null}
 		<div class="flex p-1">
-			<div class="w-9" />
+			<div class="w-9"></div>
 			<div class="p-1">
 				Conventionnement: {data.convention.label}.
 			</div>
@@ -24,7 +24,7 @@
 
 	{#if data?.carte_vitale != null}
 		<div class="flex p-1">
-			<div class="w-9" />
+			<div class="w-9"></div>
 			<div class="p-1">
 				Carte Vitale: {data.carte_vitale ? m.YES() : m.NO()}.
 			</div>
@@ -33,7 +33,7 @@
 
 	{#if data?.third_party_payers?.length}
 		<div class="flex p-1">
-			<div class="w-9" />
+			<div class="w-9"></div>
 			<div class="p-1">
 				{m.ADDRESSBOOK_THIRD_PARTY_PAYER()}:
 				{#each data.third_party_payers as p, i}

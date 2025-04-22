@@ -19,8 +19,7 @@ export default defineConfig({
 			'$': path.resolve(__dirname, 'src'),
 			'$msgs': path.resolve('./src/paraglide/messages.js'),
 			'$prgld': path.resolve('./src/paraglide/'),
-			'$components': path.resolve('./src/components/'),
-			'$modals': path.resolve('./src/modals/')
+			'$var': path.resolve('./src/var')
 		}
 	},
 	server: {

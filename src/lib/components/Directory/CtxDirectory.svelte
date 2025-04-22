@@ -85,7 +85,10 @@
 	let limitCategories = getLimitCategories();
 
 	const distanceEffectors = asyncDerived([addressFeature], async ([$addressFeature]) => {
-		return distanceEffectorsF($addressFeature);
+		if ($addressFeature) {
+		    return distanceEffectorsF($addressFeature);
+		}
+		return null;
 	});
 
 	const fullFilteredEffectors = asyncDerived(

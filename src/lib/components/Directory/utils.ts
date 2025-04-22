@@ -22,7 +22,7 @@ export function resetDirectory() {
     selCatVal.set(null);
     selectSituation.set("");
     selectSituationValue.set(null);
-    addressFeature.set({});
+    addressFeature.set(null);
     inputAddress.set("");
     selectFacility.set("");
     selectFacilityValue.set(null);

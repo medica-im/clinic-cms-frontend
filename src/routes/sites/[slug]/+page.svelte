@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import FacilityPage from '$components/Facility/FacilityPage.svelte';
+	import FacilityPage from '$lib/Facility/FacilityPage.svelte';
 	import SitesLink from '$lib/components/Sites/SitesLink.svelte';
 	import { userData } from '$lib/store/userStore.ts';
 	import { page } from '$app/state';
-	import type { Facility } from '$lib/store/directoryStoreInterface.ts';
 
 	export let data;
 </script>

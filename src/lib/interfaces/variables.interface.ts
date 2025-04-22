@@ -1,3 +1,5 @@
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+
 export interface Variables {
 	//readonly DEV: boolean
 	readonly BASE_API_URI: string;
@@ -16,3 +18,28 @@ export interface Variables {
 	readonly INPUT_FACILITY: boolean;
 	readonly INPUT_SEARCH: boolean;
 }
+
+export type ProgramsNavLinks =
+	Required<Record<"soins" | "education-therapeutique" | "prevention", Nav>>;
+
+interface Link {
+	href: string,
+	label: string,
+	keywords: string,
+	icon: object|null,
+	category: string,
+	active?: boolean,
+	preload?: string
+};
+
+interface Nav {
+	id: string,
+	title: {
+		en: string,
+	    fr: string
+	},
+	menu: string,
+	href: string,
+	icon: IconDefinition,
+	list: Link[]
+};

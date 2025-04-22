@@ -6,7 +6,7 @@
 	import Fa from 'svelte-fa';
 	import { faCheck, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
-	import ProgramNav from '$components/ProgramNav.svelte';
+	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import Appointment from '$lib/components/Effector/Appointment/Appointment.svelte';
 	import Clock from '$lib/components/Clock/Clock.svelte';
 	import { dateTime } from '$lib/store/dateTimeStore.ts';
@@ -15,7 +15,8 @@
 	import secretariat from '$lib/assets/images/parcours/secretariat.png';
 	import smsLight from '$lib/assets/images/parcours/sms_light.png';
 	import smsDark from '$lib/assets/images/parcours/sms_dark.png';
-
+    import { programsNavLinks } from "$var/variables.ts";
+	
 	const formatter = new Intl.DateTimeFormat('fr', {
 		dateStyle: 'full',
 		timeStyle: 'short',
@@ -148,7 +149,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav pathname={$page.url.pathname} {programsNavLinks}/>
 	</div>
 </section>
 

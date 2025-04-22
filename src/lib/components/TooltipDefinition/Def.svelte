@@ -50,5 +50,5 @@
 		{/if}
 	</h4>
 	{/if}
-	<div class="arrow variant-filled-secondary" />
+	<div class="arrow variant-filled-secondary"></div>
 </div>

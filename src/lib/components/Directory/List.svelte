@@ -1,5 +1,5 @@
 <script lang="ts">
-  	import Spinner from '$components/Spinner.svelte';
+  	import Spinner from '$lib/Spinner/Spinner.svelte';
     import Effector from '$lib/components/Directory/Effector.svelte';
 	import Clear from '$lib/components/Directory/Clear.svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
