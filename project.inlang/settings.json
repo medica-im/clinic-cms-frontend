@@ -2,7 +2,6 @@
   "$schema": "https://inlang.com/schema/project-settings",
   "baseLocale": "fr",
   "locales": [
-    "en",
     "fr"
   ],
   "modules": [
