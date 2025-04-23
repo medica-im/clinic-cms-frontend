@@ -16,6 +16,7 @@
 		faStopwatch,
 	} from '@fortawesome/free-solid-svg-icons';
 	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
+	import EntryContact from '$lib/components/Entry/EntryContact.svelte';
 	import { programsNavLinks } from "$var/variables.ts";
 
 	export let data;
@@ -60,7 +61,7 @@
 <section>
 	<div class="section-container">
 		<h2 class="h2">Présentation</h2>
-		<h3 class="h3">Qu'est-ce que les ateliers d’éducation thérapeutique ?</h3>
+		<h3 class="h3">Qu'est-ce que les ateliers d’éducation thérapeutique?</h3>
 		<div class="pl-5">
 			<ul class="list-disc space-y-4 p-4">
 				<li>
@@ -89,7 +90,7 @@
 </section>
 <section>
 	<div class="section-container">
-		<h2 class="h2">À qui s’adressent les ateliers ?</h2>
+		<h2 class="h2">À qui s’adressent les ateliers?</h2>
 		<p>
 			À toute personne concernée par une ou plusieurs de ces maladies, quelque soit son régime
 			d'assurance maladie.
@@ -190,8 +191,17 @@
 <section>
 	<div class="section-container">
 		<h2 class="h2">Notre équipe</h2>
-		<div class="pl-5">
+		<div class="py-4 lg:p-4">
 			<EntryUl data={data.team}/>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div class="section-container">
+		<h2 class="h2">Informations et inscription</h2>
+		<div class="py-4 lg:p-4">
+			<EntryContact entry={data.contact} avatar={true}/>
 		</div>
 	</div>
 </section>

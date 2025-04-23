@@ -23,5 +23,5 @@
     <img
         src={getUrl(data)}
         alt="{m.ADDRESSBOOK_A11Y_PROFILE_PIC_OF()}  {workerTitleFormattedName(data)}"
-        class="w-44 h-44 shrink-0 rounded-none rounded-tl-lg lg:rounded-l-lg"
+        class="w-44 h-44 shrink-0 rounded-none lg:rounded-l-lg"
     />

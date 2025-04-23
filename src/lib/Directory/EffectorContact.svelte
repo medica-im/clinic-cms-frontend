@@ -10,9 +10,10 @@
 		faPhone,
 		faMapLocationDot
 	} from '@fortawesome/free-solid-svg-icons';
-	import * as m from "$msgs";	import Emails from '$lib/Email/Emails.svelte';
-	import Phones from './Phones.svelte';
-	import Address from './Address.svelte';
+	import * as m from "$msgs";
+	import Emails from '$lib/Email/Emails.svelte';
+	import Phones from '$lib/Directory/Phones.svelte';
+	import Address from '$lib/Directory/Address.svelte';
 	import Websites from '$lib/Website/Websites.svelte';
 	import { Map } from '$lib';
 	import { createMapData } from '$lib';

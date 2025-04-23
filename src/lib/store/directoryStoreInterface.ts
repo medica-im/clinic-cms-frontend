@@ -1,6 +1,11 @@
 import type { Phone } from '$lib/interfaces/phone.interface.js';
 import type { Writable } from '@square/svelte-store';
 import type { Facility } from '$lib/interfaces/facility.interface.ts';
+import type { Appointment } from '$lib/interfaces/appointment.interface.ts';
+import type { Convention, PaymentMethod, ThirdPartyPayer, SpokenLanguage } from '$lib/interfaces/fullEffector.interface.ts';
+import type { Email } from '$lib/interfaces/email.interface.ts';
+import type { SocialNetwork } from '$lib/interfaces/socialnetwork.interface.js';
+import type { Website } from '$lib/interfaces/website.interface';
 
 export interface Situation {
     value: string;
@@ -63,6 +68,36 @@ export interface Entry {
     types: Type[],
     uid: string,
     updatedAt: number
+}
+
+export interface FullEffector {
+    address: Address,
+    adeli: string | null,
+    appointments: Appointment[] | null,
+    avatar: Avatar,
+    carte_vitale: boolean,
+    commune: Commune,
+    convention: Convention | null,
+    effector_uid: string,
+    emails: Email[],
+    facility: Facility,
+    gender: string | null,
+    label: string,
+    name: string,
+    payment_methods: PaymentMethod[] | null,
+    organizations: string[] | null,
+    phones: Phone[] | null,
+    profile: any | null,
+    resource_uri: string,
+    rpps: string | null,
+    slug: string,
+    socialnetworks: SocialNetwork[] | null,
+    spoken_languages: SpokenLanguage[] | null,
+    third_party_payers: ThirdPartyPayer[] | null,
+    effector_type: Type,
+    uid: string,
+    updatedAt: number,
+    websites: Website[] | null
 }
 
 export interface AddressFeature {

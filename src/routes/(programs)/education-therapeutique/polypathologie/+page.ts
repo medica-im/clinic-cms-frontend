@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import { getEntryPromises } from '$lib/components/Entry/entry.ts';
+import { getEntryPromises, getEntry } from '$lib/components/Entry/entry.ts';
 
 const team: string[] = [
     "maison-de-sante-pluriprofessionnelle-chateauneuf-de-gadagne/medecin-generaliste/charlotte-goolaerts",
@@ -14,6 +14,7 @@ const team: string[] = [
 
 export const load: PageLoad = async ({ fetch }) => {
     return {
-        team: await Promise.all([...getEntryPromises(team, fetch)])
+        team: await Promise.all([...getEntryPromises(team, fetch)]),
+        contact: await getEntry('maison-de-sante-pluriprofessionnelle-chateauneuf-de-gadagne/coordinateur/virginie-reusser', fetch)
     };
 }
