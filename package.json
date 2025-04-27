@@ -66,6 +66,7 @@
 		"@tailwindcss/typography": "^0.5.9",
 		"@tanstack/svelte-query": "^5.4.3",
 		"@tinymce/tinymce-svelte": "^2.0.1",
+		"@ts-ghost/admin-api": "^4.2.1",
 		"@turf/bbox": "^7.2.0",
 		"@turf/helpers": "^7.2.0",
 		"@zerodevx/svelte-json-view": "^1.0.7",

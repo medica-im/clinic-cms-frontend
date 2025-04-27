@@ -4,6 +4,7 @@
 	import { Welcome } from '$lib';
     import { Team } from '$lib';
 	import { Ghost } from '$lib';
+	import SignupForm from '$lib/Ghost/SignupForm.svelte';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
@@ -13,11 +14,7 @@
 	import LDTag from '$lib/Schema/LDTag.svelte';
 	import { Facility } from '$lib';
 
-	export let data: PageData;
-
-	let cardinalTypes;
-
-	$: cardinalTypes = data.cardinalTypes;
+    let { data, form } = $props();
 </script>
 
 <!--LDTag schema={data?.websiteSchema} /-->
@@ -47,7 +44,7 @@
 	<div class="section-container">
 		<Team
 			data={{
-				cardinalTypes: cardinalTypes,
+				cardinalTypes: data.cardinalTypes,
 				teamCarousel: data.teamCarousel
 			}}
 		/>
@@ -59,12 +56,15 @@
 		<Facility data={{ facilities: data.facilities, carousel: data.facilityCarousel, organization: data.organization }} />
 	</div>
 </section>
-{#await data.ghost then ghost}
 	<!-- blog -->
 	<section id="blog" class="bg-surface-100-800-token blog-gradient">
-		<div class="section-container"><Ghost data={ghost} /></div>
+		<div class="section-container">
+			<div class=" grid grid-cols-1 gap-6 place-items-center">
+			    <Ghost data={data.ghost} ghost={data.ghostSite} />
+			    <SignupForm {form} ghost={data.ghostSite}/>
+		    </div>
+		</div>
 	</section>
-{/await}
 <!-- programs -->
 {#if variables.ORGANIZATION_CATEGORY == 'msp'}
 	<section id="programs" class="bg-surface-100-800-token programs-gradient">

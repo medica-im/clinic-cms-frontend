@@ -41,6 +41,9 @@ importers:
       '@tinymce/tinymce-svelte':
         specifier: ^2.0.1
         version: 2.0.2
+      '@ts-ghost/admin-api':
+        specifier: ^4.2.1
+        version: 4.2.1
       '@turf/bbox':
         specifier: ^7.2.0
         version: 7.2.0
@@ -764,6 +767,12 @@ packages:
 
   '@tinymce/tinymce-svelte@2.0.2':
     resolution: {integrity: sha512-XFum8sIJdizn38vkZtkCRyi8T4p2B3V+tWWnI5G/KELkkVsLRxC3TKIs6jgmbZq3RfyqNxqUaxsudkk+G/up/g==}
+
+  '@ts-ghost/admin-api@4.2.1':
+    resolution: {integrity: sha512-EG1vdx/IdiiOg2ra9MtONX/CxsPLmeSbEZwRVOds+ibs8GAQ/Ku7G0XF72YyezFHDFw2uqjOyNH2nsNka+bGHg==}
+
+  '@ts-ghost/core-api@6.1.0':
+    resolution: {integrity: sha512-C/DhpFGBa3N9rbBohUi5wVGU8HRR7JbS9xvLKdWa7LlZ6q9wEaNqCUmp5GcKmGuI9FLH+GkFUwjTNYGFYBRrhw==}
 
   '@turf/bbox@7.2.0':
     resolution: {integrity: sha512-wzHEjCXlYZiDludDbXkpBSmv8Zu6tPGLmJ1sXQ6qDwpLE1Ew3mcWqt8AaxfTP5QwDNQa3sf2vvgTEzNbPQkCiA==}
@@ -1746,6 +1755,9 @@ packages:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
+  jose@5.10.0:
+    resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
+
   js-sha256@0.11.0:
     resolution: {integrity: sha512-6xNlKayMZvds9h1Y1VWc0fQHQ82BxTXizWPEtEeGvmOUYpBRy4gbWroHLpzowe6xiQhHpelCQiE7HEdznyBL9Q==}
 
@@ -2723,6 +2735,10 @@ packages:
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
+  validator@13.15.0:
+    resolution: {integrity: sha512-36B2ryl4+oL5QxZ3AzD0t5SsMNGvTtQHpjgFO5tbNxfXbMFkY822ktCDe1MnlqV3301QQI9SLHDNJokDI+Z9pA==}
+    engines: {node: '>= 0.10'}
+
   video.js@8.22.0:
     resolution: {integrity: sha512-xge2kpjsvC0zgFJ1cqt+wTqsi21+huFswlonPFh7qiplypsb4FN/D2Rz6bWdG/S9eQaPHfWHsarmJL/7D3DHoA==}
 
@@ -2901,6 +2917,9 @@ packages:
 
   zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
+
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
 snapshots:
 
@@ -3391,6 +3410,17 @@ snapshots:
   '@tinymce/tinymce-svelte@2.0.2':
     dependencies:
       rollup-plugin-execute: 1.1.1
+
+  '@ts-ghost/admin-api@4.2.1':
+    dependencies:
+      '@ts-ghost/core-api': 6.1.0
+      validator: 13.15.0
+      zod: 3.23.8
+
+  '@ts-ghost/core-api@6.1.0':
+    dependencies:
+      jose: 5.10.0
+      zod: 3.23.8
 
   '@turf/bbox@7.2.0':
     dependencies:
@@ -4491,6 +4521,8 @@ snapshots:
 
   jiti@1.21.7: {}
 
+  jose@5.10.0: {}
+
   js-sha256@0.11.0: {}
 
   js-yaml@4.1.0:
@@ -5432,6 +5464,8 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
+  validator@13.15.0: {}
+
   video.js@8.22.0:
     dependencies:
       '@babel/runtime': 7.27.0
@@ -5637,3 +5671,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zimmerframe@1.1.2: {}
+
+  zod@3.23.8: {}

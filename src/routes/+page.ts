@@ -16,6 +16,7 @@ export const load: PageLoad = async ({ data }) => {
         openGraph: await openGraphStore.load(),
         cardinalTypes: await cardinalTypes.load(),
         teamCarousel: await getAvatars.load(),
-        ghost: data.ghost
+        ghost: data.ghost,
+        ghostSite: data.ghostSite
     };
 }
