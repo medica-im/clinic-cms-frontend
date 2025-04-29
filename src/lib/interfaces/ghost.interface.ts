@@ -8,6 +8,11 @@ export type GhostSite = {
 export type GhostError = {
     message: string;
     type: string;
+};
+
+export type GhostAddMemberError = {
+    message: string;
+    type: string;
     context: string;
 };
 

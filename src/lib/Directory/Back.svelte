@@ -2,7 +2,7 @@
 	import isEmpty from 'lodash.isempty';
 	import { page } from '$app/state';
 	import { beforeUpdate } from 'svelte';
-	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import Fa from 'svelte-fa';
 	import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';

@@ -1,5 +1,6 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"CANCEL": "Cancel",
 	"LOADING": "Loading...",
 	"HOME_TITLE": "Home",
 	"HOME_WELCOME": "Welcome to",

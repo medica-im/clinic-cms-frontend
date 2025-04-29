@@ -275,7 +275,7 @@ Selon l’âge au moment du dépistage, les techniques de dépistage diffèrent 
 					<a
 						href="https://www.e-cancer.fr/Comprendre-prevenir-depister/Se-faire-depister/Depistage-du-cancer-du-col-de-l-uterus/Pourquoi-se-faire-depister"
 						class="anchor"
-						>Institut national du cancer – Cancer du col de l'utérus : pourquoi se faire dépister ?</a
+						>Institut national du cancer – Cancer du col de l'utérus : pourquoi se faire dépister&#8239;?</a
 					>
 				</li>
 				<li id="cite_note-2">

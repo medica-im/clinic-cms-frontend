@@ -47,21 +47,21 @@
 
         <p>Une boîte à idées est à votre disposition dans l'accueil de la maison de santé.</p>
         
-        <h3 class="h3">Pourquoi faire ?</h3>
+        <h3 class="h3">Pourquoi faire&#8239;?</h3>
 
         <p>➢ Recueillir de façon anonyme vos suggestions pour mettre en place
         des actions de prévention et d’éducation à la santé.</p>
         <p>➢ Mieux connaître vos besoins spécifiques dans le domaine de la
         santé.</p>
         
-        <h3 class="h3">Pour faire quoi ?</h3>
+        <h3 class="h3">Pour faire quoi&#8239;?</h3>
 
         <p>➢ Vous offrir la possibilité d’être pleinement acteur dans la gestion de votre santé.</p>
         <p>➢ Vous permettre d’être force de proposition pour développer des
         projets impliquant les usagers au côté des professionnels de la
         Maison de Santé Pluriprofessionnelle.</p>
         
-        <h3 class="h3">Et après ?</h3>
+        <h3 class="h3">Et après&#8239;?</h3>
         
         <p>➢ Toutes vos idées seront étudiées par l’équipe pluriprofessionnelle et les représentantes des usagers. Les initiatives qui en découleront vous seront communiquées par affichage dans la salle d’attente de la MSP et publication dans notre <a class="anchor" rel="external" href="{PUBLIC_BLOG_URI}" title="Blog">blog</a> et dans le <a class="anchor" rel="external" href="http://www.chateauneufdegadagne.fr/la-mairie/bulletins-municipaux">bulletin municipal</a>.</p>     
         </div>

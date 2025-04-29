@@ -94,7 +94,7 @@
 
 <section>
 	<div class="section-container">
-		<h2 class="h2">Pour qui ?</h2>
+		<h2 class="h2">Pour qui&#8239;?</h2>
 		<p>
 			Les bilans de prévention sont destinés à toutes les personnes à des âges clés de la vie,
 			c’est-à-dire entre:
@@ -244,7 +244,7 @@
 
 <section>
 	<div class="section-container">
-		<h2 class="h2">Combien ça coûte ?</h2>
+		<h2 class="h2">Combien ça coûte&#8239;?</h2>
 
 		<p>
 			Les bilans de prévention aux âges clés de la vie sont pris en charge à 100% par l’Assurance

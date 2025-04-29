@@ -107,5 +107,6 @@
   "YES": "oui",
   "NO": "non",
   "AND": "et",
-  "SKELETON_AUTOCOMPLETE_EMPTY_STATE": "Aucun résultat trouvé"
+  "SKELETON_AUTOCOMPLETE_EMPTY_STATE": "Aucun résultat trouvé",
+  "CANCEL": "Annuler"
 }

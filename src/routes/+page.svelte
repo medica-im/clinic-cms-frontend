@@ -61,7 +61,7 @@
 		<div class="section-container">
 			<div class=" grid grid-cols-1 gap-6 place-items-center">
 			    <Ghost data={data.ghost} ghost={data.ghostSite} />
-			    <SignupForm {form} ghost={data.ghostSite}/>
+			    <SignupForm data={data.ghostSite}/>
 		    </div>
 		</div>
 	</section>

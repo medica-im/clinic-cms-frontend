@@ -6,5 +6,5 @@
 
 <h1 class="h1">
 	{m.HOME_WELCOME()}
-	{formattedNameDefiniteArticle}{#if $userData && $userData.username}&ensp;<span style="text-transform: capitalize; display:inline-block;">{$userData.username}</span>{/if}!
+	{formattedNameDefiniteArticle}{#if $userData && $userData.username}&ensp;<span style="text-transform: capitalize; display:inline-block;">{$userData.username}</span>{/if}&#8239;!
 </h1>

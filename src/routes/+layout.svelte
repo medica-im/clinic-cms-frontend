@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { autoModeWatcher } from '@skeletonlabs/skeleton';
-	import { initializeStores } from '@skeletonlabs/skeleton';
+	import { initializeStores, Modal } from '@skeletonlabs/skeleton';
     import { facilityStore } from '$lib/store/facilityStore';
     import '../app.postcss';
     import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
@@ -18,7 +18,6 @@
     import maskIcon from '$lib/assets/favicon/mask-icon.svg';
     import appleTouchIcon from '$lib/assets/favicon/apple-touch-icon.png';
     import { AppShell } from '@skeletonlabs/skeleton';
-    import { Modal } from '@skeletonlabs/skeleton';
     import { Toast } from '@skeletonlabs/skeleton';
     // Modal Components
     import Search from '$lib/Search/Search.svelte';
