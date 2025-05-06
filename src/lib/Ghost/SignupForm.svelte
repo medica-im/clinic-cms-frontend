@@ -159,6 +159,7 @@
 						class="input {inputClass}"
 						name="email"
 						type="email"
+						autocomplete="email"
 						placeholder="jean.martin@exemple.com"
 						bind:value={email}
 					/>
