@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_ANALYTICS_URL } from '$env/static/public';
 	import { initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 
     import { facilityStore } from '$lib/store/facilityStore';
@@ -143,7 +144,7 @@
 	<link rel="icon" href="{favicon}">
 	<link rel="mask-icon" href="{maskicon}" color="#000000">
 	<link rel="apple-touch-icon" href="{addressbookregular}">
-	<script defer data-domain="annuaire.cptsopalesud.fr" src="https://plausible.medica.im/js/script.js"></script>
+	<script defer data-domain="annuaire.cptsopalesud.fr" src={PUBLIC_ANALYTICS_URL}></script>
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
 	<meta name="robots" content="noindex">
