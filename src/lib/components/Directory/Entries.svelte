@@ -8,7 +8,7 @@
     export let data: any[];
 
     function entryUrl(entry: Entry) {
-		let typeSlug = entry.types[0].slug;
+		let typeSlug = entry.effector_type.slug;
 		let facilitySlug = entry.facility.slug;
 		let nameSlug = entry.slug;
 		return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(page.url.pathname)}`;

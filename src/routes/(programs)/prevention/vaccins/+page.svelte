@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { currentOrg, limitCategories } from '$lib/store/directoryStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
 	import * as m from "$msgs";	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
 	import vaccines2024v from '$lib/assets/images/vaccines/vaccination_schedule_2024_vertical.png';
@@ -49,7 +49,7 @@
 <svelte:head>
 	<title>
 		Vaccins - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE())} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name
+			$organizationStore.formatted_name
 		)}
 	</title>
 </svelte:head>
@@ -179,7 +179,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
+		<ProgramNav pathname={page.url.pathname} {programsNavLinks} />
 	</div>
 </section>
 

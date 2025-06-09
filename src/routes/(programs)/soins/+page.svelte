@@ -1,8 +1,8 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import { page } from '$app/stores';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
+	import { page } from '$app/state';
 	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import { programCount } from '$lib/links.ts';
 	import { programsNavLinks } from '$var/variables.ts';
@@ -11,7 +11,7 @@
 <svelte:head>
 	<title>
 		Soins - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>
@@ -25,13 +25,13 @@
 
 	<section>
 		<div class="section-container">
-			<p>Les professionnels de {$facilityStore.formatted_name_definite_article} vous propose {programCount($page.url.pathname, programsNavLinks)>1 ? "ces programmes":"ce programme"} de soins.</p>
+			<p>Les professionnels de {$organizationStore.formatted_name_definite_article} vous propose {programCount(page.url.pathname, programsNavLinks)>1 ? "ces programmes":"ce programme"} de soins.</p>
 		</div>
 	</section>
 
 	<section>
 		<div class="section-container">
-			<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
+			<ProgramNav pathname={page.url.pathname} {programsNavLinks} />
 		</div>
 	</section>
 </div>

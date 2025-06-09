@@ -1,8 +1,8 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import { page } from '$app/stores';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
+	import { page } from '$app/state';
 	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import { programsNavLinks } from "$var/variables.ts";
 </script>
@@ -10,7 +10,7 @@
 <svelte:head>
 	<title>
 		{capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>
@@ -38,7 +38,7 @@
 
 	<section>
 		<div class="section-container">
-			<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
+			<ProgramNav pathname={page.url.pathname} {programsNavLinks} />
 		</div>
 	</section>
 

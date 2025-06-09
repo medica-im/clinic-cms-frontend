@@ -1,4 +1,4 @@
-import { facilityStore, websiteSchema } from '$lib/store/facilityStore.ts';
+import { websiteSchema } from '$lib/store/facilityStore.ts';
 import { cardinalCategorizedFilteredEffectors, selectCategories, limitCategories, currentOrg } from '$lib/store/directoryStore.ts';
 import { openGraphStore } from '$lib/store/openGraphStore.ts';
 import type { PageLoad } from './$types';
@@ -11,7 +11,6 @@ export const load: PageLoad = async () => {
     //    selectCategories.set([]);
     //}
     return {
-        //facility: await facilityStore.load(),
         //websiteSchema: await websiteSchema.load(),
         //occupationsCardinal: await occupationsCardinal.load(),
         //openGraph: await openGraphStore.load(),

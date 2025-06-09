@@ -3,7 +3,7 @@
 
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import * as m from "$msgs";	import Fa from 'svelte-fa';
 	import Address from '$lib/Address/Address.svelte';
 	import { createMapData } from '$lib/components/Map/mapData';
@@ -30,7 +30,7 @@
 
 <svelte:head>
 	<title>
-		{m.CONTACT_TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.CONTACT_TITLE()} - {capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <div>
@@ -53,9 +53,9 @@
 								</div>
 								<div class="ml-6">
 									<p class="font-bold mb-1">Siège social</p>
-									<Address data={$facilityStore.contact} />
-									{#if $facilityStore.contact.emails}
-										<Emails data={$facilityStore.contact.emails} />
+									<Address data={$organizationStore.contact} />
+									{#if $organizationStore.contact.emails}
+										<Emails data={$organizationStore.contact.emails} />
 									{/if}
 									<img class="rounded-lg py-4 max-w-80" src={logo} alt="logo de la MSP représentant un stéthoscope en forme de cœur et le profil stylisé de la commune escarpée avec au sommet le clocher de l'église Saint-Jean-Baptiste" />
 								</div>

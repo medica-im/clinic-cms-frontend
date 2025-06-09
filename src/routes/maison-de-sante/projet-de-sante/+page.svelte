@@ -1,12 +1,12 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 </script>
 
 <svelte:head>
 	<title>
-		{m.NAVBAR_HEALTH_PROJECT()} -{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.NAVBAR_HEALTH_PROJECT()} -{capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <div>

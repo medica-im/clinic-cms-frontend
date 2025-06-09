@@ -10,7 +10,7 @@
 	export let avatar: boolean;
 
 	function effectorPageUrl(pathname: string) {
-		let typeSlug = effector.types[0].slug;
+		let typeSlug = effector.effector_type.slug;
 		let facilitySlug = effector.facility.slug;
 		let nameSlug = effector.slug;
 		return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}`;
@@ -46,7 +46,7 @@
 				<p class="text-xs">{effector.effector_uid}</p>
 			{/if}
 
-			<h4 class="h4"><i>{effector.types.map((type) => type.label)}</i></h4>
+			<h4 class="h4"><i>{effector.effector_type.label}</i></h4>
 
 			{#if effector.phones?.length}
 				<Phones data={effector.phones} />

@@ -61,6 +61,7 @@
 	"LOGIN_SUCCESSFUL": "Login successful...",
 	"LOGOUT_SUCCESSFUL": "You have successfully logged out...",
 	"REGISTRATION_SUCCESSFUL": "Registration successful. Login now...",
+	"ERROR": "Error",
 	"ERROR404_OOPS": "Oops!",
 	"ERROR404_PAGENOTFOUND": "Page not found.",
 	"ERROR404_DOESNOTEXIST": "The page you're looking for doesn't exist.",

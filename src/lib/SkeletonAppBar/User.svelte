@@ -1,10 +1,13 @@
 <script lang="ts">
 	import * as m from "$msgs";
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { logOutUser } from '$lib/utils/requestUtils';
 	import { userData } from '$lib/store/userStore';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import { isObjectEmpty } from '$lib/utils/utils';
+	import { popup } from '@skeletonlabs/skeleton';
+	import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+	import { isAuth } from '$lib/store/authStore';
 
 	import Fa from 'svelte-fa';
 	import {
@@ -20,7 +23,8 @@
 		faRightToBracket,
 		faRightFromBracket,
 		faUserPlus,
-		faUser
+		faUser,
+		faHexagonNodes
 	} from '@fortawesome/free-solid-svg-icons';
 	export let embedded = false;
 	const drawerStore = getDrawerStore();
@@ -34,9 +38,10 @@
 	export let facility;
 	export let sideBar = false;
 
-	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
+	$: classesActive = (href: string) => (href === page.url.pathname ? '!bg-primary-500' : '');
 </script>
 
+{#key $isAuth}
 {#if sideBar}
 	<ul class="navbar-nav">
 		{#if isObjectEmpty($userData)}
@@ -49,13 +54,13 @@
 			{#if facility.registration === true}
 				<li>
 					<a
-						class={$page.url.pathname === '/accounts/register' ? 'active aria-current="page"' : ''}
+						class={page.url.pathname === '/accounts/register' ? 'active aria-current="page"' : ''}
 						href="/accounts/register">{m.NAVBAR_REGISTER()}</a
 					>
 				</li>
 			{/if}
 		{/if}
-		{#if $userData.username && $userData.username.length}
+		{#if $userData && $userData.username && $userData.username.length}
 			<li class="nav-item">
 				<a
 					href="/accounts/user/{$userData.username}-{$userData.id}"
@@ -87,15 +92,17 @@
 			<span class="hidden xl:inline-block">{m.NAVBAR_LOGIN()}</span></a
 		>
 	{/if}
-	{#if $userData.username && $userData.username.length}
-		<a
-			href="/accounts/user/{$userData.username}-{$userData.id}"
+	{#if $userData && $userData.username && $userData.username.length}
+		<button
+		    use:popup={{ event: 'click', target: 'user' }}
 			title={$userData.username}
 			class="{classesActive(
 				`/accounts/user/${$userData.username}-${$userData.id}`
-			)} btn hover:variant-soft-primary lg:inline-block"
+			)} btn hover:variant-soft-primary"
 			><span class="lg:inline-block align-text-bottom"><Fa icon={faUser} size="lg" /></span>
-			<span class="hidden lg:inline-block">{$userData.username}</span></a
+			<span class="hidden lg:inline-block">{$userData.username}</span>
+			<span class="opacity-50"><Fa icon={faCaretDown} /></span>
+			</button
 		>
 		<button
 			type="button"
@@ -107,5 +114,35 @@
 			>
 			<span class="hidden lg:inline-block">{m.NAVBAR_LOGOUT()}</span></button
 		>
+		<div class="">
+			<!-- popup -->
+			<!-- prettier-ignore -->
+			<div class="card p-4 w-60 shadow-xl" data-popup="user">
+			<nav class="list-nav">
+				<ul>
+
+					<li>
+						<a href="/accounts/user/{$userData.username}-{$userData.id}"
+						title={$userData.username}
+						>
+							<span class="w-6 text-center"><Fa icon={faUser} /></span>
+							<span>{$userData.username}</span>
+						</a>
+						<a href="/web">
+							<span class="w-6 text-center"><Fa icon={faHexagonNodes} /></span>
+							<span>Pluripro Web</span>
+						</a>
+						<!--hr class="my-4"-->
+						<!--a href="/{ facility.category.slug }/projet-de-sante">
+							<span class="w-6 text-center"><Fa icon={faBookMedical} /></span>
+							<span>{m.NAVBAR_HEALTH_PROJECT()}</span>
+						</a-->
+					</li>
+				</ul>
+			</nav>
+		</div>
+		</div>
+		
 	{/if}
 {/if}
+{/key}

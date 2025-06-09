@@ -6,16 +6,17 @@
 	export let data: Entry[];
 
 	function getLabels(entry: Entry) {
-		let labels = [];
+		return entry.effector_type.label
+		/*let labels = [];
 		for (let occupation of entry.types) {
 			labels.push(occupation.label);
 		}
 		return [labels.slice(0, -1).join(', '), labels.slice(-1)[0]].join(
 			labels.length < 2 ? '' : ` et `
-		);
+		);*/
 	}
 	function getLink(entry: Entry, pathname: string) {
-		return `/${entry.facility.slug}/${entry.types[0].slug}/${entry.slug
+		return `/${entry.facility.slug}/${entry.effector_type.slug}/${entry.slug
 	}?origin=${encodeURIComponent(pathname)}`
 	}
 </script>

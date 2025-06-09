@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 	import Select from 'svelte-select';
 	import { get } from '@square/svelte-store';
-	import { facilityStore, facilityWithOccupationStore } from '$lib/store/facilityStore';
+	import { organizationStore, facilityWithOccupationStore } from '$lib/store/facilityStore';
 	import { selectFacilities } from '$lib/store/selectionStore';
 	import { selectOccupations, workforceDataCached } from '$lib/store/workforceStore';
-	import * as m from "$msgs";	import { get_store_value } from 'svelte/internal';
+	import * as m from "$msgs";
 	const label = 'label';
 	const itemId = 'value';
 	let value;
@@ -20,7 +20,7 @@
 			return;
 		} else {
 			try {
-			let val = get(facilityStore).facility.filter((x) => get(selectFacilities).includes(x.name))[0];
+			let val = get(organizationStore).facility.filter((x) => get(selectFacilities).includes(x.name))[0];
 			return {value: val.name, label: val.contact.formatted_name}
 			} catch(err) {
 				console.error(err);

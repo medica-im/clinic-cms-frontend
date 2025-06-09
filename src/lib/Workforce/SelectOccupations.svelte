@@ -2,7 +2,7 @@
 	import Select from 'svelte-select';
 	import { onMount } from 'svelte';
 	import { occupations, selectOccupations, workforceOccupation } from '$lib/store/workforceStore';
-	import { occupationOfFacilityStore } from '$lib/store/facilityStore';
+	import { occupationOfOrganizationStore } from '$lib/store/facilityStore';
 	import * as m from "$msgs";	import { get } from '@square/svelte-store';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -70,7 +70,7 @@
 		<Select
 			{label}
 			{itemId}
-			items={$occupationOfFacilityStore}
+			items={$occupationOfOrganizationStore}
 			searchable={false}
 			on:change={handleChange}
 			on:clear={handleClear}

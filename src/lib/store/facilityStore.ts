@@ -8,7 +8,7 @@ import { selectFacilities } from '$lib/store/selectionStore';
 import { PUBLIC_FACILITIES_TTL } from '$env/static/public';
 import { shuffle } from '$lib/helpers/random';
 import type { Writable, AsyncWritable, Loadable } from '@square/svelte-store';
-
+import type { Organization } from '$lib/interfaces/organization.ts';
 
 export const getFacilities = asyncReadable(
 	{},
@@ -64,11 +64,11 @@ export const facilitiesWithAvatar = asyncDerived(
 		return carousel
 	});
 
-export const facilityStore = asyncReadable(
+export const organizationStore = asyncReadable(
 	{},
 	async () => {
 		var cachelife = 600;
-		const cacheName = "facility";
+		const cacheName = "organization";
 		let cachedData;
 		let expired = true;
 		let empty: boolean = true;
@@ -88,26 +88,28 @@ export const facilityStore = asyncReadable(
 		if (cachedData && !expired && cachedData.data) {
 			return cachedData.data;
 		} else {
-			const apiUrl = `${variables.BASE_API_URI}/facility/${lang}/`;
+			const apiUrl = `${variables.BASE_API_URI}/organization/${lang}/`;
+			console.log(apiUrl);
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
+			console.log([response,err]);
 			if (response) {
 				let data = response;
-				data.facility.sort(function (a, b) {
+				data?.facility.sort(function (a, b) {
 					return a.contact.formatted_name.localeCompare(b.contact.formatted_name);
 				})
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() }
 					localStorage.setItem(`${cacheName}_${lang}`, JSON.stringify(json));
 				}
-				return data as Facility[];
+				return data as Organization;
 			}
 		}
 	}
 );
 
 export const facilityWithOccupationStore = asyncDerived(
-	([facilityStore, workforceDataCached, selectOccupations]),
-	async ([$facilityStore, $workforceDataCached, $selectOccupations]) => {
+	([organizationStore, workforceDataCached, selectOccupations]),
+	async ([$organizationStore, $workforceDataCached, $selectOccupations]) => {
 		const okFacilities = new Set();
 		$workforceDataCached.forEach(
 			function (item) {
@@ -126,7 +128,7 @@ export const facilityWithOccupationStore = asyncDerived(
 				)
 			}
 		);
-		let facilities = $facilityStore.facility.filter(
+		let facilities = $organizationStore.facility.filter(
 			(x) => okFacilities.has(x.name)
 		).map(function (x) { return { 'value': x.name, 'label': x.contact.formatted_name } }).sort(function (a, b) {
 			return a.label.localeCompare(b.label);
@@ -149,7 +151,7 @@ function workerCount(obj) {
 	return total
 }
 
-export const occupationOfFacilityStore = asyncDerived(
+export const occupationOfOrganizationStore = asyncDerived(
 	([occupations, workforceDataCached, selectFacilities, workforceDict]),
 	async ([$occupations, $workforceDataCached, $selectFacilities, $workforceDict]) => {
 		if (get(selectFacilities).length == 0) {
@@ -223,28 +225,28 @@ export const occupationOfFacilityStore = asyncDerived(
 );
 
 export const siteCount = asyncDerived(
-	([facilityStore, getFacilities]),
-	async ([$facilityStore, $getFacilities]) => {
+	([organizationStore, getFacilities]),
+	async ([$organizationStore, $getFacilities]) => {
 		const facilities: Facility[] = $getFacilities;
 		return facilities.filter((facility) =>
-			facility.organizations.includes($facilityStore.uid)
+			facility.organizations.includes($organizationStore.uid)
 		).length;
 	}
 );
 
 export const websiteSchema = asyncDerived(
-	(facilityStore),
-	async ($facilityStore) => {
+	(organizationStore),
+	async ($organizationStore) => {
 		const someds = [];
-		for (let somed of $facilityStore.contact.socialnetworks) {
+		for (let somed of $organizationStore.contact.socialnetworks) {
 			someds.push(somed.url)
 		}
 		return {
 			'@context': 'https://schema.org',
 			'@type': 'WebSite',
-			name: $facilityStore.website_title,
+			name: $organizationStore.website_title,
 			url: variables.BASE_URI,
-			description: $facilityStore.website_description,
+			description: $organizationStore.website_description,
 			sameAs: someds,
 		}
 	}

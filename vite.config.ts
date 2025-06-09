@@ -24,7 +24,8 @@ export default defineConfig({
 	},
 	server: {
 		proxy: {
-			'/media/profile_images': 'https://sante-gadagne.fr'
+			'/media/profile_images': 'https://dev.sante-gadagne.fr',
+			'/api/v2': 'https://dev.sante-gadagne.fr'
 		}
 	}
 });

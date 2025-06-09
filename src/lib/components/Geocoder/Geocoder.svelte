@@ -1,25 +1,26 @@
 <script lang="ts">
 	import isEmpty from 'lodash.isempty';
-	import { onMount } from 'svelte';
-	import * as m from "$msgs";	import { Autocomplete } from '@skeletonlabs/skeleton';
-	import type { AutocompleteOption } from '@skeletonlabs/skeleton';
+	import * as m from '$msgs';
 	import { normalize } from '$lib/helpers/stringHelpers';
-	import { addressFeature, inputAddress } from '$lib/store/directoryStore';
-	import { get } from '@square/svelte-store';
 	import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 	import Fa from 'svelte-fa';
 	import DocsIcon from '$lib/Icon/Icon.svelte';
 	import { variables } from '$lib/utils/constants';
 	import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 	import { PUBLIC_DIRECTORY_TTL } from '$env/static/public';
+	import Svelecte from 'svelecte';
+	import SelectAddress from '$lib/Web/SelectAddress.svelte';
+	import type { AddressFeature } from '$lib/store/directoryStoreInterface';
 
-	let visible = false;
-	let response;
-	let normalizedInputAddress: string = '';
-	let cityCodes: string[] = [];
+
+	let addressValue: string|null = $state(null);
+	let visible: boolean = $state(false);
+	let response: any = $state();
 	const cachelife: number = parseInt(PUBLIC_DIRECTORY_TTL || '0');
 
-	//let addressOptions: AutocompleteOption[] = [];
+	type SelectOption = {value: string, label: string};
+
+	let addressOptions: SelectOption[] = $state([]);
 
 	const options = {
 		url: 'https://api-adresse.data.gouv.fr/search/?',
@@ -33,30 +34,30 @@
 	//let inputAddress: string = '';
 	//let CACHE = '';
 	//let RESULTS: Array<Object> = [];
+	let inputAddress: string | undefined = $state();
+	let {
+		addressFeature = $bindable(),
+		commune
+	}: { addressFeature: AddressFeature | undefined; commune: string } = $props();
 
-	onMount(async () => {
-		const _addressFeature = get(addressFeature);
-		if (!isEmpty(_addressFeature)) {
-			inputAddress.set(normalize(_addressFeature?.properties?.label));
+	let normalizedInputAddress = $derived(inputAddress ? normalize(inputAddress) : '');
+	$effect(() => {
+		if (inputAddress && inputAddress.length > options.minChar) {
+			response = search();
 		}
-		const directoryJsn = await getDirectory();
-		cityCodes = directoryJsn.postal_codes;
 	});
-
-	$: normalizedInputAddress = normalize($inputAddress);
-	$: if ($inputAddress.length > options.minChar) {
-		response = search();
-	}
-	$: visible = Boolean($inputAddress) && Object.keys($addressFeature).length === 0 && $addressFeature.constructor === Object;
+	$effect(() => {
+		visible = !addressFeature && !(inputAddress === undefined) && !(inputAddress==null) && inputAddress.length > options.minChar;
+	});
 
 	const getDirectory = async () => {
 		let expired;
-		var cacheddata: string|null = localStorage.getItem('directory');
+		var cacheddata: string | null = localStorage.getItem('directory');
 		if (cacheddata) {
 			const cachedDataObj = JSON.parse(cacheddata);
 			expired = Math.trunc(Date.now() / 1000) - cachedDataObj.cachetime > cachelife;
-		    if (!expired) {
-			return cachedDataObj.data;
+			if (!expired) {
+				return cachedDataObj.data;
 			}
 		} else {
 			const url = `${variables.BASE_API_URI}/directory/`;
@@ -67,21 +68,22 @@
 		}
 	};
 
+	$effect(() => {
+		addressOptions = getAddressOptions(response);
+	});
+
 	function getAddressOptions(res) {
 		if (!res || !res?.features?.length) {
 			return [];
 		}
-		let _addressOptions: AutocompleteOption[] = res.features
-			.filter((e) =>
-				cityCodes.some((cityCode) => {
-					let apiCityCode = e.properties.citycode;
-					return apiCityCode.startsWith(cityCode);
-				})
-			)
+		let _addressOptions = res.features
+			.filter((e: AddressFeature) => {
+				return e.properties.city == commune;
+			})
 			.map((e) => {
-				return { label: normalize(e.properties.label), value: e.properties.id };
+				return { label: normalize(e.properties.name), value: e.properties.id };
 			});
-		return _addressOptions as AutocompleteOption[];
+		return _addressOptions;
 	}
 
 	function buildQueryString() {
@@ -106,7 +108,7 @@
 		//  x = y = null;
 		//}
 		return {
-			q: get(inputAddress),
+			q: inputAddress,
 			limit: options.limit,
 			lat: null,
 			lon: null
@@ -114,11 +116,10 @@
 	}
 
 	function search() {
-		const _inputAddress = get(inputAddress);
-		if ( _inputAddress === '' ) {
+		if (inputAddress === '') {
 			return;
 		}
-		if ( _inputAddress.length < options.minChar ) {
+		if (inputAddress && inputAddress.length < options.minChar) {
 			return;
 		}
 		//if (value + '' === CACHE + '') {
@@ -145,11 +146,19 @@
 
 	function recordAddressFeature(featureId: string) {
 		const feature = response.features.find((x) => x.properties.id == featureId);
-		addressFeature.set(feature);
+		addressFeature = feature;
 	}
 
+    $effect(()=>{
+		if (addressValue) {
+			const feature: AddressFeature = response.features.find((x) => x.properties.id == addressValue);
+		    addressFeature = feature;
+			inputAddress = feature.properties.name
+		}
+	});
+
 	function onAddressSelection(event: any): void {
-		inputAddress.set(event.detail.label);
+		inputAddress = event.detail.label;
 		recordAddressFeature(event.detail.value);
 		visible = false;
 	}
@@ -157,41 +166,60 @@
 
 	function handleClear() {
 		visible = false;
-		inputAddress.set("");
-		addressFeature.set({});
+		inputAddress = '';
+		addressFeature = undefined;
+		addressValue = null;
 	}
 </script>
+
+addressFeature:<br />
+{JSON.stringify(addressFeature)}<br />
+commune: "{commune}"<br />
+addressOptions:<br />
+{JSON.stringify(addressOptions)}
 
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 	<div class="input-group-shim"><Fa icon={faAddressCard} /></div>
 	<input
+		class="input"
 		type="search"
 		name="geocoder"
 		autocomplete="off"
-		on:input={onInput}
+		disabled={Boolean(addressFeature)}
 		placeholder={m.ADDRESSBOOK_GEOCODER_PLACEHOLDER()}
-		bind:value={$inputAddress}
+		bind:value={inputAddress}
 		aria-label={m.ADDRESSBOOK_GEOCODER_ARIA_LABEL()}
 	/>
 	<button
 		class="variant-filled-secondary"
-		on:click={handleClear}
+		onclick={handleClear}
 		aria-label={m.ADDRESSBOOK_CLEAR()}
-		disabled={!$inputAddress}
+		disabled={!inputAddress}
 	>
 		<DocsIcon name="clear" width="w-5" height="h-5" />
 	</button>
 </div>
-{#if visible}
-	<div class="card w-full max-w-md max-h-48 p-4 overflow-y-auto" tabindex="-1">
-		<Autocomplete
-			bind:input={normalizedInputAddress}
-			options={getAddressOptions(response)}
-			on:selection={onAddressSelection}
-			emptyState={m.SKELETON_AUTOCOMPLETE_EMPTY_STATE()}
-		/>
-	</div>
-{/if}
+	<!--div class="card w-full max-w-md max-h-48 p-4 overflow-y-auto" tabindex="-1">
+		{#key addressOptions}
+			<Autocomplete
+				bind:input={inputAddress}
+				options={addressOptions}
+				on:selection={onAddressSelection}
+				emptyState={m.SKELETON_AUTOCOMPLETE_EMPTY_STATE()}
+			/>
+		{/key}
+	</div-->
+	<!--div class="card w-full max-w-md max-h-48 p-4 overflow-y-auto" tabindex="-1">
+		{#key addressOptions}
+			<Svelecte
+				bind:value={addressValue}
+				options={addressOptions}
+			/>
+		{/key}
+		</div-->
+		{#if visible}
+		<SelectAddress {addressOptions} bind:visible={visible} bind:address={addressValue}  />
+		{/if}
 
 <style>
 	/* clears the ‘X’ from Internet Explorer */

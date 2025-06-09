@@ -5,7 +5,7 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils.ts';
 import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_ENTRIES_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL, PUBLIC_CACHE_CONTACTS } from '$env/static/public';
 import haversine from 'haversine-distance';
 import type { Situation } from '$lib/store/directoryStoreInterface.ts';
-import { getFacilities, facilityStore } from '$lib/store/facilityStore.ts';
+import { getFacilities, organizationStore } from '$lib/store/facilityStore.ts';
 import { shuffle } from '$lib/helpers/random.ts';
 import type { Writable } from '@square/svelte-store';
 import type { Contact, Entry, CurrentOrg, CurrentOrgStore, LimitCategoriesStore, AddressFeature, DistanceEffectors, CategorizedEntries, Type } from './directoryStoreInterface.ts';
@@ -16,7 +16,7 @@ import type { CustomError } from '$lib/interfaces/error.interface.ts';
 export const term: Writable<string> = writable("");
 export const selectCommunes: Writable<string[]> = writable([]);
 export const selectCommunesValue = writable(null);
-export const selCatVal: Writable<{label:string,value:string}|null> = writable(null);
+export const selCatVal: Writable<{ label: string, value: string } | null> = writable(null);
 export const selectCategories: Writable<string[]> = writable([]);
 export const limitCategories: LimitCategoriesStore = writable([]);
 export const selectSituation: Writable<string> = writable("");
@@ -24,7 +24,7 @@ export const selectSituationValue: Writable<string | null> = writable(null);
 export const addressFeature: Writable<AddressFeature | null> = writable(null);
 export const inputAddress = writable("");
 export const selectFacility = writable("");
-export const selectFacilityValue: Writable<string|null> = writable(null);
+export const selectFacilityValue: Writable<string | null> = writable(null);
 export const currentOrg: CurrentOrgStore = writable(true);
 export const directoryRedirect = writable(true);
 
@@ -74,7 +74,7 @@ export const effectorTypeLabels = async () => {
 	}
 };
 
-export async function fetchElements(path: string, next: string): Promise<[any[], string|null]> {
+export async function fetchElements(path: string, next: string): Promise<[any[], string | null]> {
 	const url = `${variables.BASE_API_URI}/${path}/${next || ""}`;
 	const [data, err]: [Tastypie, CustomError] = await handleRequestsWithPermissions(fetch, url);
 	const _next = data.meta.next;
@@ -243,9 +243,9 @@ async function processCachedEntries(changedObj: ChangedObj) {
 
 export const getEntries = async () => {
 	let contacts = getLocalStorage("contacts")?.data;
-	const refreshContacts = (!import.meta.env.DEV && PUBLIC_CACHE_CONTACTS=="false" || contacts==null);
-	if ( refreshContacts ) {
-	    contacts = await downloadElements("contacts");
+	const refreshContacts = (!import.meta.env.DEV && PUBLIC_CACHE_CONTACTS == "false" || contacts == null);
+	if (refreshContacts) {
+		contacts = await downloadElements("contacts");
 		setLocalStorage('contacts', contacts)
 	}
 	var cachelife = parseInt(PUBLIC_ENTRIES_TTL);
@@ -262,38 +262,38 @@ export const getEntries = async () => {
 			}
 		}
 	}
-	if ( empty ) {
+	if (empty) {
 		const allEffectors = await downloadAllEntries();
 		return allEffectors;
 	}
-	if ( expired ) {
+	if (expired) {
 		contacts = await downloadElements("contacts");
 		setLocalStorage('contacts', contacts);
 		changedObj = changedContacts(contacts, cachedEffectorsObj.data);
 		if (isUnchanged(changedObj)) {
-		    return cachedEffectorsObj.data;
+			return cachedEffectorsObj.data;
 		} else {
 			const effectors = await processCachedEntries(changedObj);
-			return effectors;	
+			return effectors;
 		}
 	}
 	return cachedEffectorsObj.data;
 };
 
 export const getAvatars = asyncDerived(
-	([facilityStore]),
-	async([$facilityStore]) => {
-	const cachedEffectorsObj = getLocalStorage('entries');
-	let cachedEffectors = cachedEffectorsObj?.data;
-	if (!cachedEffectors) {
-		cachedEffectors = await getEntries();
-	}
-	let carousel = cachedEffectors.filter(function (item: Entry) {
-		return (item?.avatar?.lt && item?.organizations.includes($facilityStore.uid))
+	([organizationStore]),
+	async ([$organizationStore]) => {
+		const cachedEffectorsObj = getLocalStorage('entries');
+		let cachedEffectors = cachedEffectorsObj?.data;
+		if (!cachedEffectors) {
+			cachedEffectors = await getEntries();
+		}
+		let carousel = cachedEffectors.filter(function (item: Entry) {
+			return (item?.avatar?.lt && (item?.organizations.includes($organizationStore.uid) || item?.employers.includes($organizationStore.uid)))
+		});
+		shuffle(carousel);
+		return carousel
 	});
-	shuffle(carousel);
-	return carousel
-});
 
 export const distanceEffectorsF = async (addressFeature: AddressFeature) => {
 	const targetGeoJSON = addressFeature?.geometry?.coordinates;
@@ -343,12 +343,9 @@ export const communes = async () => {
 };
 
 export const categories = async () => {
-	const effectors = await getEntries();
+	const effectors: Entry[] = await getEntries();
 	let categories = (
-		uniq(effectors.map(function (currentElement) {
-			return currentElement.types.flat()
-		}
-		).flat()).sort(function (a, b) {
+		uniq(effectors.map(e=>e.effector_type).flat()).sort(function (a, b) {
 			return a.uid.localeCompare(b.uid);
 		})
 	);
@@ -441,7 +438,7 @@ function compareEffectorDistance(a, b, distEffectors) {
 	}
 }
 
-export const fullFilteredEffectorsF = async (term: string, selectSituation: string, distanceEffectors: DistanceEffectors | null, currentOrg: Boolean | null, facilityStore: Facility, limitCategories: String[]) => {
+export const fullFilteredEffectorsF = async (term: string, selectSituation: string, distanceEffectors: DistanceEffectors | null, currentOrg: Boolean | null, organizationStore: Facility, limitCategories: String[]) => {
 	const entries: Entry[] = await getEntries();
 	if (
 		selectSituation == ''
@@ -457,17 +454,13 @@ export const fullFilteredEffectorsF = async (term: string, selectSituation: stri
 			if (!limitCategories?.length) {
 				return true
 			} else {
-				return x.types.map(
-					function (currentElement) {
-						return currentElement.slug
-					}
-				).some(r => limitCategories.includes(r))
+				return limitCategories.includes(x.effector_type.slug)
 			}
 		}).filter(function (x) {
 			if (currentOrg == true) {
-				return x.organizations.includes(facilityStore.uid)
+				return x.organizations.includes(organizationStore.uid) || x.employers.includes(organizationStore.uid)
 			} else if (currentOrg == false) {
-				return !x.organizations.includes(facilityStore.uid)
+				return !x.organizations.includes(organizationStore.uid) && !x.employers.includes(organizationStore.uid)
 			} else {
 				return true
 			}
@@ -491,9 +484,9 @@ export const fullFilteredEffectorsF = async (term: string, selectSituation: stri
 };
 
 export const fullFilteredEffectors = asyncDerived(
-	([term, selectSituation, distanceEffectors, currentOrg, facilityStore, limitCategories]),
-	async ([$term, $selectSituation, $distanceEffectors, $currentOrg, $facilityStore, $limitCategories]) => {
-		return await fullFilteredEffectorsF($term, $selectSituation, $distanceEffectors, $currentOrg, $facilityStore, $limitCategories)
+	([term, selectSituation, distanceEffectors, currentOrg, organizationStore, limitCategories]),
+	async ([$term, $selectSituation, $distanceEffectors, $currentOrg, $organizationStore, $limitCategories]) => {
+		return await fullFilteredEffectorsF($term, $selectSituation, $distanceEffectors, $currentOrg, $organizationStore, $limitCategories)
 	}
 );
 
@@ -505,11 +498,7 @@ export const filteredEffectorsF = (fullFilteredEffectors: Entry[], selectCategor
 			if (!selectCategories?.length) {
 				return true
 			} else {
-				return x.types.map(
-					function (currentElement) {
-						return currentElement.uid
-					}
-				).some(r => selectCategories.includes(r))
+				return selectCategories.includes(x.effector_type.uid)
 			}
 		}).filter(function (x) {
 			if (!selectCommunes?.length) {
@@ -560,10 +549,10 @@ export const categorizedCachedEffectors =
 	};
 */
 
-export const categorizedFilteredEffectorsF = (filteredEffectors: Entry[], distanceEffectors: DistanceEffectors|null, selectSituation: string) => {
+export const categorizedFilteredEffectorsF = (filteredEffectors: Entry[], distanceEffectors: DistanceEffectors | null, selectSituation: string) => {
 	let categorySet = new Set();
 	for (let effector of filteredEffectors) {
-		effector.types.forEach(x => categorySet.add(x.name))
+		categorySet.add(effector.effector_type.name)
 	}
 	let categoryArr = Array.from(categorySet);
 	categoryArr.sort();
@@ -572,7 +561,7 @@ export const categorizedFilteredEffectorsF = (filteredEffectors: Entry[], distan
 		return acc;
 	}, {});
 	for (let effector of filteredEffectors) {
-		effector.types.forEach(x => effectorsObj[x.name].push(effector))
+		effectorsObj[effector.effector_type.name].push(effector)
 	}
 
 	const sortedEffectorsObj = selectSituation ? Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length) : Object.entries(effectorsObj).sort(function (a, b) {
@@ -601,15 +590,15 @@ export const cardinalCategorizedFilteredEffectorsF = async (categorizedFilteredE
 		let countM: number = 0;
 		let countN: number = 0;
 		let countNone: number = 0;
-		let type: Type | undefined;
-		value.forEach(
+		let type: Type = value[0].effector_type;
+		/*value.forEach(
 			(e) => {
 				type = e.types.find(e => e.name == key)
 			}
 		);
 		if (type === undefined) {
 			throw new Error('Type not found');
-		}
+		}*/
 		value.forEach(
 			(e) => {
 				if (e.gender == 'F') {
@@ -657,15 +646,15 @@ export const cardinalCategorizedFilteredEffectors = asyncDerived(
 )
 
 const categorizedEffectors = asyncDerived(
-	([currentOrg, facilityStore, limitCategories]),
-	async ([$currentOrg, $facilityStore, $limitCategories]) => {
+	([currentOrg, organizationStore, limitCategories]),
+	async ([$currentOrg, $organizationStore, $limitCategories]) => {
 		const unfilteredEntries: Entry[] = await getEntries();
 		const entries: Entry[] = unfilteredEntries.filter(
 			function (x) {
 				if ($currentOrg == true) {
-					return x.organizations.includes($facilityStore.uid)
+					return x.organizations.includes($organizationStore.uid) || x.employers.includes($organizationStore.uid)
 				} else if ($currentOrg == false) {
-					return !x.organizations.includes($facilityStore.uid)
+					return !x.organizations.includes($organizationStore.uid) && !x.employers.includes($organizationStore.uid)
 				} else {
 					return true
 				}
@@ -674,16 +663,12 @@ const categorizedEffectors = asyncDerived(
 			if (!$limitCategories?.length) {
 				return true
 			} else {
-				return x.types.map(
-					function (currentElement) {
-						return currentElement.slug
-					}
-				).some(r => $limitCategories.includes(r))
+				return $limitCategories.includes(x.effector_type.slug)
 			}
 		});
 		let categorySet = new Set();
 		for (let entry of entries) {
-			entry.types.forEach(x => categorySet.add(x.name))
+			categorySet.add(entry.effector_type.name)
 		}
 		let categoryArr = Array.from(categorySet);
 		categoryArr.sort();
@@ -692,7 +677,7 @@ const categorizedEffectors = asyncDerived(
 			return acc;
 		}, {});
 		for (let entry of entries) {
-			entry.types.forEach(x => effectorsObj[x.name].push(entry))
+			effectorsObj[entry.effector_type.name].push(entry)
 		}
 		const sortedEffectorsObj = Object.entries(effectorsObj).sort(function (a, b) {
 			return a[0].localeCompare(b[0]);
@@ -716,7 +701,8 @@ export const cardinalTypes = asyncDerived(
 			let type;
 			value.forEach(
 				(e) => {
-					type = e.types.find(e => e.name == key);
+					//type = e.types.find(e => e.name == key);
+					type=e.effector_type
 					if (e.gender == 'F') {
 						countF += 1;
 					} else if (e.gender == 'M') {
@@ -763,7 +749,7 @@ export const cardinalTypes = asyncDerived(
 export const categorizedFullFilteredEffectorsF = (fullFilteredEffectors: Entry[]) => {
 	let categorySet = new Set();
 	for (let effector of fullFilteredEffectors) {
-		effector.types.forEach(x => categorySet.add(x.name))
+		categorySet.add(effector.effector_type.name)
 	}
 	let categoryArr = Array.from(categorySet);
 	categoryArr.sort();
@@ -772,7 +758,7 @@ export const categorizedFullFilteredEffectorsF = (fullFilteredEffectors: Entry[]
 		return acc;
 	}, {});
 	for (let effector of fullFilteredEffectors) {
-		effector.types.forEach(x => effectorsObj[x.name].push(effector))
+		effectorsObj[effector.effector_type.name].push(effector)
 	}
 	const effectorsMap = new Map(Object.entries(effectorsObj).sort((a, b) => a[1].length - b[1].length));
 	return effectorsMap as CategorizedEntries;
@@ -793,9 +779,9 @@ export const categoryOfF = (selectCommunes: string[], fullFilteredEffectors: Ent
 		return uniq(
 			fullFilteredEffectors.map(
 				function (x) {
-					return x.types
+					return x.effector_type
 				}
-			).flat()
+			)
 		)
 	} else {
 		return uniq(
@@ -807,9 +793,9 @@ export const categoryOfF = (selectCommunes: string[], fullFilteredEffectors: Ent
 				}
 			).map(
 				function (x) {
-					return x.types
+					return x.effector_type
 				}
-			).flat()
+			)
 		)
 	}
 }
@@ -828,9 +814,8 @@ export const communeOfF = async (selectCategories: string[], fullFilteredEffecto
 	} else {
 		const communes = fullFilteredEffectors.filter(
 			x => {
-				return (!selectCategories?.length || x.types.map(t => t.uid).some(
-					r => selectCategories.includes(r)
-				)) && (!selectFacility || x.facility.uid == selectFacility)
+				return (!selectCategories?.length || selectCategories.includes(x.effector_type.uid)
+				) && (!selectFacility || x.facility.uid == selectFacility)
 			}
 		).map(x => x.commune);
 		const mapFromCommunes = new Map(
@@ -855,9 +840,8 @@ export const facilityOfF = (selectCategories: String[], fullFilteredEffectors: E
 		const uids = fullFilteredEffectors.filter(
 			(x) => {
 				return (
-					(!selectCategories.length || x.types.map(t => t.uid).some(
-						r => selectCategories.includes(r)
-					)) && (!selectCommunes.length || selectCommunes.includes(getFacilities.find(({ uid }) => uid === x.facility.uid).commune)
+					(!selectCategories.length || selectCategories.includes(x.effector_type.uid)
+					) && (!selectCommunes.length || selectCommunes.includes(getFacilities.find(({ uid }) => uid === x.facility.uid).commune)
 					))
 			}
 		).map(x => x.facility.uid)

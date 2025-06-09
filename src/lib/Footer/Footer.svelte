@@ -4,7 +4,7 @@
 	import { variables } from '$lib/utils/constants';
 	import SocialNetworks from '../SoMed/SoMed.svelte';
 	import BlogIconLink from '$lib/Ghost/BlogIconLink.svelte';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
 	import OutpatientClinicLogo from '$lib/Logos/OutpatientClinicLogo.svelte';
@@ -22,10 +22,10 @@
 						<span class="flex w-8 h-8 lg:w-12 lg:h-12"><OutpatientClinicLogo /></span>
                         <div>
 						<h4 class="h4">
-							{capitalizeFirstLetter($facilityStore.formatted_name, getLocale())}
+							{capitalizeFirstLetter($organizationStore.formatted_name, getLocale())}
 						</h4>
-						<p>{$facilityStore.contact.address.street}</p>
-						<p>{$facilityStore.city.name}</p>
+						<p>{$organizationStore.contact.address.street}</p>
+						<p>{$organizationStore.city.name}</p>
 					</div>
 					</div>
 				</a>
@@ -90,11 +90,11 @@
 		<!-- Row 2 -->
 		<div class="flex justify-between items-center">
 			<div class="text-sm"
-				>© {new Date().getFullYear()} <a href="/" class="hover:underline">{$facilityStore.company_name}</a>.
+				>© {new Date().getFullYear()} <a href="/" class="hover:underline">{$organizationStore.company_name}</a>.
 		</div>
 			<div class="flex space-x-6 justify-center">
-				{#if $facilityStore?.contact?.socialnetworks}
-				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />
+				{#if $organizationStore?.contact?.socialnetworks}
+				<SocialNetworks data={$organizationStore.contact.socialnetworks} appBar={true} />
 				{/if}
 				{#if variables.BLOG_URI}
 				<BlogIconLink />
@@ -108,7 +108,7 @@
 				>Site propulsé par la solution Pluripro Web créée par <a href="https://medecinelibre.com" class="anchor">Médecine Libre</a>.
 			</span>
 			<!--div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-				<SocialNetworks data={$facilityStore.contact.socialnetworks} appBar={true} />
+				<SocialNetworks data={$organizationStore.contact.socialnetworks} appBar={true} />
 				<BlogIconLink />
 			</div-->
 		</div>

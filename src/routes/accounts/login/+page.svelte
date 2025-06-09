@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { notificationData } from '$lib/store/notificationStore';
-	import { post, browserSet, browserGet } from '$lib/utils/requestUtils';
+	import { post, browserSet, browserGet, setCurrentUser } from '$lib/utils/requestUtils';
 	import { goto } from '$app/navigation';
 	import { variables } from '$lib/utils/constants';
 	import { fly } from 'svelte/transition';
@@ -41,6 +41,7 @@
 			}
 		});
 		response = jsonRes;
+		console.log(JSON.stringify(response));
 
 		if (err.length > 0) {
 			errors = err;
@@ -52,6 +53,7 @@
 			submitButtonInnerHTML = m.TOLOGIN();
 		} else if (response.user && response.user.tokens) {
 			browserSet('refreshToken', response.user.tokens.refresh);
+			await setCurrentUser();
 			toggleAuth();
 			notificationData.update(() => `${m.LOGIN_SUCCESSFUL()}`);
 			await goto('/');

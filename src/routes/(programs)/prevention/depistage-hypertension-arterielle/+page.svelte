@@ -1,10 +1,10 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import bloodPressureSelfMeasurementPdf from '$lib/assets/pdf/releve_automesure_tensionnelle_cnam.pdf';
 	import { programsNavLinks } from "$var/variables.ts";
@@ -13,7 +13,7 @@
 <svelte:head>
 	<title>
 		Hypertension - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>
@@ -161,13 +161,13 @@
 			src={bloodPressureSelfMeasurementPdf}
 			title={m.NAVBAR_HEALTH_PROJECT()}
 			class="w-full aspect-square"
-		/>
+		></iframe>
 	</div>
 </section>
 
 <section>
 	<div class="section-container">
-		<ProgramNav pathname={$page.url.pathname} {programsNavLinks} />
+		<ProgramNav pathname={page.url.pathname} {programsNavLinks} />
 	</div>
 </section>
 

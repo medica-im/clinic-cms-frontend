@@ -4,7 +4,7 @@
 	export let displayEntries;
 
 	const getUrl = (value: any[]) => {
-		const types = `["${value[0].types[0].uid}"]`;
+		const types = `["${value[0].effector_type.uid}"]`;
 		const encodedTypes = encodeURIComponent(JSON.stringify(types));
 		const encodedFacility = `${value[0].facility.uid}`;
 		return '/annuaire' + `?types=${encodedTypes}` + `&facility=${encodedFacility}`;

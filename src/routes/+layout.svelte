@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
 	import { autoModeWatcher } from '@skeletonlabs/skeleton';
 	import { initializeStores, Modal } from '@skeletonlabs/skeleton';
-    import { facilityStore } from '$lib/store/facilityStore';
+    import { organizationStore } from '$lib/store/facilityStore';
     import '../app.postcss';
     import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
     import { storePopup } from '@skeletonlabs/skeleton';
@@ -30,16 +31,13 @@
     import Footer from '$lib/Footer/Footer.svelte';
 
     // Theme stylesheet is loaded from LayoutServerData
-    import type { LayoutData } from './$types';
-    import { QueryClientProvider } from '@tanstack/svelte-query'
+    import { QueryClientProvider, QueryClient } from '@tanstack/svelte-query'
     import type { ComponentProps } from 'svelte';
     import { scrollY } from '$lib/store/scrollStore';
-	import type { UserResponse } from '$lib/interfaces/user.interface';
+	import type { User } from '$lib/interfaces/user.interface';
 	import type { CustomError } from '$lib/interfaces/error.interface';
 	import { locales, localizeHref } from '$prgld/runtime.js';
 	import { programsNavLinks } from '$var/variables.ts';
-
-    export let data: LayoutData;
 
 	initializeStores();
 
@@ -51,15 +49,12 @@
 
     onMount(async () => {
 		if (browserGet('refreshToken')) {
-			const [response, errs]: [UserResponse, CustomError[]] = await getCurrentUser(
-				fetch,
-				`${variables.BASE_API_URI}/accounts/user/`
-			);
+			const [response, errs]: [User, CustomError[]] = await getCurrentUser(fetch);
 			//console.log(`User: ${JSON.stringify(response)}`);
 			if (errs.length <= 0) {
 				userData.set(response);
 			} else {
-				userData.set({});
+				userData.set(undefined);
 			}
 		}
 	});
@@ -74,10 +69,7 @@
 			}, 3000);
 		}
 		if (browserGet('refreshToken')) {
-			const [response, _] = await getCurrentUser(
-				fetch,
-				`${variables.BASE_API_URI}/accounts/user/`
-			);
+			const [response, _] = await getCurrentUser(fetch);
 			userData.update(() => response);
 		}
 	});
@@ -113,6 +105,13 @@
 
     // Disable left sidebar on homepage
     $: slotSidebarLeft = matchList(page.url.pathname) ? 'bg-surface-50-900-token lg:w-auto z-auto' : 'w-0';
+	const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        enabled: browser,
+      },
+    },
+  })
 </script>
 
 <svelte:head>
@@ -120,7 +119,7 @@
 	<link rel="icon" href="{favIcon}">
 	<link rel="mask-icon" href="{maskIcon}" color="#000000">
 	<link rel="apple-touch-icon" href="{appleTouchIcon}">
-	<script defer data-domain="sante-gadagne.fr" src="https://plausible.medica.im/js/script.js"></script>
+	<!--script defer data-domain="sante-gadagne.fr" src="https://plausible.medica.im/js/script.js"></script-->
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
 	<meta name="robots" content="noindex">
@@ -130,14 +129,14 @@
 <Modal components="{modalComponentRegistry}"></Modal>
 <Toast></Toast>
 
-<Drawer data="{$facilityStore}"></Drawer>
+<Drawer data="{$organizationStore}"></Drawer>
 
 <AppShell class="z-[90000]" {slotSidebarLeft} regionpage="overflow-y-scroll" slotfooter="bg-black p-4" on:scroll="{scrollHandler}">
 		<svelte:fragment slot="header">
-			<SkeletonAppBar facility="{$facilityStore}"></SkeletonAppBar>
+			<SkeletonAppBar facility="{$organizationStore}"></SkeletonAppBar>
 		</svelte:fragment>
 		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data="{$facilityStore}" class="hidden lg:grid w-[360px] overflow-hidden"></Sidebar>
+			<Sidebar data="{$organizationStore}" class="hidden lg:grid w-[360px] overflow-hidden"></Sidebar>
 		</svelte:fragment>
 		<svelte:fragment slot="pageHeader">
 			{#if $notificationData}
@@ -147,7 +146,7 @@
 			{/if}
 		</svelte:fragment>
 		<!-- Page Content -->
-		<QueryClientProvider client={data?.queryClient}>
+		<QueryClientProvider client={queryClient}>
 			<slot></slot>
 		</QueryClientProvider>
 		<svelte:fragment slot="pageFooter"><Footer {programsNavLinks}/></svelte:fragment>

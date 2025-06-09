@@ -1,4 +1,4 @@
-import { facilityStore } from '$lib/store/facilityStore';
+import { organizationStore } from '$lib/store/facilityStore';
 import type { PageLoad } from './$types';
 
 export const ssr = false;
@@ -9,6 +9,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
     const chronologyData = chronologyJson.items[0].content;
     return {
         timeline: chronologyData,
-        facilityData: await facilityStore.load()
+        facilityData: await organizationStore.load()
     };
 }

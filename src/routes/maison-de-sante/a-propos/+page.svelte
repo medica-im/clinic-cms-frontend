@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	export let data;
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore, siteCount } from '$lib/store/facilityStore';
 	import * as m from "$msgs";	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import { siteCount } from '$lib/store/facilityStore.ts';
 	import OccupationsComma from '$lib/Organization/OccupationsComma.svelte';
 	import Def from '$lib/components/TooltipDefinition/Def.svelte';
 	import Fa from 'svelte-fa';
@@ -34,7 +33,7 @@
 
 <svelte:head>
 		<title>
-			{m.NAVBAR_ABOUT()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+			{m.NAVBAR_ABOUT()} - {capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 		</title>
 </svelte:head>
 
@@ -54,7 +53,7 @@
 			Une Maison de Santé Pluriprofessionnelle est une forme particulière d’<Def
 				w="Équipe de soins primaires"
 			/>. Il s’agit d’une organisation créée par les professionnels de santé eux-mêmes, en
-			s’appuyant sur les relations existantes: les professionnels de santé {$facilityStore.city
+			s’appuyant sur les relations existantes: les professionnels de santé {$organizationStore.city
 				.from_label} échangeaient déjà avant de créer la MSP!
 		</p>
 	</div>
@@ -103,10 +102,10 @@
 		</div>
 		<p>
 			{#if $siteCount > 1}
-			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est multisite, les professionnels de santé associés sont répartis sur
+			{capitalizeFirstLetter($organizationStore.formatted_name_definite_article)} est multisite, les professionnels de santé associés sont répartis sur
 			<a href="/sites" class="anchor">{$siteCount} sites</a>.
 			{:else}
-			{capitalizeFirstLetter($facilityStore.formatted_name_definite_article)} est monosite, tous les professionnels de santé sont regroupés au sein du même
+			{capitalizeFirstLetter($organizationStore.formatted_name_definite_article)} est monosite, tous les professionnels de santé sont regroupés au sein du même
 			<a href="/sites" class="anchor">établissement</a>.
 			{/if}
 		</p>

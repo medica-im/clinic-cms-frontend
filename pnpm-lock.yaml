@@ -23,6 +23,9 @@ importers:
       '@fortawesome/free-solid-svg-icons':
         specifier: ^6.7.2
         version: 6.7.2
+      '@lucide/svelte':
+        specifier: ^0.511.0
+        version: 0.511.0(svelte@5.25.7)
       '@medecinelibre/timelinejs':
         specifier: github:jeromecc/TimelineJS3
         version: https://codeload.github.com/jeromecc/TimelineJS3/tar.gz/bb60937fe035dabe9f09121c5c5038b557284af5
@@ -36,8 +39,8 @@ importers:
         specifier: ^0.5.9
         version: 0.5.16(tailwindcss@3.4.17)
       '@tanstack/svelte-query':
-        specifier: ^5.4.3
-        version: 5.71.10(svelte@5.25.7)
+        specifier: ^5.75.4
+        version: 5.75.4(svelte@5.25.7)
       '@tinymce/tinymce-svelte':
         specifier: ^2.0.1
         version: 2.0.2
@@ -71,6 +74,12 @@ importers:
       lodash.isempty:
         specifier: ^4.4.0
         version: 4.4.0
+      maplibre-gl:
+        specifier: ^5.6.0
+        version: 5.6.0
+      svelecte:
+        specifier: ^5.2.0
+        version: 5.2.0(svelte@5.25.7)
       svelte-fa:
         specifier: ^4.0.3
         version: 4.0.3(svelte@5.25.7)
@@ -491,6 +500,11 @@ packages:
   '@lix-js/server-protocol-schema@0.1.1':
     resolution: {integrity: sha512-jBeALB6prAbtr5q4vTuxnRZZv1M2rKe8iNqRQhFJ4Tv7150unEa0vKyz0hs8Gl3fUGsWaNJBh3J8++fpbrpRBQ==}
 
+  '@lucide/svelte@0.511.0':
+    resolution: {integrity: sha512-aLCSPMUJmHlCuLXzXENXa4Z1NV2mN1iAZAFKk4bEbey+/MdsNlu+/DqwVkgW3Yvj6p8y8Vn5xZ2v9CLmPlA6Vw==}
+    peerDependencies:
+      svelte: ^5
+
   '@mapbox/geojson-rewind@0.5.2':
     resolution: {integrity: sha512-tJaT+RbYGJYStt7wI3cq4Nl4SXxG8W7JDG5DMJu97V25RnbNg3QtQtf+KD+VLjNpWKYsRvXDNmNrBgEETr1ifA==}
     hasBin: true
@@ -515,8 +529,8 @@ packages:
     resolution: {integrity: sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==}
     engines: {node: '>=6.0.0'}
 
-  '@maplibre/maplibre-gl-style-spec@23.1.0':
-    resolution: {integrity: sha512-R6/ihEuC5KRexmKIYkWqUv84Gm+/QwsOUgHyt1yy2XqCdGdLvlBWVWIIeTZWN4NGdwmY6xDzdSGU2R9oBLNg2w==}
+  '@maplibre/maplibre-gl-style-spec@23.3.0':
+    resolution: {integrity: sha512-IGJtuBbaGzOUgODdBRg66p8stnwj9iDXkgbYKoYcNiiQmaez5WVRfXm4b03MCDwmZyX93csbfHFWEJJYHnn5oA==}
     hasBin: true
 
   '@medecinelibre/timelinejs@https://codeload.github.com/jeromecc/TimelineJS3/tar.gz/bb60937fe035dabe9f09121c5c5038b557284af5':
@@ -757,11 +771,11 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
 
-  '@tanstack/query-core@5.71.10':
-    resolution: {integrity: sha512-/fKEY8fO1nbszfrBatzmhJa1nEwIKn0c6Tv2A1ocSA5OiD2GukOIV8nnBbvJRgZb/VIoBy9/N4PVbABI8YQLow==}
+  '@tanstack/query-core@5.75.4':
+    resolution: {integrity: sha512-pcqOUgWG9oGlzkfRQQMMsEFmtQu0wq81A414CtELZGq+ztVwSTAaoB3AZRAXQJs88LmNMk2YpUKuQbrvzNDyRg==}
 
-  '@tanstack/svelte-query@5.71.10':
-    resolution: {integrity: sha512-Awx4toc9rt8mdLpF9Ye05+KPgkrA+MZCk/Rbi7RRB329I6IQ6MJeuIevEBxiwqeTJZZz0Nm2w69p9FiCU8ce0w==}
+  '@tanstack/svelte-query@5.75.4':
+    resolution: {integrity: sha512-nHO7k9uTBFjC+HTTDMS2OdVfcimOgGT59CdgDJvbIziIyjv1/GutWhLUpot5j6OQ6b533ldivPmVPIjyTjkA7Q==}
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
 
@@ -1873,8 +1887,8 @@ packages:
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
-  maplibre-gl@5.3.0:
-    resolution: {integrity: sha512-qru6B6jHlDPR4Q9/P4W1zEPbPofR4wwYbrrjiHKWI7yLtyXmpJ1/G1KaIYDr5uNdFbPZ7uiZAWdqtfdNLmIhGg==}
+  maplibre-gl@5.6.0:
+    resolution: {integrity: sha512-7TuHMozUC4rlIp08bSsxCixFn18P24otrlZU/7UGCO5RufFTJadFzauTrvBHr9FB67MbJ6nvFXEftGd0bUl4Iw==}
     engines: {node: '>=16.14.0', npm: '>=8.1.0'}
 
   math-intrinsics@1.1.0:
@@ -2525,6 +2539,11 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  svelecte@5.2.0:
+    resolution: {integrity: sha512-xLg32wrb8FMg5scyMjSHl9eETQaI2pH3XfgtmHfZZ7pdo+5IsE7/pPZrF9T0AzTNhZHfbp23AJTqUeIkMTqDgA==}
+    peerDependencies:
+      svelte: ^5.2.7
+
   svelte-carousel@1.0.25:
     resolution: {integrity: sha512-vR/AbGYwlh3fgWaB5PJg+iqZFvoVCJq4JWdmlXvPtdG9TLlKJWBcoiKlMZt3MnFF7AqNW46tOH/O+uVMWQzyWQ==}
 
@@ -3165,6 +3184,10 @@ snapshots:
 
   '@lix-js/server-protocol-schema@0.1.1': {}
 
+  '@lucide/svelte@0.511.0(svelte@5.25.7)':
+    dependencies:
+      svelte: 5.25.7
+
   '@mapbox/geojson-rewind@0.5.2':
     dependencies:
       get-stream: 6.0.1
@@ -3184,7 +3207,7 @@ snapshots:
 
   '@mapbox/whoots-js@3.1.0': {}
 
-  '@maplibre/maplibre-gl-style-spec@23.1.0':
+  '@maplibre/maplibre-gl-style-spec@23.3.0':
     dependencies:
       '@mapbox/jsonlint-lines-primitives': 2.0.2
       '@mapbox/unitbezier': 0.0.1
@@ -3400,11 +3423,11 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.17
 
-  '@tanstack/query-core@5.71.10': {}
+  '@tanstack/query-core@5.75.4': {}
 
-  '@tanstack/svelte-query@5.71.10(svelte@5.25.7)':
+  '@tanstack/svelte-query@5.75.4(svelte@5.25.7)':
     dependencies:
-      '@tanstack/query-core': 5.71.10
+      '@tanstack/query-core': 5.75.4
       svelte: 5.25.7
 
   '@tinymce/tinymce-svelte@2.0.2':
@@ -4611,7 +4634,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  maplibre-gl@5.3.0:
+  maplibre-gl@5.6.0:
     dependencies:
       '@mapbox/geojson-rewind': 0.5.2
       '@mapbox/jsonlint-lines-primitives': 2.0.2
@@ -4620,7 +4643,7 @@ snapshots:
       '@mapbox/unitbezier': 0.0.1
       '@mapbox/vector-tile': 1.3.1
       '@mapbox/whoots-js': 3.1.0
-      '@maplibre/maplibre-gl-style-spec': 23.1.0
+      '@maplibre/maplibre-gl-style-spec': 23.3.0
       '@types/geojson': 7946.0.16
       '@types/geojson-vt': 3.2.5
       '@types/mapbox__point-geometry': 0.1.4
@@ -5245,6 +5268,10 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
+  svelecte@5.2.0(svelte@5.25.7):
+    dependencies:
+      svelte: 5.25.7
+
   svelte-carousel@1.0.25:
     dependencies:
       easy-reactive: 1.0.4
@@ -5296,7 +5323,7 @@ snapshots:
       d3-geo: 3.1.1
       dequal: 2.0.3
       just-compare: 2.3.0
-      maplibre-gl: 5.3.0
+      maplibre-gl: 5.6.0
       pmtiles: 3.2.1
       svelte: 5.25.7
 

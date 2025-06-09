@@ -22,7 +22,7 @@
 		term: string,
 		communes: string[]
 	) {
-		let typeSlug = entry.types[0].slug;
+		let typeSlug = entry.effector_type.slug;
 		let facilitySlug = entry.facility.slug;
 		let nameSlug = entry.slug;
 		let facilityParam = facility ? `&facility=${encodeURIComponent(facility)}` : '';
@@ -67,7 +67,7 @@
 			<p class="text-xs">{entry.effector_uid}</p>
 			{/if}
 			-->
-			<h4 class="h4"><i>{entry.types.map((type) => type.label)}</i></h4>
+			<h4 class="h4"><i>{entry.effector_type.label}</i></h4>
 
 			{#if entry.phones?.length}
 				<Phones data={entry.phones} />

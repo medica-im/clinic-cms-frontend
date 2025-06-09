@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
 	import * as m from "$msgs";	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import et3p from '$lib/assets/pdf/et3p/msa_education_therapeutique_patient_polypathologique.pdf';
 	import crozetEtAl2017 from '$lib/assets/pdf/et3p/crozet_et_al_2017.pdf';
@@ -30,7 +30,7 @@
 <svelte:head>
 	<title>
 		Polypathologie - {capitalizeFirstLetter(m.OUTPATIENT_CLINIC_TPE())} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name
+			$organizationStore.formatted_name
 		)}
 	</title>
 </svelte:head>

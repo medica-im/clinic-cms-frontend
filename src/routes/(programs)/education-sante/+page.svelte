@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import { page } from '$app/stores';
 	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
 	import { programsNavLinks } from "$var/variables.ts";
@@ -10,7 +10,7 @@
 <svelte:head>
 	<title>
 		{capitalizeFirstLetter(m.HEALTH_EDUCATION())} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>

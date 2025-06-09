@@ -2,7 +2,7 @@
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import LegalEntity from '../../lib/components/LegalEntity/LegalEntity.svelte';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
 	import Address from '$lib/Address/Address.svelte';
 	import Fa from 'svelte-fa';
 	import {
@@ -15,7 +15,7 @@
 <svelte:head>
 	<title>
 		{capitalizeFirstLetter(m.LEGAL_NOTICES(), $language)} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>
@@ -44,7 +44,7 @@
 								</div>
 								<div class="grow ml-6">
 									<p class="font-bold mb-1">Informations légales</p>
-									<LegalEntity data={$facilityStore?.legal_entity}/>
+									<LegalEntity data={$organizationStore?.legal_entity}/>
 								</div>
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 								</div>
 								<div class="grow ml-6">
 									<p class="font-bold mb-1">Siège social</p>
-									<Address data={$facilityStore.contact} />
+									<Address data={$organizationStore.contact} />
 								</div>
 							</div>
 						</div>

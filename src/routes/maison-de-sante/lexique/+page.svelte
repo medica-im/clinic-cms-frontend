@@ -2,14 +2,14 @@
 	import dict from '$lib/components/TooltipDefinition/lexicon.js';
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import { removeSpaces } from '$lib/helpers/stringHelpers';
 </script>
 
 <svelte:head>
 	<title>
 		{capitalizeFirstLetter(m.LEXICON(), $language)} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>

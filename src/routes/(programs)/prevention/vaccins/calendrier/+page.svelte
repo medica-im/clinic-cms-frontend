@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import * as m from "$msgs";	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
+	import * as m from "$msgs";
+	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
 	import { Fa } from 'svelte-fa';
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 </script>
@@ -9,7 +10,7 @@
 <svelte:head>
 	<title>
 		Calendrier des vaccinations - {capitalizeFirstLetter(m.PREVENTIVE_HEALTHCARE())} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name
+			$organizationStore.formatted_name
 		)}
 	</title>
 </svelte:head>

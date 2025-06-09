@@ -67,9 +67,11 @@
 					{/if}
 				</span>
 			</div>
+			{#if entries}
 			<div>
 				<Directory data={entries} typesView={true} propSelectFacility={data.uid} displayEntries={false} />
 			</div>
+			{/if}
 		</div>
 		<div class="mx-2 p-1 h-64 lg:w-full z-0">
 			<Map data={createFacilitiesMapData([data])} />

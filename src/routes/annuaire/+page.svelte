@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import * as m from "$msgs";
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore';
@@ -18,7 +18,7 @@
 	{/if}
 
 	<title>
-		Annuaire - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		Annuaire - {capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <div>

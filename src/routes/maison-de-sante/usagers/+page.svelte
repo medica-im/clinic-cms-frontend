@@ -2,7 +2,7 @@
 <script lang="ts">
     import Email from '$lib/Email/Email.svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
     import { PUBLIC_BLOG_URI } from '$env/static/public';
 	import calendrierSimplifieVaccinationsPdf2024 from '$lib/assets/pdf/vaccines/calendrier_simplifie_des_vaccinations_2024.pdf';
 	import { Fa } from 'svelte-fa';
@@ -12,7 +12,7 @@
 <svelte:head>
 	<title>
 		Usagers - {capitalizeFirstLetter(
-			$facilityStore.formatted_name
+			$organizationStore.formatted_name
 		)}
 	</title>
 </svelte:head>

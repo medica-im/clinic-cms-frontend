@@ -2,7 +2,7 @@
 	import * as m from "$msgs";	import { modeCurrent } from '@skeletonlabs/skeleton';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
 	import Fa from 'svelte-fa';
 	import { faCheck, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
@@ -28,7 +28,7 @@
 <svelte:head>
 	<title>
 		Parcours de soins - {capitalizeFirstLetter(m.HEALTH_SERVICES(), $language)} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
+			$organizationStore.formatted_name,
 			$language
 		)}
 	</title>

@@ -1,5 +1,6 @@
 import type { MapData } from '$lib/interfaces/mapData.interface.ts';
 import type { Facility, Address } from '$lib/interfaces/facility.interface.ts';
+import type { Facility as Facility2 } from '$lib/interfaces/v2/facility.ts';
 
 export const createMapData = (address: Address, facilityName: string) => {
     const mapData: MapData[] = [
@@ -16,6 +17,23 @@ export const createMapData = (address: Address, facilityName: string) => {
     ];
     return mapData;
 };
+
+export const createMapData2 = (facility: Facility2) => {
+    const mapData: MapData[] = [
+        {
+        latLng: [Number(facility?.location?.latitude ?? 0), Number(facility?.location?.longitude ?? 0)],
+        zoom: facility?.zoom ?? 0,
+        tooltip: {
+            text: facility.name,
+            permanent: false,
+            direction: "auto",
+            opacity: 0.7
+        }
+        }
+    ];
+    return mapData;
+};
+
 
 export const createFacilitiesMapData = (facilities: Facility[], tooltip=false) => {
     const points: MapData[] = [];

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/organizationStore';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
@@ -20,7 +20,7 @@
 		{capitalizeFirstLetter(m.APNEA(), $language)} - {capitalizeFirstLetter(
 			m.PREVENTIVE_HEALTHCARE(),
 			$language
-		)} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		)} - {capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 

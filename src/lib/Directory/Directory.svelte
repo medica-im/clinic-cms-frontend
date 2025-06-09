@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants.ts';
-	import { facilityStore } from '$lib/store/facilityStore.ts';
+	import { organizationStore } from '$lib/store/facilityStore.ts';
 	import {
 		categorizedFilteredEffectors,
 		selectSituation,
@@ -40,14 +40,6 @@
 	export let setLimitCategories:string[] = [];
 	export let avatar: boolean = true;
 
-	function checkCategory(cat, fullEffectors) {
-        return fullEffectors.some(
-			(e) => {
-                return e.types.map((t)=>t.slug).some((e)=>cat.includes(e))
-			}
-		)
-	};
-
 	$: {
 	$currentOrg=setCurrentOrg;
 	$directoryRedirect=setRedirect;
@@ -78,7 +70,7 @@
 
 <svelte:head>
 	<title>
-		{m.ADDRESSBOOK_TITLE()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{m.ADDRESSBOOK_TITLE()} - {capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 

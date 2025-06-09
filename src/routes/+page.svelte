@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 	import { Welcome } from '$lib';
     import { Team } from '$lib';
 	import { Ghost } from '$lib';
@@ -24,7 +24,7 @@
 	{/if}
 
 	<title>
-		{capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		{capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 
@@ -32,7 +32,7 @@
 <header id="hero" class="bg-surface-100-800-token hero-gradient">
 	<div class="mx-0 flex flex-col items-center justify-center p-4 py-6 space-y-2">
 		<div class="">
-			<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
+			<Welcome formattedNameDefiniteArticle={$organizationStore.formatted_name_definite_article} />
 		</div>
 		<div class="">
 			Votre <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a> à Châteauneuf-de-Gadagne.

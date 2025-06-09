@@ -62,10 +62,11 @@ export interface Entry {
     label: string,
     name: string,
     organizations: string[],
+    employers: string[],
     phones: Phone[],
     resource_uri: string,
     slug: string,
-    types: Type[],
+    effector_type: Type,
     uid: string,
     updatedAt: number
 }

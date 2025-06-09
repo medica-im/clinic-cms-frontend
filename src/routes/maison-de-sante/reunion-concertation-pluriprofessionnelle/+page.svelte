@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import { organizationStore } from '$lib/store/facilityStore';
 </script>
 
 <svelte:head>
@@ -9,7 +9,7 @@
 		{capitalizeFirstLetter(
 			m.OUTPATIENT_CLINIC_MDT_MEETING(),
 			$language
-		)} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
+		)} - {capitalizeFirstLetter($organizationStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 

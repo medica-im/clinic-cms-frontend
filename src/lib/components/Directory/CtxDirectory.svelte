@@ -29,7 +29,7 @@
 		setInputAddress
 	} from './context';
 	import { variables } from '$lib/utils/constants.ts';
-	import { facilityStore, getFacilities } from '$lib/store/facilityStore.ts';
+	import { organizationStore, getFacilities } from '$lib/store/facilityStore.ts';
 	import {
 		distanceEffectorsF,
 		fullFilteredEffectorsF,
@@ -92,13 +92,13 @@
 	});
 
 	const fullFilteredEffectors = asyncDerived(
-		[term, selectSituation, distanceEffectors, currentOrg, facilityStore, limitCategories],
+		[term, selectSituation, distanceEffectors, currentOrg, organizationStore, limitCategories],
 		async ([
 			$term,
 			$selectSituation,
 			$distanceEffectors,
 			$currentOrg,
-			$facilityStore,
+			$organizationStore,
 			$limitCategories
 		]) => {
 			return await fullFilteredEffectorsF(
@@ -106,7 +106,7 @@
 				$selectSituation,
 				$distanceEffectors,
 				$currentOrg,
-				$facilityStore,
+				$organizationStore,
 				$limitCategories
 			);
 		}
