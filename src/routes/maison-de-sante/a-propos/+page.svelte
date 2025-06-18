@@ -52,7 +52,7 @@
 		<p>Les professionnels de santé d'une MSP exercent à titre libéral.</p>
 		<p>
 			Une Maison de Santé Pluriprofessionnelle est une forme particulière d’<Def
-				w="Équipe de soins primaires"
+				w="équipe de soins primaires"
 			/>. Il s’agit d’une organisation créée par les professionnels de santé eux-mêmes, en
 			s’appuyant sur les relations existantes: les professionnels de santé {$facilityStore.city
 				.from_label} échangeaient déjà avant de créer la MSP!

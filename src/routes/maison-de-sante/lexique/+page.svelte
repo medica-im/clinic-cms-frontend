@@ -1,6 +1,7 @@
 <script lang="ts">
 	import dict from '$lib/components/TooltipDefinition/lexicon.js';
-	import * as m from "$msgs";	import { language } from '$lib/store/languageStore';
+	import * as m from "$msgs";
+	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
 	import { removeSpaces } from '$lib/helpers/stringHelpers';
@@ -25,7 +26,7 @@
 		<div class="section-container">
 			<dl class="list-none space-y-2">
 				{#each Object.keys(dict) as k}
-					<dt id={removeSpaces(k)}>{k}</dt>
+					<dt id={removeSpaces(k)}>{capitalizeFirstLetter(k, $language)}</dt>
 					<dd>
 						{#if dict[k][0] in dict}Voir <a href="#{removeSpaces(dict[k][0])}">{dict[k][0]}</a
 							>{:else}{dict[k][0]}{#if dict[k][1]}<br />{dict[k][1]}{/if}{/if}

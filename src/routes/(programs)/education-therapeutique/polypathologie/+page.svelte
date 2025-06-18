@@ -18,6 +18,7 @@
 	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
 	import EntryContact from '$lib/components/Entry/EntryContact.svelte';
 	import { programsNavLinks } from "$var/variables.ts";
+	import Def from '$lib/components/TooltipDefinition/Def.svelte';
 
 	export let data;
 	const mobileWidth: number = 1440;
@@ -102,6 +103,7 @@
 				<li>bronchite chronique (BPCO)</li>
 			</ul>
 		</div>
+		<p>Toutes les personnes bénéficiant d'une prise en charge en <Def w="affection de longue durée"/>(ALD) pour une de ces maladies peuvent s'inscrire aux ateliers, même si elles sont suivies par un médecin traitant qui ne fait pas partie de {page.data.organization.formatted_name_definite_article}.</p>
 	</div>
 </section>
 
