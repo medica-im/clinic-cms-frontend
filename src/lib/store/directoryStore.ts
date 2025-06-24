@@ -12,6 +12,7 @@ import type { Contact, Entry, CurrentOrg, CurrentOrgStore, LimitCategoriesStore,
 import type { Facility } from '$lib/interfaces/facility.interface.ts';
 import type { Tastypie } from '$lib/interfaces/api.interface.ts';
 import type { CustomError } from '$lib/interfaces/error.interface.ts';
+import type { Organization } from '$lib/interfaces/organization.ts';
 
 export const term: Writable<string> = writable("");
 export const selectCommunes: Writable<string[]> = writable([]);
@@ -438,7 +439,7 @@ function compareEffectorDistance(a, b, distEffectors) {
 	}
 }
 
-export const fullFilteredEffectorsF = async (term: string, selectSituation: string, distanceEffectors: DistanceEffectors | null, currentOrg: Boolean | null, organizationStore: Facility, limitCategories: String[]) => {
+export const fullFilteredEffectorsF = async (term: string, selectSituation: string, distanceEffectors: DistanceEffectors | null, currentOrg: Boolean | null, organizationStore: Organization, limitCategories: String[]) => {
 	const entries: Entry[] = await getEntries();
 	if (
 		selectSituation == ''
@@ -458,9 +459,9 @@ export const fullFilteredEffectorsF = async (term: string, selectSituation: stri
 			}
 		}).filter(function (x) {
 			if (currentOrg == true) {
-				return x.organizations.includes(organizationStore.uid) || x.employers.includes(organizationStore.uid)
+				return x.organizations?.includes(organizationStore.uid) || x.employers?.includes(organizationStore.uid)
 			} else if (currentOrg == false) {
-				return !x.organizations.includes(organizationStore.uid) && !x.employers.includes(organizationStore.uid)
+				return !x.organizations?.includes(organizationStore.uid) && !x.employers?.includes(organizationStore.uid)
 			} else {
 				return true
 			}
@@ -623,7 +624,12 @@ export const cardinalCategorizedFilteredEffectorsF = async (categorizedFilteredE
 				if (countF > countM) {
 					label = eTL[type.uid]['P']['F']
 				} else {
-					label = eTL[type.uid]['P']['M']
+					try {
+					    label = eTL[type.uid]['P']['M']
+					} catch (error) {
+						console.error(error);
+						console.error(key);
+					}
 				}
 			} else {
 				if (countF > countM) {
@@ -652,9 +658,9 @@ const categorizedEffectors = asyncDerived(
 		const entries: Entry[] = unfilteredEntries.filter(
 			function (x) {
 				if ($currentOrg == true) {
-					return x.organizations.includes($organizationStore.uid) || x.employers.includes($organizationStore.uid)
+					return x.organizations?.includes($organizationStore.uid) || x.employers?.includes($organizationStore.uid)
 				} else if ($currentOrg == false) {
-					return !x.organizations.includes($organizationStore.uid) && !x.employers.includes($organizationStore.uid)
+					return !x.organizations?.includes($organizationStore.uid) && !x.employers?.includes($organizationStore.uid)
 				} else {
 					return true
 				}

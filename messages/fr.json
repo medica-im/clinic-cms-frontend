@@ -109,5 +109,16 @@
   "AND": "et",
   "SKELETON_AUTOCOMPLETE_EMPTY_STATE": "Aucun résultat trouvé",
   "CANCEL": "Annuler",
-  "ERROR": "Erreur"
+  "ERROR": "Erreur",
+  "RESET": "Réinitialiser",
+  "RESET_PASSWORD": "Réinitialiser votre mot de passe",
+  "RESET_SUCCESSFUL": "L’email de réinitialisation du mot de passe a été envoyé.",
+  "CHANGE_PASSWORD": "Changer la phrase de passe",
+  "CONFIRM_PASSWORD": "Confirmer la phrase de passe",
+  "ENTER_PASSWORD": "Entrer la phrase de passe",
+  "SET_NEW_PASSWORD": "Définir la nouvelle phrase de passe",
+  "CHANGE_PASSWORD_SUCCESS": "Mot de passe changé avec succès!",
+  "PASSWORD_FORGOTTEN": "Mot de passe oublié?",
+  "CHARACTER_SINGULAR": "caractère",
+  "CHARACTER_PLURAL": "caractères"
 }

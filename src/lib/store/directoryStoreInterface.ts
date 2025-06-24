@@ -13,18 +13,16 @@ export interface Situation {
 }
 
 export interface Address {
-    building: string | null,
-    city: string,
-    country: string,
-    facility_uid: string,
-    geographical_complement: string | null
-    id: number,
-    latitude: string | null,
-    longitude: string | null,
-    state: string | null,
-    street: string | null
-    zip: string | null,
-    zoom: number | null,
+    building: string | null;
+    city: string;
+    country: string;
+    facility_uid: string;
+    geographical_complement: string | null;
+    latitude: string | null;
+    longitude: string | null;
+    street: string | null;
+    zip: string | null;
+    zoom: number | null;
     tooltip_direction: string | null;
     tooltip_permanent?: boolean | null;
     tooltip_text?: string | null;

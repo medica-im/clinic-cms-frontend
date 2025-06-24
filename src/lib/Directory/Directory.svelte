@@ -15,7 +15,7 @@
 	import * as m from "$msgs";	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { language } from '$lib/store/languageStore.ts';
 	import SearchDirectory from '$lib/Directory/SearchDirectory.svelte';
-	import Effector from '$lib/Directory/Effector.svelte';
+	import Entry from '$lib/components/Directory/Entry.svelte';
 	import SelectCommunes from './SelectCommunes.svelte';
 	import SelectCategories from './SelectCategories.svelte';
 	import SelectCategoriesChips from './SelectCategoriesChips.svelte';
@@ -152,9 +152,9 @@
 									</div>
 								</div>
 								<div class="grid lg:grid-cols-2 gap-4">
-									{#each value as effector}
+									{#each value as entry}
 										<div class="space-y-4 my-4">
-											<Effector {effector} {avatar} />
+											<Entry {entry} {avatar} />
 										</div>
 									{/each}
 								</div>
@@ -187,9 +187,9 @@
 								</div>
 							</div>
 							<div class="grid lg:grid-cols-2 gap-4">
-								{#each value as effector}
+								{#each value as entry}
 									<div class="space-y-4 my-4">
-										<Effector {effector} {avatar} />
+										<Entry {entry} {avatar} />
 									</div>
 								{/each}
 							</div>

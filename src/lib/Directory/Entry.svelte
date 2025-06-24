@@ -6,13 +6,13 @@
 	import { page } from '$app/stores';
 	import type { Entry } from '$lib/store/directoryStoreInterface.ts';
 
-	export let effector: Entry;
+	export let entry: Entry;
 	export let avatar: boolean;
 
 	function effectorPageUrl(pathname: string) {
-		let typeSlug = effector.effector_type.slug;
-		let facilitySlug = effector.facility.slug;
-		let nameSlug = effector.slug;
+		let typeSlug = entry.effector_type.slug;
+		let facilitySlug = entry.facility.slug;
+		let nameSlug = entry.slug;
 		return `/${facilitySlug}/${typeSlug}/${nameSlug}?origin=${encodeURIComponent(pathname)}`;
 	}
 
@@ -33,36 +33,28 @@
 		{#if avatar == true}
 			<div class="p-4 lg:p-0">
 				<a class="unstyled" href={effectorPageUrl($page.url.pathname)}>
-					<AvatarList data={effector} />
+					<AvatarList data={entry} />
 				</a>
 			</div>
 		{/if}
 		<div class="p-4 space-y-1">
 			<a class="unstyled" href={effectorPageUrl($page.url.pathname)}>
-				<h3 class="h3">{effector.name}</h3>
+				<h3 class="h3">{entry.name}</h3>
 			</a>
 
 			{#if import.meta.env.VITE_DEV == 'true'}
-				<p class="text-xs">{effector.effector_uid}</p>
+				<p class="text-xs">{entry.effector_uid}</p>
 			{/if}
 
-			<h4 class="h4"><i>{effector.effector_type.label}</i></h4>
+			<h4 class="h4"><i>{entry.effector_type.label}</i></h4>
 
-			{#if effector.phones?.length}
-				<Phones data={effector.phones} />
+			{#if entry.phones?.length}
+				<Phones data={entry.phones} />
 			{/if}
 			<div class="space-y-1">
-				{#if effector.facility}
-					<div><FacilityLink data={effector.facility} /></div>
+				{#if entry.facility}
+					<div><FacilityLink data={entry.facility} /></div>
 				{/if}
-				<!--
-				{#if effector.address}
-					<div><Address data={effector.address} /></div>
-				{/if}
-				{#if effector.other_addresses?.length}
-					<div><Addresses data={effector.other_addresses} /></div>
-				{/if}
-				-->
 			</div>
 		</div>
 	</div>

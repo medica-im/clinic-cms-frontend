@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import FileJson from '@lucide/svelte/icons/file-json';
 	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
@@ -12,6 +13,7 @@
 
 	export let data: Facility;
 	export let entries = null;
+	export let showEffectors = false;
 
 	const createFacilityGeoData = (facility: Facility) => {
 		let facilityGeoData = {
@@ -25,6 +27,7 @@
 </script>
 
 <div id="{data.name}_anchor" class="card variant-soft p-4 space-y-4 lg:scroll-mt-12">
+	{#if page.data.user?.role.name == 'superuser'}
 	<div class="card variant-ringed">
 		<Accordion>
 			<AccordionItem>
@@ -34,6 +37,7 @@
 			</AccordionItem>
 		</Accordion>
 	</div>
+	{/if}
 	<div class="variant-ringed grid grid-cols-1 md:grid-cols-2 p-4">
 		<div class="overflow-hidden m-1 p-1">
 			<!-- Header -->
@@ -43,58 +47,58 @@
 			<!-- Body -->
 			<div class="p-2 space-y-2">
 				<div class="flex items-center text-wrap space-x-2">
-					<span class="badge variant-filled">Nom</span>
-					<h4 class="h4">
+					<!--span class="badge variant-filled">Nom</span-->
+					<h6 class="h6">
 						<a href="/sites/{data.slug}" class="anchor" data-sveltekit-preload-data="hover"
 							>{data.name}</a
 						>
-					</h4>
+					</h6>
 				</div>
-				<div class="flex items-center space-x-2">
+				<!--div class="flex items-center space-x-2">
 					<span class="badge variant-filled">Label</span>
 					<h4 class="h4">{data.label}</h4>
-				</div>
+				</div-->
+				{#if data.building}
 				<div class="flex flex-wrap space-x-2">
 					<span class="badge variant-filled">Bâtiment</span>
 					<div>{data.building || '∅'}</div>
 				</div>
+				{/if}
 				<div class="flex flex-wrap space-x-2">
-					<span class="badge variant-filled">Rue</span><span>{data?.street}</span>
+					<!--span class="badge variant-filled">Rue</span-->
+					<span>{data?.street}</span>
 				</div>
+				{#if data.geographical_complement}
 				<div class="flex flex-wrap space-x-2">
 					<span class="badge variant-filled">Complément géographique</span>
-					<div>{data.building || '∅'}</div>
+					<div>{data.geographical_complement || '∅'}</div>
+				</div>
+				{/if}
+				<div class="flex flex-wrap space-x-2">
+					<!--span class="badge variant-filled">Code postal</span--><span>{data?.zip}</span>
 				</div>
 				<div class="flex flex-wrap space-x-2">
-					<span class="badge variant-filled">Code postal</span><span>{data?.zip}</span>
-				</div>
-				<div class="flex flex-wrap space-x-2">
-					<span class="badge variant-filled">Commune</span>
+					<!--span class="badge variant-filled">Commune</span-->
 					<div>{data?.commune.name_fr || '∅'}</div>
 				</div>
 				<div class="flex flex-wrap space-x-2">
-					<span class="badge variant-filled">Département</span>
+					<!--span class="badge variant-filled">Département</span-->
 					<div>{data?.commune.department.name || '∅'}</div>
 				</div>
-				<div class="flex flex-wrap space-x-2">
+				<!--div class="flex flex-wrap space-x-2">
 					<span class="badge variant-filled">Latitude</span>
 					<div>{data?.location?.latitude || '∅'}</div>
 					<span class="badge variant-filled">Longitude</span>
 					<div>{data?.location?.longitude || '∅'}</div>
 					<span class="badge variant-filled">Zoom</span>
 					<div>{data?.zoom || '∅'}</div>
-				</div>
+				</div-->
+				{#if showEffectors}
 				<p class="space-x-2">
-					<span class="badge variant-filled">Effecteurs</span><span
+					<span class="badge variant-ghost">Personnes</span><span
 						>{data?.effectors?.join(', ') || '∅'}</span
 					>
 				</p>
-			</div>
-			<div>
-				{#if browser}
-					{#if isMobile(window)}
-						<Navigation geoData={createFacilityGeoData(data)} />
-					{/if}
 				{/if}
 			</div>
 			{#if entries}

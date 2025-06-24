@@ -54,6 +54,9 @@
 	"NAVBAR_GO_HOME": "Go to homepage",
 	"NAVBAR_THEME": "Theme",
 	"LOGIN": "Login",
+	"RESET": "Reset",
+	"RESET_PASSWORD": "Reset your password",
+	"RESET_SUCCESSFUL": "Password reset e-mail has been sent.",
 	"TOLOGIN": "Login",
 	"NOACCOUNT": "No account yet?",
 	"SIGNINGIN": "Signing in...",
@@ -69,6 +72,12 @@
 	"ERROR404_BACK": "Go back",
 	"EMAILADDRESS": "Email address",
 	"PASSWORD": "Password",
+	"CHANGE_PASSWORD": "Change password",
+	"CONFIRM_PASSWORD": "Confirm password",
+	"ENTER_PASSWORD": "Enter password",
+	"SET_NEW_PASSWORD": "Set new password",
+	"CHANGE_PASSWORD_SUCCESS": "Password successfully changed!",
+	"PASSWORD_FORGOTTEN": "Forgot your password?",
 	"TIMELINE_TITLE": "Timeline",
 	"USER_PROFILE": "{userName} profile",
 	"USER_ROLE": "Role",
@@ -108,5 +117,7 @@
 	"YES": "yes",
 	"NO": "no",
 	"AND": "and",
-	"SKELETON_AUTOCOMPLETE_EMPTY_STATE": "No results found"
+	"SKELETON_AUTOCOMPLETE_EMPTY_STATE": "No results found",
+	"CHARACTER_SINGULAR": "character",
+	"CHARACTER_PLURAL": "characters"
 }

@@ -76,14 +76,6 @@
 				{#if entry.facility}
 					<div><FacilityLink data={entry.facility} /></div>
 				{/if}
-				<!--
-				{#if entry.address}
-					<div><Address data={entry.address} /></div>
-				{/if}
-				{#if entry.other_addresses?.length}
-					<div><Addresses data={entry.other_addresses} /></div>
-				{/if}
-				-->
 			</div>
 		</div>
 	</div>

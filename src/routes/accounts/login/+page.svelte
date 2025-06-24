@@ -89,23 +89,18 @@
 					<p>{errors}</p>
 				{/if}
 				<input
-					class="input"
+					class="input {emailWarn ? 'input-error':''}"
 					type="email"
 					bind:value={email}
-					hideLabel
-					labelText={m.EMAILADDRESS()}
 					placeholder="{m.EMAILADDRESS()}..."
 					required
-					warn={emailWarn}
 				/>
 				<input
-					class="input"
+					class="input {passwordWarn ? 'input-error':''}"
 					bind:value={password}
 					required
 					type="password"
-					labelText={m.PASSWORD()}
 					placeholder="{m.PASSWORD()}..."
-					warn={passwordWarn}
 				/>
 				<button
 					class="btn bg-primary-500"
@@ -115,6 +110,7 @@
 						submitButtonInnerHTML = m.SIGNINGIN();
 					}}>{submitButtonInnerHTML}</button
 				>
+				<p><a class="anchor" href="/accounts/reset">{m.PASSWORD_FORGOTTEN()}</a></p>
 			</form>
 		</div>
 	</section>

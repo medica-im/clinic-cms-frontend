@@ -12,7 +12,6 @@ export interface Address {
     id: number,
     latitude: string|null,
     longitude: string|null,
-    state: string|null,
     street: string|null
     zip: string|null,
     zoom: number|null,

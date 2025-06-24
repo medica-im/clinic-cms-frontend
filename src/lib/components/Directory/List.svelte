@@ -1,6 +1,6 @@
 <script lang="ts">
   	import Spinner from '$lib/Spinner/Spinner.svelte';
-    import Effector from '$lib/components/Directory/Effector.svelte';
+    import Entry from '$lib/components/Directory/Entry.svelte';
 	import Clear from '$lib/components/Directory/Clear.svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 
@@ -42,7 +42,7 @@
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-8 space-y-4">
             {#each value as entry}
-                <Effector {entry} {avatar} />
+                <Entry {entry} {avatar} />
             {/each}
         </div>
     {/each}
