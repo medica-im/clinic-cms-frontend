@@ -81,7 +81,7 @@
 	.hero-gradient {
 		background-image:
 			radial-gradient(at 0% 0%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%),
-			radial-gradient(at 98% 1%, rgba(var(--color-error-500) / 0.33) 0px, transparent 50%);
+			radial-gradient(at 98% 1%, rgba(var(--color-secondary-500) / 0.33) 0px, transparent 50%);
 	}
 	/* SvelteKit Gradient */
 	/* prettier-ignore */
@@ -93,7 +93,7 @@
 	/* prettier-ignore */
 	.facility-gradient {
 		background-image:
-		radial-gradient(at 0% 99%, rgba(var(--color-error-500) / 0.23) 0px, transparent 50%),
+		radial-gradient(at 0% 99%, rgba(var(--color-secondary-500) / 0.23) 0px, transparent 50%),
 		radial-gradient(at 100% 100%, rgba(var(--color-primary-500) / 0.19) 0px, transparent 50%);
 	}
 
