@@ -13,6 +13,7 @@
 	import type { PageData } from './$types';
 	import LDTag from '$lib/Schema/LDTag.svelte';
 	import { Facility } from '$lib';
+	import AlertCanicule from './(programs)/prevention/canicule/Alert.svelte';
 
     let { data, form } = $props();
 </script>
@@ -37,6 +38,9 @@
 		<div class="">
 			Votre <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a> à Châteauneuf-de-Gadagne.
 		</div>
+	</div>
+	<div class="md:w-2/3 mx-auto">
+		<AlertCanicule />
 	</div>
 </header>
 <!-- team -->

@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { currentOrg, limitCategories } from '$lib/store/directoryStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import * as m from '$msgs';
 	import ProgramNav from '$lib/ProgramNav/ProgramNav.svelte';
-	import vaccines2024h from '$lib/assets/images/vaccines/vaccination_schedule_2024_horizontal.png';
-	import calendrierSimplifieVaccinationsJpg2024 from '$lib/assets/images/vaccines/calendrier_simplifie_des_vaccinations_2024.jpg';
 	import buvezEau from '$lib/assets/images/canicule/buvez-eau.png';
 	import mouillezCorps from '$lib/assets/images/canicule/mouillez-corps.png';
 	import restezAuFrais from '$lib/assets/images/canicule/restez-au-frais.png';
@@ -15,48 +12,19 @@
 	import mangezFraixEquilibre from '$lib/assets/images/canicule/mangez-frais-equilibre.png';
 	import evitezAlcool from '$lib/assets/images/canicule/evitez-alcool.png';
 	import prenezNouvellesFragiles from '$lib/assets/images/canicule/prenez-nouvelles-fragiles.png';
-
-	import Directory from '$lib/components/Directory/CtxDirectory.svelte';
-	import { Fa, FaLayers } from 'svelte-fa';
-	import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
+	import { Fa } from 'svelte-fa';
 	import {
 		faHouseMedicalCircleExclamation,
 		faTemperatureHigh,
 		faCalendarDays,
-		faFilePdf,
-		faImage,
 		faMoon,
 		faSun,
-		faHouse,
-		faTimes,
-		faTimeline,
-		faBookMedical,
-		faHouseMedical,
-		faUserNurse,
-		faPrescriptionBottleMedical,
-		faMapLocationDot,
-		faAddressBook,
-		faEnvelope,
-		faBlog,
-		faUserPlus,
-		faUser,
-		faCircleNodes,
-		faMapPin,
-		faNetworkWired,
-		faHandshake,
-		faPeopleGroup,
-		faArrowRight,
-		faDownload,
 		faTriangleExclamation,
 		faSms,
 		faMobile,
 	} from '@fortawesome/free-solid-svg-icons';
 	import { programsNavLinks } from '$var/variables.ts';
 	import Phone from '$lib/Directory/Phone.svelte';
-	import SMS from '$lib/Directory/SMS.svelte';
-
-	export let data;
-	const mobileWidth: number = 1440;
 
 	const cardData = [
 		{
