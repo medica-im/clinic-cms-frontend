@@ -198,6 +198,14 @@ export const programsNavLinks: ProgramsNavLinks = {
                 icon: null,
                 category: 'program',
                 active: false
+            },
+            {
+                href: '/prevention/canicule',
+                label: "Canicule",
+                keywords: 'canicule, pic, chaleur',
+                icon: null,
+                category: 'program',
+                active: true
             }
         ]
     }
