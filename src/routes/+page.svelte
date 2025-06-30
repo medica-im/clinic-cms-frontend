@@ -14,6 +14,7 @@
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import LDTag from '$components/Schema/LDTag.svelte';
 	import Alert from './(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
+    import AlertCanicule from './(programs)/prevention/canicule/Alert.svelte';
 
 	export let data;
 
@@ -44,6 +45,9 @@
 			</div>
 			<div class="md:w-2/3 mx-auto">
 				<Alert />
+			</div>
+			<div class="md:w-2/3 mx-auto">
+				<AlertCanicule />
 			</div>
 		</div>
 	</header>

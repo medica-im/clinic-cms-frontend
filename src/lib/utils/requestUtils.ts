@@ -14,7 +14,7 @@ import { setLocale } from '$i18n/i18n-svelte';
 import type { Locales } from '$i18n/i18n-types'
 import LL from '$i18n/i18n-svelte';
 import { toggleAuth } from '$lib/store/authStore';
-import type { User } from '$lib/interfaces/user.interface';
+import type { User } from '$lib/interfaces/user.interface.ts';
 
 export const browserGet = (key: string): string | undefined => {
 	if (browser) {
