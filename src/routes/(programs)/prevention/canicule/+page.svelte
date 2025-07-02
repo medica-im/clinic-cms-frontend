@@ -35,13 +35,13 @@
 		},
 		{
 			img: buvezEau,
-			alt: "Une carafe et un verre d'eau rempli",
+			alt: "Une carafe et un verre d'eau rempli.",
 			title: "Buvez de l'eau",
 			subtitle: "sans attendre d'avoir soif"
 		},
 		{
 			img: mouillezCorps,
-			alt: "Un vaporisateur d'eau",
+			alt: "Un vaporisateur d'eau.",
 			title: 'Mouillez-vous le corps',
 			subtitle: null
 		},
@@ -71,7 +71,7 @@
 		},
 		{
 			img: prenezNouvellesFragiles,
-			alt: "Smartphone envoyant un SMS.",
+			alt: "Envoi d'un SMS via un smartphone.",
 			title: 'Prenez des nouvelles des plus fragiles',
 			subtitle: null
 		}
@@ -212,6 +212,13 @@
 						rel="external"
 						class="anchor">Vigilance météo Vaucluse - Météo France</a
 					>
+				</li>
+				<li>
+					<a
+						href="https://www.vivre-avec-la-chaleur.fr/"
+						rel="external"
+						class="anchor">Vivre avec la chaleur</a
+					> Les gestes et astuces pour mieux vivre avec la chaleur
 				</li>
 			</ul>
 		</div>

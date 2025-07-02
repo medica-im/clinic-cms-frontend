@@ -6,8 +6,8 @@
 		faSun
 	} from '@fortawesome/free-solid-svg-icons';
 
-	const startEventDate = new Date('2025-06-30T06:03:00.000+02:00');
-	const stopEventDate = new Date('2025-07-02T00:00:00.000+02:00');
+	const startEventDate = new Date('2025-07-01T22:04:00.000+02:00');
+	const stopEventDate = new Date('2025-07-03T00:00:00.000+02:00');
 	let visible: boolean = (new Date().getTime() < stopEventDate.getTime());
 let startStr = new Intl.DateTimeFormat('fr-FR', {
     dateStyle: 'full',
