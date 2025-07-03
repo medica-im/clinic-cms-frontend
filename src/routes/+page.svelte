@@ -38,9 +38,9 @@
 		<div class="">
 			Votre <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a> à Châteauneuf-de-Gadagne.
 		</div>
-	</div>
-	<div class="md:w-2/3 mx-auto">
+		<div class="md:w-2/3 mx-auto">
 		<AlertCanicule />
+	    </div>
 	</div>
 </header>
 <!-- team -->
