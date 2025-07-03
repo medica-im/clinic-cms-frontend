@@ -3,7 +3,7 @@
 	import {
 		faArrowRight,
 		faXmark,
-		faSun
+		faTemperatureHigh
 	} from '@fortawesome/free-solid-svg-icons';
     import { PUBLIC_HEATWAVE_START_EVENT_DATE, PUBLIC_HEATWAVE_STOP_EVENT_DATE, PUBLIC_HEATWAVE_RISK_LEVEL_CODE } from '$env/static/public';
 
@@ -54,11 +54,11 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 		<aside class="alert variant-ghost-warning">
 			<!-- Icon -->
 			<div class="hidden lg:block">
-			<Fa icon={faSun} color={riskColor} size="3x" />
+			<Fa icon={faTemperatureHigh} color={riskColor} size="3x" />
 		</div>
 			<!-- Message -->
 			<div class="alert-message">
-				<h3 class="h3"><span class="inline-block lg:hidden px-2"><Fa icon={faSun}/></span>
+				<h3 class="h3"><span class="inline-block lg:hidden px-2"><Fa icon={faTemperatureHigh} color={riskColor}/></span>
 				Vigilance {riskName} canicule </h3>
 				<p>Vigilance météorologique canicule Vaucluse émise par Météo France le {startStr} valable jusqu'au {endStr}.</p>
 			</div>
@@ -68,9 +68,3 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 		</aside>
 </div>
 {/if}
-
-<style lang="postcss">
-	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-6 space-y-2 md:space-y-4;
-	}
-</style>
