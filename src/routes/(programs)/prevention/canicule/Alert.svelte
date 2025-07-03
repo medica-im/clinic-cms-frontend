@@ -1,15 +1,42 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import Icon from '$components/Icon/Icon.svelte';
 	import {
 		faArrowRight,
 		faXmark,
-		faSun
+		faTemperatureHigh
 	} from '@fortawesome/free-solid-svg-icons';
+    import { PUBLIC_HEATWAVE_START_EVENT_DATE, PUBLIC_HEATWAVE_STOP_EVENT_DATE, PUBLIC_HEATWAVE_RISK_LEVEL_CODE } from '$env/static/public';
 
-	const startEventDate = new Date('2025-07-01T22:04:00.000+02:00');
-	const stopEventDate = new Date('2025-07-03T00:00:00.000+02:00');
-	let visible: boolean = (new Date().getTime() < stopEventDate.getTime());
+    const riskCode: number = PUBLIC_HEATWAVE_RISK_LEVEL_CODE ? Number(PUBLIC_HEATWAVE_RISK_LEVEL_CODE) : 0;
+	interface Risk { name: string, color: string};
+	interface RiskDict {
+		[key: number]: Risk;
+	}
+    const risk: RiskDict = {
+		0: {
+			name:"vert",
+			color: "green",
+		},
+		1: {
+			name:"jaune",
+			color: "#f9ff00",
+		},
+		2: {
+			name: "orange",
+			color: "#f7a401"
+		},
+		3: {
+        name: "rouge",
+		color: "red"
+		}
+	};
+	const riskName = risk[riskCode as keyof RiskDict].name;
+	const riskColor = risk[riskCode as keyof RiskDict].color;
+	const start: string = PUBLIC_HEATWAVE_START_EVENT_DATE ? PUBLIC_HEATWAVE_START_EVENT_DATE : "0";
+	const stop: string = PUBLIC_HEATWAVE_STOP_EVENT_DATE ? PUBLIC_HEATWAVE_STOP_EVENT_DATE : "0";
+	const startEventDate = new Date(start);
+	const stopEventDate = new Date(stop);
+	let visible: boolean = (new Date().getTime() < stopEventDate.getTime()) && riskCode > 0;
 let startStr = new Intl.DateTimeFormat('fr-FR', {
     dateStyle: 'full',
 	timeStyle: "short",
@@ -27,12 +54,12 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 		<aside class="alert variant-ghost-warning">
 			<!-- Icon -->
 			<div class="hidden lg:block">
-			<Fa icon={faSun} size="3x" />
+			<Fa icon={faTemperatureHigh} color={riskColor} size="3x" />
 		</div>
 			<!-- Message -->
 			<div class="alert-message">
-				<h3 class="h3"><span class="inline-block lg:hidden px-2"><Fa icon={faSun}/></span>
-				Vigilance canicule</h3>
+				<h3 class="h3"><span class="inline-block lg:hidden px-2"><Fa icon={faTemperatureHigh} color={riskColor}/></span>
+				Vigilance {riskName} canicule </h3>
 				<p>Vigilance météorologique canicule Vaucluse émise par Météo France le {startStr} valable jusqu'au {endStr}.</p>
 			</div>
 			<!-- Actions -->
@@ -41,9 +68,3 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 		</aside>
 </div>
 {/if}
-
-<style lang="postcss">
-	.section-container {
-		@apply w-full max-w-7xl mx-auto p-4 py-4 md:py-6 space-y-2 md:space-y-4;
-	}
-</style>
