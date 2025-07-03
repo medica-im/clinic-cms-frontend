@@ -25,6 +25,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import { programsNavLinks } from '$var/variables.ts';
 	import Phone from '$lib/Directory/Phone.svelte';
+	import AirConditionedFacility from './AirConditionedFacility.svelte';
 
 	const cardData = [
 		{
@@ -162,6 +163,12 @@
 			</footer-->
 				</div>
 			{/each}
+		</div>
+		<h3 class="h3">Lieux climatisés ou toujours frais</h3>
+		<p>Si vous recherchez un espace frais aux heures les plus chaudes (14h-18h), contactez la mairie au <a class="anchor" href="tel:0490224110">04 90 22 41 10</a>. Une astreinte téléphonique est disponible en dehors des jours d'ouverture de 8h à 18h en période d'alerte canicule. La mairie mettra à votre disposition un endroit climatisé.</p>
+		<p>Vous pouvez aussi profiter de la fraicheur de la médiathèque à ses heures d'ouverture.</p>
+		<div class="py-2">
+		<AirConditionedFacility/>
 		</div>
 	</div>
 </section>
