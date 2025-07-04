@@ -1,13 +1,14 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Fa from 'svelte-fa';
 	import {
 		faArrowRight,
 		faXmark,
 		faTemperatureHigh
 	} from '@fortawesome/free-solid-svg-icons';
-    import { PUBLIC_HEATWAVE_START_EVENT_DATE, PUBLIC_HEATWAVE_STOP_EVENT_DATE, PUBLIC_HEATWAVE_RISK_LEVEL_CODE } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 
-    const riskCode: number = PUBLIC_HEATWAVE_RISK_LEVEL_CODE ? Number(PUBLIC_HEATWAVE_RISK_LEVEL_CODE) : 0;
+    const riskCode: number = env.PUBLIC_HEATWAVE_RISK_LEVEL_CODE ? Number(env.PUBLIC_HEATWAVE_RISK_LEVEL_CODE) : 0;
 	interface Risk { name: string, color: string};
 	interface RiskDict {
 		[key: number]: Risk;
@@ -32,8 +33,8 @@
 	};
 	const riskName = risk[riskCode as keyof RiskDict].name;
 	const riskColor = risk[riskCode as keyof RiskDict].color;
-	const start: string = PUBLIC_HEATWAVE_START_EVENT_DATE ? PUBLIC_HEATWAVE_START_EVENT_DATE : "0";
-	const stop: string = PUBLIC_HEATWAVE_STOP_EVENT_DATE ? PUBLIC_HEATWAVE_STOP_EVENT_DATE : "0";
+	const start: string = env.PUBLIC_HEATWAVE_START_EVENT_DATE ? env.PUBLIC_HEATWAVE_START_EVENT_DATE : "0";
+	const stop: string = env.PUBLIC_HEATWAVE_STOP_EVENT_DATE ? env.PUBLIC_HEATWAVE_STOP_EVENT_DATE : "0";
 	const startEventDate = new Date(start);
 	const stopEventDate = new Date(stop);
 	let visible: boolean = (new Date().getTime() < stopEventDate.getTime()) && riskCode > 0;
@@ -49,7 +50,7 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 }).format(stopEventDate);
 </script>
 
-{#if visible}
+{#if browser && visible}
 <div class="py-8 lg:py-10">
 		<aside class="alert variant-ghost-warning">
 			<!-- Icon -->
