@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import Fa from 'svelte-fa';
 	import {
 		faArrowRight,
@@ -50,7 +49,7 @@ let endStr = new Intl.DateTimeFormat('fr-FR', {
 }).format(stopEventDate);
 </script>
 
-{#if browser && visible}
+{#if visible}
 <div class="py-8 lg:py-10">
 		<aside class="alert variant-ghost-warning">
 			<!-- Icon -->

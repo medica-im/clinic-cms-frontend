@@ -15,6 +15,7 @@
 	import LDTag from '$components/Schema/LDTag.svelte';
 	import Alert from './(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
     import AlertCanicule from './(programs)/prevention/canicule/Alert.svelte';
+	import { browser } from '$app/environment';
 
 	export let data;
 
@@ -47,7 +48,9 @@
 				<Alert />
 			</div>
 			<div class="md:w-2/3 mx-auto">
+				{#if browser}
 				<AlertCanicule />
+				{/if}
 			</div>
 		</div>
 	</header>
