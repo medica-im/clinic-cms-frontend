@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { variables } from '$lib/utils/constants';
 	import { organizationStore } from '$lib/store/facilityStore';
 	import { Welcome } from '$lib';
@@ -13,6 +14,7 @@
 	import type { PageData } from './$types';
 	import LDTag from '$lib/Schema/LDTag.svelte';
 	import { Facility } from '$lib';
+	import HeatwaveAlert from '$lib/Heatwave/HeatwaveAlert.svelte';
 
     let { data, form } = $props();
 </script>
@@ -37,6 +39,9 @@
 		<div class="">
 			Votre <a href="/maison-de-sante/a-propos" class="anchor">maison de santé pluriprofessionnelle</a> à Châteauneuf-de-Gadagne.
 		</div>
+		{#if browser}
+		<HeatwaveAlert link={true} />
+	    {/if}
 	</div>
 </header>
 <!-- team -->
