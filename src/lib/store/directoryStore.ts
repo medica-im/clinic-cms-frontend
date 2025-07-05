@@ -1,14 +1,15 @@
 import { writable, derived, readable, get, asyncReadable, asyncDerived } from '@square/svelte-store';
-import { variables } from '$lib/utils/constants';
+import { variables } from '$lib/utils/constants.ts';
 import { browser } from "$app/environment"
-import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
+import { handleRequestsWithPermissions } from '$lib/utils/requestUtils.ts';
 import { PUBLIC_EFFECTOR_TYPE_LABELS_TTL, PUBLIC_EFFECTORS_TTL, PUBLIC_SITUATIONS_TTL, PUBLIC_FACILITIES_TTL, PUBLIC_CONTACTS_TTL, PUBLIC_EFFECTORS_LIMIT } from '$env/static/public';
 import haversine from 'haversine-distance';
-import { replacer, reviver } from '$lib/utils/utils';
+import { replacer, reviver } from '$lib/utils/utils.ts';
 import type { Situation } from './directoryStoreInterface.ts';
 import { facilities } from '$lib/store/facilityStore.ts';
-import { isAuth } from '$lib/store/authStore';
-import { shuffle } from '$lib/helpers/random';
+import { isAuth } from '$lib/store/authStore.ts';
+import { shuffle } from '$lib/helpers/random.ts';
+import type { Entry, Contact } from './directoryStoreInterface.ts';
 
 export const term = writable("");
 export const selectCommunes = writable([]);
@@ -36,7 +37,6 @@ function normalize(x: string) {
 }
 
 export const directories = writable([]);
-
 
 export const effectorTypeLabels = asyncReadable(
 	{},

@@ -34,7 +34,10 @@ export interface Avatar {
 
 export interface Facility {
     address: Address,
+    avatar: Avatar,
     commune: string,
+    effectors: string[],
+    emails: Email[],
     name: string,
     organizations: any[],
     resource_uri: string|null,
@@ -42,8 +45,6 @@ export interface Facility {
     uid: string,
     socialnetworks: SocialNetwork[]|null,
     websites: Website[]|null,
-    avatar: Avatar,
-    emails: Email[],
     phones: Phone[],
 }
 
@@ -68,6 +69,7 @@ export interface Entry {
     avatar: Avatar|null,
     commune: Commune,
     effector_uid: string,
+    facility: Facility,
     gender: string|null,
     label: string,
     name: string,
@@ -101,4 +103,10 @@ export interface AddressFeature {
         importance: number,
         street: string
     }
+}
+
+export interface Contact {
+    resource_uri: string,
+    timestamp: number,
+    uid: string
 }
