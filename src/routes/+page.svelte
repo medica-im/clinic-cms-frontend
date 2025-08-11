@@ -14,8 +14,8 @@
 	import OutpatientClinicPrograms from '$components/OutpatientClinicPrograms/OutpatientClinicPrograms.svelte';
 	import LDTag from '$components/Schema/LDTag.svelte';
 	import Alert from './(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
-    import AlertCanicule from './(programs)/prevention/canicule/Alert.svelte';
 	import { browser } from '$app/environment';
+	import HeatwaveAlert from '$lib/Heatwave/HeatwaveAlert.svelte';
 
 	export let data;
 
@@ -49,7 +49,7 @@
 			</div>
 			<div class="md:w-2/3 mx-auto">
 				{#if browser}
-				<AlertCanicule />
+				<HeatwaveAlert link={true} />
 				{/if}
 			</div>
 		</div>

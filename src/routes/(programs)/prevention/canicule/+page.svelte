@@ -23,6 +23,8 @@
 		faSms,
 		faMobile,
 	} from '@fortawesome/free-solid-svg-icons';
+	import { browser } from '$app/environment';
+	import HeatwaveAlert from '$lib/Heatwave/HeatwaveAlert.svelte';
 
 	const cardData = [
 		{
@@ -90,6 +92,9 @@
 
 <header>
 	<div class="section-container">
+		{#if browser}
+				<HeatwaveAlert link={false} />
+		{/if}
 		<span class="badge variant-filled-surface"
 			>{capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())}</span
 		>
