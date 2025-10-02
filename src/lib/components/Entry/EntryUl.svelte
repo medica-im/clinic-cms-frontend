@@ -1,7 +1,7 @@
 <script lang="ts">
 	import EntryInline from './EntryInline.svelte';
-	import type { Entry } from '$lib/store/directoryStoreInterface';
 
+	type Entry = any;
 	export let data: Entry[];
 </script>
 

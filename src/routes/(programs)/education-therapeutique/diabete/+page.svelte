@@ -1,10 +1,14 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
-	import { language } from '$lib/store/languageStore';
-	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
-	import { facilityStore } from '$lib/store/facilityStore';
+	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
+	import FreeEntryUl from '$lib/components/Entry/FreeEntryUl.svelte';
+	import LL from '$i18n/i18n-svelte.ts';
+	import { language } from '$lib/store/languageStore.ts';
+	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
+	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import { page } from '$app/stores';
 	import ProgramNav from '$components/ProgramNav.svelte';
+
+	export let data;
 </script>
 
 <svelte:head>
@@ -56,6 +60,19 @@
 			</p>
 		</div>
 	</section>
+
+	<section>
+	<div class="section-container">
+		<h2 class="h2">Intervenants</h2>
+		<div class="md:px-4">
+			<div class="pl-5 space-y-1">
+				<EntryUl data={data.team}/>
+				<FreeEntryUl data={data.freeTeam}/>
+			</div>
+		</div>
+	</div>
+</section>
+
 
 	<section>
 		<div class="section-container">
