@@ -3,10 +3,11 @@ import { language } from '$lib/store/languageStore.ts';
 import { handleRequestsWithPermissions } from '$lib/utils/requestUtils.ts';
 import { workforceDataCached } from '$lib/store/workforceStore.ts';
 import { error } from '@sveltejs/kit';
+import type { Worker } from '$lib/interfaces/workforce.interface';
 
 export const workerData: any = async ({ fetch, slug }) => {
-	const wfdc = await workforceDataCached.load();
-	let w = wfdc.find((element) => element.slug == slug);
+	const wfdc = await workforceDataCached.load() as Worker[];
+	let w = wfdc?.find((element) => element.slug == slug);
 	if (w == undefined) {
 		if (import.meta.env.DEV) {
 			throw error(404, `${slug} does not correspond to any worker slug in our database.`);
