@@ -9,7 +9,6 @@
 	import { workerTitleFormattedName } from '$lib/helpers/stringHelpers';
 	import WorkerFacility from '$lib/components/Worker/WorkerFacility.svelte';
 	import { handlePostRequestsWithPermissions } from '$lib/utils/requestUtils';
-	import { update_await_block_branch } from 'svelte/internal';
 	import Fa from 'svelte-fa';
 	import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 	import { invalidateAll, invalidate } from '$app/navigation';

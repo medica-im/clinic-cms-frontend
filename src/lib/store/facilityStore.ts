@@ -6,7 +6,6 @@ import { handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { occupations, workforceDataCached, selectOccupations, workforceDict } from '$lib/store/workforceStore';
 import { locale } from '$i18n/i18n-svelte';
 import { selectFacilities } from '$lib/store/selectionStore';
-import { select_value } from 'svelte/internal';
 
 export const facilityStore = asyncDerived(
 	(locale),

@@ -178,7 +178,15 @@ const en: BaseTranslation = {
 	PROFILE: "profile",
 	UPDATE: "update",
 	DOB: "date of birth",
-	ADAPTED_PHYSICAL_EDUCATION: "adapted physical education"
+	ADAPTED_PHYSICAL_EDUCATION: "adapted physical education",
+	ADDRESSBOOK_A11Y_PROFILE_PIC_OF: "Profile picture of",
+	PHONE_TYPE: {
+		M: "Personal mobile phone",
+		MW: "Work mobile phone",
+		W: "Work landline",
+		F: "Fax",
+		AS: "Answering service"
+	},
 }
 
 export default en

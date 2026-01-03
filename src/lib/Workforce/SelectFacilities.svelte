@@ -6,7 +6,6 @@
 	import { selectFacilities } from '$lib/store/selectionStore';
 	import { selectOccupations, workforceDataCached } from '$lib/store/workforceStore';
 	import LL from '$i18n/i18n-svelte';
-	import { get_store_value } from 'svelte/internal';
 	const label = 'label';
 	const itemId = 'value';
 	let value;

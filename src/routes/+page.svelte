@@ -3,8 +3,7 @@
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
-	//import Ghost from '$lib/Ghost/Ghost.svelte';
-	import { Ghost } from 'clinic-cms';
+	import Ghost from '$lib/Ghost/Ghost.svelte';
 	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';

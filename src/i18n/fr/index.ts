@@ -178,7 +178,15 @@ const fr: Translation = {
   PROFILE: "profil",
   UPDATE: "changer",
   DOB: "date de naissance",
-  ADAPTED_PHYSICAL_EDUCATION: "activité physique adaptée"
+  ADAPTED_PHYSICAL_EDUCATION: "activité physique adaptée",
+  ADDRESSBOOK_A11Y_PROFILE_PIC_OF: "Photo de profil de",
+  PHONE_TYPE: {
+    M: "Mobile personnel",
+    MW: "Mobile professionnel",
+    W: "Téléphone fixe",
+    F: "Fax",
+    AS: "Secrétariat à distance"
+  }
 }
 
 export default fr

@@ -574,6 +574,32 @@ type RootTranslation = {
 	 * a​c​t​i​v​i​t​é​ ​p​h​y​s​i​q​u​e​ ​a​d​a​p​t​é​e
 	 */
 	ADAPTED_PHYSICAL_EDUCATION: string
+	/**
+	 * P​h​o​t​o​ ​d​e​ ​p​r​o​f​i​l​ ​d​e
+	 */
+	ADDRESSBOOK_A11Y_PROFILE_PIC_OF: string
+	PHONE_TYPE: {
+		/**
+		 * M​o​b​i​l​e​ ​p​e​r​s​o​n​n​e​l
+		 */
+		M: string
+		/**
+		 * M​o​b​i​l​e​ ​p​r​o​f​e​s​s​i​o​n​n​e​l
+		 */
+		MW: string
+		/**
+		 * T​é​l​é​p​h​o​n​e​ ​f​i​x​e
+		 */
+		W: string
+		/**
+		 * F​a​x
+		 */
+		F: string
+		/**
+		 * S​e​c​r​é​t​a​r​i​a​t​ ​à​ ​d​i​s​t​a​n​c​e
+		 */
+		AS: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -1135,6 +1161,32 @@ export type TranslationFunctions = {
 	 * activité physique adaptée
 	 */
 	ADAPTED_PHYSICAL_EDUCATION: () => LocalizedString
+	/**
+	 * Photo de profil de
+	 */
+	ADDRESSBOOK_A11Y_PROFILE_PIC_OF: () => LocalizedString
+	PHONE_TYPE: {
+		/**
+		 * Mobile personnel
+		 */
+		M: () => LocalizedString
+		/**
+		 * Mobile professionnel
+		 */
+		MW: () => LocalizedString
+		/**
+		 * Téléphone fixe
+		 */
+		W: () => LocalizedString
+		/**
+		 * Fax
+		 */
+		F: () => LocalizedString
+		/**
+		 * Secrétariat à distance
+		 */
+		AS: () => LocalizedString
+	}
 }
 
 export type Formatters = {}
