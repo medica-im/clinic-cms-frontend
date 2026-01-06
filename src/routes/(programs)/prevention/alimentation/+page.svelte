@@ -122,7 +122,7 @@
 			title: "Stop aux clichés",
 			duration: "2h00",
 			summary: "Questionner nos pensées et nos idées reçues sur le corps et l'alimentation.",
-			team: [updatedTeam[1]]
+			team: [updatedTeam[0]]
 		}
 	]
 </script>
