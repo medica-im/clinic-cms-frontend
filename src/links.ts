@@ -210,7 +210,7 @@ export const menuNavLinks: any = [
 				icon: null
 			},
 			{
-                href: '/activite-physique-adaptee',
+                href: '/maison-de-sante/activite-physique-adaptee',
 				label: 'APA',
 				keywords: 'activité, physique, adaptée',
 				icon: "bodyHealthicons"

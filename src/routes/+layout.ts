@@ -3,13 +3,11 @@ import { openGraphStore } from '$lib/store/openGraphStore';
 import type { LayoutLoad } from './$types'
 import type { Locales } from '$i18n/i18n-types'
 import { loadLocaleAsync } from '$i18n/i18n-util.async'
-import LL, { setLocale } from '$i18n/i18n-svelte'
-import { get } from 'svelte/store'
-import { PUBLIC_ACCESS_CONTROL_TTL } from '$env/static/public';
+import { setLocale } from '$i18n/i18n-svelte'
 import { variables } from '$lib/utils/constants';
 import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
 import { userData } from '$lib/store/userStore';
-import type { Access, User } from '$lib/interfaces/user.interface';
+import type { User } from '$lib/interfaces/user.interface';
 import { getPermissions } from '$lib/utils/permissions';
 
 /** @type {import('./$types').LayoutLoad} */

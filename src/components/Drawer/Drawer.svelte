@@ -12,7 +12,7 @@ $: classesDrawer = $drawerStore.id === 'doc-sidenav' ? 'lg:hidden' : '';
 <Drawer class={classesDrawer}>
 	{#if $drawerStore.id === 'doc-sidenav'}
 		<!-- Sidebar -->
-		<Sidebar {data} embedded={true} />
+		<Sidebar />
 	{:else}
 		<!-- Fallback Error -->
 		<div class="w-full h-full flex justify-center items-center">

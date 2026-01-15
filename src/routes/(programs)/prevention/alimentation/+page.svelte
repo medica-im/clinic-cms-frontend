@@ -186,16 +186,6 @@
 			</div>
 		</div>
 
-		<div class="pl-5">
-			<ul class="list-disc space-y-4 p-4">
-				<li>psychologue</li>
-				<li>diététicienne</li>
-				<li>éducatrice sportive</li>
-				<li>kinésithérapeute</li>
-				<li>socio-esthéticienne</li>
-			</ul>
-		</div>
-
 		<h2 class="h2">Conditions d'accès</h2>
 		<p>
 			Ateliers gratuits financés par l’Agence Régionale de Santé PACA. Une participation aux frais

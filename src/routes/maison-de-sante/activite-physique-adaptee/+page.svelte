@@ -30,7 +30,7 @@
 		faMobileScreen
 	} from '@fortawesome/free-solid-svg-icons';
 	import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-	import Alert from '../(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
+	import Alert from '../../(programs)/education-therapeutique/ecole-du-dos/Alert.svelte';
 </script>
 
 <svelte:head>

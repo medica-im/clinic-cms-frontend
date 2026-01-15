@@ -142,7 +142,7 @@
 			<SkeletonAppBar facility="{$facilityStore}" />
 		</svelte:fragment>
 		<svelte:fragment slot="sidebarLeft">
-			<Sidebar data="{$facilityStore}" class="hidden lg:grid w-[360px] overflow-hidden" />
+			<Sidebar />
 		</svelte:fragment>
 		<svelte:fragment slot="pageHeader">
 			{#if $notificationData}
