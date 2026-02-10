@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
 import { isoImport } from 'vite-plugin-iso-import';
@@ -5,8 +6,7 @@ import * as path from 'path';
 
 const config: UserConfig = {
 	optimizeDeps: {
-        include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep'],
-		exclude: ['clinic-cms']
+        include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
     },
 	plugins: [sveltekit(), isoImport()],
 	resolve: {
@@ -21,6 +21,9 @@ const config: UserConfig = {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	},
 	server: {
+		watch: {
+			ignored: ['**/node_modules/**', '**/build/**', '**/.svelte-kit/**', '**/static/**']
+		},
 		proxy: {
 			'/blog': 'https://msp-vedene.fr',
 			'/media/profile_images': 'https://msp-vedene.fr'

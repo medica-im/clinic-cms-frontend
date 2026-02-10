@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import Team from '$lib/components/Team/Team.svelte';
@@ -28,7 +28,7 @@
 <LDTag schema={data.websiteSchema} />
 <svelte:head>
 	{#if data.openGraph}
-		<OpenGraph defaultOpenGraph={data.openGraph} url={$page.url.href} />
+		<OpenGraph defaultOpenGraph={data.openGraph} url={page.url.href} />
 	{/if}
 	<title>
 		{capitalizeFirstLetter($facilityStore.formatted_name, $language)}

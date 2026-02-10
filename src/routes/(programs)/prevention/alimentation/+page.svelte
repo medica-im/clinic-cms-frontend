@@ -1,4 +1,6 @@
 <script lang="ts">
+	import OpenGraph from '$lib/components/OpenGraph/OpenGraph.svelte';
+	import { variables } from '$lib/utils/constants.ts';
 	import LL from '$i18n/i18n-svelte.ts';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
@@ -9,8 +11,8 @@
 	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import bonnard from '$lib/assets/images/alimentation/pierre-bonnard-nature-morte-avec-patisseries.jpg';
-	import arcimboldoVegetables1 from '$lib/assets/images/alimentation/arcimboldo-vegetables.jpg';
-	import arcimboldoVegetables2 from '$lib/assets/images/alimentation/arcimboldo-vegetables-upsidedown.jpg';
+	import arcimboldoVegetables2 from '$lib/assets/images/alimentation/arcimboldo-vegetables.jpg';
+	import arcimboldoVegetables1 from '$lib/assets/images/alimentation/arcimboldo-vegetables-upsidedown.jpg';
 	import chefGif from '$lib/assets/images/alimentation/colette-tatou.gif';
 	import chefMp4 from '$lib/assets/images/alimentation/colette-tatou.mp4';
 	import cuisineImg from '$lib/assets/images/alimentation/la-table-de-cuisine-paul-cezanne.jpg';
@@ -23,6 +25,17 @@
 	import Workshop from './Workshop.svelte';
 
 	export let data;
+	function getTitle() {
+		return `${$LL.EATING()} - ${capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())}`;
+	};
+	const modOpenGraph = {
+		title: getTitle(),
+		image_url: `${variables.BASE_URI}${cuisineImg}`,
+		image_alt:
+			"A l'arrière-plan figurent une table, un carton à dessins, une frise décorative, et peut-être, replié, un paravent que Cézanne a décoré dans sa jeunesse. Comme en suspens, pommes et poires sont disposées à même la nappe ou dans un panier en osier, dont l'anse et les croisillons tressés font écho à ceux du pot de gingembre.",
+		description:
+			"Les bons gestes au quotidien pour un bon équilibre. Un programme de prévention pour l’équilibre alimentaire."
+	};
 	const team = data.team;
 	const updatedTeam = team.map((v) => {
 		if (v.formatted_name == 'Audrey Francisod') {
@@ -128,8 +141,11 @@
 </script>
 
 <svelte:head>
+	{#if data.openGraph}
+		<OpenGraph defaultOpenGraph={page.data.openGraph} {modOpenGraph} url={page.url.href} />
+	{/if}
 	<title>
-		{$LL.EATING()} - {capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE(), $language)} - {capitalizeFirstLetter(
+		{getTitle()} - {capitalizeFirstLetter(
 			$facilityStore.formatted_name,
 			$language
 		)}
