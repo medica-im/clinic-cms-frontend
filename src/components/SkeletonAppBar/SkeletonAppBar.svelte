@@ -66,7 +66,7 @@
 
 	// Drawer Handler
 	function drawerOpen(): void {
-		const s: DrawerSettings = { id: 'doc-sidenav' };
+		const s: DrawerSettings = { id: 'mobile' };
 		drawerStore.open(s);
 	}
 

@@ -135,7 +135,7 @@
 <Modal components={modalComponentRegistry} />
 <Toast />
 
-<Drawer data={$facilityStore} />
+<Drawer />
 
 <AppShell {slotSidebarLeft} regionPage="overflow-y-scroll" slotFooter="bg-black p-4">
 		<svelte:fragment slot="header">

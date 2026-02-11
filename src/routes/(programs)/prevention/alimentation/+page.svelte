@@ -27,14 +27,14 @@
 	export let data;
 	function getTitle() {
 		return `${$LL.EATING()} - ${capitalizeFirstLetter($LL.PREVENTIVE_HEALTHCARE())}`;
-	};
+	}
 	const modOpenGraph = {
 		title: getTitle(),
 		image_url: `${variables.BASE_URI}${cuisineImg}`,
 		image_alt:
 			"A l'arrière-plan figurent une table, un carton à dessins, une frise décorative, et peut-être, replié, un paravent que Cézanne a décoré dans sa jeunesse. Comme en suspens, pommes et poires sont disposées à même la nappe ou dans un panier en osier, dont l'anse et les croisillons tressés font écho à ceux du pot de gingembre.",
 		description:
-			"Les bons gestes au quotidien pour un bon équilibre. Un programme de prévention pour l’équilibre alimentaire."
+			'Les bons gestes au quotidien pour un bon équilibre. Un programme de prévention pour l’équilibre alimentaire.'
 	};
 	const team = data.team;
 	const updatedTeam = team.map((v) => {
@@ -44,87 +44,93 @@
 			v.occupations = [{ name: 'dietitician', label: 'diététicienne' }];
 			return newValue;
 		} else {
-			return v
+			return v;
 		}
 	});
-	const getCoordinator = ()=> {
-		const coordinator = data.team.find(e=>e.formatted_name=="Audrey Francisod");
-		if ( coordinator ) {
-		coordinator.phone_numbers = [
-		{
-			id: 1,
-			phone: '0785669268',
-			type: 'M',
-			type_display: '',
-			roles: null
+	const getCoordinator = () => {
+		const coordinator = data.team.find((e) => e.formatted_name == 'Audrey Francisod');
+		if (coordinator) {
+			coordinator.phone_numbers = [
+				{
+					id: 1,
+					phone: '0785669268',
+					type: 'M',
+					type_display: '',
+					roles: null
+				}
+			];
+			coordinator.emails = [
+				{
+					id: 1,
+					email: 'vedene.msp@gmail.com',
+					roles: null
+				}
+			];
+			coordinator.occupations = [{ name: 'coordinator', label: 'coordinatrice' }];
+			return coordinator;
 		}
-	];
-	coordinator.emails = [
-		{
-			id: 1,
-			email: 'vedene.msp@gmail.com',
-			roles: null
-		}
-	];
-	coordinator.occupations = [{ name: 'coordinator', label: 'coordinatrice' }];
-		return coordinator
-	}
-};
+	};
 
 	const workshops = [
 		{
 			n: 1,
 			img: arcimboldoVegetables1,
 			imgHover: arcimboldoVegetables2,
-			alt: "",
-			title: "Mangeons équilibré",
-			duration: "2h00",
-			summary: "Connaître les grands groupes d'aliments et savoir équilibrer ses repas dans toutes les situations du quotidien.",
+			alt: '',
+			title: 'Mangeons équilibré',
+			duration: '2h00',
+			summary:
+				"Connaître les grands groupes d'aliments et savoir équilibrer ses repas dans toutes les situations du quotidien.",
 			team: [updatedTeam[0]]
 		},
 		{
 			n: 2,
 			video: chefMp4,
-			alt: "",
-			title: "Cuisinons sainement",
-			duration: "3h30",
-			summary: "Cuisiner un repas complet, apprendre des astuces pour manger sainement et partager un repas ensemble. Convivialité garantie!",
+			alt: '',
+			title: 'Cuisinons sainement',
+			duration: '3h30',
+			summary:
+				'Cuisiner un repas complet, apprendre des astuces pour manger sainement et partager un repas ensemble. Convivialité garantie!',
 			team: [updatedTeam[0]]
 		},
 		{
 			n: 3,
 			img: cart,
-			alt: "",
-			title: "Courses et astuces",
-			duration: "2h00",
-			summary: "Découvrir les pièges du marketing alimentaire et apprendre à les déjouer; savoir choisir les aliments de bonne qualité nutritionnelle à moindre coût.",
+			alt: '',
+			title: 'Courses et astuces',
+			duration: '2h00',
+			summary:
+				'Découvrir les pièges du marketing alimentaire et apprendre à les déjouer; savoir choisir les aliments de bonne qualité nutritionnelle à moindre coût.',
 			team: [updatedTeam[0]]
 		},
 		{
 			n: 4,
 			img: bonnard,
-			alt: "",
-			title: "Du sens dans nos assiettes",
-			duration: "2h00",
-			summary: "Se reconnecter à son corps et à ses émotions pour réguler ses prises alimentaires et manger avec plaisir.",
+			alt: '',
+			title: 'Du sens dans nos assiettes',
+			duration: '2h00',
+			summary:
+				'Se reconnecter à son corps et à ses émotions pour réguler ses prises alimentaires et manger avec plaisir.',
 			team: [updatedTeam[0]]
 		},
 		{
 			n: 5,
 			img: apa,
-			alt: "",
-			title: "Bougeons!",
-			duration: "1h30",
-			summary: "Retrouver la motivation pour commencer une activité physique adaptée à son état de santé et en fonction de ses capacités physiques. Être capable de refaire chez soi les exercices appris pendant l'atelier.",
+			alt: '',
+			title: 'Bougeons!',
+			duration: '1h30',
+			summary:
+				"Retrouver la motivation pour commencer une activité physique adaptée à son état de santé et en fonction de ses capacités physiques. Être capable de refaire chez soi les exercices appris pendant l'atelier.",
 			team: [updatedTeam[1]]
 		},
 		{
 			n: 6,
 			img: olympics,
-			alt: "Pièce commémorative en honneur des Jeux Olympiques de Paris émise en 2021 représentant Marianne courant devant la tour Eiffel.",
-			title: "Motivons-nous!",
-			duration: "1h30",
-			summary: "Travailler votre motivation pour mettre en place des changements durables concernant votre activité physique au quotidien: soulever les freins, se réconcilier avec l'activité physique, ...",
+			alt: 'Pièce commémorative en honneur des Jeux Olympiques de Paris émise en 2021 représentant Marianne courant devant la tour Eiffel.',
+			title: 'Motivons-nous!',
+			duration: '1h30',
+			summary:
+				"Travailler votre motivation pour mettre en place des changements durables concernant votre activité physique au quotidien: soulever les freins, se réconcilier avec l'activité physique, ...",
 			team: [updatedTeam[1]]
 		},
 		{
@@ -132,23 +138,18 @@
 			img: penseur1,
 			imgHover: penseur2,
 			alt: "Statue Le Penseur d'Auguste Rodin",
-			title: "Stop aux clichés",
-			duration: "2h00",
+			title: 'Stop aux clichés',
+			duration: '2h00',
 			summary: "Questionner nos pensées et nos idées reçues sur le corps et l'alimentation.",
 			team: [updatedTeam[0]]
 		}
-	]
+	];
 </script>
 
 <svelte:head>
-	{#if data.openGraph}
-		<OpenGraph defaultOpenGraph={page.data.openGraph} {modOpenGraph} url={page.url.href} />
-	{/if}
+	<OpenGraph defaultOpenGraph={page.data.openGraph} {modOpenGraph} url={page.url.href} />
 	<title>
-		{getTitle()} - {capitalizeFirstLetter(
-			$facilityStore.formatted_name,
-			$language
-		)}
+		{getTitle()} - {capitalizeFirstLetter($facilityStore.formatted_name, $language)}
 	</title>
 </svelte:head>
 <header>
@@ -186,12 +187,11 @@
 		<h2 class="h2">Ateliers</h2>
 
 		<p>Les ateliers se déroulent en petits groupes.</p>
-		<div class="pl-5">
-		</div>
+		<div class="pl-5"></div>
 		<div class="flex flex-wrap gap-4 lg:gap-8">
-		{#each workshops as workshop}
-			<Workshop data={workshop} />
-		{/each}
+			{#each workshops as workshop}
+				<Workshop data={workshop} />
+			{/each}
 		</div>
 
 		<h2 class="h2">Intervenants</h2>
