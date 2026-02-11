@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
 	import EntryUl from '$lib/components/Entry/EntryUl.svelte';
 	import Fa from 'svelte-fa';
 	import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +7,7 @@
 	interface Workshop {
 		n: number;
 		video?: string;
-		img: string;
+		img?: string;
 		imgHover?: string;
 		figcaption?: string;
 		alt: string;
@@ -24,37 +25,71 @@
 		}
 	}
 
-	let tapped = false;
-
-	function hoverImg(e: MouseEvent) {
-		if (tapped) return;
+	function hoverImg(e: PointerEvent) {
+		if (e.pointerType === 'touch') return;
 		if (data.imgHover) {
-			const img = (e.target as HTMLElement).querySelector?.('img') ?? e.target as HTMLImageElement;
+			const img = (e.currentTarget as HTMLElement).querySelector('img');
 			if (img) img.src = data.imgHover;
 		}
 	}
 
-	function defaultImg(e: MouseEvent) {
-		if (tapped) return;
-		const img = (e.target as HTMLElement).querySelector?.('img') ?? e.target as HTMLImageElement;
-		if (img) img.src = data.img;
+	function defaultImg(e: PointerEvent) {
+		if (e.pointerType === 'touch') return;
+		const img = (e.currentTarget as HTMLElement).querySelector('img');
+		if (img && data.img) img.src = data.img;
 	}
 
 	function cycleImg(e: MouseEvent) {
-		tapped = true;
 		const img = (e.currentTarget as HTMLElement).querySelector('img');
-		if (img && data.imgHover) {
+		if (img && data.imgHover && data.img) {
 			img.src = img.src.includes(data.imgHover) ? data.img : data.imgHover;
 		}
 	}
+
+	// Flip image on scroll into view (mobile only)
+	let cardEl: HTMLElement;
+	let observer: IntersectionObserver | undefined;
+	let flipTimeout: ReturnType<typeof setTimeout>;
+	let flipped = false;
+
+	onMount(() => {
+		if (!data.imgHover || !cardEl) return;
+		const isTouchDevice = window.matchMedia('(hover: none)').matches;
+		if (!isTouchDevice) return;
+
+		observer = new IntersectionObserver(
+			(entries) => {
+				if (flipped) return;
+				for (const entry of entries) {
+					const img = entry.target.querySelector('header img') as HTMLImageElement;
+					if (!img) continue;
+					if (entry.isIntersecting) {
+						flipTimeout = setTimeout(() => {
+							img.src = data.imgHover!;
+							flipped = true;
+							observer?.disconnect();
+						}, 600);
+					} else {
+						clearTimeout(flipTimeout);
+					}
+				}
+			},
+			{ threshold: 0.5 }
+		);
+		observer.observe(cardEl);
+	});
+
+	onDestroy(() => {
+		observer?.disconnect();
+	});
 </script>
 
-<div class="card variant-soft card-hover overflow-hidden w-80 h-min">
+<div bind:this={cardEl} class="card variant-soft card-hover overflow-hidden w-80 h-min">
 	<header>
 		{#if data.img}
 		<button onclick={cycleImg}
-				onmouseenter={hoverImg}
-				onmouseleave={defaultImg} >
+				onpointerenter={hoverImg}
+				onpointerleave={defaultImg} >
 			<img
 				src={data.img}
 				class="w-full"
