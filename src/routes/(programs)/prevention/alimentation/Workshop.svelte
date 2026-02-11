@@ -17,39 +17,34 @@
 	}
 	let { data }: { data: Workshop } = $props();
 
-	function videoPlay(e: MouseEvent|FocusEvent) {
+	function videoPlay(e: Event) {
 		if (data.video) {
 			const video = e.target as HTMLVideoElement;
 			if (video.paused) video.play();
 		}
 	}
 
-	function hoverImg(e: MouseEvent|FocusEvent) {
+	let tapped = false;
+
+	function hoverImg(e: MouseEvent) {
+		if (tapped) return;
 		if (data.imgHover) {
-			const img = e.target as HTMLImageElement;
-			if (img) {
-				img.src = data.imgHover;
-			}
+			const img = (e.target as HTMLElement).querySelector?.('img') ?? e.target as HTMLImageElement;
+			if (img) img.src = data.imgHover;
 		}
 	}
 
-	function defaultImg(e: MouseEvent|FocusEvent) {
-		const img = e.target as HTMLImageElement;
-		if (img) {
-			img.src = data.img;
-		}
+	function defaultImg(e: MouseEvent) {
+		if (tapped) return;
+		const img = (e.target as HTMLElement).querySelector?.('img') ?? e.target as HTMLImageElement;
+		if (img) img.src = data.img;
 	}
-	function cycleImg(e: MouseEvent|FocusEvent) {
-		const img = e.target as HTMLImageElement;
+
+	function cycleImg(e: MouseEvent) {
+		tapped = true;
+		const img = (e.currentTarget as HTMLElement).querySelector('img');
 		if (img && data.imgHover) {
-			var parser = document.createElement('a');
-			parser.href = img.src;
-			const pathname = parser.pathname;
-			if (pathname == data.img) {
-				img.src = data.imgHover;
-			} else if (pathname == data.imgHover) {
-				img.src = data.img;
-			}
+			img.src = img.src.includes(data.imgHover) ? data.img : data.imgHover;
 		}
 	}
 </script>
@@ -58,10 +53,8 @@
 	<header>
 		{#if data.img}
 		<button onclick={cycleImg}
-				onmouseover={hoverImg}
-				onmouseout={defaultImg}
-				onfocus={hoverImg} 
-        		onblur={defaultImg} >
+				onmouseenter={hoverImg}
+				onmouseleave={defaultImg} >
 			<img
 				src={data.img}
 				class="w-full"
