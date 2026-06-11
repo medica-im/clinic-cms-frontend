@@ -24,6 +24,7 @@
 	import EntryContact from '$lib/components/Entry/EntryContact.svelte';
 	import Workshop from './Workshop.svelte';
 	import bicyclette from '$lib/assets/images/alimentation/bicyclette.png';
+	import flyer from '$lib/assets/images/alimentation/ateliers_alimentation_flyer.jpg';
 
 	export let data;
 	function getTitle() {
@@ -31,9 +32,9 @@
 	}
 	const modOpenGraph = {
 		title: getTitle(),
-		image_url: `${variables.BASE_URI}${cuisineImg}`,
+		image_url: `${variables.BASE_URI}${flyer}`,
 		image_alt:
-			"A l'arrière-plan figurent une table, un carton à dessins, une frise décorative, et peut-être, replié, un paravent que Cézanne a décoré dans sa jeunesse. Comme en suspens, pommes et poires sont disposées à même la nappe ou dans un panier en osier, dont l'anse et les croisillons tressés font écho à ceux du pot de gingembre.",
+			"Dessin d'une bicyclette avec un panier d'où sortent des icônes représentant une liste de courses, des biceps, un caddie, une tomate, des couverts, une marmite et une balance.",
 		description:
 			'Les bons gestes au quotidien pour un bon équilibre. Un programme de prévention pour l’équilibre alimentaire.'
 	};

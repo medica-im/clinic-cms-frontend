@@ -5,7 +5,7 @@
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ProgramNav from '$components/ProgramNav.svelte';
 
 	export let data;
@@ -86,7 +86,7 @@
 
 	<section>
 		<div class="section-container">
-			<ProgramNav data={$page.url.pathname} />
+			<ProgramNav data={page.url.pathname} />
 		</div>
 	</section>
 </div>

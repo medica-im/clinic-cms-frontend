@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { variables } from '$lib/utils/constants.ts';
 	import LL from '$i18n/i18n-svelte.ts';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { language } from '$lib/store/languageStore.ts';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
@@ -59,7 +59,7 @@
 		)}
 	</title>
 	{#if data.openGraph}
-		<OpenGraph defaultOpenGraph={$page.data.openGraph} {modOpenGraph} url={$page.url.href} />
+		<OpenGraph defaultOpenGraph={page.data.openGraph} {modOpenGraph} url={page.url.href} />
 	{/if}
 </svelte:head>
 <header>
@@ -354,7 +354,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav data={page.url.pathname} />
 	</div>
 </section>
 

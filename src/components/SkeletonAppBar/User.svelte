@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { logOutUser } from '$lib/utils/requestUtils';
 	import { userData } from '$lib/store/userStore';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
@@ -38,7 +38,7 @@
 		drawerStore.close();
 	}
 
-	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
+	$: classesActive = (href: string) => (href === page.url.pathname ? '!bg-primary-500' : '');
 </script>
 
 {#if sideBar}
@@ -53,7 +53,7 @@
 			{#if facility.registration === true}
 				<li>
 					<a
-						class={$page.url.pathname === '/accounts/register' ? 'active aria-current="page"' : ''}
+						class={page.url.pathname === '/accounts/register' ? 'active aria-current="page"' : ''}
 						href="/accounts/register">{$LL.NAVBAR.REGISTER()}</a
 					>
 				</li>

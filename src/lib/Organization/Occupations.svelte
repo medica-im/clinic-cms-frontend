@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { occupationsCardinal, selectOccupations, term, workforceOccupation } from '$lib/store/workforceStore';
 	import { selectFacilities } from '$lib/store/selectionStore';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import LL from '$i18n/i18n-svelte';
 	import { onMount } from 'svelte';
 	export let data: any;
@@ -17,10 +17,10 @@
 <div>
 <!--
 {#await filteredOccupationsCardinal.load()}
-		{#each Object.keys($page.data.occupationsCardinal) as name}
+		{#each Object.keys(page.data.occupationsCardinal) as name}
 		<span class="badge variant-ringed-primary m-2">
-				{$page.data.filteredOccupationsCardinal[name]['count']['total']}
-				{$page.data.filteredOccupationsCardinal[name]['label']}
+				{page.data.filteredOccupationsCardinal[name]['count']['total']}
+				{page.data.filteredOccupationsCardinal[name]['label']}
 		</span>
 		{/each}
 {:then}-->

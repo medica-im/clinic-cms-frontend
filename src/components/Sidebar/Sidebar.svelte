@@ -6,6 +6,7 @@
 	import DocsIcon from '$components/Icon/Icon.svelte';
 	import { menuNavLinks, menuNavCats } from '../../links';
 	import { AppRail, AppRailTile } from '@skeletonlabs/skeleton';
+	import ArchiveBadge from '$lib/components/ArchiveBadge.svelte';
 
 	let basePath: string = $derived(page.url.pathname.split('/')[1]);
 	let currentRailCategory: string | undefined = $derived(
@@ -81,10 +82,11 @@
 						<!-- Navigation List -->
 						<nav class="list-nav">
 							<ul>
-								{#each list as { href, label, badge }}
+								{#each list as { href, label, badge, archive }}
 									<li>
 										<a {href} class={classesActive(href)} data-sveltekit-preload-data="hover">
 											<span class="flex-auto">{@html label}</span>
+											{#if archive}<ArchiveBadge />{/if}
 											{#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if}
 										</a>
 									</li>

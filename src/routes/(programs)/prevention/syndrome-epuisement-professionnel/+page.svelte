@@ -5,7 +5,7 @@
 	import { facilityStore } from '$lib/store/facilityStore';
 	import Fa from 'svelte-fa';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
@@ -93,7 +93,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav data={page.url.pathname} />
 	</div>
 </section>
 

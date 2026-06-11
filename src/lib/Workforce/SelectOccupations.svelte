@@ -5,7 +5,7 @@
 	import { occupationOfFacilityStore } from '$lib/store/facilityStore';
 	import LL from '$i18n/i18n-svelte';
 	import { get } from '@square/svelte-store';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	const label = 'label';
 	const itemId = 'value';
@@ -46,8 +46,7 @@
 		if (event.detail) {
 			selectOccupations.set([]);
 		}
-		const pageStore = get(page);
-		if (pageStore.params) {
+		if (page.params && Object.keys(page.params).length) {
 			goto('/annuaire');
 		}
 	}
@@ -55,7 +54,7 @@
 	function handleChange(event) {
 		if (event.detail) {
 			selectOccupations.set([event.detail.value]);
-			if ($page.url.pathname != '/annuaire') {
+			if (page.url.pathname != '/annuaire') {
 				goto('/annuaire');
 			}
 		}

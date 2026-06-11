@@ -3,7 +3,7 @@
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
     import { popup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import {
 		faBars,
 		faCaretDown,
@@ -22,10 +22,11 @@
 		faPersonChalkboard
 	} from '@fortawesome/free-solid-svg-icons';
 	import Icon from '$components/Icon/Icon.svelte';
+	import ArchiveBadge from '$lib/components/ArchiveBadge.svelte';
 	import { menuNavLinks, menuNavCats } from '../../links';
 
-    function getNavGroups(id: Number) {
-        let cat = menuNavCats.find(obj => {
+    function getNavGroups(id: string) {
+        let cat = menuNavCats.find((obj: any) => {
             return obj.id === id
         })
     const navGroup = menuNavLinks.filter((x: Array<any>) => cat.list.includes(x.id));
@@ -33,7 +34,7 @@
     }
 	// Reactive
 	$: classesActive = (href: string) => {
-		return $page.url.pathname === href ? 'variant-ringed-primary' : '';
+		return page.url.pathname === href ? 'variant-ringed-primary' : '';
 	}
 </script>
 
@@ -54,7 +55,7 @@
                     {navGroup.title[$language]}
                 </li>
 				{/if}
-                {#each navGroup.list as { href, label, icon }}
+                {#each navGroup.list as { href, label, icon, archive }}
                 <li>
                     <a {href} class="{classesActive(href)}">
                         <span class="w-6 text-center">
@@ -65,6 +66,7 @@
 							{/if}
 						</span>
                         <span>{label}</span>
+						{#if archive}<ArchiveBadge />{/if}
                     </a>
                 </li>
                 {/each}

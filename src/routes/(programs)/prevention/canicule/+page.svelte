@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers.ts';
 	import { facilityStore } from '$lib/store/facilityStore.ts';
 	import LL from '$i18n/i18n-svelte.ts';
@@ -223,7 +223,7 @@
 
 <section>
 	<div class="section-container">
-		<ProgramNav data={$page.url.pathname} />
+		<ProgramNav data={page.url.pathname} />
 	</div>
 </section>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { setLocale, locale } from '$i18n/i18n-svelte';
 	import type { Locales } from '$i18n/i18n-types';
 	import { locales } from '$i18n/i18n-util';
@@ -39,7 +39,7 @@
 	const handlePopStateEvent = async ({ state }: PopStateEvent) => switchLocale(state.locale, false);
 
 	// update locale when page store changes
-	$: switchLocale($page.params.lang as Locales, false);
+	$: switchLocale(page.params.lang as Locales, false);
 
 	onMount(
 		async () => {

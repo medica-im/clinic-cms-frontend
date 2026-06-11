@@ -3,7 +3,7 @@
 	import { language } from '$lib/store/languageStore';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { facilityStore } from '$lib/store/facilityStore';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
@@ -74,7 +74,7 @@
 	</section>
 	<section id="navlinks" class="">
 		<div class="section-container">
-			<ProgramNav data={$page.url.pathname} />
+			<ProgramNav data={page.url.pathname} />
 		</div>
 	</section>
 </div>

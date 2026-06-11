@@ -22,7 +22,7 @@
 		faHandshake,
 		faPeopleGroup
 	} from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ProgramNav from '$components/ProgramNav.svelte';
 </script>
 
@@ -37,13 +37,25 @@
 <div>
 	<header>
 		<div class="section-container">
+		<span class="badge variant-ringed-tertiary"
+				>Archive</span
+			>
 			<span class="badge variant-filled-surface"
 				>{capitalizeFirstLetter($LL.HEALTH_EDUCATION(), $language)}</span
 			>
-			<h1 class="h1">Parentalité et petite enfance</h1>
+			<h1 class="h1">Parentalité et petite enfance 2020-2025</h1>
+			
 		</div>
 	</header>
+			<div class="section-container">
 
+<div class="card variant-ringed-tertiary"
+				>
+				<header class="card-header"><h2 class="h3">Action clôturée</h2></header>
+			<section class="p-4"><p>De 2020 à 2025, la Maison de Santé de Vedène a déployé un programme d'accompagnement dédié aux parents d'enfants de 0 à 3 ans. Grâce au soutien de l'ARS PACA, cette action a permis d'animer de nombreux ateliers gratuits pour informer, sécuriser et soutenir les familles du territoire.</p>
+			</section>
+			</div>
+			</div>
 	<section>
 		<div class="section-container">
 			<h2 class="h2">Organisation</h2>
@@ -128,7 +140,7 @@
 
 	<section>
 		<div class="section-container">
-			<ProgramNav data={$page.url.pathname} />
+			<ProgramNav data={page.url.pathname} />
 		</div>
 	</section>
 </div>

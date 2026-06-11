@@ -81,7 +81,8 @@ export const programsNavLinks: any = [
 				label: 'Parentalité - Petite enfance',
 				keywords: 'éducation, santé, parentalité, enfant, enfance',
 				icon: null,
-				category: 'program'
+				category: 'program',
+				archive: true
 			}
 		]
 	},

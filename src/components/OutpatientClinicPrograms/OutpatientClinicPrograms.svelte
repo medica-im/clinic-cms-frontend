@@ -4,6 +4,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import Fa from 'svelte-fa';
 	import { faPills, faShieldHeart, faPersonChalkboard, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+	import ArchiveBadge from '$lib/components/ArchiveBadge.svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import ProgramNav from '$components/ProgramNav.svelte';
 	import { programsNavLinks } from '../../links';
@@ -39,6 +40,7 @@
                                 <span class="badge variant-filled-primary"><Fa icon={faArrowRight} /></span>
 								
 								<span class="flex flex-wrap whitespace-normal text-left">{prog.label}</span>
+								{#if prog.archive}<ArchiveBadge />{/if}
 							</a>
 						</li>
 					{/each}

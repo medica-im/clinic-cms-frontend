@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { popup } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { setLocale, locale } from '$i18n/i18n-svelte';
 	import type { Locales } from '$i18n/i18n-types';
 	import { locales } from '$i18n/i18n-util';
@@ -47,7 +47,7 @@
 
 	// update locale when page store changes
 	$: if (browser) {
-		const lang = $page.params.lang as Locales
+		const lang = page.params.lang as Locales
 		switchLocale(lang, false)
 		//history.replaceState({ ...history.state, locale: lang }, '',
 		//replaceLocaleInUrl($page.url, lang))

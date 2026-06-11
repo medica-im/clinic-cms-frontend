@@ -40,16 +40,17 @@
 	<header id="hero" class="bg-surface-100-800-token hero-gradient">
 		<div class="section-container">
 			<div class="grid grid-cols-1 place-items-center">
-			<div>
-				<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
-			</div>
-			<div class="md:w-2/3 mx-auto">
-				<Alert />
-			</div>
-			<div class="md:w-2/3 mx-auto">
-				{#if browser}
-				<HeatwaveAlert link={true} />
-				{/if}
+				<div>
+					<Welcome formattedNameDefiniteArticle={$facilityStore.formatted_name_definite_article} />
+				</div>
+				<div class="md:w-2/3 mx-auto">
+					<Alert />
+				</div>
+				<div class="md:w-2/3 mx-auto">
+					{#if browser}
+						<HeatwaveAlert link={true} />
+					{/if}
+				</div>
 			</div>
 		</div>
 	</header>

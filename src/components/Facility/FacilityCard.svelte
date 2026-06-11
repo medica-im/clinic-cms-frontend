@@ -7,7 +7,6 @@
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { isMobile } from '$lib/helpers/deviceDetector';

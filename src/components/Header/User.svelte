@@ -1,11 +1,11 @@
 <script lang="ts">
     import LL from '$i18n/i18n-svelte';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import { logOutUser } from '$lib/utils/requestUtils';
 	export let user;
     export let facility;
 
-    function isObjectEmpty(obj) {
+    function isObjectEmpty(obj: any) {
 		for (var i in obj) return false;
 		return true;
 	}
@@ -15,7 +15,7 @@
 	{#if isObjectEmpty(user)}
 		<li class="nav-item">
 			<a
-				class="nav-link {$page.url.pathname === '/accounts/login'
+				class="nav-link {page.url.pathname === '/accounts/login'
 					? 'active aria-current="page"'
 					: ''} "
 				href="/accounts/login">{$LL.NAVBAR.LOGIN()}</a
@@ -24,7 +24,7 @@
 		{#if facility.registration === true}
 			<li class="nav-item">
 				<a
-					class="nav-link {$page.url.pathname === '/accounts/register'
+					class="nav-link {page.url.pathname === '/accounts/register'
 						? 'active aria-current="page"'
 						: ''}"
 					href="/accounts/register">{$LL.NAVBAR.REGISTER()}</a
@@ -36,7 +36,7 @@
 		<li class="nav-item">
 			<a
 				href="/accounts/user/{user.username}-{user.id}"
-				class="nav-link {$page.url.pathname === `/accounts/user` ? 'active aria-crruent="page"' : ''}"
+				class="nav-link {page.url.pathname === `/accounts/user` ? 'active aria-crruent="page"' : ''}"
 				>{$LL.NAVBAR.HI()} {user.username}</a
 			>
 		</li>

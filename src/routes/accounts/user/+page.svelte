@@ -14,7 +14,7 @@
 	import { workforceDataCached as workforce } from '$lib/store/workforceStore';
 	import Fa from 'svelte-fa';
 	import { faLink } from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { Worker, Workforce } from '$lib/interfaces/workforce.interface';
 
 
@@ -41,7 +41,7 @@
 
 	function getUrl(w) {
 		let slug = w.find((e) => e.user_id == data.response.id).slug;
-		return `${$page.url.origin}/${slug}`;
+		return `${page.url.origin}/${slug}`;
 	}
 </script>
 

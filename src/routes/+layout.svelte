@@ -101,7 +101,7 @@
 	function matchList(pageUrlPath: string): boolean {
 		const url = ['maison-de-sante', 'education-therapeutique', 'education-sante', 'prevention'];
 		let match = url.filter(function (e) {
-			let m: bool;
+			let m: boolean;
 			try {
 				m = pageUrlPath.includes(e);
 			} catch (err) {

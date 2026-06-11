@@ -9,6 +9,7 @@
 	import SoMed from '$components/SoMed/SoMed.svelte';
 	import Fa from 'svelte-fa';
 	import { faBlog } from '@fortawesome/free-solid-svg-icons';
+	import ArchiveBadge from '$lib/components/ArchiveBadge.svelte';
 
 	let {
 		currentRailCategory = $bindable(),
@@ -127,10 +128,11 @@
 					<!-- Navigation List -->
 					<nav class="list-nav">
 						<ul>
-							{#each list as { href, label, badge }}
+							{#each list as { href, label, badge, archive }}
 								<li>
 									<a {href} class={classesActive(href)} data-sveltekit-preload-data="hover" on:click={onListItemClick}>
 										<span class="flex-auto">{@html label}</span>
+										{#if archive}<ArchiveBadge />{/if}
 										{#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if}
 									</a>
 								</li>

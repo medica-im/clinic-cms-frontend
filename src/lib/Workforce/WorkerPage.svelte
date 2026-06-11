@@ -17,7 +17,7 @@
 	import WorkerProfile from './WorkerProfile.svelte';
     import { displayEditor } from '$lib/utils/permissions';
     import { isAuth } from '$lib/store/authStore';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { userData } from '$lib/store/userStore';
 
 	export let workerData: Worker;

@@ -15,7 +15,7 @@
 	import Search from '$lib/Search.svelte';
 	import SelectOccupations from '$lib/Workforce/SelectOccupations.svelte';
 	import SelectFacilities from '$lib/Workforce/SelectFacilities.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { PageData } from './$types';
 
 	export let data: PageData;

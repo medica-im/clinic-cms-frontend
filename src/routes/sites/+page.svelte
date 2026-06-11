@@ -4,7 +4,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import { capitalizeFirstLetter } from '$lib/helpers/stringHelpers';
 	import { language } from '$lib/store/languageStore';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import FacilityCard from '$components/Facility/FacilityCard.svelte';
 </script>
 
