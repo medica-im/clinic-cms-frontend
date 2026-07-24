@@ -8,7 +8,7 @@ ENV HOST_HEADER=x-forwarded-host
 RUN corepack enable && npm install -g corepack@latest
 WORKDIR /app
 COPY . .
-RUN cp ${ENV_FILE} .env
+RUN if [ "${ENV_FILE}" != ".env" ]; then cp ${ENV_FILE} .env; fi
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 RUN pnpm run -r build
