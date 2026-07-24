@@ -1,5 +1,6 @@
 FROM node:22-slim AS builder
 
+ARG ENV_FILE=.env
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV PROTOCOL_HEADER=x-forwarded-proto
@@ -7,6 +8,7 @@ ENV HOST_HEADER=x-forwarded-host
 RUN corepack enable && npm install -g corepack@latest
 WORKDIR /app
 COPY . .
+RUN cp ${ENV_FILE} .env
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 RUN pnpm run -r build

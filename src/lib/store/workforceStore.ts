@@ -134,7 +134,7 @@ export const workforceDataCached = asyncDerived(
 		} else {
 			const workforceUrl = `${variables.BASE_API_URI}/workforce/user/?lang=${lang}`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, workforceUrl);
-			if (response) {
+			if (Array.isArray(response) && response.length) {
 				let data = response as Workforce;
 				if (browser) {
 					var json = { data: data, cachetime: Date.now() / 1000 }
