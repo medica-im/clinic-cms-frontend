@@ -33,7 +33,7 @@ export const facilityStore = asyncDerived(
 		} else {
 			const apiUrl = `${variables.BASE_API_URI}/facility/${lang}/`;
 			const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
-			if (response) {
+			if (response && response.facility) {
 				let data = response;
 				data.facility.sort(function (a, b) {
 					return a.contact.formatted_name.localeCompare(b.contact.formatted_name);

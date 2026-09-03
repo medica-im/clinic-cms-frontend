@@ -5,10 +5,11 @@ import type { Locales } from '$i18n/i18n-types'
 import { loadLocaleAsync } from '$i18n/i18n-util.async'
 import { setLocale } from '$i18n/i18n-svelte'
 import { variables } from '$lib/utils/constants';
-import { getCurrentUser, browserGet } from '$lib/utils/requestUtils';
+import { getCurrentUser, browserGet, handleRequestsWithPermissions } from '$lib/utils/requestUtils';
 import { userData } from '$lib/store/userStore';
 import type { User } from '$lib/interfaces/user.interface';
 import { getPermissions } from '$lib/utils/permissions';
+import { browser } from '$app/environment';
 
 /** @type {import('./$types').LayoutLoad} */
 export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { locale } }) => { 
@@ -36,14 +37,32 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
     }
   }
 
+  let facility;
+  if (browser) {
+      facility = await facilityStore.load();
+  } else {
+      const lang = locale ?? variables.DEFAULT_LANGUAGE;
+      const apiUrl = `${variables.BASE_API_URI}/facility/${lang}/`;
+      const [response, err] = await handleRequestsWithPermissions(fetch, apiUrl);
+      if (response && response.facility) {
+          response.facility.sort(function (a, b) {
+              return a.contact.formatted_name.localeCompare(b.contact.formatted_name);
+          });
+          facility = response;
+      } else {
+          console.error('Could not load facility data', err);
+          facility = null;
+      }
+  }
+
   return {
       locale: locale,
-      facility: await facilityStore.load(),
+      facility: facility,
       sections: [
         { slug: 'profile', title: 'Profile' },
         { slug: 'notifications', title: 'Notifications' }
       ],
       userData: userData,
-      openGraph: await openGraphStore.load()
+      openGraph: browser ? await openGraphStore.load() : await handleRequestsWithPermissions(fetch, `${variables.BASE_API_URI}/opengraph/`).then(([r]) => r || {})
     };
   }

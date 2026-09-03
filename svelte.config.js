@@ -15,6 +15,9 @@ const config = {
 	],
 	kit: {
 		adapter: adapter(),
+		prerender: {
+			handleHttpError: 'warn'
+		},
 		alias: {
 			$i18n: './src/i18n',
 			$components: './src/components',
