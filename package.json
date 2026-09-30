@@ -7,6 +7,8 @@
 	"scripts": {
 		"dev": "npm-run-all --parallel typesafe-i18n sveltekit ",
 		"sveltekit": "vite --host --port 3000",
+		"dev:vps": "npm-run-all --parallel typesafe-i18n sveltekit:vps",
+		"sveltekit:vps": "vite --mode dev.msp-vedene.fr --host 127.0.0.1 --port 3020 --strictPort",
 		"build": "svelte-kit sync && vite build",
 		"preview": "vite preview",
 		"test": "playwright test",

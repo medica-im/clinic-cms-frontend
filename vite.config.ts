@@ -21,6 +21,8 @@ const config: UserConfig = {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	},
 	server: {
+		// nginx on the dev VPS passes the dev.msp-vedene.fr Host through to Vite
+		allowedHosts: ['dev.msp-vedene.fr'],
 		watch: {
 			ignored: ['**/node_modules/**', '**/build/**', '**/.svelte-kit/**', '**/static/**']
 		},
