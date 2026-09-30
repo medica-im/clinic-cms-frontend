@@ -2,6 +2,7 @@
 	import { initializeStores } from '@skeletonlabs/skeleton';
     import { facilityStore } from '$lib/store/facilityStore';
 	import '../app.postcss';
+	import { PUBLIC_PLAUSIBLE_SCRIPT_SRC } from '$env/static/public';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { storeCurrentUrl } from '$lib/store/skeletonStores';
@@ -125,7 +126,10 @@
 	<link rel="icon" href="{favIcon}">
 	<link rel="mask-icon" href="{maskIcon}" color="#000000">
 	<link rel="apple-touch-icon" href="{appleTouchIcon}">
-	<script defer data-domain="msp-vedene.fr" src="https://plausible.medica.im/js/script.js"></script>
+	<!-- Empty PUBLIC_PLAUSIBLE_SCRIPT_SRC (dev) keeps dev visits out of production analytics -->
+	{#if PUBLIC_PLAUSIBLE_SCRIPT_SRC}
+	<script defer data-domain="msp-vedene.fr" src={PUBLIC_PLAUSIBLE_SCRIPT_SRC}></script>
+	{/if}
 	<!--set .env variable VITE_NOINDEX to "true" to prevent all search engines that support the noindex rule (including Google) from indexing a page on your site--> 
 	{#if variables.NOINDEX==true}
 	<meta name="robots" content="noindex">
