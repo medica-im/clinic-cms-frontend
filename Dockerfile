@@ -8,7 +8,9 @@ ENV HOST_HEADER=x-forwarded-host
 RUN corepack enable && npm install -g corepack@latest
 WORKDIR /app
 COPY . .
-RUN if [ "${ENV_FILE}" != ".env" ]; then cp ${ENV_FILE} .env; fi
+# Vite gives .env.production (and any .env.*.local) priority over .env in a
+# build, so drop every other env file or it silently overrides ENV_FILE
+RUN if [ "${ENV_FILE}" != ".env" ]; then cp ${ENV_FILE} .env; fi && rm -f .env.*
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 RUN pnpm run -r build
