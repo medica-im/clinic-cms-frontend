@@ -44,9 +44,11 @@
 				<!-- Body -->
 				<div class="p-2 space-y-2 space-x-2">
 					<h4 class="h4">{facility.contact.formatted_name}</h4>
-					<p class="space-x-2">
+					<!-- div, not p: Address renders <address> and <ul>, which a <p> can't hold,
+					     so the browser reshuffled the SSR markup and hydration failed -->
+					<div class="space-x-2">
 						<Address data={facility.contact} />
-					</p>
+					</div>
 					<p>
 						
 						{#if browser}
