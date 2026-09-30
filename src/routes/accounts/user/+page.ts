@@ -1,29 +1,20 @@
-import { error } from '@sveltejs/kit';
-import { variables } from '$lib/utils/constants';
-import { getCurrentUser } from '$lib/utils/requestUtils';
-import type { User, UserResponse } from '$lib/interfaces/user.interface';
+import { redirect } from '@sveltejs/kit';
+import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
 import { userData } from '$lib/store/userStore';
 
-export const load: PageLoad = async ({ fetch, params, url }) => {
-    /*
-    const [userRes, errs] = await getCurrentUser(
-        fetch,
-        `${variables.BASE_API_URI}/accounts/token/refresh/`,
-        `${variables.BASE_API_URI}/accounts/user/`
-    );
-    const userResponse: User = userRes;
-    if (errs.length > 0) {
-        return {
-            status: 302,
-            redirect: '/accounts/login'
-        };
+// The login token lives in localStorage, so only the browser can know the user
+export const ssr = false;
+
+export const load: PageLoad = async ({ parent }) => {
+    // The root layout sets userData when a refresh token is present. Waiting on
+    // userData.load() instead hung forever for visitors who are not logged in.
+    await parent();
+    const user = get(userData);
+    if (!user) {
+        redirect(307, '/accounts/login');
     }
-    if (import.meta.env.DEV) {
-        console.log(JSON.stringify(userResponse));
-    }
-    */
     return {
-        response: await userData.load()
+        response: user
     };
-  }
+};
