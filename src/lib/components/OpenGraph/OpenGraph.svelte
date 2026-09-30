@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { OpenGraph } from '$lib/interfaces/openGraph.interface.ts';
+	import { variables } from '$lib/utils/constants';
 
 	export let defaultOpenGraph: OpenGraph;
 	export let modOpenGraph: OpenGraph | null = null;
@@ -21,6 +22,8 @@
 		twitter_description = null,
 		username = null
 	} = openGraph;
+	// Use the public site origin: prerendered pages see http://sveltekit-prerender
+	const ogUrl = url ? new URL(new URL(url).pathname, variables.BASE_URI).href : '';
 </script>
 
 <meta name="twitter:card" content="summary" />
@@ -41,5 +44,5 @@
 	<meta name="twitter:site" content={username} />
 {/if}
 {#if url}
-	<meta property="og:url" content={url} />
+	<meta property="og:url" content={ogUrl} />
 {/if}

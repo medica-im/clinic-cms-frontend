@@ -1,5 +1,5 @@
 
-import type { Handle, RequestEvent } from '@sveltejs/kit';
+import type { Handle, HandleFetch, RequestEvent } from '@sveltejs/kit';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors'
 import { variables } from '$lib/utils/constants';
 import { detectLocale, i18n, isLocale } from '$i18n/i18n-util'
@@ -35,6 +35,27 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	return resolve(event, {
 		transformPageChunk: ({ html }) => html.replace('%lang%', lang)
+	});
+}
+
+// The API is served from the same host as the site, so SvelteKit would route
+// server-side fetches to it through its own router (404). Send them to the
+// network instead. During prerender the page origin is http://sveltekit-prerender,
+// so also add the CORS header SvelteKit's simulated CORS check expects.
+export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
+	if (!request.url.startsWith(variables.BASE_API_URI)) {
+		return fetch(request);
+	}
+	const response = await globalThis.fetch(request);
+	const headers = new Headers(response.headers);
+	headers.set('access-control-allow-origin', event.url.origin);
+	// Node's fetch has already decoded the body
+	headers.delete('content-encoding');
+	headers.delete('content-length');
+	return new Response(response.body, {
+		status: response.status,
+		statusText: response.statusText,
+		headers
 	});
 }
 
