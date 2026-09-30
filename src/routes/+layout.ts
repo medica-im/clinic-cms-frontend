@@ -53,6 +53,10 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({ fetch, data: { loc
           console.error('Could not load facility data', err);
           facility = null;
       }
+      // Components read $facilityStore directly, and on the server it is only
+      // filled once something loads it: without this the first render after a
+      // (re)start reads undefined and 500s
+      await facilityStore.load();
   }
 
   return {
