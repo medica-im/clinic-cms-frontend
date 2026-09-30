@@ -1,12 +1,13 @@
 import { variables } from '$lib/utils/constants';
 import { workforceSlugs } from '$lib/store/workforceStore';
-import { get } from '@square/svelte-store';
 
 const base_uri = variables.BASE_URI;
 
 
 export async function GET() {
-    const slugs = get(workforceSlugs);
+    // load(), not get(): on the server the store is empty until loaded, and
+    // concat(undefined) put a literal /undefined in the sitemap
+    const slugs: string[] = ((await workforceSlugs.load()) ?? []).filter(Boolean);
     const pages = [
         `contact`,
         `annuaire`,
