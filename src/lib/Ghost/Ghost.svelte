@@ -1,10 +1,18 @@
 <script lang="ts">
 	import RoundCard from '$lib/RoundCard/RoundCard.svelte';
+	import { variables } from '$lib/utils/constants';
 	export let data;
 
+	// e.g. "30 sept. 2026". Explicit locale and time zone: the defaults follow
+	// the server or browser, which gave "9/30/2026" and could disagree on the
+	// day around midnight (a hydration mismatch too).
 	function formatDate(datetime: string) {
-		const event = new Date(datetime);
-		return event.toLocaleDateString();
+		return new Date(datetime).toLocaleDateString(variables.DEFAULT_LANGUAGE, {
+			day: 'numeric',
+			month: 'short',
+			year: 'numeric',
+			timeZone: variables.TIMEZONE
+		});
 	}
 </script>
 
