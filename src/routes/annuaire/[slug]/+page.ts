@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import { get } from '@square/svelte-store';
 import type { PageLoad } from './$types';
 import {
@@ -10,6 +11,10 @@ import {
 export const load: PageLoad = async ({ fetch, params }) => {
     slugAddressbook.set(params.slug);
     const keyOccupation = await keyAddressbook.load();
+    // Not an occupation slug, e.g. a worker's /annuaire/<name> instead of /<name>
+    if (!keyOccupation) {
+        error(404, 'Not found');
+    }
     selectOccupations.set([keyOccupation]);
     const sOC = await filteredOccupationsCardinal.load();
     return {
